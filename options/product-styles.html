@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product card options - Bounce Creative Designs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="options.css">
+</head>
+<body class="optpage">
+
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11.5" cy="11.5" r="9.5"/><path stroke-linecap="round" d="M18.5 18.5L22 22"/></g></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="6" r="4"/><path d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z"/></g></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.79424 12.0291C4.33141 9.34329 4.59999 8.00036 5.48746 7.13543C5.65149 6.97557 5.82894 6.8301 6.01786 6.70061C7.04004 6 8.40956 6 11.1486 6H12.8515C15.5906 6 16.9601 6 17.9823 6.70061C18.1712 6.8301 18.3486 6.97557 18.5127 7.13543C19.4001 8.00036 19.6687 9.34329 20.2059 12.0291C20.9771 15.8851 21.3627 17.8131 20.475 19.1793C20.3143 19.4267 20.1267 19.6555 19.9157 19.8616C18.7501 21 16.7839 21 12.8515 21H11.1486C7.21622 21 5.25004 21 4.08447 19.8616C3.87342 19.6555 3.68582 19.4267 3.5251 19.1793C2.63744 17.8131 3.02304 15.8851 3.79424 12.0291Z"/><path stroke-linecap="round" d="M9 6V5C9 3.34315 10.3431 2 12 2C13.6569 2 15 3.34315 15 5V6"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 9H9.0001"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 9H15.0001"/></g></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path d="M20 7L4 7"/><path d="M20 12L4 12"/><path d="M20 17L4 17"/></g></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 12H20M14 18L20 12L14 6"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5L15 12L9 19"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M8.5 12.5L10.5 14.5L15.5 9.5"/></g></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M18.6763 19.9631C19.1917 19.9122 19.6399 19.6343 20.0011 19.254L21.4217 17.7584C22.3806 16.7489 22.1102 15.0182 20.8833 14.312L18.9728 13.2123C18.1672 12.7486 17.1858 12.8848 16.5562 13.5477L16.1007 14.0272C16.1007 14.0272 15.0181 15.167 12.0631 12.0559C9.10812 8.94484 10.1907 7.80507 10.1907 7.80507L10.4775 7.50311C11.1841 6.75924 11.2507 5.56497 10.6342 4.6931L9.37326 2.90961C8.61028 1.8305 7.13596 1.68795 6.26145 2.60864L4.69185 4.26114C4.25823 4.71766 3.96765 5.30945 4.00289 5.96594C4.09304 7.64546 4.81072 11.259 8.81536 15.4752C13.0621 19.9462 17.0468 20.1239 18.6763 19.9631Z"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path d="M15.5777 3.38197L17.5777 4.43152C19.7294 5.56066 20.8052 6.12523 21.4026 7.13974C22 8.15425 22 9.41667 22 11.9415V12.0585C22 14.5833 22 15.8458 21.4026 16.8603C20.8052 17.8748 19.7294 18.4393 17.5777 19.5685L15.5777 20.618C13.8221 21.5393 12.9443 22 12 22C11.0557 22 10.1779 21.5393 8.42229 20.618L6.42229 19.5685C4.27063 18.4393 3.19479 17.8748 2.5974 16.8603C2 15.8458 2 14.5833 2 12.0585V11.9415C2 9.41667 2 8.15425 2.5974 7.13974C3.19479 6.12523 4.27063 5.56066 6.42229 4.43152L8.42229 3.38197C10.1779 2.46066 11.0557 2 12 2C12.9443 2 13.8221 2.46066 15.5777 3.38197Z"/><path d="M21 7.5L17 9.5M12 12L3 7.5M12 12V21.5M12 12C12 12 14.7426 10.6287 16.5 9.75C16.6953 9.65237 17 9.5 17 9.5M17 9.5V13M17 9.5L7.5 4.5"/></g></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M5.66953 9.91436L8.73167 5.77133C10.711 3.09327 11.7007 1.75425 12.6241 2.03721C13.5474 2.32018 13.5474 3.96249 13.5474 7.24712V7.55682C13.5474 8.74151 13.5474 9.33386 13.926 9.70541L13.946 9.72466C14.3327 10.0884 14.9492 10.0884 16.1822 10.0884C18.4011 10.0884 19.5106 10.0884 19.8855 10.7613C19.8917 10.7724 19.8977 10.7837 19.9036 10.795C20.2576 11.4784 19.6152 12.3475 18.3304 14.0857L15.2683 18.2287C13.2889 20.9067 12.2992 22.2458 11.3758 21.9628C10.4525 21.6798 10.4525 20.0375 10.4525 16.7528L10.4526 16.4433C10.4526 15.2585 10.4526 14.6662 10.074 14.2946L10.054 14.2754C9.6673 13.9117 9.05079 13.9117 7.81775 13.9117C5.59888 13.9117 4.48945 13.9117 4.1145 13.2387C4.10829 13.2276 4.10225 13.2164 4.09639 13.205C3.74244 12.5217 4.3848 11.6526 5.66953 9.91436Z"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.72848 16.1369C3.18295 14.5914 2.41018 13.8186 2.12264 12.816C1.83509 11.8134 2.08083 10.7485 2.57231 8.61875L2.85574 7.39057C3.26922 5.59881 3.47597 4.70292 4.08944 4.08944C4.70292 3.47597 5.5988 3.26922 7.39057 2.85574L8.61875 2.57231C10.7485 2.08083 11.8134 1.83509 12.816 2.12264C13.8186 2.41018 14.5914 3.18295 16.1369 4.72848L17.9665 6.55812C20.6555 9.24711 22 10.5916 22 12.2623C22 13.933 20.6555 15.2775 17.9665 17.9665C15.2775 20.6555 13.933 22 12.2623 22C10.5916 22 9.24711 20.6555 6.55812 17.9665L4.72848 16.1369Z"/><path stroke-linecap="round" d="M15.3893 15.3891C15.9751 14.8033 16.0542 13.9327 15.5661 13.4445C15.0779 12.9564 14.2073 13.0355 13.6215 13.6213C13.0358 14.2071 12.1652 14.2863 11.677 13.7981C11.1888 13.3099 11.268 12.4393 11.8538 11.8536M15.3893 15.3891L15.7429 15.7426M15.3893 15.3891C14.9883 15.7901 14.4539 15.9537 14 15.8604M11.5002 11.5L11.8538 11.8536M11.8538 11.8536C12.185 11.5223 12.6073 11.3531 13 11.3568"/><circle cx="8.607" cy="8.879" r="2" transform="rotate(-45 8.607 8.879)"/></g></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M9.15316 5.40838C10.4198 3.13613 11.0531 2 12 2C12.9469 2 13.5802 3.13612 14.8468 5.40837L15.1745 5.99623C15.5345 6.64193 15.7144 6.96479 15.9951 7.17781C16.2757 7.39083 16.6251 7.4699 17.3241 7.62805L17.9605 7.77203C20.4201 8.32856 21.65 8.60682 21.9426 9.54773C22.2352 10.4886 21.3968 11.4691 19.7199 13.4299L19.2861 13.9372C18.8096 14.4944 18.5713 14.773 18.4641 15.1177C18.357 15.4624 18.393 15.8341 18.465 16.5776L18.5306 17.2544C18.7841 19.8706 18.9109 21.1787 18.1449 21.7602C17.3788 22.3417 16.2273 21.8115 13.9243 20.7512L13.3285 20.4768C12.6741 20.1755 12.3469 20.0248 12 20.0248C11.6531 20.0248 11.3259 20.1755 10.6715 20.4768L10.0757 20.7512C7.77268 21.8115 6.62118 22.3417 5.85515 21.7602C5.08912 21.1787 5.21588 19.8706 5.4694 17.2544L5.53498 16.5776C5.60703 15.8341 5.64305 15.4624 5.53586 15.1177C5.42868 14.773 5.19043 14.4944 4.71392 13.9372L4.2801 13.4299C2.60325 11.4691 1.76482 10.4886 2.05742 9.54773C2.35002 8.60682 3.57986 8.32856 6.03954 7.77203L6.67589 7.62805C7.37485 7.4699 7.72433 7.39083 8.00494 7.17781C8.28555 6.96479 8.46553 6.64194 8.82547 5.99623L9.15316 5.40838Z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9.00006L16.5 4.50006M12 14.5001L18.5 8.00006M12 19.5001L19.5 12.0001"/><path d="M12 22C16.4183 22 20 18.3541 20 13.8567C20 9.39453 17.4467 4.18759 13.4629 2.32555C12.9986 2.10852 12.4993 2 12 2M12 22C7.58172 22 4 18.3541 4 13.8567C4 9.39453 6.55332 4.18759 10.5371 2.32555C11.0014 2.10852 11.5007 2 12 2M12 22V2"/></g></symbol>
+</svg>
+
+<header class="opthdr">
+  <div class="wrap">
+    <span class="eyebrow">Home page &middot; product section</span>
+    <h1>Five ways to show the products.</h1>
+    <p>Same four products, same palette and type. Only the treatment changes. Pick one and I will roll it into the page.</p>
+  </div>
+</header>
+
+<nav class="optnav">
+  <div class="wrap">
+      <a href="#opt-a"><b>A</b> Enriched borderless</a>
+      <a href="#opt-b"><b>B</b> Soft panel card</a>
+      <a href="#opt-c"><b>C</b> Image-led</a>
+      <a href="#opt-d"><b>D</b> Specification row</a>
+      <a href="#opt-e"><b>E</b> Dense catalogue</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section class="opt" id="opt-a">
+    <header class="opt__head">
+      <span class="opt__key">A</span>
+      <div>
+        <h2>Enriched borderless</h2>
+        <p>The current layout given the information a shopper actually needs: rating, colourways, minimum order, and a visual CTA on hover. Still no card, no border, no shadow.</p>
+        <p class="opt__verdict">Closest to what is already approved. Lowest risk, and it keeps the no-boxes promise intact.</p>
+      </div>
+    </header>
+    <div class="grid-4 opt-a">
+      <a href="#" class="a-card">
+        <div class="a-media"><span class="flag">Next day</span>
+          <img src="../assets/img/products/same_day_natural_cotton_shopper.jpg" alt="Natural Cotton Shopper" loading="lazy">
+        </div>
+        <div class="a-body">
+          <span class="stars"><svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b><span class="stars__n">(126)</span></span>
+          <span class="a-name">Natural Cotton Shopper</span>
+          <span class="sw"><i style="background:#D9D3C4"></i><i style="background:#1D1D1F"></i><i style="background:#2C4A7C"></i><i style="background:#7A8B6F"></i><em>+6</em></span>
+          <span class="a-price"><b>&pound;3.48</b><small>from &middot; min. 25</small></span>
+          <span class="a-cta">Get a visual <svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </div>
+      </a>
+      <a href="#" class="a-card">
+        <div class="a-media"><span class="flag">Next day</span>
+          <img src="../assets/img/products/organic_festival_backpack.jpg" alt="Organic Festival Backpack" loading="lazy">
+        </div>
+        <div class="a-body">
+          <span class="stars"><svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b><span class="stars__n">(54)</span></span>
+          <span class="a-name">Organic Festival Backpack</span>
+          <span class="sw"><i style="background:#D9D3C4"></i><i style="background:#1D1D1F"></i><i style="background:#2C4A7C"></i><i style="background:#7A8B6F"></i><em>+6</em></span>
+          <span class="a-price"><b>&pound;6.32</b><small>from &middot; min. 25</small></span>
+          <span class="a-cta">Get a visual <svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </div>
+      </a>
+      <a href="#" class="a-card">
+        <div class="a-media"><span class="flag">Next day</span>
+          <img src="../assets/img/products/jumbo_exhibition_bag_yellow.jpg" alt="Jumbo Non Woven Exhibition Bag" loading="lazy">
+        </div>
+        <div class="a-body">
+          <span class="stars"><svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-star"/></svg><b>4.7</b><span class="stars__n">(210)</span></span>
+          <span class="a-name">Jumbo Non Woven Exhibition Bag</span>
+          <span class="sw"><i style="background:#D9D3C4"></i><i style="background:#1D1D1F"></i><i style="background:#2C4A7C"></i><i style="background:#7A8B6F"></i><em>+6</em></span>
+          <span class="a-price"><b>&pound;3.40</b><small>from &middot; min. 25</small></span>
+          <span class="a-cta">Get a visual <svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </div>
+      </a>
+      <a href="#" class="a-card">
+        <div class="a-media"><span class="flag">Next day</span>
+          <img src="../assets/img/products/westcove_canvas_tote_black.jpg" alt="Westcove Canvas Tote" loading="lazy">
+        </div>
+        <div class="a-body">
+          <span class="stars"><svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b><span class="stars__n">(38)</span></span>
+          <span class="a-name">Westcove Canvas Tote</span>
+          <span class="sw"><i style="background:#D9D3C4"></i><i style="background:#1D1D1F"></i><i style="background:#2C4A7C"></i><i style="background:#7A8B6F"></i><em>+6</em></span>
+          <span class="a-price"><b>&pound;8.41</b><small>from &middot; min. 25</small></span>
+          <span class="a-cta">Get a visual <svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </div>
+      </a>
+    </div>
+  </section>
+  <section class="opt" id="opt-b">
+    <header class="opt__head">
+      <span class="opt__key">B</span>
+      <div>
+        <h2>Soft panel card</h2>
+        <p>A conventional product card - contained surface, a hairline that darkens on hover, and a full-width CTA. The pattern every B2B buyer already knows.</p>
+        <p class="opt__verdict">Most familiar and the easiest to scan. It does reintroduce a card, which runs against the earlier direction.</p>
+      </div>
+    </header>
+    <div class="grid-4 opt-b">
+      <div class="b-card">
+        <a href="#" class="b-media"><span class="flag">Next day</span>
+          <img src="../assets/img/products/same_day_natural_cotton_shopper.jpg" alt="Natural Cotton Shopper" loading="lazy">
+        </a>
+        <div class="b-body">
+          <span class="stars"><svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b><span class="stars__n">(126)</span></span>
+          <a href="#" class="b-name">Natural Cotton Shopper</a>
+          <span class="sw"><i style="background:#D9D3C4"></i><i style="background:#1D1D1F"></i><i style="background:#2C4A7C"></i><i style="background:#7A8B6F"></i><em>+6</em></span>
+          <div class="b-foot">
+            <span class="b-price"><small>from</small> &pound;3.48</span>
+            <span class="b-min">min. 25</span>
+          </div>
+          <button class="b-btn">Get a free visual</button>
+        </div>
+      </div>
+      <div class="b-card">
+        <a href="#" class="b-media"><span class="flag">Next day</span>
+          <img src="../assets/img/products/organic_festival_backpack.jpg" alt="Organic Festival Backpack" loading="lazy">
+        </a>
+        <div class="b-body">
+          <span class="stars"><svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b><span class="stars__n">(54)</span></span>
+          <a href="#" class="b-name">Organic Festival Backpack</a>
+          <span class="sw"><i style="background:#D9D3C4"></i><i style="background:#1D1D1F"></i><i style="background:#2C4A7C"></i><i style="background:#7A8B6F"></i><em>+6</em></span>
+          <div class="b-foot">
+            <span class="b-price"><small>from</small> &pound;6.32</span>
+            <span class="b-min">min. 25</span>
+          </div>
+          <button class="b-btn">Get a free visual</button>
+        </div>
+      </div>
+      <div class="b-card">
+        <a href="#" class="b-media"><span class="flag">Next day</span>
+          <img src="../assets/img/products/jumbo_exhibition_bag_yellow.jpg" alt="Jumbo Non Woven Exhibition Bag" loading="lazy">
+        </a>
+        <div class="b-body">
+          <span class="stars"><svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-star"/></svg><b>4.7</b><span class="stars__n">(210)</span></span>
+          <a href="#" class="b-name">Jumbo Non Woven Exhibition Bag</a>
+          <span class="sw"><i style="background:#D9D3C4"></i><i style="background:#1D1D1F"></i><i style="background:#2C4A7C"></i><i style="background:#7A8B6F"></i><em>+6</em></span>
+          <div class="b-foot">
+            <span class="b-price"><small>from</small> &pound;3.40</span>
+            <span class="b-min">min. 25</span>
+          </div>
+          <button class="b-btn">Get a free visual</button>
+        </div>
+      </div>
+      <div class="b-card">
+        <a href="#" class="b-media"><span class="flag">Next day</span>
+          <img src="../assets/img/products/westcove_canvas_tote_black.jpg" alt="Westcove Canvas Tote" loading="lazy">
+        </a>
+        <div class="b-body">
+          <span class="stars"><svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b><span class="stars__n">(38)</span></span>
+          <a href="#" class="b-name">Westcove Canvas Tote</a>
+          <span class="sw"><i style="background:#D9D3C4"></i><i style="background:#1D1D1F"></i><i style="background:#2C4A7C"></i><i style="background:#7A8B6F"></i><em>+6</em></span>
+          <div class="b-foot">
+            <span class="b-price"><small>from</small> &pound;8.41</span>
+            <span class="b-min">min. 25</span>
+          </div>
+          <button class="b-btn">Get a free visual</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="opt" id="opt-c">
+    <header class="opt__head">
+      <span class="opt__key">C</span>
+      <div>
+        <h2>Image-led</h2>
+        <p>The product fills the tile, the price sits on the image, and hovering dims the shot to reveal the CTA. Photography does the selling.</p>
+        <p class="opt__verdict">The most striking of the five. Needs consistent, well-cut photography or it falls apart.</p>
+      </div>
+    </header>
+    <div class="grid-4 opt-c">
+      <a href="#" class="c-card">
+        <div class="c-media">
+          <img src="../assets/img/products/same_day_natural_cotton_shopper.jpg" alt="Natural Cotton Shopper" loading="lazy">
+          <span class="c-price">&pound;3.48</span>
+          <span class="c-scrim"><span class="c-pill">Get a visual <svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></span></span>
+        </div>
+        <div class="c-body">
+          <span class="c-cat">Bags &middot; Next day</span>
+          <span class="c-name">Natural Cotton Shopper</span>
+        </div>
+      </a>
+      <a href="#" class="c-card">
+        <div class="c-media">
+          <img src="../assets/img/products/organic_festival_backpack.jpg" alt="Organic Festival Backpack" loading="lazy">
+          <span class="c-price">&pound;6.32</span>
+          <span class="c-scrim"><span class="c-pill">Get a visual <svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></span></span>
+        </div>
+        <div class="c-body">
+          <span class="c-cat">Bags &middot; Next day</span>
+          <span class="c-name">Organic Festival Backpack</span>
+        </div>
+      </a>
+      <a href="#" class="c-card">
+        <div class="c-media">
+          <img src="../assets/img/products/jumbo_exhibition_bag_yellow.jpg" alt="Jumbo Non Woven Exhibition Bag" loading="lazy">
+          <span class="c-price">&pound;3.40</span>
+          <span class="c-scrim"><span class="c-pill">Get a visual <svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></span></span>
+        </div>
+        <div class="c-body">
+          <span class="c-cat">Bags &middot; Next day</span>
+          <span class="c-name">Jumbo Non Woven Exhibition Bag</span>
+        </div>
+      </a>
+      <a href="#" class="c-card">
+        <div class="c-media">
+          <img src="../assets/img/products/westcove_canvas_tote_black.jpg" alt="Westcove Canvas Tote" loading="lazy">
+          <span class="c-price">&pound;8.41</span>
+          <span class="c-scrim"><span class="c-pill">Get a visual <svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></span></span>
+        </div>
+        <div class="c-body">
+          <span class="c-cat">Bags &middot; Next day</span>
+          <span class="c-name">Westcove Canvas Tote</span>
+        </div>
+      </a>
+    </div>
+  </section>
+  <section class="opt" id="opt-d">
+    <header class="opt__head">
+      <span class="opt__key">D</span>
+      <div>
+        <h2>Specification row</h2>
+        <p>Two per row, image beside a spec block: price, minimum order, lead time, print method and certification.</p>
+        <p class="opt__verdict">The most B2B, and the least like a generic shop. Plays to what Bounce actually competes on.</p>
+      </div>
+    </header>
+    <div class="grid-2 opt-d">
+      <a href="#" class="d-card">
+        <div class="d-media"><img src="../assets/img/products/same_day_natural_cotton_shopper.jpg" alt="Natural Cotton Shopper" loading="lazy"></div>
+        <div class="d-body">
+          <span class="d-name">Natural Cotton Shopper</span>
+          <div class="d-chips"><span class="chip">Next day</span><span class="chip">Full colour</span><span class="chip">GRS</span></div>
+          <dl class="d-spec">
+            <div><dt>From</dt><dd class="d-price">&pound;3.48</dd></div>
+            <div><dt>Min. order</dt><dd>25 units</dd></div>
+            <div><dt>Lead time</dt><dd>3&ndash;5 days</dd></div>
+          </dl>
+          <span class="d-co2"><svg class="ic ic--eco" width="15" height="15" aria-hidden="true"><use href="#i-leaf"/></svg> CO&#8322;e published</span>
+        </div>
+      </a>
+      <a href="#" class="d-card">
+        <div class="d-media"><img src="../assets/img/products/organic_festival_backpack.jpg" alt="Organic Festival Backpack" loading="lazy"></div>
+        <div class="d-body">
+          <span class="d-name">Organic Festival Backpack</span>
+          <div class="d-chips"><span class="chip">Next day</span><span class="chip">Organic</span></div>
+          <dl class="d-spec">
+            <div><dt>From</dt><dd class="d-price">&pound;6.32</dd></div>
+            <div><dt>Min. order</dt><dd>25 units</dd></div>
+            <div><dt>Lead time</dt><dd>3&ndash;5 days</dd></div>
+          </dl>
+          <span class="d-co2"><svg class="ic ic--eco" width="15" height="15" aria-hidden="true"><use href="#i-leaf"/></svg> CO&#8322;e published</span>
+        </div>
+      </a>
+      <a href="#" class="d-card">
+        <div class="d-media"><img src="../assets/img/products/jumbo_exhibition_bag_yellow.jpg" alt="Jumbo Non Woven Exhibition Bag" loading="lazy"></div>
+        <div class="d-body">
+          <span class="d-name">Jumbo Non Woven Exhibition Bag</span>
+          <div class="d-chips"><span class="chip">Next day</span><span class="chip">Full colour</span></div>
+          <dl class="d-spec">
+            <div><dt>From</dt><dd class="d-price">&pound;3.40</dd></div>
+            <div><dt>Min. order</dt><dd>25 units</dd></div>
+            <div><dt>Lead time</dt><dd>3&ndash;5 days</dd></div>
+          </dl>
+          <span class="d-co2"><svg class="ic ic--eco" width="15" height="15" aria-hidden="true"><use href="#i-leaf"/></svg> CO&#8322;e published</span>
+        </div>
+      </a>
+      <a href="#" class="d-card">
+        <div class="d-media"><img src="../assets/img/products/westcove_canvas_tote_black.jpg" alt="Westcove Canvas Tote" loading="lazy"></div>
+        <div class="d-body">
+          <span class="d-name">Westcove Canvas Tote</span>
+          <div class="d-chips"><span class="chip">Next day</span><span class="chip">Canvas</span></div>
+          <dl class="d-spec">
+            <div><dt>From</dt><dd class="d-price">&pound;8.41</dd></div>
+            <div><dt>Min. order</dt><dd>25 units</dd></div>
+            <div><dt>Lead time</dt><dd>3&ndash;5 days</dd></div>
+          </dl>
+          <span class="d-co2"><svg class="ic ic--eco" width="15" height="15" aria-hidden="true"><use href="#i-leaf"/></svg> CO&#8322;e published</span>
+        </div>
+      </a>
+    </div>
+  </section>
+  <section class="opt" id="opt-e">
+    <header class="opt__head">
+      <span class="opt__key">E</span>
+      <div>
+        <h2>Dense catalogue</h2>
+        <p>Six per row, compact, with a quick "add to enquiry" on hover. Built for volume browsing rather than display.</p>
+        <p class="opt__verdict">Shows the most product per screen. Best if the goal is proving depth of range.</p>
+      </div>
+    </header>
+    <div class="grid-6 opt-e">
+      <a href="#" class="e-card">
+        <div class="e-media"><img src="../assets/img/products/same_day_natural_cotton_shopper.jpg" alt="Natural Cotton Shopper" loading="lazy">
+          <span class="e-quick">Add to enquiry</span>
+        </div>
+        <span class="e-name">Natural Cotton Shopper</span>
+        <span class="e-meta"><b>&pound;3.48</b> <span class="stars"><svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b><span class="stars__n">(126)</span></span></span>
+      </a>
+      <a href="#" class="e-card">
+        <div class="e-media"><img src="../assets/img/products/organic_festival_backpack.jpg" alt="Organic Festival Backpack" loading="lazy">
+          <span class="e-quick">Add to enquiry</span>
+        </div>
+        <span class="e-name">Organic Festival Backpack</span>
+        <span class="e-meta"><b>&pound;6.32</b> <span class="stars"><svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b><span class="stars__n">(54)</span></span></span>
+      </a>
+      <a href="#" class="e-card">
+        <div class="e-media"><img src="../assets/img/products/jumbo_exhibition_bag_yellow.jpg" alt="Jumbo Non Woven Exhibition Bag" loading="lazy">
+          <span class="e-quick">Add to enquiry</span>
+        </div>
+        <span class="e-name">Jumbo Non Woven Exhibition Bag</span>
+        <span class="e-meta"><b>&pound;3.40</b> <span class="stars"><svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-star"/></svg><b>4.7</b><span class="stars__n">(210)</span></span></span>
+      </a>
+      <a href="#" class="e-card">
+        <div class="e-media"><img src="../assets/img/products/westcove_canvas_tote_black.jpg" alt="Westcove Canvas Tote" loading="lazy">
+          <span class="e-quick">Add to enquiry</span>
+        </div>
+        <span class="e-name">Westcove Canvas Tote</span>
+        <span class="e-meta"><b>&pound;8.41</b> <span class="stars"><svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b><span class="stars__n">(38)</span></span></span>
+      </a>
+      <a href="#" class="e-card">
+        <div class="e-media"><img src="../assets/img/products/same_day_natural_cotton_shopper.jpg" alt="Natural Cotton Shopper" loading="lazy">
+          <span class="e-quick">Add to enquiry</span>
+        </div>
+        <span class="e-name">Natural Cotton Shopper</span>
+        <span class="e-meta"><b>&pound;3.48</b> <span class="stars"><svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b><span class="stars__n">(126)</span></span></span>
+      </a>
+      <a href="#" class="e-card">
+        <div class="e-media"><img src="../assets/img/products/organic_festival_backpack.jpg" alt="Organic Festival Backpack" loading="lazy">
+          <span class="e-quick">Add to enquiry</span>
+        </div>
+        <span class="e-name">Organic Festival Backpack</span>
+        <span class="e-meta"><b>&pound;6.32</b> <span class="stars"><svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b><span class="stars__n">(54)</span></span></span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="optftr"><div class="wrap"><p>Names, prices and photography are real, taken from bouncecreativedesigns.co.uk. Ratings and colourways are indicative placeholders.</p></div></footer>
+
+</body>
+</html>
