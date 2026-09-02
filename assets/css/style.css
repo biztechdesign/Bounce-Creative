@@ -309,17 +309,23 @@ h2.h2{ font-size:clamp(32px,3.6vw,50px); }
 .promo-branding .sechead{ display:grid; grid-template-columns:minmax(280px,.95fr) minmax(300px,.75fr); gap:clamp(32px,8vw,140px); align-items:end; }
 .promo-branding__context{ display:flex; flex-direction:column; align-items:flex-start; gap:18px; padding-bottom:3px; }
 .promo-branding__intro{ max-width:42ch; color:var(--muted); font-size:15.5px; line-height:1.55; }
-.promo-branding__grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); grid-template-rows:repeat(2,250px); gap:20px; }
-.promo-branding__card{ position:relative; overflow:hidden; border-radius:var(--r); background:var(--band); }
-.promo-branding__card--tote{ grid-column:span 2; grid-row:span 2; }
-.promo-branding__card--cap, .promo-branding__card--tee{ grid-column:span 2; }
-.promo-branding__card > img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease); }
+.promo-branding__grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+.promo-branding__card{ position:relative; aspect-ratio:1 / 1; overflow:hidden; border-radius:var(--r); background:var(--band); }
+.promo-branding__card--tote, .promo-branding__card--cap, .promo-branding__card--tee{ grid-column:auto; grid-row:auto; }
+.promo-branding__card--tote{ background:#c9e5f8; }
+.promo-branding__card--cap{ background:#f4efec; }
+.promo-branding__card--tee{ background:#d88950; }
+.promo-branding__card::before{ content:''; position:absolute; inset:-18px; z-index:0; background-position:center; background-size:cover; filter:blur(18px); opacity:.72; transform:scale(1.04); }
+.promo-branding__card--tote::before{ background-image:url('../img/branding/branded-tote.png'); }
+.promo-branding__card--cap::before{ background-image:url('../img/branding/branded-caps.png'); }
+.promo-branding__card--tee::before{ background-image:url('../img/branding/promotional-tshirt.png'); }
+.promo-branding__card > img{ position:absolute; inset:0; z-index:1; width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease); }
 .promo-branding__card:hover > img{ transform:scale(1.045); }
-.promo-branding__card::after{ content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg,rgba(10,12,16,.3),transparent 52%); }
-.promo-branding__copy{ position:absolute; top:26px; left:28px; right:28px; z-index:1; }
+.promo-branding__card::after{ content:''; position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(90deg,rgba(10,12,16,.3),transparent 52%); }
+.promo-branding__copy{ position:absolute; top:26px; left:28px; right:28px; z-index:3; }
 .promo-branding__copy span{ display:block; font-size:14px; font-weight:500; }
 .promo-branding__copy h3{ margin-top:7px; font-size:clamp(23px,2vw,30px); letter-spacing:-.035em; }
-.promo-branding__cta{ position:absolute; left:28px; bottom:26px; z-index:1; display:inline-flex; align-items:center; gap:8px; padding:12px 16px; border-radius:999px; background:#fff; font-size:14px; font-weight:600; transition:background .18s var(--ease), color .18s var(--ease); }
+.promo-branding__cta{ position:absolute; left:28px; bottom:26px; z-index:3; display:inline-flex; align-items:center; gap:8px; padding:12px 16px; border-radius:999px; background:#fff; font-size:14px; font-weight:600; transition:background .18s var(--ease), color .18s var(--ease); }
 .promo-branding__card:hover .promo-branding__cta{ background:var(--red); color:#fff; }
 
 /* ---------- 9aa. CORPORATE GIFT IDEAS ---------- */
@@ -693,7 +699,7 @@ h2.h2{ font-size:clamp(32px,3.6vw,50px); }
   .hero{ padding-block:56px 88px; }
   .hero__grid{ grid-template-columns:1fr; gap:48px; }
   .promo-branding .sechead{ grid-template-columns:1fr; gap:18px; }
-  .promo-branding__grid{ grid-template-rows:repeat(2,210px); }
+  .promo-branding__grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
   .gift-ideas__panel{ grid-template-columns:1fr; }
   .gift-ideas__art{ min-height:440px; }
   .hcat__col{ padding-top:0; }
@@ -736,8 +742,8 @@ h2.h2{ font-size:clamp(32px,3.6vw,50px); }
   .google-review-float{ right:16px; bottom:78px; transform:scale(.92); transform-origin:bottom right; }
   .rail-controls{ left:-12px; right:-12px; }
   .rail, .rail--5{ gap:16px; }
-  .promo-branding__grid{ grid-template-columns:1fr; grid-template-rows:none; }
-  .promo-branding__card, .promo-branding__card--tote, .promo-branding__card--cap, .promo-branding__card--tee{ grid-column:auto; grid-row:auto; min-height:340px; }
+  .promo-branding__grid{ grid-template-columns:1fr; }
+  .promo-branding__card, .promo-branding__card--tote, .promo-branding__card--cap, .promo-branding__card--tee{ grid-column:auto; grid-row:auto; aspect-ratio:1 / 1; min-height:340px; }
   .gift-ideas__art{ min-height:280px; }
   .gift-ideas__copy h2{ font-size:34px; }
   .proof__sep{ display:none; }
