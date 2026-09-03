@@ -1,0 +1,11 @@
+# Build output and deploy staging (regenerated; not the Pages source - Pages
+# serves this repo's root directly, so dist/ is not part of the deploy)
+dist/
+.site-deploy/
+.site-stage/
+bounce-creative-site.tar.gz
+
+# Tooling scratch
+.openai/
+.playwright-mcp/
+.blender-toolkit/
