@@ -19,7 +19,9 @@
        --red-on-ink words on ink        - 8.53:1 */
   --red-text:   #C40A39;
   --red-on-ink: #FF8EAD;
-  --green:      #1F8A5B;   /* reserved: the eco leaf only */
+  --green:      #1F8A5B;   /* reserved: eco. Icons only - 4.33:1 clears the 3:1
+                              non-text bar but not the 4.5:1 text minimum. */
+  --green-text: #19754C;   /* eco when it carries words - 5.69:1 paper, 5.17:1 band */
 
   /* Neutrals (not "colours" - the quiet ground everything sits on) */
   --paper:      #FFFFFF;   /* page ground */
@@ -859,7 +861,7 @@ main:focus{ outline:none; }
 }
 .drawer__list a:hover{ color:var(--red-text); }
 .drawer__list a:focus-visible{ outline:2px solid var(--red); outline-offset:2px; }
-.drawer__list .is-eco{ color:var(--green); font-weight:600; }
+.drawer__list .is-eco{ color:var(--green-text); font-weight:600; }
 
 .drawer__foot{ display:flex; flex-direction:column; gap:2px; margin-top:auto; padding-top:8px; }
 .drawer__util{
