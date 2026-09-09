@@ -1,0 +1,271 @@
+/* ==========================================================================
+   Product detail page — layered on style-v4.css and list-v4.css.
+   Standard ecommerce PDP furniture: gallery, buy box with configurable
+   options, volume pricing, detail tabs. Structured to map cleanly onto a Hyvä
+   template (gallery / product-info-main / product-info-detailed / related).
+   ========================================================================== */
+
+/* ---------- Layout ---------- */
+.pdp{ display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:clamp(28px,4vw,64px); align-items:start; }
+
+/* ---------- Gallery ---------- */
+.gal{ position:sticky; top:150px; min-width:0; }
+/* Sized off the fold rather than a fixed square, so the main image and its
+   thumbnails are both visible without scrolling. 232px covers the sticky
+   chrome, the breadcrumb, the section padding and the thumbnail strip. */
+.gal__stage{
+  position:relative; background:var(--white); border:1px solid var(--line);
+  height:clamp(300px, calc(100vh - 232px - 160px), 620px);
+  overflow:hidden;
+}
+/* Absolutely placed so it fills the frame exactly - as a centred grid item
+   it kept its intrinsic square and spilled past the bottom edge. */
+.gal__stage img{ position:absolute; inset:0; width:100%; height:100%;
+  object-fit:contain; padding:clamp(20px,3vw,44px); }
+/* Left aligned rather than stretched across the stage: a fixed square reads as
+   a filmstrip and holds its proportions whatever the stage is doing. */
+.gal__thumbs{ display:flex; flex-wrap:wrap; gap:20px; margin-top:20px; }
+.gal__thumb{
+  flex:0 0 auto; width:132px; aspect-ratio:1/1;
+  background:var(--white); border:1px solid var(--line); padding:8px;
+  transition:border-color .18s var(--ease);
+}
+.gal__thumb img{ width:100%; height:100%; object-fit:contain; }
+.gal__thumb:hover{ border-color:var(--forest); }
+.gal__thumb.is-on{ border-color:var(--forest); box-shadow:inset 0 0 0 1px var(--forest); }
+.gal__thumb:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+
+/* ---------- Buy box ---------- */
+.buy{ min-width:0; }
+.buy__sku{
+  font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.08em;
+  text-transform:uppercase; color:var(--forest-mid);
+}
+.buy__sku b{ color:var(--forest); font-weight:500; }
+.buy__stock{ display:inline-flex; align-items:center; gap:6px; color:var(--green-text); }
+.buy h1{ margin-top:10px; font-size:clamp(30px,3.2vw,44px); }
+.buy__rate{ margin-top:12px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:var(--t-cap); color:var(--forest-mid); }
+.buy__rate .ic{ color:var(--coral-text); }
+.buy__rate b{ color:var(--forest); font-weight:800; }
+.buy__lede{ margin-top:18px; font-size:var(--t-md); color:var(--forest-mid); max-width:52ch; }
+
+.buy__price{ display:flex; align-items:baseline; gap:10px; margin-top:24px; padding-top:24px; border-top:1px solid var(--line); }
+.buy__from{ font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); }
+.buy__price b{ font-family:var(--f-display); font-size:var(--h-num); font-weight:700; letter-spacing:-.04em; line-height:1; }
+.buy__unit{ font-size:var(--t-cap); color:var(--forest-mid); }
+
+/* ---------- Options ---------- */
+.buy__form{ margin-top:26px; display:grid; gap:22px; }
+.opt{ border:0; margin:0; padding:0; min-width:0; }
+.opt__t{
+  display:block; padding:0 0 10px; font-family:var(--f-mono); font-size:var(--t-micro);
+  letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid);
+}
+.opt__val{ color:var(--forest); }
+.opt--row{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+.opt__field{ min-width:0; }
+.opt__field select,
+.opt__field input{
+  width:100%; min-height:48px; padding:0 14px; font:inherit; font-size:var(--t-ui);
+  color:var(--forest); background:var(--white); border:1px solid var(--line-input);
+}
+.opt__field select:focus-visible,
+.opt__field input:focus-visible{ outline:2px solid var(--coral-text); outline-offset:-1px; }
+
+.sw-row{ display:flex; flex-wrap:wrap; gap:10px; }
+.sw{
+  display:inline-flex; align-items:center; gap:9px; min-height:44px; padding:0 14px 0 10px;
+  border:1px solid var(--line-input); background:var(--white);
+  font-size:var(--t-cap); font-weight:700; color:var(--forest);
+  transition:border-color .18s var(--ease), box-shadow .18s var(--ease);
+}
+.sw__dot{ width:18px; height:18px; background:var(--sw); box-shadow:inset 0 0 0 1px rgba(19,57,53,.28); flex:0 0 auto; }
+.sw:hover{ border-color:var(--forest); }
+.sw.is-on{ border-color:var(--forest); box-shadow:inset 0 0 0 1px var(--forest); }
+.sw:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+
+.buy__total{
+  padding:16px 0; border-block:1px solid var(--line);
+  font-size:var(--t-ui); color:var(--forest-mid);
+}
+.buy__total b{ font-family:var(--f-display); font-size:var(--h-card); font-weight:700; letter-spacing:-.03em; color:var(--forest); }
+.buy__total span{ font-size:var(--t-cap); }
+
+.buy__cta{ display:flex; gap:12px; flex-wrap:wrap; }
+.buy__cta .btn{ flex:1 1 220px; }
+
+
+/* ---------- Volume pricing ---------- */
+.tiers{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.55fr); gap:44px; align-items:start; }
+.tiers__table{ width:100%; border-collapse:collapse; }
+.tiers__table th,
+.tiers__table td{ padding:14px 16px; text-align:left; border-bottom:1px solid var(--line); font-size:var(--t-ui); }
+.tiers__table thead th{
+  font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em;
+  text-transform:uppercase; color:var(--forest-mid); border-bottom:2px solid var(--forest);
+}
+.tiers__table tbody th{ font-weight:800; }
+.tiers__table td{ font-variant-numeric:tabular-nums; }
+.tiers__table tbody tr:hover{ background:var(--white); }
+.tiers__note{ font-size:var(--t-cap); color:var(--forest-mid); }
+
+/* ---------- Detail tabs ---------- */
+/* Neutral ink through the whole detail block. The green body copy and the coral
+   rule were reading as brand colour where this is just text and structure.
+   Retinted at the section root so every rule below inherits it; the buttons and
+   the star rating opt back out, because there the colour carries meaning. */
+.sec--rule{
+  --forest:#1F1D1A;
+  --forest-mid:#57534E;
+  --coral-text:#3A3733;
+  --coral-display:#3A3733;
+  /* Re-declared, not just retokenised: headings inherit colour from body, so
+     without this they keep the value body already computed. */
+  color:var(--forest);
+}
+.sec--rule .btn,
+.sec--rule .rev__stars,
+.sec--rule .rev__bar{
+  --forest:#133935; --forest-mid:#33564F;
+  --coral-text:#B93B1C; --coral-display:#DE563A;
+}
+
+/* A rule between the product furniture and the detail below it. The section
+   padding moves onto the wrap so the line lands centred in the gap that
+   already separated the two, rather than crowding one side. */
+.sec--rule{ padding-top:0; }
+.sec--rule > .wrap{ position:relative; padding-top:var(--sec); }
+/* Inset to the gutter so the rule lines up with the content, not the viewport. */
+.sec--rule > .wrap::before{
+  content:''; position:absolute; inset:0 var(--gutter) auto;
+  border-top:1px solid var(--line);
+}
+
+/* The six panels are a tab bar, not a row of buttons: one rule beneath the
+   whole set, the open tab marked by a heavier underline sitting on it. The
+   chip styles are shared with the home page, so these overrides live here. */
+.sec--rule .chiprow{ margin-bottom:0; }
+.sec--rule .chips{
+  width:100%; margin-bottom:0; gap:0 4px;
+  border-bottom:1px solid var(--line);
+}
+.sec--rule .chip{
+  min-height:52px; padding:0 20px; margin-bottom:-1px;
+  border:0; border-bottom:3px solid transparent; background:none;
+  font-weight:600; color:var(--forest-mid);
+  transition:color .18s var(--ease), border-color .18s var(--ease);
+}
+.sec--rule .chip:hover{ color:var(--forest); border-bottom-color:var(--line); }
+.sec--rule .chip[aria-selected="true"]{
+  background:none; color:var(--forest); font-weight:800;
+  border-bottom-color:var(--coral-text);
+}
+/* Below this the six tabs wrap, and a wrapped row leaves the underline sitting
+   under the last line only. Scrolling keeps the bar reading as one bar. */
+@media (max-width:900px){
+  .sec--rule .chips{ flex-wrap:nowrap; overflow-x:auto; scrollbar-width:thin; }
+  .sec--rule .chip{ flex:0 0 auto; padding:0 14px; }
+}
+.tab{ padding-top:32px; }
+.tab[hidden]{ display:none; }
+.spec{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 56px; margin:0; }
+.spec div{ display:flex; justify-content:space-between; gap:20px; padding:16px 0; border-bottom:1px solid var(--line); }
+.spec dt{ font-size:var(--t-ui); font-weight:800; }
+.spec dd{ margin:0; font-size:var(--t-ui); color:var(--forest-mid); text-align:right; }
+
+/* Print methods */
+.pm{ border-top:2px solid var(--forest); columns:2; column-gap:56px; }
+.pm__item{ border-bottom:1px solid var(--line); break-inside:avoid; }
+.pm__item summary{
+  display:flex; align-items:center; gap:14px; padding:20px 0; cursor:pointer; list-style:none;
+  font-family:var(--f-display); font-size:var(--h-card); font-weight:700; letter-spacing:-.03em;
+}
+.pm__item summary::-webkit-details-marker{ display:none; }
+.pm__item summary::marker{ content:''; }
+/* Same chevron as the FAQ, so a disclosure looks the same wherever it appears.
+   Without it there was nothing to say these rows opened. */
+.pm__item summary::after{
+  content:''; flex:0 0 auto; margin-left:auto; width:12px; height:12px;
+  border-right:2px solid var(--forest); border-bottom:2px solid var(--forest);
+  transform:rotate(45deg); transition:transform .22s var(--ease);
+}
+.pm__item[open] summary::after{ transform:rotate(-135deg); }
+.pm__item summary:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
+.pm__n{ font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; color:var(--coral-text); }
+.pm__item p{ padding:0 0 22px; font-size:var(--t-body); color:var(--forest-mid); }
+
+/* ---------- Responsive ---------- */
+@media (max-width:1180px){
+  .tiers{ grid-template-columns:minmax(0,1fr); gap:24px; }
+}
+@media (max-width:900px){
+  .pdp{ grid-template-columns:minmax(0,1fr); }
+  /* Stacked, the buy box is what matters, so the image goes back to a square. */
+  .gal{ position:static; }
+  .gal__stage{ height:auto; aspect-ratio:1/1; }
+  .pm{ columns:1; }
+  .spec{ grid-template-columns:minmax(0,1fr); gap:0; }
+}
+@media (max-width:640px){
+  .opt--row{ grid-template-columns:minmax(0,1fr); }
+  .buy__cta .btn{ flex:1 1 100%; }
+  .gal__thumbs{ grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+}
+
+/* Swatch label sits beside its colour dot */
+.sw__name{ white-space:nowrap; }
+
+/* A table has a min-content width it cannot go below, so it scrolls inside its
+   own container rather than pushing the page wider. Focusable, so the scroll is
+   reachable by keyboard. */
+.tiers__scroll{ overflow-x:auto; }
+.tiers__scroll:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
+.tiers__table{ min-width:320px; }
+
+/* ---------- Volume pricing, inside the buy column ---------- */
+.tiers--inline{ display:block; margin-top:36px; }
+.tiers__t{
+  font-family:var(--f-mono); font-size:var(--t-micro); font-weight:400;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid);
+  margin-bottom:12px;
+}
+.tiers--inline .tiers__table th,
+.tiers--inline .tiers__table td{ padding:11px 12px; font-size:var(--t-cap); }
+.tiers--inline .tiers__note{ margin-top:12px; }
+
+/* ---------- Reviews ---------- */
+.rev{ display:grid; grid-template-columns:minmax(0,.62fr) minmax(0,1fr); gap:clamp(28px,4vw,64px); align-items:start; }
+.rev__score{ display:flex; align-items:baseline; gap:10px; }
+.rev__score b{ font-family:var(--f-display); font-size:var(--h-num); font-weight:700; letter-spacing:-.04em; line-height:1; }
+.rev__score span{ font-size:var(--t-cap); color:var(--forest-mid); }
+.rev__count{ margin-top:8px; font-size:var(--t-cap); color:var(--forest-mid); }
+.rev__count b{ color:var(--forest); font-weight:800; }
+.rev__bars{ list-style:none; display:grid; gap:8px; margin:20px 0 24px; }
+.rev__bars li{ display:grid; grid-template-columns:14px 1fr 32px; align-items:center; gap:12px; font-size:var(--t-cap); color:var(--forest-mid); }
+.rev__bar{ display:block; height:8px; background:var(--band); box-shadow:inset 0 0 0 1px var(--line); }
+.rev__bar i{ display:block; height:100%; width:var(--pct); background:var(--coral-display); }
+.rev__bars em{ font-style:normal; text-align:right; font-variant-numeric:tabular-nums; }
+.rev__list{ display:grid; gap:0; }
+.rev__item{ padding:22px 0; border-bottom:1px solid var(--line); }
+.rev__item:first-child{ border-top:1px solid var(--line); }
+.rev__stars{ display:flex; gap:3px; color:var(--coral-display); }
+.rev__body{ margin-top:10px; font-size:var(--t-body); color:var(--forest-mid); max-width:62ch; }
+.rev__by{ margin-top:10px; font-size:var(--t-cap); color:var(--forest-mid); }
+.rev__by b{ color:var(--forest); font-weight:800; }
+
+/* ---------- Order samples ---------- */
+.sam{ display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); gap:clamp(28px,4vw,64px); align-items:start; }
+.sam__copy h3{ font-size:var(--h-lg); }
+.sam__copy p{ margin-top:14px; font-size:var(--t-md); color:var(--forest-mid); max-width:54ch; }
+.sam__cta{ display:flex; gap:12px; flex-wrap:wrap; margin-top:24px; }
+.sam__facts{ list-style:none; display:grid; gap:0; margin:0; }
+.sam__facts li{ padding:16px 0; border-top:1px solid var(--line); }
+.sam__facts li:last-child{ border-bottom:1px solid var(--line); }
+.sam__facts b{ display:block; font-family:var(--f-display); font-size:var(--h-sub); font-weight:700; letter-spacing:-.03em; line-height:1; }
+.sam__facts span{ display:block; margin-top:6px; font-size:var(--t-cap); color:var(--forest-mid); }
+
+@media (max-width:900px){
+  .rev,
+  .sam{ grid-template-columns:minmax(0,1fr); gap:28px; }
+}
+.rev__summary{ min-width:0; }

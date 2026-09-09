@@ -1,0 +1,200 @@
+/* ==========================================================================
+   Product list (category) page — layered on top of style-v4.css.
+   Only what the listing adds: breadcrumb, category head, filter rail, the
+   listing grid, pagination, the weekly picks row, the editorial block and the
+   two-column FAQ. Everything else (header, cards, footer, motion) is shared.
+   ========================================================================== */
+
+/* Visually hidden, still announced */
+.vh{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip-path:inset(50%); white-space:nowrap;
+}
+
+/* ---------- Breadcrumb ---------- */
+/* One rhythm for every page that carries a breadcrumb, so the listing and
+   the detail page open on the same amount of air. */
+.crumb{ padding-block:10px 0; margin-bottom:10px; }
+.crumb ol{
+  list-style:none; display:flex; flex-wrap:wrap; align-items:center; gap:8px;
+  font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.06em;
+  text-transform:uppercase; color:var(--forest-mid);
+}
+.crumb li + li::before{ content:'/'; margin-right:8px; opacity:.5; }
+.crumb a{ color:var(--forest-mid); }
+.crumb a:hover{ color:var(--coral-text); }
+.crumb [aria-current]{ color:var(--forest); font-weight:500; }
+
+/* ---------- Category head: image band, title and description only ----------
+   Text sits on photography, so a scrim carries the contrast. Measured per
+   pixel over the shipped image rather than assumed. */
+.cathero{ position:relative; isolation:isolate; overflow:hidden; }
+.cathero__bg{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  object-position:center 42%; z-index:-2;
+}
+.cathero::after{
+  content:''; position:absolute; inset:0; z-index:-1;
+  background:linear-gradient(90deg, rgba(12,26,24,.92) 0%, rgba(12,26,24,.86) 42%,
+                                     rgba(12,26,24,.62) 70%, rgba(12,26,24,.42) 100%);
+}
+.cathero__in{ max-width:56ch; padding-block:clamp(26px,3.2vw,44px); color:var(--oat); }
+.cathero h1{ font-size:clamp(32px,3.4vw,46px); color:var(--oat); }
+.cathero h1 .hl{ color:var(--coral-on-forest); }
+.cathero p{ margin-top:12px; font-size:var(--t-md); color:rgba(238,233,222,.82); max-width:60ch; }
+
+/* ---------- Toolbar above the grid ---------- */
+.listbar{
+  display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+  padding-block:20px; border-block:1px solid var(--line); margin-bottom:36px;
+}
+.listbar__count{ font-size:var(--t-ui); color:var(--forest-mid); }
+.listbar__count b{ color:var(--forest); font-weight:800; }
+.listbar__sort{ margin-left:auto; display:inline-flex; align-items:center; gap:10px; }
+.listbar__sort span{
+  font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em;
+  text-transform:uppercase; color:var(--forest-mid);
+}
+.listbar__sort select{
+  min-height:44px; padding:0 14px; font:inherit; font-size:var(--t-ui); font-weight:700;
+  color:var(--forest); background:var(--white); border:1px solid var(--line-input);
+}
+.listbar__sort select:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+/* The toggle is for narrow screens, where the rail collapses */
+.listbar__toggle{ display:none; }
+
+/* ---------- Layout: filter rail + grid ---------- */
+.listing{ display:grid; grid-template-columns:clamp(200px,18vw,250px) minmax(0,1fr); gap:clamp(24px,3vw,44px); align-items:start; }
+.filters{ display:grid; gap:0; position:sticky; top:150px; }
+/* Each group is a disclosure, so it collapses and the heading no longer has a
+   fieldset border running through it. */
+.facet{ border-top:1px solid var(--line); }
+.facet:first-of-type{ border-top:0; }
+.facet__t{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:16px 0; cursor:pointer; list-style:none;
+  font-family:var(--f-mono); font-size:var(--t-micro);
+  letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid);
+}
+.facet__t::-webkit-details-marker{ display:none; }
+.facet__t:hover{ color:var(--forest); }
+.facet__t:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+.facet__chev{ flex:0 0 auto; transform:rotate(90deg); transition:transform .2s var(--ease); }
+.facet[open] > .facet__t .facet__chev{ transform:rotate(-90deg); }
+.facet__body{ padding-bottom:16px; }
+@media (prefers-reduced-motion: reduce){ .facet__chev{ transition:none; } }
+.facet__row{
+  display:flex; align-items:center; gap:10px; min-height:32px;
+  font-size:var(--t-ui); cursor:pointer;
+}
+.facet__row input{ width:17px; height:17px; accent-color:var(--forest); flex:0 0 auto; }
+.facet__row span{ flex:1 1 auto; }
+.facet__row em{ font-style:normal; font-size:var(--t-cap); color:var(--forest-mid); }
+.facet__row:hover span{ color:var(--coral-text); }
+.filters__clear{ margin-top:20px; justify-self:start; }
+
+/* ---------- The grid itself ----------
+   Fluid tracks rather than fixed column counts: the card decides how many fit,
+   so there is no width where a column is squeezed to an unusable size. */
+.rail--grid{ grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:28px 22px; }
+/* Fluid below, but capped at four once there is room - it is the 'top four'. */
+.rail--four{ grid-template-columns:repeat(auto-fill,minmax(min(250px,100%),1fr)); gap:22px; }
+.prod[hidden]{ display:none; }
+
+/* Delivery + social proof under the price, as on the client's reference */
+.prod__meta{ display:grid; gap:5px; margin-top:10px; }
+.prod__meta span{
+  display:inline-flex; align-items:center; gap:7px;
+  font-size:var(--t-cap); color:var(--forest-mid);
+}
+.prod__meta .ic{ flex:0 0 auto; color:var(--forest-mid); }
+/* A card can carry more than one flag (next day + a certification), so they
+   sit in a row rather than stacking on the same absolute position. */
+.prod__flags{ position:absolute; top:12px; left:12px; right:12px; z-index:2; display:flex; flex-wrap:wrap; gap:6px; }
+.prod__flags .prod__flag{ position:static; top:auto; left:auto; }
+
+.prod__flag--best{ background:var(--sun); border-color:var(--forest); }
+.prod__flag--best .ic{ color:var(--forest); }
+
+.listing__none{ padding:48px 0; font-size:var(--t-lead); color:var(--forest-mid); }
+
+/* ---------- Pagination ---------- */
+.pager{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:48px; padding-top:32px; border-top:1px solid var(--line); }
+.pager__link{
+  min-width:44px; min-height:44px; display:inline-flex; align-items:center; justify-content:center;
+  border:1px solid var(--line-input); font-size:var(--t-ui); font-weight:700; color:var(--forest);
+  transition:background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease);
+}
+.pager__link:hover{ border-color:var(--coral-text); color:var(--coral-text); }
+.pager__link[aria-current]{ background:var(--forest); color:var(--oat); border-color:var(--forest); }
+.pager__gap{ padding:0 4px; color:var(--forest-mid); }
+.pager__next{
+  margin-left:auto; display:inline-flex; align-items:center; gap:9px; min-height:44px;
+  font-size:var(--t-ui); font-weight:800; color:var(--forest);
+}
+.pager__next:hover{ color:var(--coral-text); }
+.pager__next .ic{ transition:transform .22s var(--ease); }
+.pager__next:hover .ic{ transform:translateX(4px); }
+
+/* ---------- Editorial block ---------- */
+.prose{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:44px; }
+.prose h3{ font-size:var(--h-card); }
+.prose p{ margin-top:14px; font-size:var(--t-body); line-height:1.65; color:var(--forest-mid); }
+.prose p + p{ margin-top:14px; }
+.prose b{ color:var(--forest); font-weight:800; }
+
+/* ---------- Blogs over two rows ---------- */
+.posts--two{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:44px 28px; }
+
+/* ---------- Responsive ---------- */
+@media (min-width:1181px){
+  .rail--four{ grid-template-columns:repeat(4,minmax(0,1fr)); }
+}
+@media (max-width:1180px){
+  .prose{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:36px; }
+}
+@media (max-width:900px){
+  .cathead{ grid-template-columns:minmax(0,1fr); gap:28px; }
+  .listbar__toggle{ display:inline-flex; }
+  .listing{ grid-template-columns:minmax(0,1fr); }
+  /* The rail becomes a disclosure rather than a column */
+  .filters{ position:static; display:none; padding-bottom:28px; border-bottom:1px solid var(--line); margin-bottom:28px; }
+  .filters.is-open{ display:grid; }
+  .posts--two{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:640px){
+  .prose{ grid-template-columns:minmax(0,1fr); }
+  .posts--two{ grid-template-columns:minmax(0,1fr); }
+  .listbar__sort{ margin-left:0; width:100%; }
+  .listbar__sort select{ flex:1 1 auto; }
+}
+
+/* Structural wrappers: named so the grid children can shrink properly. */
+.cathead__t{ min-width:0; }
+.listing__main{ min-width:0; }
+
+/* ---------- Applied filters ----------
+   Mirrors what is ticked in the rail, so the active state is visible without
+   scrolling the facets, and each one can be dropped individually. */
+.applied{ display:flex; align-items:center; flex-wrap:wrap; gap:10px; margin:-16px 0 32px; }
+.applied[hidden]{ display:none; }
+.applied__lbl{
+  font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em;
+  text-transform:uppercase; color:var(--forest-mid);
+}
+.applied__chips{ display:flex; flex-wrap:wrap; gap:8px; }
+.applied__chip{
+  display:inline-flex; align-items:center; gap:8px; min-height:36px; padding:0 8px 0 12px;
+  border:1px solid var(--line-input); background:var(--white);
+  font-size:var(--t-cap); font-weight:700; color:var(--forest);
+  transition:border-color .18s var(--ease), color .18s var(--ease);
+}
+.applied__chip:hover{ border-color:var(--coral-text); color:var(--coral-text); }
+.applied__chip:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+.applied__chip .ic{ flex:0 0 auto; }
+.applied__clear{
+  min-height:36px; padding:0 4px; font-size:var(--t-cap); font-weight:800;
+  color:var(--coral-text); border-bottom:1px solid currentColor;
+}
+.applied__clear:hover{ color:var(--forest); }
+.applied__clear:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
