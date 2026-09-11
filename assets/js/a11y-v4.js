@@ -164,38 +164,8 @@
     window.addEventListener('load', check);
   }
 
-  /* ---------- Condensing header ----------
-     Scrolling down collapses the logo row, scrolling up brings it back. Near
-     the top it is always open. The collapsed row is visibility:hidden in CSS,
-     so its controls leave the tab order rather than sitting focusable behind an
-     invisible strip; tabbing backwards scrolls up, which reopens it. */
-  function initCondense() {
-    var hdr = document.querySelector('.hdr');
-    if (!hdr) return;
-
-    var OPEN_ABOVE = 160;   // always open this close to the top
-    var DEADZONE = 5;       // ignore sub-pixel jitter
-    var last = window.scrollY;
-    var ticking = false;
-
-    function update() {
-      ticking = false;
-      var y = window.scrollY;
-      if (y <= OPEN_ABOVE) { hdr.classList.remove('is-condensed'); last = y; return; }
-      if (y > last + DEADZONE)      hdr.classList.add('is-condensed');
-      else if (y < last - DEADZONE) hdr.classList.remove('is-condensed');
-      last = y;
-    }
-    window.addEventListener('scroll', function () {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(update);
-    }, { passive: true });
-  }
-
   function start() {
     initDrawer();
-    initCondense();
     initReveal();
     [].forEach.call(document.querySelectorAll('[role="tablist"]'), initTabs);
     [].forEach.call(document.querySelectorAll('.marquee-pause'), initMarqueePause);

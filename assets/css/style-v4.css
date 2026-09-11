@@ -1033,23 +1033,8 @@ body.is-locked{ overflow:hidden; }
   .ftr .logo .lg-dot{ animation:none; }
 }
 
-/* ==========================================================================
-   Condensing header: the logo row collapses when scrolling down and comes
-   back on the way up, leaving the category nav pinned. Animated with grid
-   rows so the row collapses to its real height with nothing hard-coded.
-   ========================================================================== */
-.hdr > .wrap{ display:grid; grid-template-rows:1fr; transition:grid-template-rows .32s var(--ease); }
-.hdr.is-condensed > .wrap{ grid-template-rows:0fr; }
-/* The row's own padding sits outside the collapsing track, so it has to go
-   too or the header keeps a 44px ghost of the bar. */
-.hdr > .wrap > .hdr__bar{ overflow:hidden; min-height:0; transition:padding-block .32s var(--ease); }
-.hdr.is-condensed .hdr__bar{ padding-block:0; }
-/* The collapsed row is taken out of the tab order rather than left focusable
-   behind an invisible strip. Tabbing backwards scrolls up, which reopens it. */
-.hdr.is-condensed .hdr__bar{ visibility:hidden; }
-@media (prefers-reduced-motion: reduce){
-  .hdr > .wrap{ transition:none; }
-}
+/* Keep the sticky header height stable while scrolling. The category menu is
+   part of this header, so collapsing the logo row would make the menu jump. */
 
 /* ==========================================================================
    Oversized brand mark closing the footer. Decorative only - the footer
