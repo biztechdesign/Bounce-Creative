@@ -47,7 +47,7 @@
 .buy__rate{ margin-top:12px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:var(--t-cap); color:var(--forest-mid); }
 .buy__rate .ic{ color:var(--coral-text); }
 .buy__rate b{ color:var(--forest); font-weight:800; }
-.buy__lede{ margin-top:18px; font-size:var(--t-md); color:var(--forest-mid); max-width:52ch; }
+.buy__lede{ margin-top:18px; font-size:var(--t-md); color:var(--forest-mid); }
 
 .buy__price{ display:flex; align-items:baseline; gap:10px; margin-top:24px; padding-top:24px; border-top:1px solid var(--line); }
 .buy__from{ font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); }
@@ -141,9 +141,9 @@
   border-top:1px solid var(--line);
 }
 
-/* The six panels are a tab bar, not a row of buttons: one rule beneath the
-   whole set, the open tab marked by a heavier underline sitting on it. The
-   chip styles are shared with the home page, so these overrides live here. */
+/* The panels are a tab bar, not a row of buttons: one rule beneath the whole
+   set, the open tab marked by a heavier underline sitting on it. The chip
+   styles are shared with the home page, so these overrides live here. */
 .sec--rule .chiprow{ margin-bottom:0; }
 .sec--rule .chips{
   width:100%; margin-bottom:0; gap:0 4px;
@@ -160,7 +160,7 @@
   background:none; color:var(--forest); font-weight:800;
   border-bottom-color:var(--coral-text);
 }
-/* Below this the six tabs wrap, and a wrapped row leaves the underline sitting
+/* Below this the tabs wrap, and a wrapped row leaves the underline sitting
    under the last line only. Scrolling keeps the bar reading as one bar. */
 @media (max-width:900px){
   .sec--rule .chips{ flex-wrap:nowrap; overflow-x:auto; scrollbar-width:thin; }
@@ -168,31 +168,25 @@
 }
 .tab{ padding-top:32px; }
 .tab[hidden]{ display:none; }
+/* "Description / Product name", as the live tab is headed. */
+.tab__lede{ margin-bottom:20px; font-size:var(--t-md); color:var(--forest-mid); }
+.tab__lede b{ color:var(--forest); font-weight:800; }
+.tab__note{ margin-top:12px; font-size:var(--t-cap); color:var(--forest-mid); }
+.prose--one{ grid-template-columns:minmax(0,1fr); }
+.prose--one p{ max-width:72ch; }
+.prose--one + .facts,
+.facts + .prose--one{ margin-top:28px; }
+
 .spec{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 56px; margin:0; }
 .spec div{ display:flex; justify-content:space-between; gap:20px; padding:16px 0; border-bottom:1px solid var(--line); }
 .spec dt{ font-size:var(--t-ui); font-weight:800; }
 .spec dd{ margin:0; font-size:var(--t-ui); color:var(--forest-mid); text-align:right; }
 
-/* Print methods */
-.pm{ border-top:2px solid var(--forest); columns:2; column-gap:56px; }
-.pm__item{ border-bottom:1px solid var(--line); break-inside:avoid; }
-.pm__item summary{
-  display:flex; align-items:center; gap:14px; padding:20px 0; cursor:pointer; list-style:none;
-  font-family:var(--f-display); font-size:var(--h-card); font-weight:700; letter-spacing:-.03em;
-}
-.pm__item summary::-webkit-details-marker{ display:none; }
-.pm__item summary::marker{ content:''; }
-/* Same chevron as the FAQ, so a disclosure looks the same wherever it appears.
-   Without it there was nothing to say these rows opened. */
-.pm__item summary::after{
-  content:''; flex:0 0 auto; margin-left:auto; width:12px; height:12px;
-  border-right:2px solid var(--forest); border-bottom:2px solid var(--forest);
-  transform:rotate(45deg); transition:transform .22s var(--ease);
-}
-.pm__item[open] summary::after{ transform:rotate(-135deg); }
-.pm__item summary:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
-.pm__n{ font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; color:var(--coral-text); }
-.pm__item p{ padding:0 0 22px; font-size:var(--t-body); color:var(--forest-mid); }
+/* The "how we help" list in About us. */
+.facts{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0 32px; }
+.facts li{ padding:16px 0; border-top:1px solid var(--line); }
+.facts b{ display:block; font-size:var(--t-ui); font-weight:800; }
+.facts span{ display:block; margin-top:4px; font-size:var(--t-cap); color:var(--forest-mid); }
 
 /* ---------- Responsive ---------- */
 @media (max-width:1180px){
@@ -203,8 +197,8 @@
   /* Stacked, the buy box is what matters, so the image goes back to a square. */
   .gal{ position:static; }
   .gal__stage{ height:auto; aspect-ratio:1/1; }
-  .pm{ columns:1; }
   .spec{ grid-template-columns:minmax(0,1fr); gap:0; }
+  .facts{ grid-template-columns:minmax(0,1fr); }
 }
 @media (max-width:640px){
   .opt--row{ grid-template-columns:minmax(0,1fr); }
@@ -269,3 +263,668 @@
   .sam{ grid-template-columns:minmax(0,1fr); gap:28px; }
 }
 .rev__summary{ min-width:0; }
+
+/* ==========================================================================
+   Configurator — the live calculator the counter quotes from.
+   Mirrors the live site's cost breakdown (product / branding / setup /
+   surcharges / express) and its VAT toggle, in the v4 palette.
+   ========================================================================== */
+
+/* ---------- Size picker ----------
+   Same widget as the colour swatch, without the dot. */
+.size-row{ display:flex; flex-wrap:wrap; gap:8px; }
+.size{
+  min-width:52px; padding:10px 12px; background:var(--white);
+  border:1px solid var(--line-input); font:inherit; font-size:var(--t-ui);
+  font-weight:700; color:var(--forest); text-transform:uppercase;
+  letter-spacing:.04em; cursor:pointer; transition:border-color .15s var(--ease);
+}
+.size:hover{ border-color:var(--forest); }
+.size.is-on{ border-color:var(--forest); box-shadow:inset 0 0 0 1px var(--forest); }
+.size:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+.size[disabled]{
+  color:var(--forest-mid); cursor:not-allowed; opacity:.55;
+  background:linear-gradient(to top left,transparent 47%,var(--line-input) 47%,var(--line-input) 53%,transparent 53%);
+}
+.opt--aside{ position:relative; }
+.opt__link{
+  position:absolute; top:0; right:0; font-size:var(--t-cap); color:var(--coral-text);
+  text-transform:none; letter-spacing:0; font-family:var(--f-text);
+}
+
+/* ---------- Express + VAT switches ---------- */
+.switch{
+  display:flex; align-items:flex-start; gap:12px; padding:14px 16px;
+  background:var(--paper); box-shadow:inset 0 0 0 1px var(--line); cursor:pointer;
+}
+.switch input{ margin:2px 0 0; width:18px; height:18px; flex:0 0 auto; accent-color:var(--forest); }
+.switch b{ display:block; font-size:var(--t-ui); }
+.switch span{ display:block; margin-top:3px; font-size:var(--t-cap); color:var(--forest-mid); }
+.switch:focus-within{ outline:2px solid var(--coral-text); outline-offset:2px; }
+
+/* ---------- Cost breakdown ---------- */
+.calc{ margin-top:24px; }
+.calc__t{
+  font-family:var(--f-mono); font-size:var(--t-micro); font-weight:400;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid);
+  padding-bottom:10px; border-bottom:2px solid var(--forest);
+}
+.calc__rows{ list-style:none; margin:0; padding:0; }
+.calc__rows li{
+  display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+  padding:11px 0; border-bottom:1px solid var(--line); font-size:var(--t-ui);
+}
+.calc__rows dt,
+.calc__rows .calc__k{ color:var(--forest-mid); }
+.calc__rows .calc__v{ font-variant-numeric:tabular-nums; font-weight:700; }
+.calc__note{ display:block; margin-top:3px; font-size:var(--t-micro); color:var(--forest-mid); font-weight:400; }
+.calc__total{
+  display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+  padding:18px 0 0;
+}
+.calc__total .calc__k{ font-size:var(--t-ui); font-weight:800; }
+.calc__total .calc__v{
+  font-family:var(--f-display); font-size:var(--h-num); font-weight:700;
+  letter-spacing:-.04em; line-height:1; font-variant-numeric:tabular-nums;
+}
+.calc__sub{ display:flex; justify-content:space-between; gap:20px; margin-top:8px; font-size:var(--t-cap); color:var(--forest-mid); }
+.calc__switches{ display:grid; gap:10px; margin-top:18px; }
+
+
+
+
+/* ---------- Size chart table ---------- */
+.sizes{ width:100%; border-collapse:collapse; margin-top:8px; }
+.sizes th,
+.sizes td{ padding:12px 14px; text-align:left; border-bottom:1px solid var(--line); font-size:var(--t-ui); }
+.sizes thead th{
+  font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em;
+  text-transform:uppercase; color:var(--forest-mid); border-bottom:2px solid var(--forest);
+}
+.sizes tbody th{ font-weight:800; }
+.sizes td{ font-variant-numeric:tabular-nums; color:var(--forest-mid); }
+.sizes__scroll{ overflow-x:auto; }
+.sizes__scroll:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
+.sizes{ min-width:460px; }
+
+@media (max-width:560px){
+  .calc__total .calc__v{ font-size:var(--h-xl); }
+}
+
+/* ==========================================================================
+   Branding locations, quote form and wishlist — the remaining fields the live
+   configurator carries.
+   ========================================================================== */
+
+/* ---------- Branding locations ---------- */
+.locs{ display:grid; gap:12px; }
+.locs:not(:empty){ margin-top:4px; }
+/* The panel's edge is an inset box-shadow, which a <legend> does not notch the
+   way it notches a real border - the line drew straight through the text, and
+   the legend also pushed the remove button down onto the first field row. So
+   the heading is an ordinary flex row and JS names the fieldset via aria-label. */
+.loc{
+  border:0; margin:0; padding:18px; min-width:0;
+  background:var(--paper); box-shadow:inset 0 0 0 1px var(--line);
+}
+.loc__head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.loc > .opt{ margin-top:16px; }
+.loc__n{
+  padding:0; font-family:var(--f-mono); font-size:var(--t-micro); line-height:1.5;
+  letter-spacing:.04em; color:var(--forest);
+}
+.loc__rm{
+  font-size:var(--t-cap); line-height:1.5; color:var(--coral-text);
+  text-decoration:underline; background:none; border:0; cursor:pointer; padding:0;
+}
+.loc__rm:hover{ color:var(--forest); }
+.loc__rm:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
+/* Inside a location the two-up rows sit on the raised panel, so the controls
+   keep the white ground that separates them from it. */
+.loc .opt__t{ padding-bottom:8px; }
+
+.loc__cmyk{
+  margin-top:16px; display:flex; align-items:flex-start; gap:9px; padding:11px 13px;
+  background:var(--white); box-shadow:inset 0 0 0 1px var(--line);
+  font-size:var(--t-cap); color:var(--forest-mid);
+}
+/* display:flex above would otherwise beat the UA's [hidden] rule, since any
+   author declaration wins over the user agent sheet regardless of specificity. */
+.loc__cmyk[hidden]{ display:none; }
+.loc__cmyk .ic{ color:var(--forest); flex:0 0 auto; margin-top:2px; }
+.loc__cmyk b{ color:var(--forest); font-weight:800; }
+
+.loc__add{
+  display:inline-flex; align-items:center; gap:9px; justify-self:start;
+  min-height:44px; padding:0 16px; background:var(--white);
+  border:1px dashed var(--line-input); font:inherit; font-size:var(--t-ui);
+  font-weight:700; color:var(--forest); cursor:pointer;
+}
+.loc__add:hover:not(:disabled){ border-style:solid; border-color:var(--forest); }
+.loc__add:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+.loc__add:disabled{ color:var(--forest-mid); cursor:not-allowed; opacity:.55; }
+.loc__add .ic{ color:var(--coral-text); }
+
+
+
+
+.switch--gate input[aria-invalid="true"]{ outline:2px solid var(--coral-text); outline-offset:2px; }
+.gate__err{
+  display:flex; align-items:flex-start; gap:8px;
+  font-size:var(--t-cap); color:var(--coral-text); font-weight:700;
+}
+.gate__err[hidden]{ display:none; }
+.gate__err .ic{ flex:0 0 auto; margin-top:2px; }
+.gate__err a{ color:var(--coral-text); text-decoration:underline; }
+
+/* ==========================================================================
+   Branding position picker and quantity price breaks.
+   ========================================================================== */
+
+/* ---------- "Multiple branding location" toggle ---------- */
+/* A <legend> renders outside the fieldset's padding box, so it cannot share a
+   row with an absolutely positioned control. The heading is a span instead and
+   names the fieldset through aria-labelledby. */
+.areas__head{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.toggle{ display:inline-flex; align-items:center; gap:10px; cursor:pointer; margin-bottom:10px; }
+.toggle input{ position:absolute; opacity:0; width:0; height:0; }
+.toggle__track{
+  position:relative; width:46px; height:26px; flex:0 0 auto; border-radius:13px;
+  background:var(--line-input); transition:background .18s var(--ease);
+}
+.toggle__track::after{
+  content:''; position:absolute; top:3px; left:3px; width:20px; height:20px;
+  border-radius:50%; background:var(--white); transition:transform .18s var(--ease);
+}
+.toggle input:checked + .toggle__track{ background:var(--forest); }
+.toggle input:checked + .toggle__track::after{ transform:translateX(20px); }
+.toggle input:focus-visible + .toggle__track{ outline:2px solid var(--coral-text); outline-offset:3px; }
+.toggle__lbl{ font-size:var(--t-cap); font-weight:700; color:var(--forest); }
+
+/* ---------- Position strip ----------
+   Each card is the garment with the print zone drawn on it, so the choice is
+   made by looking rather than by reading a dropdown. */
+.areas__strip{
+  display:flex; gap:12px; margin-top:8px; padding-bottom:10px;
+  overflow-x:auto; scrollbar-width:thin;
+}
+.areas__strip:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
+.area{
+  position:relative; flex:0 0 auto; width:132px; padding:0;
+  background:var(--white); border:1px solid var(--line); cursor:pointer;
+  transition:border-color .18s var(--ease), box-shadow .18s var(--ease);
+}
+.area__media{ position:relative; display:block; aspect-ratio:1/1; }
+.area__img{ width:100%; height:100%; object-fit:contain; padding:8px; }
+/* The print zone. Dashed so it reads as a guide, not as part of the garment. */
+.area__box{
+  position:absolute; left:var(--x); top:var(--y); width:var(--w); height:var(--h);
+  border:1.5px dashed var(--coral-badge); background:rgba(222,49,16,.06);
+  pointer-events:none;
+}
+.area__name{
+  display:block; padding:8px 10px 10px; border-top:1px solid var(--line);
+  font-size:var(--t-micro); font-weight:700; color:var(--forest); text-align:left;
+}
+.area__tick{
+  position:absolute; top:0; right:0; display:none;
+  width:26px; height:26px; align-items:center; justify-content:center;
+  background:var(--coral-badge); color:var(--white);
+}
+.area:hover{ border-color:var(--forest); }
+.area.is-on{ border-color:var(--forest); box-shadow:inset 0 0 0 1px var(--forest); }
+.area.is-on .area__tick{ display:flex; }
+.area:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+.areas__help{ margin-top:4px; font-size:var(--t-cap); color:var(--forest-mid); max-width:56ch; }
+
+
+.opt__field--half{ max-width:260px; }
+
+/* ---------- Quantity price breaks ---------- */
+.breaks__t{
+  font-family:var(--f-mono); font-size:var(--t-micro); font-weight:400;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid);
+  margin-bottom:10px;
+}
+.breaks__scroll{ overflow-x:auto; }
+.breaks__scroll:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
+.breaks__table{ width:100%; min-width:460px; border-collapse:collapse; }
+.breaks__table th,
+.breaks__table td{ padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); font-size:var(--t-ui); }
+.breaks__table thead th{
+  font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em;
+  text-transform:uppercase; color:var(--forest-mid); border-bottom:2px solid var(--forest);
+}
+.breaks__table tbody th{ font-weight:800; font-variant-numeric:tabular-nums; }
+.breaks__table tbody th label{ cursor:pointer; display:block; }
+.breaks input[type="radio"]{ width:18px; height:18px; accent-color:var(--forest); cursor:pointer; }
+.break__save{ color:var(--green-text); font-size:var(--t-cap); }
+.break--sample .break__save{ color:var(--forest-mid); }
+.break__each{ font-variant-numeric:tabular-nums; color:var(--forest-mid); }
+/* The subtotal is the number people compare across rows, so it carries the
+   weight the live table gives it. */
+.break__sub{
+  font-variant-numeric:tabular-nums; font-weight:800; color:var(--forest);
+  background:var(--paper);
+}
+.break.is-on{ background:var(--sage-green); }
+.break.is-on .break__sub{ background:transparent; }
+.break__up{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:36px; height:36px; background:var(--white);
+  border:1px solid var(--line-input); color:var(--forest); cursor:pointer;
+}
+.break__up:hover{ border-color:var(--forest); background:var(--paper); }
+.break__up:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+.breaks__note{ margin-top:10px; font-size:var(--t-cap); color:var(--forest-mid); }
+
+
+
+/* ---------- Select control ----------
+   The native arrow renders differently in every browser and sits hard against
+   the edge with no room around it. This paints the same chevron the sprite uses
+   elsewhere, at a fixed inset, and reserves the space so a long option label
+   can never run underneath it. The colour is baked in because a data URI has no
+   access to currentColor. */
+.opt__field select{
+  appearance:none; -webkit-appearance:none; -moz-appearance:none;
+  padding-right:46px; background-color:var(--white);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath fill='none' stroke='%23133935' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round' d='M1 1.6 7 7.4 13 1.6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 16px center;
+  background-size:13px 9px;
+  cursor:pointer;
+}
+.opt__field select::-ms-expand{ display:none; }
+.opt__field select:hover{ border-color:var(--forest); }
+.opt__field select:disabled{
+  color:var(--forest-mid); cursor:not-allowed; background-color:var(--band);
+  opacity:.7;
+}
+
+/* ==========================================================================
+   Tile groups — branding type, number of colours, logo size.
+   The live configurator picks these from filled buttons, not dropdowns: the
+   chosen tile inverts and carries the same tick badge as a chosen position.
+   ========================================================================== */
+.tiles + .tiles{ margin-top:16px; }
+.tiles__t{
+  display:block; padding:0 0 8px; font-family:var(--f-mono); font-size:var(--t-micro);
+  letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid);
+}
+.req{ color:var(--coral-badge); font-weight:700; }
+.tiles__row{ display:flex; flex-wrap:wrap; gap:8px; }
+/* Branding type names are long, so they get a two-up grid rather than a wrap. */
+.tiles__row--wide{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+
+.tile{
+  position:relative; min-height:46px; padding:10px 16px;
+  background:var(--white); border:1px solid var(--line-input);
+  font:inherit; font-size:var(--t-cap); font-weight:700; line-height:1.3;
+  color:var(--forest); text-align:center; cursor:pointer;
+  transition:background .15s var(--ease), border-color .15s var(--ease);
+}
+/* Wide enough that a three-digit value sits clear of the corner badge. */
+.tile--num{ min-width:72px; padding:10px 26px; font-variant-numeric:tabular-nums; }
+.tile:hover{ border-color:var(--forest); }
+.tile.is-on{ background:var(--forest); border-color:var(--forest); color:var(--oat); }
+.tile:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+
+/* The tick badge, shared with the position cards. */
+.tile__tick{
+  position:absolute; top:-1px; right:-1px; display:none;
+  width:20px; height:20px; align-items:center; justify-content:center;
+  background:var(--coral-badge); color:var(--white);
+}
+.tile.is-on .tile__tick{ display:flex; }
+.tiles[hidden]{ display:none; }
+
+/* ---------- Location panel header ---------- */
+.loc__thumb{
+  width:44px; height:44px; flex:0 0 auto; object-fit:contain;
+  background:var(--white); box-shadow:inset 0 0 0 1px var(--line); padding:3px;
+}
+.loc__head{ align-items:center; margin-bottom:16px; }
+.loc__n{ margin-right:auto; }
+
+/* ==========================================================================
+   Get a quote — a dialog, as on the live site.
+   ========================================================================== */
+.quote__open{ margin-top:18px; }
+
+/* A button that reads as a link in running copy - used where the notice text
+   says "request a formal quote" and needs to open the dialog. */
+.linkbtn{
+  display:inline; padding:0; background:none; border:0; font:inherit;
+  color:var(--coral-text); font-weight:700; text-decoration:underline; cursor:pointer;
+}
+.linkbtn:hover{ color:var(--forest); }
+.linkbtn:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
+
+.qmodal{
+  width:min(560px, calc(100vw - 32px)); max-height:calc(100vh - 32px);
+  padding:0; border:0; background:var(--oat); color:var(--forest);
+  box-shadow:var(--shadow-hard);
+}
+.qmodal::backdrop{ background:rgba(19,57,53,.55); }
+.qmodal__form{ padding:clamp(20px,3vw,28px); display:grid; gap:16px; }
+.qmodal__head{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.qmodal__t{ font-size:var(--d-3); }
+.qmodal__x{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:40px; height:40px; flex:0 0 auto; background:var(--white);
+  border:1px solid var(--line-input); color:var(--forest); cursor:pointer;
+}
+.qmodal__x:hover{ border-color:var(--forest); }
+.qmodal__x:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+.qmodal__lede{ font-size:var(--t-body); color:var(--forest-mid); max-width:58ch; }
+.qmodal__sku{
+  padding:10px 14px; background:var(--paper); box-shadow:inset 0 0 0 1px var(--line);
+  font-size:var(--t-cap); color:var(--forest-mid);
+}
+.qmodal__sku b{ color:var(--forest); font-weight:800; }
+
+.qmodal__grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px 16px; }
+.qfield{ display:block; min-width:0; }
+.qfield--wide{ grid-column:1 / -1; }
+.qfield__t{
+  display:block; padding:0 0 8px; font-family:var(--f-mono); font-size:var(--t-micro);
+  letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid);
+}
+.qfield input{
+  width:100%; min-height:46px; padding:0 14px; font:inherit; font-size:var(--t-ui);
+  color:var(--forest); background:var(--white); border:1px solid var(--line-input);
+}
+.qfield input:focus-visible{ outline:2px solid var(--coral-text); outline-offset:-1px; }
+.qfield input:user-invalid{ border-color:var(--coral-badge); }
+
+.qmodal__opts{ display:grid; gap:10px; }
+.qopt{ display:flex; align-items:center; gap:10px; font-size:var(--t-ui); font-weight:700; cursor:pointer; }
+.qopt input{ width:18px; height:18px; margin:0; accent-color:var(--forest); flex:0 0 auto; }
+.qopt input:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+.qmodal__cta{ display:flex; gap:12px; flex-wrap:wrap; }
+.qmodal__cta .btn{ flex:1 1 200px; }
+.qmodal__note{ font-size:var(--t-micro); color:var(--forest-mid); }
+
+@media (max-width:560px){
+  .qmodal__grid{ grid-template-columns:minmax(0,1fr); }
+}
+
+/* ---------- Per-type option tiles ---------- */
+.tile[hidden]{ display:none; }
+/* The CMYK confirmation is information, not a choice. */
+.tile--static{ cursor:default; }
+.break__save.is-neg{ color:var(--coral-text); }
+.break--more[hidden]{ display:none; }
+.breaks__more{
+  display:inline-flex; align-items:center; gap:6px; margin-top:12px; padding:6px 0;
+  background:none; border:0; font:inherit; font-size:var(--t-cap); font-weight:700;
+  font-style:italic; color:var(--forest); cursor:pointer;
+}
+.breaks__more span{ color:var(--coral-text); font-style:normal; font-size:var(--t-md); }
+.breaks__more:hover{ color:var(--coral-text); }
+.breaks__more:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
+
+/* ==========================================================================
+   Quantity slider, order summary, action rows and share links - the bottom
+   of the live configurator.
+   ========================================================================== */
+
+/* ---------- Quantity slider ---------- */
+.qrange{ display:grid; gap:10px; }
+.qrange__val{
+  justify-self:start; min-width:64px; padding:8px 14px; text-align:center;
+  background:var(--coral-badge); color:var(--white);
+  font-family:var(--f-display); font-weight:700; font-size:var(--t-ui);
+  font-variant-numeric:tabular-nums;
+}
+.qrange input[type="range"]{
+  width:100%; height:6px; margin:6px 0; appearance:none; -webkit-appearance:none;
+  background:linear-gradient(to right, var(--forest) 0 var(--fill,0%), var(--line) var(--fill,0%) 100%);
+  border-radius:3px; cursor:pointer;
+}
+.qrange input[type="range"]::-webkit-slider-thumb{
+  appearance:none; -webkit-appearance:none; width:22px; height:22px; border-radius:50%;
+  background:var(--forest); border:3px solid var(--white); box-shadow:0 0 0 1px var(--forest);
+}
+.qrange input[type="range"]::-moz-range-thumb{
+  width:16px; height:16px; border-radius:50%;
+  background:var(--forest); border:3px solid var(--white); box-shadow:0 0 0 1px var(--forest);
+}
+.qrange input[type="range"]:focus-visible{ outline:2px solid var(--coral-text); outline-offset:6px; }
+.qrange__ends{ display:flex; justify-content:space-between; font-size:var(--t-cap); color:var(--forest-mid); line-height:1.3; }
+.qrange__ends span:last-child{ text-align:right; }
+
+/* ---------- Order summary ---------- */
+.summary{
+  display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); gap:24px;
+  padding:22px; background:var(--paper); box-shadow:inset 0 0 0 1px var(--line);
+}
+.summary__main{ display:grid; gap:10px; align-content:start; min-width:0; }
+.summary__free{ font-size:var(--t-body); font-weight:700; color:var(--forest-mid); }
+.summary__free.is-on{ color:var(--green-text); }
+.summary__gate{ display:flex; align-items:center; gap:10px; font-size:var(--t-body); font-weight:700; color:var(--coral-text); cursor:pointer; }
+.summary__gate input{ width:18px; height:18px; margin:0; accent-color:var(--coral-badge); }
+.summary__gate input:checked + span{ color:var(--green-text); }
+.summary__gate input:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+.summary__gatenote{ margin-top:-4px; font-size:var(--t-micro); color:var(--forest-mid); }
+.summary__lbl{ margin-top:6px; font-size:var(--t-md); color:var(--forest); }
+.summary__price{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+.summary__price b{
+  font-family:var(--f-display); font-size:var(--h-num); font-weight:700;
+  letter-spacing:-.04em; line-height:1; font-variant-numeric:tabular-nums;
+}
+.summary__vat{ font-size:var(--t-ui); font-weight:700; color:var(--forest-mid); }
+.summary__info{
+  width:24px; height:24px; align-self:center; border-radius:50%;
+  border:1.5px solid var(--forest); background:var(--white); color:var(--forest);
+  font-family:var(--f-display); font-weight:700; font-size:13px; line-height:1; cursor:pointer;
+}
+.summary__info:hover,
+.summary__info[aria-expanded="true"]{ background:var(--forest); color:var(--oat); }
+.summary__info:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+.summary__sub{ font-size:var(--t-cap); color:var(--forest-mid); }
+.summary .calc{ margin-top:0; }
+.summary .calc[hidden]{ display:none; }
+.summary .toggle{ margin:6px 0 0; }
+.summary .toggle__lbl small{ display:block; font-weight:400; font-size:var(--t-micro); color:var(--forest-mid); }
+
+.summary__side{ display:grid; gap:8px; align-content:start; min-width:0; }
+.summary__pts{ display:flex; align-items:center; gap:8px; font-size:var(--t-body); font-weight:700; }
+.summary__pts .ic{ color:var(--coral-badge); flex:0 0 auto; }
+.summary__pts b{ color:var(--coral-text); }
+.summary__ptsnote{ font-size:var(--t-cap); color:var(--coral-text); }
+.summary__ptsnote b{ color:var(--coral-text); }
+.summary__stock{
+  margin-top:8px; font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em;
+  text-transform:uppercase; color:var(--forest-mid);
+}
+.summary__signup{
+  display:grid; gap:2px; padding:16px 18px; text-align:center; text-decoration:none;
+  background:var(--coral-badge); color:var(--white);
+}
+.summary__signup span{ font-size:var(--t-ui); font-weight:700; }
+.summary__signup b{ font-size:var(--t-md); font-weight:800; text-transform:uppercase; letter-spacing:.04em; }
+.summary__signup:hover{ background:var(--forest); }
+.summary__signup:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
+
+/* ---------- Action rows ---------- */
+.acts{ display:flex; gap:12px; flex-wrap:wrap; }
+.acts .btn{ flex:1 1 200px; }
+.acts--cart .qty{ flex:0 0 auto; max-width:200px; }
+.acts .wishlist{ display:inline-flex; gap:8px; text-decoration:none; padding:0 16px; }
+.acts .wishlist .ic{ color:var(--coral-badge); }
+
+/* ---------- Quantity stepper ---------- */
+.qty{ display:flex; }
+.qty input{
+  width:100%; min-width:0; min-height:48px; padding:0 8px; font:inherit;
+  font-size:var(--t-ui); font-weight:700; font-variant-numeric:tabular-nums; text-align:center;
+  color:var(--oat); background:var(--forest); border:1px solid var(--forest); border-inline:0;
+  -moz-appearance:textfield;
+}
+.qty input::-webkit-outer-spin-button,
+.qty input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+.qty input:focus-visible{ outline:2px solid var(--coral-text); outline-offset:-2px; }
+.qty__btn{
+  width:44px; flex:0 0 auto; background:var(--forest); color:var(--oat);
+  border:1px solid var(--forest); font-family:var(--f-display);
+  font-size:18px; line-height:1; cursor:pointer;
+}
+.qty__btn:hover{ background:var(--coral-badge); border-color:var(--coral-badge); }
+.qty__btn:focus-visible{ outline:2px solid var(--coral-text); outline-offset:-2px; }
+
+/* ---------- Share ---------- */
+.buy__top{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.share{ list-style:none; margin:0; padding:0; display:flex; gap:0; }
+.share a{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:34px; height:34px; color:var(--forest); background:var(--white);
+  border:1px solid var(--line); margin-left:-1px;
+}
+.share a:hover{ color:var(--coral-text); border-color:var(--forest); position:relative; z-index:1; }
+.share .ic{ width:14px; height:14px; }
+.share a:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; position:relative; z-index:1; }
+
+@media (max-width:640px){
+  .summary{ grid-template-columns:minmax(0,1fr); }
+}
+.qrange__t{
+  font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em;
+  text-transform:uppercase; color:var(--forest-mid);
+}
+
+/* ==========================================================================
+   Description tab: short description, branding-type sub-tabs with the price
+   matrix, then the longer copy. Guide images in the branding FAQ.
+   ========================================================================== */
+.tab__desc{ margin:-8px 0 22px; font-size:var(--t-md); color:var(--forest); max-width:72ch; }
+
+.mx-tabs{ margin-bottom:32px; }
+/* Sub-tabs read as pills, so they are not confused with the main tab bar. */
+.sec--rule .chips--sub{ width:auto; border-bottom:0; gap:8px; margin-bottom:14px; }
+.sec--rule .chip--sub{
+  min-height:40px; padding:0 16px; margin:0;
+  border:1px solid var(--line-input); border-bottom-width:1px; background:var(--white);
+  font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.08em; text-transform:uppercase;
+  font-weight:500; color:var(--forest);
+}
+.sec--rule .chip--sub:hover{ border-color:var(--forest); border-bottom-color:var(--forest); color:var(--forest); }
+.sec--rule .chip--sub[aria-selected="true"]{
+  background:var(--forest); border-color:var(--forest); color:var(--oat); font-weight:500;
+}
+.tab--sub{ padding-top:0; }
+
+.mx__scroll{ overflow-x:auto; }
+.mx__scroll:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
+.mx{ border-collapse:separate; border-spacing:4px; min-width:100%; }
+.mx th,
+.mx td{ padding:10px 12px; text-align:center; font-size:var(--t-cap); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.mx thead th{ font-weight:800; color:var(--forest); vertical-align:bottom; line-height:1.3; }
+.mx thead th small{ display:block; font-weight:400; font-size:var(--t-micro); color:var(--forest-mid); }
+/* Zebra by fill only - two adjacent cream tints, so the stripe is felt rather than seen. */
+.mx tbody th{ font-weight:700; background:var(--paper); }
+.mx tbody td{ background:var(--paper); color:var(--forest-mid); }
+.mx tbody tr:nth-child(even) th,
+.mx tbody tr:nth-child(even) td{ background:var(--oat); }
+
+/* Two portrait images stacked, as on live, sized so they do not dominate. */
+.faq__imgs{ display:flex; flex-wrap:wrap; gap:12px; padding:0 0 28px; }
+.faq__imgs img{ width:min(100%, 220px); height:auto; display:block; box-shadow:inset 0 0 0 1px var(--line); }
+
+/* ---------- You'll love us ---------- */
+.love__sum{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:var(--t-body); color:var(--forest-mid); }
+.love__sum b{ color:var(--forest); font-weight:800; }
+.love__stars{ display:inline-flex; gap:2px; color:var(--coral-display); }
+.love{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+.love__card{
+  display:grid; align-content:start; gap:8px; padding:20px;
+  background:var(--white); box-shadow:inset 0 0 0 1px var(--line);
+}
+.love__who{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:var(--t-cap); }
+.love__who b{ font-weight:800; }
+.love__vf{ display:inline-flex; align-items:center; gap:5px; font-size:var(--t-micro); color:var(--green-text); }
+.love__body{ font-size:var(--t-body); color:var(--forest-mid); line-height:1.55; }
+.love__when{ margin-top:auto; padding-top:6px; font-size:var(--t-micro); color:var(--forest-mid); }
+@media (max-width:1100px){ .love{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:600px){ .love{ grid-template-columns:minmax(0,1fr); } }
+
+/* ---------- Configure your product: quantity by size ----------
+   The live grid for sized products: size, stock level, quantity field per
+   size for the chosen colour. Two rows per line and columns sized for three
+   digits, so six sizes take three lines rather than six. */
+.cfg{ padding:14px 16px 12px; background:var(--paper); box-shadow:inset 0 0 0 1px var(--line); }
+.cfg__head{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:10px; }
+.cfg__t{
+  font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em;
+  text-transform:uppercase; color:var(--forest);
+}
+.cfg__col{
+  display:inline-block; padding:6px 10px; background:var(--forest); color:var(--oat);
+  font-size:var(--t-micro); font-weight:700; text-transform:uppercase; letter-spacing:.06em;
+  white-space:nowrap;
+}
+.cfg__legend{
+  display:grid; grid-template-columns:44px 56px 1fr; gap:8px; width:calc(50% - 8px);
+  font-size:var(--t-micro); font-weight:800; color:var(--forest); margin-bottom:4px;
+}
+.cfg__rows{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px 16px; }
+.cfg__row{ display:grid; grid-template-columns:44px 56px 1fr; gap:8px; align-items:center; }
+.cfg__size{ font-size:var(--t-micro); font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--forest); }
+.cfg__stock{
+  min-height:34px; display:inline-flex; align-items:center; justify-content:center;
+  background:var(--white); box-shadow:inset 0 0 0 1px var(--line);
+  font-size:var(--t-cap); font-variant-numeric:tabular-nums; color:var(--forest-mid);
+}
+.cfg__qty{
+  width:100%; min-width:0; max-width:96px; min-height:34px; padding:0 10px; font:inherit; font-size:var(--t-cap);
+  color:var(--forest); background:var(--white); border:1px solid var(--line-input);
+  font-variant-numeric:tabular-nums; -moz-appearance:textfield;
+}
+.cfg__qty::-webkit-outer-spin-button,
+.cfg__qty::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+.cfg__qty:focus-visible{ outline:2px solid var(--coral-text); outline-offset:-1px; }
+.cfg__qty:disabled{ background:var(--band); color:var(--forest-mid); cursor:not-allowed; }
+.cfg__sum{ margin-top:10px; font-size:var(--t-cap); color:var(--forest-mid); }
+.cfg__sum b{ color:var(--forest); font-weight:800; }
+@media (max-width:640px){
+  .cfg__rows{ grid-template-columns:minmax(0,1fr); }
+  .cfg__legend{ width:auto; }
+}
+.qrange[hidden], .qty[hidden]{ display:none; }
+/* Supplier position images already carry the zone marker. */
+.area__img--pos{ padding:0; }
+
+/* ---------- ESG footprint ---------- */
+.esg{
+  display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding:10px 14px;
+  background:var(--sage-green); font-size:var(--t-cap); color:var(--forest);
+}
+.esg__t{
+  padding:4px 8px; background:var(--forest); color:var(--oat);
+  font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase;
+}
+.esg__body b{ font-weight:800; }
+
+/* ---------- Bespoke-quote products ----------
+   No configurator: the buy box is the price, a tagline and an inline quote form. */
+.buy__tag{ margin-top:14px; font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest); }
+.qform{ margin-top:26px; padding:22px; background:var(--paper); box-shadow:inset 0 0 0 1px var(--line); display:grid; gap:18px; }
+.qform__t{ font-size:var(--h-card); }
+.qform__row{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.4fr); gap:16px; align-items:start; }
+.qform .qty{ max-width:200px; }
+.qform .qfield input[type="text"],
+.qform .qfield input[type="email"]{ background:var(--white); }
+.qform__drop{
+  display:block; position:relative; min-height:46px; border:1px dashed var(--line-input);
+  background:var(--white); cursor:pointer;
+}
+.qform__drop input{ position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer; }
+.qform__drop > span{
+  display:flex; align-items:center; justify-content:center; gap:8px; min-height:46px; padding:0 14px;
+  font-size:var(--t-cap); color:var(--forest-mid);
+}
+.qform__drop:hover{ border-color:var(--forest); }
+.qform__drop:focus-within{ outline:2px solid var(--coral-text); outline-offset:2px; }
+.qform .acts{ margin-top:2px; }
+@media (max-width:640px){ .qform__row{ grid-template-columns:minmax(0,1fr); } }
