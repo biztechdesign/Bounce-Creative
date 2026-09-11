@@ -227,6 +227,7 @@ PRODUCTS = [
             "R11209T": {"S": 2, "M": 17, "L": 8, "XL": 19, "2XL": 22, "3XL": 2},
         },
         "express": {"rate": 0, "fee": 100.00},   # live: expressCharges 100, flat
+        "show_breaks": False,                    # quantity is entered by size; no break table
         "co2_kg": 3.768416953,                   # live ESG footprint, per unit
         # The live positions. Each has a supplier image per colourway with the
         # print zone already marked, so no overlay box is drawn.
@@ -823,6 +824,8 @@ def breaks_table(p):
     first branding type, one colour) using the same arithmetic the calculator
     applies, so with JS off the table is a real price list.
     """
+    if p.get("show_breaks") is False:
+        return ""
     m0 = p["methods"][0]
     c0 = m0["colours"][0] if m0["colours"] else 1
     baseline = baseline_each(p)
