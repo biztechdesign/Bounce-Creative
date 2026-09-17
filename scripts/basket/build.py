@@ -17,7 +17,7 @@ PDP = ROOT / "scripts" / "pdp"
 CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
 FOOTER = (PDP / "_footer.html").read_text(encoding="utf-8").replace(
     '<script src="assets/js/pdp-v4.js?v=23"></script>',
-    '<script src="assets/js/basket-v4.js?v=1"></script>')
+    '<script src="assets/js/basket-v4.js?v=2"></script>')
 
 VAT = 0.20
 
@@ -44,6 +44,7 @@ BASKET = {
     "file": "basket-v4.html",
     "title": "Your basket | Bounce Creative Designs",
     "phone": "020 8318 9603",
+    "points": {"balance": 500, "value": 0.50},   # reward points on the account, £ per point
     "lines": [{
         "name": "CARRO Folding Crate Container Trolley",
         "sku": "mid-MO6746-03",
@@ -193,6 +194,7 @@ def page(c):
 
           <dl class="totals">
             <div><dt>Subtotal</dt><dd id="t-sub">{money(subtotal)}</dd></div>
+            <div class="totals__pts" id="t-pts-row" hidden><dt>Reward points <span id="t-pts-n">0 pts</span></dt><dd id="t-pts">&minus;&pound;0.00</dd></div>
             <div><dt>VAT <span>20%</span></dt><dd id="t-vat">{money(vat)}</dd></div>
             <div class="totals__ship"><dt>Delivery</dt><dd>Calculated at checkout</dd></div>
             <div class="totals__grand"><dt>Total</dt><dd id="t-total">{money(subtotal + vat)}</dd></div>
@@ -207,6 +209,27 @@ def page(c):
               <button class="btn btn--outline btn--sm" type="submit">Apply</button>
             </div>
           </form>
+
+          <!-- Spend reward points: slider and field stay in sync; "maximise" pins to the balance -->
+          <section class="pts" aria-labelledby="pts-h" data-balance="{c["points"]["balance"]}" data-value="{c["points"]["value"]}">
+            <h3 class="pts__t" id="pts-h">Spend your points</h3>
+            <p class="pts__have">You have <b>{c["points"]["balance"]:,} points</b> &middot; each point is worth <b>&pound;{c["points"]["value"]:.2f}</b> off</p>
+            <label class="pts__lbl" for="pts-range">Choose how many points to spend</label>
+            <div class="qrange pts__range">
+              <input type="range" id="pts-range" min="0" max="{c["points"]["balance"]}" step="1" value="0" aria-describedby="pts-worth">
+              <div class="qrange__ends"><span>0</span><span>{c["points"]["balance"]:,}</span></div>
+            </div>
+            <div class="pts__row">
+              <label for="pts-n">You will spend</label>
+              <input type="number" id="pts-n" min="0" max="{c["points"]["balance"]}" step="1" value="0" inputmode="numeric">
+              <span>points</span>
+              <b class="pts__worth" id="pts-worth">= &pound;0.00 off</b>
+            </div>
+            <label class="pts__max">
+              <input type="checkbox" id="pts-max">
+              <span>Maximise my discount with points</span>
+            </label>
+          </section>
 
           <details class="ship">
             <summary>Estimate shipping and tax</summary>
@@ -247,7 +270,7 @@ def page(c):
 <link rel="stylesheet" href="assets/css/style-v4.css?v=114">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=21">
 <link rel="stylesheet" href="assets/css/pdp-v4.css?v=65">
-<link rel="stylesheet" href="assets/css/basket-v4.css?v=3">
+<link rel="stylesheet" href="assets/css/basket-v4.css?v=4">
 <script>document.documentElement.className += " js";</script>
 """
     # the footer partial opens with </main>; this page closes main itself

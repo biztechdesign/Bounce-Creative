@@ -110,6 +110,22 @@
 .code__row{ display:flex; gap:8px; margin-top:8px; }
 .code__row input{ flex:1 1 auto; min-width:0; min-height:44px; padding:0 14px; font:inherit; font-size:var(--t-ui); color:var(--forest); background:var(--white); border:1px solid var(--line-input); }
 .code__row input:focus-visible{ outline:2px solid var(--coral-text); outline-offset:-1px; }
+/* ---------- Spend your points ---------- */
+.pts{ padding:18px 0 4px; border-top:1px solid var(--line); }
+.pts__t{ font-size:var(--h-card); letter-spacing:-.02em; }
+.pts__have{ margin-top:6px; font-size:var(--t-cap); color:var(--forest-mid); }
+.pts__have b{ color:var(--forest); font-weight:800; }
+.pts__lbl{ display:block; margin-top:14px; font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); }
+.pts__range{ margin-top:10px; }
+.pts__row{ display:flex; align-items:center; gap:10px; margin-top:12px; font-size:var(--t-cap); color:var(--forest-mid); }
+.pts__row input{ width:84px; min-height:40px; padding:0 10px; font:inherit; font-size:var(--t-ui); font-weight:700; text-align:center; color:var(--forest); background:var(--white); border:1px solid var(--line-input); }
+.pts__row input:focus-visible{ outline:2px solid var(--coral-text); outline-offset:-1px; }
+.pts__worth{ margin-left:auto; color:var(--green-text); font-weight:800; font-variant-numeric:tabular-nums; }
+.pts__max{ display:flex; align-items:center; gap:10px; margin-top:12px; font-size:var(--t-cap); color:var(--forest); cursor:pointer; }
+.pts__max input{ width:18px; height:18px; margin:0; accent-color:var(--forest); flex:0 0 auto; }
+.totals__pts dd{ color:var(--green-text); }
+.totals__pts[hidden]{ display:none; }
+
 .ship summary{ display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); font-weight:700; cursor:pointer; list-style:none; }
 .ship summary::-webkit-details-marker{ display:none; }
 .ship summary::after{ content:''; width:10px; height:10px; border-right:2px solid var(--forest); border-bottom:2px solid var(--forest); transform:rotate(45deg); transition:transform .2s var(--ease); }
