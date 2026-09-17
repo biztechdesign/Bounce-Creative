@@ -151,6 +151,38 @@
 @media (max-width:900px){
   .nav__tog, .mega, .mega-scrim{ display:none !important; }
 }
+
+/* ---------- Drawer groups ----------
+   On a phone the same sub-categories live in the drawer, one accordion per
+   category, so nothing the desktop panel offers is out of reach. */
+.drawer__group details{ border-bottom:1px solid var(--line); }
+.drawer__group summary{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  min-height:50px; padding:12px 0; font-size:var(--t-md); font-weight:700; cursor:pointer; list-style:none;
+}
+.drawer__group summary::-webkit-details-marker{ display:none; }
+.drawer__group summary .ic{ flex:0 0 auto; color:var(--forest-mid); transform:rotate(90deg); transition:transform .2s var(--ease); }
+.drawer__group details[open] > summary{ color:var(--coral-text); }
+.drawer__group details[open] > summary .ic{ transform:rotate(-90deg); color:var(--coral-text); }
+.drawer__group summary:focus-visible{ outline:2px solid var(--coral-text); outline-offset:-2px; }
+.drawer__sub{ padding:2px 0 18px; }
+.drawer__list .drawer__all{
+  display:inline-flex; align-items:center; gap:8px; min-height:0; padding:0 0 4px; margin-bottom:6px;
+  border-bottom:2px solid var(--forest); font-size:var(--t-ui); font-weight:800;
+}
+.drawer__list .drawer__all .ic{ color:var(--coral-text); }
+.drawer__sub-t{
+  margin:16px 0 2px; font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em;
+  text-transform:uppercase; color:var(--forest-mid);
+}
+.drawer__sub ul{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 16px; }
+.drawer__list .drawer__sub ul a{ min-height:0; padding:7px 0; border-bottom:0; font-size:var(--t-ui); font-weight:500; color:var(--forest); }
+.drawer__list .drawer__sub ul a:hover{ color:var(--coral-text); }
+.drawer__list .is-eco{ color:var(--green-text); }
+.drawer__list .is-eco .ic{ color:var(--green-text); }
+.drawer__list--quiet{ margin-top:-8px; }
+.drawer__list--quiet a{ min-height:44px; padding:8px 0; font-size:var(--t-ui); font-weight:600; color:var(--forest-mid); }
+@media (prefers-reduced-motion: reduce){ .drawer__group summary .ic{ transition:none; } }
 @media (prefers-reduced-motion: reduce){
   .js .mega{ transition:none; transform:none; }
   .mega-scrim{ transition:none; }

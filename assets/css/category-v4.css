@@ -1,6 +1,6 @@
 /* ==========================================================================
    Category landing page - layered on style-v4.css and list-v4.css.
-   Desktop layout only: this is a design reference for estimation.
+   Desktop first, with the responsive steps at the end of the file.
    ========================================================================== */
 
 /* ---------- Hero: copy on forest, the category composite on the right ---------- */
@@ -74,3 +74,49 @@
 .story__list .ic{ flex:0 0 auto; margin-top:3px; color:var(--green-text); }
 .story__list b{ display:block; color:var(--forest); font-weight:800; }
 .story__part > p:first-child{ margin-top:0; font-size:var(--t-lead); color:var(--forest); }
+
+/* ==========================================================================
+   Responsive. Same breakpoints as style-v4.css: 1180 (the sidebar-and-grid
+   width), 900 (the drawer takes over from the strip), 640 (single column).
+   ========================================================================== */
+@media (max-width:1180px){
+  .lhero__grid{ gap:36px; }
+  .ftiles{ gap:12px; }
+  .subcats{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+  #product-grid.rail--grid{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px 16px; }
+  .mtiles{ gap:12px; }
+  .story{ gap:44px; }
+}
+@media (max-width:900px){
+  .lhero__grid{ grid-template-columns:minmax(0,1fr); gap:0; }
+  .lhero__copy{ padding-block:40px 28px; }
+  .lhero p{ font-size:var(--t-md); }
+  .lhero__media{ align-self:auto; }
+  .lhero__media img{ max-height:340px; }
+  /* The five tiles become a swipe rail that bleeds to the screen edge, so the
+     row still reads as five and nothing gets squeezed to a sliver. */
+  .ftiles, .mtiles{
+    display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory;
+    margin-inline:calc(var(--gutter) * -1); padding-inline:var(--gutter); padding-bottom:4px;
+    scrollbar-width:none; -webkit-overflow-scrolling:touch;
+  }
+  .ftiles::-webkit-scrollbar, .mtiles::-webkit-scrollbar{ display:none; }
+  .ftile{ flex:0 0 min(46%,260px); scroll-snap-align:start; }
+  .mtile{ flex:0 0 min(60%,300px); scroll-snap-align:start; }
+  .subcats{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px 24px; }
+  #product-grid.rail--grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px 14px; }
+  .story{ grid-template-columns:minmax(0,1fr); gap:32px; }
+  .story__aside{ position:static; }
+  .story__stand{ max-width:none; }
+  .story__part{ padding:24px 0; }
+  .story__list{ grid-template-columns:minmax(0,1fr); gap:10px; }
+}
+@media (max-width:640px){
+  .lhero__copy{ padding-block:36px 24px; }
+  .lhero__cta .btn{ flex:1 1 auto; }
+  .ftile{ flex-basis:min(64%,240px); }
+  .ftile__name{ font-size:var(--t-lead); padding:14px 14px 12px; }
+  .mtile{ flex-basis:min(72%,260px); }
+  .subcats{ gap:16px 20px; }
+  .subcat__list a{ padding:8px 0; }
+}

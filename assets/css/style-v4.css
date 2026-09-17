@@ -757,6 +757,8 @@ body.is-locked{ overflow:hidden; }
   .ftr__top{ grid-template-columns:minmax(0,1fr); }
   .announce .wrap{ gap:14px; font-size:var(--t-micro); }
   .announce span::after{ display:none; }
+  /* One message at a time on a phone; three would stack to three lines. */
+  .announce span:nth-child(n+2){ display:none; }
   .brandrow__pause{ position:static; margin-bottom:16px; }
   .edit{ grid-template-columns:1fr; grid-template-rows:1.3fr 1fr; height:420px; }
   .edit__cell--tall{ grid-row:auto; }

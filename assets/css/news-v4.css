@@ -1,6 +1,6 @@
 /* ==========================================================================
    News listing and article - layered on style-v4.css and list-v4.css (post
-   cards, pager, eyebrow, buttons come from there). Desktop layout only.
+   cards, pager, eyebrow, buttons come from there). Desktop first, with the responsive steps at the end of the file.
    ========================================================================== */
 
 /* ---------- Listing head ---------- */
@@ -125,3 +125,47 @@
 .sidecard--forest{ background:var(--forest); color:var(--oat); box-shadow:none; }
 .sidecard--forest p{ margin-top:12px; font-size:var(--t-cap); line-height:1.6; color:rgba(238,233,222,.8); }
 .sidecard--forest p b{ color:var(--oat); font-weight:800; }
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width:1180px){
+  .newsgrid{ grid-template-columns:210px minmax(0,1fr); gap:36px; }
+  .lead{ gap:28px; }
+  .artgrid{ grid-template-columns:minmax(0,1fr) 280px; gap:40px; }
+}
+@media (max-width:900px){
+  .newshead{ flex-direction:column; align-items:flex-start; gap:12px; margin:20px 0 28px; }
+  .sortbar{ white-space:normal; flex-wrap:wrap; gap:10px 22px; padding-bottom:0; }
+  .newsgrid{ grid-template-columns:minmax(0,1fr); gap:28px; }
+  /* The rail sits above the stories as a compact row of tools. Category and
+     month share a line; search takes the next. */
+  .newsside{ position:static; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px 24px; align-items:start; padding-bottom:28px; border-bottom:1px solid var(--line); }
+  .newsside .nsec:last-child{ grid-column:1 / -1; }
+  .nsec__list{ display:flex; flex-wrap:wrap; gap:6px 14px; }
+  .nsec__list a{ padding:6px 0; border-bottom:0; }
+  .lead{ grid-template-columns:minmax(0,1fr); gap:18px; padding-bottom:32px; margin-bottom:32px; }
+  .lead__title{ font-size:var(--d-3); }
+  .posts--news{ gap:32px 20px; }
+  .newsmain .pager{ margin-top:36px; }
+  .arthead{ padding:12px 0 28px; }
+  .arthead h1{ max-width:none; }
+  .arthead__meta{ flex-wrap:wrap; gap:14px 28px; }
+  .arthero img{ aspect-ratio:16/10; }
+  .artgrid{ grid-template-columns:minmax(0,1fr); gap:40px; padding:32px 0 48px; }
+  .artbody h2{ margin-top:36px; }
+  .artside{ position:static; }
+  .artfig--rec{ grid-template-columns:120px minmax(0,1fr); gap:16px; padding:16px; }
+  .artpull{ padding:20px; }
+  .artpull p{ font-size:var(--h-card); }
+  .artlead p{ font-size:var(--h-lg); }
+  .bens{ grid-template-columns:minmax(0,1fr); }
+  .ben:nth-child(odd):last-child{ grid-column:auto; }
+  .artnav{ flex-direction:column; align-items:flex-start; gap:20px; margin-top:40px; }
+}
+@media (max-width:640px){
+  .newsside{ grid-template-columns:minmax(0,1fr); }
+  .newsside .nsec:last-child{ grid-column:auto; }
+  .artfig--rec{ grid-template-columns:minmax(0,1fr); }
+  .artfig--rec img{ max-width:200px; }
+}

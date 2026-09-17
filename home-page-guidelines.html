@@ -1,0 +1,503 @@
+<title>Bounce Home Page Guidelines</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#12141A; --paper:#FFFFFF; --band:#F5F4F1; --band-deep:#EBE9E4;
+  --line:#E2E0DB; --muted:#626873;
+  --red:#E50E46; --red-text:#C40A39; --red-press:#BF0B3A; --green:#1F8A5B;
+  --swatch-ring:rgba(18,20,26,.14);
+  --f-display:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --f-text:'Instrument Sans','Helvetica Neue',Arial,sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --sec:88px; --gutter:32px; --maxw:1180px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#F2F0EC; --paper:#0E1015; --band:#171A21; --band-deep:#1E222A;
+    --line:#2A2E36; --muted:#9AA0AB;
+    --red:#FF6E93; --red-text:#FF8EAD; --red-press:#FF9DB8; --green:#4FBF8B;
+    --swatch-ring:rgba(242,240,236,.18);
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#F2F0EC; --paper:#0E1015; --band:#171A21; --band-deep:#1E222A;
+  --line:#2A2E36; --muted:#9AA0AB;
+  --red:#FF6E93; --red-text:#FF8EAD; --red-press:#FF9DB8; --green:#4FBF8B;
+  --swatch-ring:rgba(242,240,236,.18);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--f-text); font-size:16px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{margin:0;font-family:var(--f-display);font-weight:700;letter-spacing:-.03em;line-height:1.04;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+ul{margin:0;padding:0;list-style:none}
+a{color:var(--red-text)}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+.sec{padding-block:var(--sec)}
+.sec--band{background:var(--band)}
+.sec--tight{padding-block:56px}
+
+/* section head - the page's own device, reused here */
+.eyebrow{
+  font-family:var(--f-text);font-size:14px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--red-text);
+  margin-bottom:20px;display:block;
+}
+.eyebrow--muted{color:var(--muted)}
+.sechead{margin-bottom:44px;max-width:640px}
+.sechead h2{font-size:clamp(30px,3.6vw,44px)}
+.sechead p{color:var(--muted);font-size:17px;margin-top:18px;max-width:56ch}
+
+/* masthead */
+.mast{padding-block:76px 0}
+.mast h1{font-size:clamp(38px,6vw,68px);letter-spacing:-.04em}
+.mast .lede{margin-top:24px;font-size:19px;max-width:60ch;color:var(--muted)}
+.metaline{
+  display:flex;flex-wrap:wrap;gap:0;margin-top:44px;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.metaline div{flex:1 1 168px;padding:16px 24px 16px 0}
+.metaline dt{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.metaline dd{margin:0;font-size:14.5px;font-weight:500}
+
+/* hairline rows - the system uses rules, not cards */
+.rows{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;padding:20px 0;border-bottom:1px solid var(--line)}
+.row--split{grid-template-columns:minmax(0,1.1fr) minmax(0,1.4fr);gap:40px;align-items:baseline}
+.row b{font-weight:600;font-size:15.5px}
+.row span{color:var(--muted);font-size:15px}
+.row .val{font-size:14.5px;font-weight:500;font-variant-numeric:tabular-nums}
+
+/* colour */
+.pal{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:28px 24px}
+.sw{display:flex;flex-direction:column;gap:14px}
+.sw__chip{height:104px;border-radius:var(--r,18px);border-radius:18px;box-shadow:inset 0 0 0 1px var(--swatch-ring)}
+.sw__name{font-weight:600;font-size:15.5px}
+.sw__hex{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.sw__use{font-size:14px;color:var(--muted);margin-top:4px}
+
+/* type specimen */
+.spec{border-top:1px solid var(--line)}
+.spec__row{display:grid;grid-template-columns:132px minmax(0,1fr);gap:32px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--line)}
+.spec__meta{font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1.5}
+.spec__meta b{display:block;color:var(--ink);font-weight:600;font-size:14.5px}
+.spec__eg{min-width:0;overflow:hidden;text-overflow:ellipsis}
+
+/* band rhythm map */
+.rhythm{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.rhythm__r{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:16px;align-items:center;padding:11px 16px;border-bottom:1px solid var(--line);font-size:14.5px}
+.rhythm__r:last-child{border-bottom:0}
+.rhythm__r.on{background:var(--band)}
+.rhythm__n{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.rhythm__t{font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rhythm__g{font-size:12.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+
+/* components */
+.demo{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-bottom:22px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;height:56px;padding:0 34px;
+  border-radius:999px;font-family:var(--f-text);font-size:15px;font-weight:600;
+  letter-spacing:.01em;white-space:nowrap;border:0;cursor:default;
+  transition:background .25s var(--ease),color .25s var(--ease);
+}
+.btn--primary{background:var(--red);color:#fff}
+.btn--ghost{background:transparent;border:1px solid var(--ink);color:var(--ink)}
+.btn--sm{height:46px;padding:0 24px;font-size:14px}
+.tlink{
+  display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15px;
+  padding-bottom:4px;border-bottom:1.5px solid var(--ink);color:var(--ink);
+}
+.flag{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--paper);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line);
+  font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+  padding:6px 11px;border-radius:999px;
+}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:0}
+.tabx{padding:10px 18px 12px;font-size:15px;font-weight:500;color:var(--muted);position:relative}
+.tabx.on{color:var(--ink);font-weight:600}
+.tabx.on::after{content:'';position:absolute;left:18px;right:18px;bottom:-1px;height:2px;background:var(--ink)}
+
+/* radii demo */
+.radii{display:flex;flex-wrap:wrap;gap:24px}
+.radii figure{margin:0;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.radii div{width:120px;height:76px;background:var(--band-deep);box-shadow:inset 0 0 0 1px var(--line)}
+.radii figcaption{font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* do / dont */
+.dd{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0;border-top:1px solid var(--line)}
+.dd > div{padding:22px 28px 22px 0;border-bottom:1px solid var(--line)}
+.dd h3{font-family:var(--f-text);font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px}
+.dd .do h3{color:var(--green)}
+.dd .dont h3{color:var(--red-text)}
+.dd li{padding-left:20px;position:relative;margin-bottom:11px;font-size:15px;color:var(--muted)}
+.dd li::before{content:'';position:absolute;left:0;top:9px;width:9px;height:1.5px;background:currentColor}
+.dd li b{color:var(--ink);font-weight:600}
+
+.note{border-left:2px solid var(--red);padding:4px 0 4px 22px;margin-top:28px;max-width:64ch}
+.note p{color:var(--muted);font-size:15.5px}
+.note b{color:var(--ink);font-weight:600}
+
+footer{padding-block:56px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+footer p{max-width:70ch;margin-bottom:8px}
+
+@media (max-width:760px){
+  :root{--sec:56px;--gutter:20px}
+  .row--split,.spec__row{grid-template-columns:1fr;gap:8px}
+  .metaline div{flex:1 1 100%;border-bottom:1px solid var(--line)}
+  .metaline div:last-child{border-bottom:0}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <span class="eyebrow">Home page &middot; Applied system</span>
+    <h1>Bounce Creative Designs</h1>
+    <p class="lede">How the brand is applied on the home page: the two-colour rule, the type scale
+    actually in use, the section rhythm, and the component specs. Everything here is read from the
+    shipped stylesheet, not proposed.</p>
+    <dl class="metaline">
+      <div><dt>Scope</dt><dd>index.html</dd></div>
+      <div><dt>Source</dt><dd>assets/css/style.css</dd></div>
+      <div><dt>Commit</dt><dd>7b714d6</dd></div>
+      <div><dt>Standard</dt><dd>WCAG 2.2 AA</dd></div>
+    </dl>
+  </div>
+</header>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sechead">
+      <span class="eyebrow">Foundation</span>
+      <h2>Two colours carry the identity.</h2>
+      <p>Ink and Bounce Red do the work. Everything else is ground &mdash; quiet, warm neutrals that
+      exist so the two brand colours land. Green is reserved: it marks eco, and nothing else.</p>
+    </div>
+
+    <div class="pal">
+      <div class="sw">
+        <div class="sw__chip" style="background:#12141A"></div>
+        <div><div class="sw__name">Ink</div><div class="sw__hex">#12141A</div>
+        <div class="sw__use">Primary 1. All body type, header, footer, dark bands.</div></div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#E50E46"></div>
+        <div><div class="sw__name">Bounce Red</div><div class="sw__hex">#E50E46</div>
+        <div class="sw__use">Primary 2. Button fills, icons, rules &mdash; shapes, not words.</div></div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#C40A39"></div>
+        <div><div class="sw__name">Red&nbsp;Text</div><div class="sw__hex">#C40A39</div>
+        <div class="sw__use">Red when it carries words. See the rule below.</div></div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#1F8A5B"></div>
+        <div><div class="sw__name">Eco Green</div><div class="sw__hex">#1F8A5B</div>
+        <div class="sw__use">Reserved. The leaf icon and eco labels only.</div></div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#FFFFFF"></div>
+        <div><div class="sw__name">Paper</div><div class="sw__hex">#FFFFFF</div>
+        <div class="sw__use">Default page ground.</div></div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#F5F4F1"></div>
+        <div><div class="sw__name">Band</div><div class="sw__hex">#F5F4F1</div>
+        <div class="sw__use">Alternating sections and image grounds.</div></div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#EBE9E4"></div>
+        <div><div class="sw__name">Band Deep</div><div class="sw__hex">#EBE9E4</div>
+        <div class="sw__use">Media placeholder behind photography.</div></div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#E2E0DB"></div>
+        <div><div class="sw__name">Line</div><div class="sw__hex">#E2E0DB</div>
+        <div class="sw__use">Every hairline rule and input border.</div></div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#626873"></div>
+        <div><div class="sw__name">Muted</div><div class="sw__hex">#626873</div>
+        <div class="sw__use">Secondary copy, captions, counts.</div></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <p><b>The one rule that is easy to get wrong.</b> Bounce Red at <b>#E50E46</b> reaches only
+      4.26:1 on the Band ground &mdash; below the 4.5:1 minimum for text. Use <b>#E50E46 for fills,
+      icons and rules</b>, and <b>#C40A39 whenever red carries words</b>. The darker tint clears the
+      threshold on both grounds (6.09:1 on Paper, 5.53:1 on Band) and is close enough that the two
+      read as the same brand red side by side.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--band">
+  <div class="wrap">
+    <div class="sechead">
+      <span class="eyebrow">Foundation</span>
+      <h2>Two typefaces. No exceptions.</h2>
+      <p>Archivo sets everything structural &mdash; headings, numbers, the wordmark. Instrument Sans
+      carries everything read as language. A third face is never introduced, not even for code or
+      data.</p>
+    </div>
+
+    <div class="spec">
+      <div class="spec__row">
+        <div class="spec__meta"><b>Archivo 700</b>clamp(38&ndash;60px)<br>tracking &minus;.04em<br>line-height 1.02</div>
+        <div class="spec__eg" style="font-family:var(--f-display);font-weight:700;font-size:clamp(30px,5vw,54px);letter-spacing:-.04em;line-height:1.02">Branded merchandise people keep.</div>
+      </div>
+      <div class="spec__row">
+        <div class="spec__meta"><b>Archivo 700</b>clamp(32&ndash;50px)<br>tracking &minus;.03em<br>Section headings</div>
+        <div class="spec__eg" style="font-family:var(--f-display);font-weight:700;font-size:clamp(26px,4vw,40px);letter-spacing:-.03em;line-height:1.05">Everything you brand, in one place.</div>
+      </div>
+      <div class="spec__row">
+        <div class="spec__meta"><b>Archivo 700</b>34px<br>tracking &minus;.03em<br>Sub-headings</div>
+        <div class="spec__eg" style="font-family:var(--f-display);font-weight:700;font-size:28px;letter-spacing:-.03em;line-height:1.08">Real ESG data</div>
+      </div>
+      <div class="spec__row">
+        <div class="spec__meta"><b>Archivo 700</b>19&ndash;20px<br>Tile and card titles</div>
+        <div class="spec__eg" style="font-family:var(--f-display);font-weight:700;font-size:19px;letter-spacing:-.02em">Westcove Canvas Tote</div>
+      </div>
+      <div class="spec__row">
+        <div class="spec__meta"><b>Instrument 400</b>16.5&ndash;17.5px<br>line-height 1.7<br>Body copy</div>
+        <div class="spec__eg" style="font-size:16.5px;line-height:1.7;color:var(--muted);max-width:52ch">Design-led promotional merchandise from London since 2013. Every item carries a published carbon figure you can follow back to source.</div>
+      </div>
+      <div class="spec__row">
+        <div class="spec__meta"><b>Instrument 600</b>15px<br>Buttons, tabs, links</div>
+        <div class="spec__eg" style="font-size:15px;font-weight:600">Get a free visual</div>
+      </div>
+      <div class="spec__row">
+        <div class="spec__meta"><b>Instrument 600</b>14px<br>tracking .16em<br>uppercase &middot; Eyebrow</div>
+        <div class="spec__eg" style="font-size:14px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--red-text)">Shop by category</div>
+      </div>
+      <div class="spec__row">
+        <div class="spec__meta"><b>Instrument 400</b>14.5px<br>Meta, counts, captions</div>
+        <div class="spec__eg" style="font-size:14.5px;color:var(--muted)">2,100 products &middot; from &pound;3.48 &middot; min. 25</div>
+      </div>
+      <div class="spec__row">
+        <div class="spec__meta"><b>Instrument 600</b>11.5px<br>tracking .09em<br>Smallest permitted</div>
+        <div class="spec__eg"><span class="flag">Next day</span></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <p><b>11.5px is the floor.</b> WCAG sets no minimum font size, so this is a house rule rather
+      than a conformance one. Nothing on the page goes below it, and anything under 18.66px bold or
+      24px regular must still clear 4.5:1 contrast &mdash; which is most of the page.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sechead">
+      <span class="eyebrow">Structure</span>
+      <h2>Every section opens the same way.</h2>
+      <p>An uppercase eyebrow in Red Text, then an Archivo heading that breaks across two lines on
+      purpose. The eyebrow names the territory; the heading makes a claim. Never one without the
+      other.</p>
+    </div>
+
+    <div style="border:1px solid var(--line);border-radius:18px;padding:clamp(28px,5vw,52px)">
+      <span class="eyebrow">Sustainability</span>
+      <h2 style="font-size:clamp(28px,3.6vw,44px)">The only UK supplier<br>that shows you<br>the carbon number.</h2>
+      <p style="color:var(--muted);font-size:17px;margin-top:18px;max-width:52ch">Sub-copy is optional,
+      sits in Muted, and never runs past 52 characters.</p>
+    </div>
+
+    <div class="rows" style="margin-top:44px">
+      <div class="row row--split"><b>Eyebrow</b><span class="val">Instrument 600 &middot; 14px &middot; .16em &middot; uppercase &middot; #C40A39 &middot; 20px below</span></div>
+      <div class="row row--split"><b>Heading</b><span class="val">Archivo 700 &middot; clamp(32&ndash;50px) &middot; &minus;.03em &middot; manual &lt;br&gt; breaks</span></div>
+      <div class="row row--split"><b>Sub-copy</b><span class="val">Instrument 400 &middot; 17px &middot; Muted &middot; max 52ch &middot; 18px above</span></div>
+      <div class="row row--split"><b>Head block</b><span class="val">max-width 640px &middot; 44px to the content below</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--band">
+  <div class="wrap">
+    <div class="sechead">
+      <span class="eyebrow">Structure</span>
+      <h2>The page breathes in bands.</h2>
+      <p>Seventeen sections alternate between Paper and Band. The alternation is not decorative
+      &mdash; it separates what you browse from what you read. Never place two Band sections back to
+      back.</p>
+    </div>
+
+    <div class="rhythm">
+      <div class="rhythm__r"><span class="rhythm__n">01</span><span class="rhythm__t">Hero &mdash; Branded merchandise people actually keep</span><span class="rhythm__g">Paper</span></div>
+      <div class="rhythm__r on"><span class="rhythm__n">02</span><span class="rhythm__t">USP strip &mdash; four promises</span><span class="rhythm__g">Band</span></div>
+      <div class="rhythm__r"><span class="rhythm__n">03</span><span class="rhythm__t">Category bento &mdash; Everything you brand</span><span class="rhythm__g">Paper</span></div>
+      <div class="rhythm__r"><span class="rhythm__n">04</span><span class="rhythm__t">Promotional branding &mdash; three photo cards</span><span class="rhythm__g">Paper</span></div>
+      <div class="rhythm__r"><span class="rhythm__n">05</span><span class="rhythm__t">Popular products &mdash; tabbed rail</span><span class="rhythm__g">Paper</span></div>
+      <div class="rhythm__r"><span class="rhythm__n">06</span><span class="rhythm__t">Corporate gifting &mdash; Ink panel</span><span class="rhythm__g">Ink</span></div>
+      <div class="rhythm__r"><span class="rhythm__n">07</span><span class="rhythm__t">Eco products &mdash; tabbed rail</span><span class="rhythm__g">Paper</span></div>
+      <div class="rhythm__r on"><span class="rhythm__n">08</span><span class="rhythm__t">Why Bounce &mdash; a partner, not a catalogue</span><span class="rhythm__g">Band</span></div>
+      <div class="rhythm__r"><span class="rhythm__n">09</span><span class="rhythm__t">ESG editorial &mdash; the carbon number</span><span class="rhythm__g">Paper</span></div>
+      <div class="rhythm__r"><span class="rhythm__n">10</span><span class="rhythm__t">Testimonial &mdash; what clients say</span><span class="rhythm__g">Paper</span></div>
+      <div class="rhythm__r on"><span class="rhythm__n">11</span><span class="rhythm__t">Brand marquee &mdash; the names your team trusts</span><span class="rhythm__g">Band</span></div>
+      <div class="rhythm__r"><span class="rhythm__n">12</span><span class="rhythm__t">Standards &mdash; tabbed credentials</span><span class="rhythm__g">Paper</span></div>
+      <div class="rhythm__r on"><span class="rhythm__n">13</span><span class="rhythm__t">Awards &mdash; tight section, 64px</span><span class="rhythm__g">Band</span></div>
+      <div class="rhythm__r"><span class="rhythm__n">14</span><span class="rhythm__t">Process &mdash; logo to doorstep in three moves</span><span class="rhythm__g">Paper</span></div>
+      <div class="rhythm__r on"><span class="rhythm__n">15</span><span class="rhythm__t">News &mdash; what we have been working on</span><span class="rhythm__g">Band</span></div>
+      <div class="rhythm__r"><span class="rhythm__n">16</span><span class="rhythm__t">FAQ &mdash; need to know</span><span class="rhythm__g">Paper</span></div>
+      <div class="rhythm__r on"><span class="rhythm__n">17</span><span class="rhythm__t">Closing CTA &mdash; tell us what you need</span><span class="rhythm__g">Band</span></div>
+    </div>
+
+    <div class="rows" style="margin-top:44px">
+      <div class="row row--split"><b>Section padding</b><span class="val">88px desktop &middot; 76px &lt;1180 &middot; 56px &lt;900</span></div>
+      <div class="row row--split"><b>Tight variant</b><span class="val">64px &mdash; awards only</span></div>
+      <div class="row row--split"><b>Container</b><span class="val">max-width 1440px &middot; gutter 0 at 1440, 28px &lt;1180, 20px &lt;900</span></div>
+      <div class="row row--split"><b>Rhythm base</b><span class="val">8pt &mdash; all spacing is a multiple</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sechead">
+      <span class="eyebrow">Components</span>
+      <h2>Clear actions, quiet surfaces.</h2>
+      <p>Only two things on this page are fully round: buttons and chips. Everything else uses one of
+      three radii. There are no drop shadows and no cards &mdash; separation comes from hairlines and
+      space.</p>
+    </div>
+
+    <p class="eyebrow eyebrow--muted">Buttons</p>
+    <div class="demo">
+      <span class="btn btn--primary">Browse all products</span>
+      <span class="btn btn--ghost">Get a free visual</span>
+      <span class="btn btn--primary btn--sm">View all</span>
+      <span class="tlink">Read the ESG report</span>
+    </div>
+    <div class="rows" style="margin-bottom:52px">
+      <div class="row row--split"><b>Primary</b><span class="val">56px tall &middot; 0 34px &middot; radius 999px &middot; Red fill, white label &middot; press #BF0B3A</span></div>
+      <div class="row row--split"><b>Ghost</b><span class="val">Same box &middot; 1px Ink border &middot; inverts to Ink fill on hover</span></div>
+      <div class="row row--split"><b>Small</b><span class="val">46px tall &middot; 0 24px &middot; 14px label</span></div>
+      <div class="row row--split"><b>Text link</b><span class="val">15px 600 &middot; 1.5px Ink underline &middot; arrow shifts 4px on hover</span></div>
+      <div class="row row--split"><b>Focus ring</b><span class="val">2px solid Red &middot; 3px offset &middot; on every interactive element</span></div>
+    </div>
+
+    <p class="eyebrow eyebrow--muted">Tabs</p>
+    <div class="demo">
+      <div class="tabs">
+        <span class="tabx on">Bags</span><span class="tabx">Drinkware</span><span class="tabx">Tech</span>
+        <span class="tabx">Pens</span><span class="tabx">Office</span><span class="tabx">Giveaways</span>
+      </div>
+    </div>
+    <div class="rows" style="margin-bottom:52px">
+      <div class="row row--split"><b>Resting</b><span class="val">Instrument 500 &middot; 15px &middot; Muted &middot; 10px 18px 12px</span></div>
+      <div class="row row--split"><b>Active</b><span class="val">Ink, weight 600, 2px Ink underline sitting on the rule</span></div>
+      <div class="row row--split"><b>Keyboard</b><span class="val">Roving tabindex &middot; arrows move &middot; Home/End jump &middot; panels are plain markup</span></div>
+    </div>
+
+    <p class="eyebrow eyebrow--muted">Product tile</p>
+    <div class="rows" style="margin-bottom:52px">
+      <div class="row row--split"><b>Width</b><span class="val">clamp(260px, 22vw, 300px) &middot; horizontal rail, scroll-snap</span></div>
+      <div class="row row--split"><b>Media</b><span class="val">Band ground &middot; radius 18px &middot; image scales 1.05 on hover over .55s</span></div>
+      <div class="row row--split"><b>Badge</b><span class="val">Top-left 13px &middot; 11.5px uppercase &middot; white pill, 1px Line ring</span></div>
+      <div class="row row--split"><b>Name</b><span class="val">Archivo 700 &middot; 19px</span></div>
+      <div class="row row--split"><b>Price</b><span class="val">Archivo 700 &middot; &ldquo;from &middot; min. 25&rdquo; in Muted at 14px</span></div>
+    </div>
+
+    <p class="eyebrow eyebrow--muted">Radii</p>
+    <div class="radii">
+      <figure><div style="border-radius:10px"></div><figcaption>10px &mdash; buttons, inputs, chips</figcaption></figure>
+      <figure><div style="border-radius:18px"></div><figcaption>18px &mdash; product and category media</figcaption></figure>
+      <figure><div style="border-radius:28px"></div><figcaption>28px &mdash; hero and editorial media</figcaption></figure>
+      <figure><div style="border-radius:999px"></div><figcaption>999px &mdash; buttons and pills only</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--band">
+  <div class="wrap">
+    <div class="sechead">
+      <span class="eyebrow">Motion</span>
+      <h2>Movement confirms, it does not perform.</h2>
+    </div>
+    <div class="rows">
+      <div class="row row--split"><b>Easing</b><span class="val">cubic-bezier(.22, .61, .36, 1) &mdash; the only curve used</span></div>
+      <div class="row row--split"><b>Standard</b><span class="val">.18s &mdash; colour, border, opacity. Used 23 times.</span></div>
+      <div class="row row--split"><b>Considered</b><span class="val">.25s &mdash; button fills</span></div>
+      <div class="row row--split"><b>Media</b><span class="val">.55&ndash;.7s &mdash; image scale on tile hover</span></div>
+      <div class="row row--split"><b>Marquee</b><span class="val">38s linear infinite &middot; pauses on hover &middot; has a visible pause control</span></div>
+      <div class="row row--split"><b>Hover lift</b><span class="val">translateY(&minus;2px) &mdash; used sparingly, six places</span></div>
+      <div class="row row--split"><b>Reduced motion</b><span class="val">All marquees and the footer dot animation stop</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sechead">
+      <span class="eyebrow">Non-negotiable</span>
+      <h2>Accessibility is part of the brand.</h2>
+      <p>These are not suggestions layered on afterwards &mdash; the page was audited to WCAG 2.2 AA
+      and these rules are what keep it there. Breaking one is a brand defect, not just a technical
+      one.</p>
+    </div>
+    <div class="rows">
+      <div class="row row--split"><b>Red on text</b><span class="val">#C40A39, never #E50E46 &mdash; the brand red fails on Band</span></div>
+      <div class="row row--split"><b>Contrast floor</b><span class="val">4.5:1 for text under 18.66px bold / 24px regular; 3:1 above</span></div>
+      <div class="row row--split"><b>Text on photography</b><span class="val">A scrim strong enough at the text&rsquo;s own position &mdash; measure, do not assume</span></div>
+      <div class="row row--split"><b>Focus</b><span class="val">Always visible. Never <span style="white-space:nowrap">outline:none</span> without a replacement</span></div>
+      <div class="row row--split"><b>Sticky header</b><span class="val">scroll-padding-top must match its height, or focus hides beneath it</span></div>
+      <div class="row row--split"><b>Auto-motion</b><span class="val">Anything moving past 5s needs a pause control on the page</span></div>
+      <div class="row row--split"><b>Targets</b><span class="val">24&times;24px, or 24px of clear space around smaller ones</span></div>
+      <div class="row row--split"><b>Headings</b><span class="val">One h1, no skipped levels &mdash; h2 never jumps to h4</span></div>
+      <div class="row row--split"><b>Landmarks</b><span class="val">All content inside header, main, footer, nav or aside</span></div>
+      <div class="row row--split"><b>Reflow</b><span class="val">No horizontal scroll at 320px &mdash; test every new section</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--band sec--tight">
+  <div class="wrap">
+    <div class="sechead"><span class="eyebrow">In practice</span><h2>Getting it right.</h2></div>
+    <div class="dd">
+      <div class="do">
+        <h3>Do</h3>
+        <ul>
+          <li><b>Let space separate things.</b> Hairlines and generous padding, not boxes.</li>
+          <li><b>Break headings deliberately.</b> Two or three short lines beat one long one.</li>
+          <li><b>Keep red rare.</b> One red element per view is usually enough.</li>
+          <li><b>Photograph the product in use.</b> Real items, real light, room for type.</li>
+          <li><b>Alternate grounds.</b> Paper, then Band, so long pages stay navigable.</li>
+          <li><b>State the number.</b> &ldquo;2,100 products&rdquo;, &ldquo;in 2 hours&rdquo; &mdash; specifics carry the brand.</li>
+        </ul>
+      </div>
+      <div class="dont">
+        <h3>Don't</h3>
+        <ul>
+          <li><b>No drop shadows.</b> The page has four, all inset rings. Keep it that way.</li>
+          <li><b>No third typeface</b>, and no third brand colour.</li>
+          <li><b>Never set #E50E46 as text</b> on the Band ground.</li>
+          <li><b>No green outside eco.</b> It is a signal, not a palette colour.</li>
+          <li><b>No two Band sections in a row.</b> The rhythm stops working.</li>
+          <li><b>No type below 11.5px</b>, and nothing important in uppercase micro-labels.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Read from <b>assets/css/style.css</b> at commit <b>7b714d6</b>, the version currently live at
+    biztechdesign.github.io/Bounce-Creative. Where this document and the stylesheet disagree, the
+    stylesheet is right and this document needs updating.</p>
+    <p>Covers the home page only. The wider identity &mdash; logo construction, clear space, photography
+    direction, tone of voice &mdash; lives in the main Bounce Creative brand guidelines.</p>
+  </div>
+</footer>

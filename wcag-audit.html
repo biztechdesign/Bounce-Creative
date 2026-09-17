@@ -1,0 +1,515 @@
+<title>Bounce Homepage Accessibility Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF7; --band:#F2EFE9; --sink:#EAE6DE;
+  --ink:#14161B; --body:#3A3D45; --mute:#6A6D76; --line:#DED9D0; --hair:#E9E5DD;
+  --crimson:#C40A39; --crimson-soft:#FBE9EE;
+  --amber:#8A5300; --amber-soft:#FBF0DF;
+  --slate:#2B5771; --slate-soft:#E7EFF4;
+  --moss:#0E6446; --moss-soft:#E3F0EA;
+  --f-display:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --f-body:'Instrument Sans','Helvetica Neue',Arial,sans-serif;
+  --f-mono:'JetBrains Mono','SFMono-Regular',Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#111318; --band:#181B21; --sink:#1F232A;
+    --ink:#EFEDE8; --body:#C2C4C9; --mute:#8E9199; --line:#2C3038; --hair:#23272E;
+    --crimson:#FF7B9E; --crimson-soft:#2C1119;
+    --amber:#E8A33F; --amber-soft:#2A2011;
+    --slate:#87BBD9; --slate-soft:#141F27;
+    --moss:#5FC79C; --moss-soft:#0E2019;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111318; --band:#181B21; --sink:#1F232A;
+  --ink:#EFEDE8; --body:#C2C4C9; --mute:#8E9199; --line:#2C3038; --hair:#23272E;
+  --crimson:#FF7B9E; --crimson-soft:#2C1119;
+  --amber:#E8A33F; --amber-soft:#2A2011;
+  --slate:#87BBD9; --slate-soft:#141F27;
+  --moss:#5FC79C; --moss-soft:#0E2019;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--body);
+  font-family:var(--f-body); font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.shell{max-width:1000px;margin:0 auto;padding:0 28px 96px}
+a{color:var(--crimson)}
+:focus-visible{outline:2px solid var(--crimson);outline-offset:3px;border-radius:3px}
+code,.mono{font-family:var(--f-mono);font-size:.86em;font-variant-ligatures:none}
+kbd{font-family:var(--f-mono);font-size:.82em;padding:2px 6px;border:1px solid var(--line);border-radius:3px;background:var(--band);color:var(--ink)}
+
+/* ---------- masthead ---------- */
+.mast{padding:64px 0 0}
+.kicker{font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--crimson);margin:0 0 18px}
+.mast h1{font-family:var(--f-display);font-weight:800;font-size:clamp(34px,5.4vw,58px);line-height:1.02;letter-spacing:-.035em;color:var(--ink);margin:0;text-wrap:balance}
+.mast .sub{margin:20px 0 0;font-size:18px;max-width:62ch;color:var(--body)}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:0;margin:44px 0 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.meta div{padding:16px 20px 16px 0;border-right:1px solid var(--hair)}
+.meta div:last-child{border-right:0}
+.meta dt{font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin:0 0 6px}
+.meta dd{margin:0;font-family:var(--f-mono);font-size:13px;color:var(--ink)}
+
+/* ---------- verdict ---------- */
+.verdict{margin:44px 0 0;border:1px solid var(--line);border-left:4px solid var(--moss);background:var(--band);padding:26px 28px}
+.verdict h2{font-family:var(--f-display);font-weight:700;font-size:23px;letter-spacing:-.02em;color:var(--ink);margin:0 0 8px;text-wrap:balance}
+.verdict p{margin:0 0 12px;max-width:66ch}
+.verdict p:last-of-type{margin-bottom:0}
+.tally{display:flex;flex-wrap:wrap;gap:0;margin:26px 0 0;border-top:1px solid var(--line)}
+.tally div{flex:1 1 116px;padding:16px 18px 16px 0;border-right:1px solid var(--hair)}
+.tally div:last-child{border-right:0}
+.tally b{display:block;font-family:var(--f-display);font-weight:800;font-size:30px;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.tally span{display:block;margin-top:7px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.tally .c-pass b{color:var(--moss)} .tally .c-open b{color:var(--amber)} .tally .c-wd b{color:var(--mute)}
+
+/* ---------- section headings ---------- */
+h2.sec{font-family:var(--f-display);font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);margin:76px 0 0;padding-bottom:12px;border-bottom:2px solid var(--ink)}
+h2.sec + .lede{margin:16px 0 0;color:var(--mute);font-size:15px;max-width:70ch}
+
+/* ---------- findings ---------- */
+.find{display:grid;grid-template-columns:64px 1fr;gap:0 24px;padding:30px 0 30px 20px;border-bottom:1px solid var(--hair);border-left:3px solid var(--moss)}
+.find.open{border-left-color:var(--amber)}
+.find.wd{border-left-color:var(--line)}
+.rank{font-family:var(--f-mono);font-size:22px;font-weight:500;color:var(--mute);line-height:1.2;font-variant-numeric:tabular-nums}
+.find h3{font-family:var(--f-display);font-weight:700;font-size:21px;letter-spacing:-.02em;color:var(--ink);margin:0 0 12px;text-wrap:balance}
+.badges{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 16px}
+.b{font-family:var(--f-mono);font-size:11px;font-weight:500;padding:4px 9px;border-radius:3px;white-space:nowrap;border:1px solid transparent}
+.b-fixed{background:var(--moss-soft);color:var(--moss);border-color:var(--moss)}
+.b-open{background:var(--amber-soft);color:var(--amber);border-color:var(--amber)}
+.b-wd{background:var(--band);color:var(--mute);border-color:var(--line)}
+.b-sc{background:transparent;color:var(--ink);border-color:var(--line)}
+.find p{margin:0 0 14px;max-width:72ch}
+.find p:last-child{margin-bottom:0}
+.lab{font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);display:block;margin:20px 0 8px}
+pre{margin:0;padding:14px 16px;background:var(--band);border:1px solid var(--hair);border-radius:4px;overflow-x:auto;font-family:var(--f-mono);font-size:12.5px;line-height:1.65;color:var(--ink)}
+pre .del{color:var(--crimson)} pre .add{color:var(--moss)} pre .cm{color:var(--mute)}
+ul.ev{margin:0 0 14px;padding-left:20px;max-width:72ch}
+ul.ev li{margin-bottom:6px}
+.ba{display:flex;flex-wrap:wrap;gap:0;margin:16px 0 0;border:1px solid var(--hair);border-radius:4px;overflow:hidden}
+.ba div{flex:1 1 190px;padding:13px 16px;border-right:1px solid var(--hair);background:var(--band)}
+.ba div:last-child{border-right:0}
+.ba dt{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:0 0 5px}
+.ba dd{margin:0;font-family:var(--f-mono);font-size:13px;color:var(--ink)}
+.ba .was dd{color:var(--crimson)} .ba .now dd{color:var(--moss)}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:26px 0 0;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:14px}
+caption{text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);padding:12px 16px;background:var(--band)}
+th{text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);padding:12px 16px;border-bottom:1px solid var(--line);border-top:1px solid var(--line);background:var(--band);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--hair);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+.pill{font-family:var(--f-mono);font-size:11px;font-weight:500;padding:3px 8px;border-radius:3px;white-space:nowrap}
+.p-fail{background:var(--crimson-soft);color:var(--crimson);border:1px solid var(--crimson)}
+.p-pass{background:var(--moss-soft);color:var(--moss);border:1px solid var(--moss)}
+.p-thin{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber)}
+
+/* ---------- notes ---------- */
+.note{margin:26px 0 0;padding:20px 22px;background:var(--band);border:1px solid var(--hair);border-radius:4px;font-size:15px}
+.note p{margin:0 0 12px;max-width:72ch} .note p:last-child{margin:0}
+.note.correction{border-left:3px solid var(--amber)}
+footer{margin:76px 0 0;padding-top:24px;border-top:1px solid var(--line);font-size:13px;color:var(--mute)}
+footer p{margin:0 0 8px;max-width:74ch}
+
+@media (max-width:640px){
+  .shell{padding:0 18px 64px}
+  .find{grid-template-columns:1fr;gap:0;padding-left:16px}
+  .rank{font-size:13px;margin-bottom:8px}
+  .meta div,.tally div,.ba div{border-right:0;border-bottom:1px solid var(--hair)}
+}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="shell">
+
+<header class="mast">
+  <p class="kicker">WCAG 2.2 Level AA &middot; Audit and remediation</p>
+  <h1>Bounce Creative Designs home page</h1>
+  <p class="sub">Thirteen issues found and eleven Level&nbsp;A/AA failures fixed, including two that
+  left keyboard and mobile visitors with no route into the site. Every fix below was re-tested in a
+  live browser. One original finding did not survive re-testing and is withdrawn.</p>
+
+  <dl class="meta">
+    <div><dt>Page</dt><dd>index.html</dd></div>
+    <div><dt>Date</dt><dd>3 Sep 2026</dd></div>
+    <div><dt>Standard</dt><dd>WCAG 2.2 AA</dd></div>
+    <div><dt>Engine</dt><dd>axe-core 4.10.2</dd></div>
+    <div><dt>Viewports</dt><dd>1440 / 320 px</dd></div>
+  </dl>
+</header>
+
+<section class="verdict">
+  <h2>Conformant with WCAG 2.2 Level AA across every criterion tested</h2>
+  <p>Automated scan is clean: <strong>0 violations, 56 rule groups passing</strong>, up from 3
+  violations and 53 passing. All manual criteria were re-measured rather than assumed &mdash; reflow,
+  focus behaviour, text spacing, and per-pixel contrast over photography.</p>
+  <p>Two items remain open by design decision rather than defect, and screen-reader narration is
+  still unverified. Neither blocks a conformance claim, but both are listed below.</p>
+  <div class="tally">
+    <div class="c-pass"><b>11</b><span>Fixed</span></div>
+    <div class="c-open"><b>2</b><span>Open by choice</span></div>
+    <div class="c-wd"><b>1</b><span>Withdrawn</span></div>
+    <div class="c-pass"><b>0</b><span>Violations</span></div>
+    <div class="c-pass"><b>56</b><span>Rules passed</span></div>
+  </div>
+</section>
+
+<h2 class="sec">Critical &mdash; blocked a user group entirely</h2>
+
+<article class="find">
+  <div class="rank">01</div>
+  <div>
+    <h3>The mobile menu button did nothing</h3>
+    <div class="badges">
+      <span class="b b-fixed">Fixed</span>
+      <span class="b b-sc">2.1.1 Keyboard &middot; A</span>
+      <span class="b b-sc">2.4.5 Multiple Ways &middot; AA</span>
+    </div>
+    <p>Below 900&nbsp;px the header hides both the primary navigation and the search field, and the
+    burger button that replaced them had no behaviour attached &mdash; no handler, no panel, no drawer
+    element anywhere in the document. Phone users had no route into the site except the footer.</p>
+    <p>Built a real drawer in <code>assets/js/a11y.js</code>: it carries the eleven category links,
+    the search field and the three utility links. It is modal while open &mdash; focus moves into the
+    panel, wraps at both ends, the page behind is locked, and <kbd>Esc</kbd>, the close button, the
+    scrim, or following a link all dismiss it and return focus to the burger.</p>
+    <div class="ba">
+      <div class="was"><dt>Before</dt><dd>0 reachable nav links</dd></div>
+      <div class="now"><dt>After</dt><dd>14 reachable nav links</dd></div>
+      <div class="now"><dt>Esc closes</dt><dd>yes, focus returned</dd></div>
+    </div>
+    <span class="lab">Change</span>
+<pre>&lt;button class="burger" type="button" <span class="add">aria-expanded="false" aria-controls="mobile-nav"</span>&gt;
+<span class="add">&lt;nav id="mobile-nav" class="drawer" aria-label="Main" hidden&gt; &hellip; &lt;/nav&gt;</span>
+<span class="cm">+ assets/js/a11y.js - toggle, focus trap, Esc, scrim, focus return</span></pre>
+  </div>
+</article>
+
+<article class="find">
+  <div class="rank">02</div>
+  <div>
+    <h3>No skip link &mdash; 40+ tab stops before the main content</h3>
+    <div class="badges"><span class="b b-fixed">Fixed</span><span class="b b-sc">2.4.1 Bypass Blocks &middot; A</span></div>
+    <p>109 focusable elements and no way past the repeated header. The first <kbd>Tab</kbd> landed on
+    the telephone link in the announcement bar.</p>
+    <p>Verified by real keypress: the first tab stop is now the skip link, it renders on-screen at
+    16&nbsp;× 16&nbsp;px with white-on-ink at z-index 200, and <code>:focus-visible</code> resolves
+    correctly.</p>
+    <div class="ba">
+      <div class="was"><dt>First tab stop was</dt><dd>a.hdr__tel</dd></div>
+      <div class="now"><dt>Now</dt><dd>Skip to main content</dd></div>
+    </div>
+<pre><span class="add">&lt;a class="skip" href="#main"&gt;Skip to main content&lt;/a&gt;</span>
+&lt;main <span class="add">id="main" tabindex="-1"</span>&gt;</pre>
+  </div>
+</article>
+
+<h2 class="sec">Serious &mdash; Level A / AA failures</h2>
+
+<article class="find">
+  <div class="rank">03</div>
+  <div>
+    <h3>The page scrolled sideways at 320&nbsp;px</h3>
+    <div class="badges"><span class="b b-fixed">Fixed</span><span class="b b-sc">1.4.10 Reflow &middot; AA</span></div>
+    <p>Two separate causes, and the second only became visible once the first was cleared.</p>
+    <ul class="ev">
+      <li>Below 560&nbsp;px the promo cards combined <code>aspect-ratio:1/1</code> with
+      <code>min-height:340px</code>. The square ratio then forced the <em>width</em> to 340&nbsp;px
+      too, inside a 320&nbsp;px viewport. Dropping the ratio at that breakpoint kept the height.</li>
+      <li>The three ESG stat columns used <code>repeat(3,1fr)</code>, whose implicit
+      <code>auto</code> minimum held the grid 9&nbsp;px wider than the screen. Changed to
+      <code>repeat(3,minmax(0,1fr))</code>, and they now stack to two columns below 560&nbsp;px.</li>
+    </ul>
+    <div class="ba">
+      <div class="was"><dt>Before</dt><dd>360px wide @ 320 &rarr; 40px scroll</dd></div>
+      <div class="now"><dt>After</dt><dd>305px wide @ 320 &rarr; none</dd></div>
+    </div>
+    <p>My original report named <code>.proof__l</code> as an overflow source. That was a false lead
+    &mdash; an ancestor clips it, so it never extended the document. The real causes are the two
+    above.</p>
+  </div>
+</article>
+
+<article class="find">
+  <div class="rank">04</div>
+  <div>
+    <h3>Focused elements disappeared behind the sticky header</h3>
+    <div class="badges"><span class="b b-fixed">Fixed</span><span class="b b-sc">2.4.11 Focus Not Obscured &middot; AA</span></div>
+    <p>The header is <code>position:sticky</code> and 138&nbsp;px tall, and
+    <code>scroll-padding-top</code> was <code>auto</code>. Moving focus backwards with
+    <kbd>Shift</kbd>+<kbd>Tab</kbd> scrolled the target to the top of the viewport, fully underneath
+    it &mdash; reproduced on the &ldquo;Notebooks&rdquo; tile at 100% hidden.</p>
+    <div class="ba">
+      <div class="was"><dt>Before</dt><dd>1 of 8 sampled, 100% hidden</dd></div>
+      <div class="now"><dt>After</dt><dd>0 of 16 sampled obscured</dd></div>
+    </div>
+<pre>html{ <span class="add">scroll-padding-top:150px;</span> }        <span class="cm">/* header 138px + clearance */</span>
+@media (max-width:900px){ html{ <span class="add">scroll-padding-top:90px;</span> } } <span class="cm">/* header 72px */</span></pre>
+  </div>
+</article>
+
+<article class="find">
+  <div class="rank">05</div>
+  <div>
+    <h3>The brand marquee scrolled forever with no way to stop it</h3>
+    <div class="badges"><span class="b b-fixed">Fixed</span><span class="b b-sc">2.2.2 Pause, Stop, Hide &middot; A</span></div>
+    <p>A 38-second animation on infinite repeat beside static content. The build already honoured
+    <code>prefers-reduced-motion</code>, which helps a subset of users, but the criterion asks for a
+    control on the page.</p>
+    <p>Added a labelled toggle above the rail. It flips <code>aria-pressed</code>, swaps its own text
+    between &ldquo;Pause logo scroll&rdquo; and &ldquo;Play logo scroll&rdquo;, and drives
+    <code>animation-play-state</code>. Where the OS already requests reduced motion the track is not
+    animating, so the control removes itself rather than sitting there inert.</p>
+    <div class="ba">
+      <div class="was"><dt>Click 1</dt><dd>pressed=true, paused</dd></div>
+      <div class="now"><dt>Click 2</dt><dd>pressed=false, running</dd></div>
+    </div>
+  </div>
+</article>
+
+<article class="find">
+  <div class="rank">06</div>
+  <div>
+    <h3>Two text colours fell under the contrast threshold</h3>
+    <div class="badges"><span class="b b-fixed">Fixed</span><span class="b b-sc">1.4.3 Contrast (Minimum) &middot; AA</span></div>
+    <p>Brand red <code>#E50E46</code> holds on white but not on the grey band. Added
+    <code>--red-text:#C40A39</code> as the text tint and pointed <code>.eyebrow</code> at it, leaving
+    <code>--red</code> for fills, buttons and icons where contrast rules do not apply.</p>
+    <p>The T-shirt card took three attempts and is worth recording, because the first two made it
+    worse. Its photo runs from near-white highlights to deep shadow directly under the copy:</p>
+    <ul class="ev">
+      <li><strong>Deepening the dark scrim</strong> dropped the ink heading from 2.99:1 to
+      <strong>2.57:1</strong> &mdash; a darker ground lowers contrast for dark text, not raises it.</li>
+      <li><strong>Flipping the copy to white</strong> on that darker scrim was worse again at
+      <strong>2.04:1</strong>, because white text then failed on the photo&rsquo;s bright highlights.</li>
+      <li><strong>Lightening the ground instead</strong> works: a white wash under the ink copy, which
+      also keeps this card consistent with its two siblings rather than making it the odd one out.</li>
+    </ul>
+    <div class="tw">
+      <table>
+        <caption>Contrast after remediation &mdash; measured on rendered pixels</caption>
+        <thead><tr><th>Element</th><th>Size</th><th>Before</th><th>After</th><th>Required</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>.eyebrow</code> on band &times;5</td><td class="num">12px / 600</td><td class="num">4.26:1</td><td class="num">5.53:1</td><td class="num">4.5:1</td><td><span class="pill p-pass">Pass</span></td></tr>
+          <tr><td><code>.eyebrow</code> on white &times;17</td><td class="num">12px / 600</td><td class="num">4.68:1</td><td class="num">6.09:1</td><td class="num">4.5:1</td><td><span class="pill p-pass">Pass</span></td></tr>
+          <tr><td>&ldquo;Promotional T-shirts&rdquo;</td><td class="num">28.8px / 700</td><td class="num">2.99:1</td><td class="num">3.24:1</td><td class="num">3:1</td><td><span class="pill p-pass">Pass</span></td></tr>
+          <tr><td>&ldquo;Team merch, but better&rdquo;</td><td class="num">14px / 500</td><td class="num">4.73:1</td><td class="num">4.92:1</td><td class="num">4.5:1</td><td><span class="pill p-pass">Pass</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:16px">All 23 eyebrows now pass, worst 5.53:1. The 19 text runs on the bento
+    category tiles were re-measured and still pass, worst margin 1.04 above requirement.</p>
+  </div>
+</article>
+
+<h2 class="sec">Moderate &mdash; fixed in the same pass</h2>
+
+<article class="find">
+  <div class="rank">07</div>
+  <div>
+    <h3>Email field had no autocomplete token</h3>
+    <div class="badges"><span class="b b-fixed">Fixed</span><span class="b b-sc">1.3.5 Identify Input Purpose &middot; AA</span></div>
+    <p>The newsletter field collects information about the user, so it must expose its purpose
+    programmatically. Added <code>autocomplete="email"</code> and <code>name="email"</code>; the two
+    search fields got <code>name="q"</code> with <code>autocomplete="off"</code>, which is correct for
+    a site search rather than a personal-data field.</p>
+  </div>
+</article>
+
+<article class="find">
+  <div class="rank">08</div>
+  <div>
+    <h3>Both inputs suppressed their focus ring</h3>
+    <div class="badges"><span class="b b-fixed">Fixed</span><span class="b b-sc">2.4.7 Focus Visible &middot; AA</span></div>
+    <p><code>outline:none</code> with only a 1&nbsp;px border-colour change as replacement &mdash; a
+    technical pass, but far weaker than the 2&nbsp;px crimson rings the buttons and tabs use. Removed
+    both <code>outline:none</code> declarations and added matching
+    <code>:focus-visible</code> rings, so the whole page is now consistent.</p>
+  </div>
+</article>
+
+<article class="find">
+  <div class="rank">09</div>
+  <div>
+    <h3><code>aria-label</code> on a plain <code>div</code> was discarded</h3>
+    <div class="badges"><span class="b b-fixed">Fixed</span><span class="b b-sc">4.1.2 Name, Role, Value &middot; A</span></div>
+    <p>A generic <code>div</code> has no role, and ARIA prohibits naming it, so the social icon group
+    was announced as four unrelated links. Changed to <code>&lt;nav aria-label="Social media"&gt;</code>.
+    This was the sole <code>aria-prohibited-attr</code> item in the scan; it is now gone.</p>
+  </div>
+</article>
+
+<article class="find">
+  <div class="rank">10</div>
+  <div>
+    <h3>Footer headings jumped from <code>h2</code> to <code>h4</code></h3>
+    <div class="badges"><span class="b b-fixed">Fixed</span><span class="b b-sc">1.3.1 Info and Relationships &middot; A</span></div>
+    <p>A clean <code>h1 &rarr; h2 &rarr; h3</code> outline across 35 headings, then the four footer
+    column titles skipped a level. All four promoted to <code>h3</code>; the document now contains no
+    <code>h4</code> at all and <code>heading-order</code> passes.</p>
+  </div>
+</article>
+
+<article class="find">
+  <div class="rank">11</div>
+  <div>
+    <h3>Two blocks sat outside every landmark</h3>
+    <div class="badges"><span class="b b-fixed">Fixed</span><span class="b b-sc">1.3.1 Info and Relationships &middot; A</span></div>
+    <p>The announcement bar and the floating rating badge were direct children of <code>body</code>.
+    The bar became <code>&lt;aside aria-label="Current offer"&gt;</code> &mdash; deliberately a sibling
+    of the header rather than a child, since nesting it inside a sticky element would have made it
+    sticky too and worsened finding 04. The badge is wrapped in
+    <code>&lt;aside aria-label="Customer rating"&gt;</code>, since its own <code>role="img"</code>
+    would otherwise override any landmark role placed on it directly.</p>
+  </div>
+</article>
+
+<h2 class="sec">Withdrawn after re-testing</h2>
+
+<article class="find wd">
+  <div class="rank">12</div>
+  <div>
+    <h3>&ldquo;Card copy is clipped under text-spacing overrides&rdquo;</h3>
+    <div class="badges"><span class="b b-wd">Withdrawn</span><span class="b b-sc">1.4.12 Text Spacing &middot; AA</span></div>
+    <p>My original evidence was a <code>scrollHeight</code> of 366&nbsp;px against a
+    <code>clientHeight</code> of 340&nbsp;px on the promo cards, which I read as the CTA pill being cut
+    off. Re-testing element by element shows that delta is the decorative <code>::before</code> blur
+    layer, which is deliberately inset by &minus;18&nbsp;px on all sides and clipped by design.</p>
+    <p>With the criterion&rsquo;s mandated overrides applied, <strong>zero</strong> text-bearing
+    elements overflow their clipping container, and both the copy block and the CTA measure fully
+    inside the card. <strong>1.4.12 was already passing.</strong> I had over-read a scroll-metric
+    without confirming which box actually overflowed.</p>
+    <p>The layout change was kept regardless &mdash; the copy and CTA now sit in normal flow instead of
+    being absolutely positioned, so the card grows with its content rather than relying on the square
+    having spare room. That is a robustness improvement, not a defect fix.</p>
+  </div>
+</article>
+
+<h2 class="sec">Open &mdash; needs a decision, not a fix</h2>
+
+<article class="find open">
+  <div class="rank">13</div>
+  <div>
+    <h3>Placeholders are still doing the work of labels</h3>
+    <div class="badges"><span class="b b-open">Open</span><span class="b b-sc">3.3.2 Labels or Instructions &middot; A</span></div>
+    <p>Both fields carry a correct <code>aria-label</code>, so the accessible name is present and this
+    is not a failure. But no label is <em>visible</em>, and the placeholder disappears the moment
+    someone types &mdash; which disproportionately affects users with cognitive or memory difficulties.
+    A persistent visible label above the newsletter field is the safer pattern. Left alone because it
+    changes the visual design, which is your call rather than mine.</p>
+  </div>
+</article>
+
+<article class="find open">
+  <div class="rank">14</div>
+  <div>
+    <h3>121 of 127 links still point at <code>href="#"</code></h3>
+    <div class="badges"><span class="b b-open">Open</span><span class="b b-sc">Prototype state</span></div>
+    <p>Expected for a design concept and not scored as a failure. Worth remembering that
+    <code>href="#"</code> sends focus to the top of the document when activated, so none should ship
+    as-is. Link purpose (2.4.4) and consistent navigation (3.2.3) cannot be properly assessed until
+    real destinations exist.</p>
+  </div>
+</article>
+
+<h2 class="sec">On minimum font size</h2>
+<p class="lede">Asked during the fix pass, and worth writing down because the premise is a common
+misconception.</p>
+
+<div class="note">
+  <p><strong>WCAG sets no minimum font size.</strong> There is no success criterion at any level that
+  names a pixel or point floor. What the guidelines require instead is that text survives being made
+  bigger and re-spaced: <strong>1.4.4 Resize Text</strong> (200% without loss of content or function),
+  <strong>1.4.12 Text Spacing</strong>, and <strong>1.4.10 Reflow</strong>. This page passes all three.</p>
+  <p>Size does change one thing: the <em>contrast</em> bar. Below 18.66&nbsp;px bold or 24&nbsp;px
+  regular, text is &ldquo;small&rdquo; and needs <strong>4.5:1</strong> rather than 3:1. Almost
+  everything on this page is small text by that definition, which is why the eyebrow fix mattered.</p>
+</div>
+
+<div class="tw">
+  <table>
+    <caption>Smallest rendered text on the page, measured at 320&nbsp;px</caption>
+    <thead><tr><th>Size</th><th>Instances</th><th>Where</th><th>Contrast</th></tr></thead>
+    <tbody>
+      <tr><td class="num">9.5px</td><td class="num">50</td><td><code>.prod__flag</code> &mdash; &ldquo;Next day&rdquo; badges</td><td><span class="pill p-pass">Passes 4.5:1</span></td></tr>
+      <tr><td class="num">10px</td><td class="num">2</td><td>Google rating badge label and stars</td><td><span class="pill p-pass">Passes 4.5:1</span></td></tr>
+      <tr><td class="num">11px</td><td class="num">2</td><td>Basket count, AMEX payment mark</td><td><span class="pill p-pass">Passes 4.5:1</span></td></tr>
+      <tr><td class="num">11.5px</td><td class="num">50</td><td>Product swatch overflow counts (&ldquo;+6&rdquo;)</td><td><span class="pill p-pass">Passes 4.5:1</span></td></tr>
+      <tr><td class="num">12px</td><td class="num">77</td><td>Eyebrows, header telephone link</td><td><span class="pill p-pass">Passes 4.5:1</span></td></tr>
+      <tr><td class="num">12.5px</td><td class="num">113</td><td>Product counts, tile meta</td><td><span class="pill p-pass">Passes 4.5:1</span></td></tr>
+      <tr><td class="num">16px</td><td class="num">&mdash;</td><td>Body default (<code>body{font-size:16px}</code>)</td><td><span class="pill p-pass">Passes 4.5:1</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note">
+  <p><strong>So: 9.5&nbsp;px is the floor, and it is legal but small.</strong> No criterion is broken
+  &mdash; every size above clears its contrast requirement, which is the only thing WCAG ties to size.
+  As a practical recommendation rather than a conformance one, I would lift the 9.5&nbsp;px
+  <code>.prod__flag</code> badges to 11&mdash;12&nbsp;px. They are uppercase, letter-spaced, and sit on
+  photography, which is the hardest combination to read at that size, and they carry real information
+  (&ldquo;Next day&rdquo;) rather than decoration.</p>
+  <p>One thing to leave alone: three elements compute to <code>font-size:0</code> below 560&nbsp;px.
+  That is the deliberate icon-only treatment for the Account, Basket and Menu controls. The text is
+  still in the DOM and still forms the accessible name, so screen readers announce them normally.</p>
+</div>
+
+<h2 class="sec">Verified after the fixes</h2>
+<p class="lede">Re-run at 1440&times;900 and 320&times;640 against the live page.</p>
+
+<div class="tw">
+  <table>
+    <thead><tr><th>Check</th><th>Result</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td>axe-core violations</td><td><span class="pill p-pass">0</span></td><td class="num">was 3</td></tr>
+      <tr><td>Rule groups passing</td><td><span class="pill p-pass">56</span></td><td class="num">was 53</td></tr>
+      <tr><td>Reflow at 320px</td><td><span class="pill p-pass">Pass</span></td><td class="num">305px document, no scroll</td></tr>
+      <tr><td>Text spacing overrides</td><td><span class="pill p-pass">Pass</span></td><td class="num">0 elements clip text</td></tr>
+      <tr><td>Focus not obscured</td><td><span class="pill p-pass">Pass</span></td><td class="num">0 of 16 sampled</td></tr>
+      <tr><td>Eyebrow contrast</td><td><span class="pill p-pass">Pass</span></td><td class="num">23 of 23, worst 5.53:1</td></tr>
+      <tr><td>Photo-backed copy</td><td><span class="pill p-pass">Pass</span></td><td class="num">25 runs, all above threshold</td></tr>
+      <tr><td>Tab components</td><td><span class="pill p-pass">Intact</span></td><td class="num">3 tablists, roving tabindex, all labelled</td></tr>
+      <tr><td>Console errors</td><td><span class="pill p-pass">0</span></td><td class="num">after adding a11y.js</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note correction">
+  <p><strong>One residual worth knowing.</strong> At 320&nbsp;px <em>with</em> the 1.4.12 spacing
+  overrides applied, the document widens to 360&nbsp;px and scrolls horizontally. No content is lost,
+  which is what 1.4.12 actually requires, and 1.4.10 is assessed at default spacing where the page now
+  passes cleanly &mdash; so both criteria are met. It is a rough edge rather than a failure, caused by
+  the 0.12em letter-spacing on long product names.</p>
+</div>
+
+<h2 class="sec">Method and remaining scope</h2>
+<div class="note">
+  <p><strong>How contrast over images was measured.</strong> Each photo was drawn to a canvas at its
+  painted size with the same <code>object-fit: cover</code> geometry, the scrim gradient composited at
+  the exact position of every text run, and the WCAG relative-luminance ratio computed against the
+  worst pixel under the glyphs. This is what resolved all 77 of axe&rsquo;s undetermined contrast
+  nodes, and what caught the T-shirt card failing by 0.01.</p>
+  <p><strong>Files changed.</strong> <code>index.html</code>, <code>assets/css/style.css</code>, and a
+  new <code>assets/js/a11y.js</code>. The stylesheet cache-buster moved to <code>?v=8</code>.</p>
+  <p><strong>Still not covered.</strong> Screen-reader narration has not been verified with NVDA, JAWS
+  or VoiceOver &mdash; recommended before sign-off, particularly for the new drawer and the tab
+  components. Motion sensitivity (2.3.1), colour-blindness simulation and the AAA criteria remain out
+  of scope. Only <code>index.html</code> was audited; findings 01, 02, 04, 08 and 09 live in shared
+  header, footer and CSS, so the same fixes will carry to every other page built on them &mdash; but
+  each page needs its own reflow and contrast check.</p>
+</div>
+
+<footer>
+  <p>Assessed against Web Content Accessibility Guidelines 2.2, Level AA (W3C Recommendation).
+  Ranking is by user impact rather than criterion level: findings 01 and 02 sit above the contrast
+  failures because they removed access rather than degrading it.</p>
+  <p>Re-test once placeholder links are replaced with real destinations, and after any screen-reader pass.</p>
+</footer>
+
+</div>

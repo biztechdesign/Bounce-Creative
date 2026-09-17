@@ -1,7 +1,7 @@
 /* ==========================================================================
    About - layered on style-v4.css, list-v4.css and category-v4.css (the
    hero, story, values, awards and signup blocks come from there).
-   Desktop layout only.
+   Desktop first, with the responsive steps at the end of the file.
    ========================================================================== */
 
 /* Hero with a photograph rather than a cut-out */
@@ -79,3 +79,46 @@
 .newsband .signup__field{ max-width:none; }
 .newsband .signup__field input{ background:var(--oat); }
 .newsband .signup__note{ color:rgba(238,233,222,.7); }
+
+/* ==========================================================================
+   Responsive. The value and award grids carry their own column counts, so
+   they need their own steps down; everything else follows the shared ones.
+   ========================================================================== */
+@media (max-width:1180px){
+  .vals--five{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .vals--five .val:nth-child(2n){ border-right:1px solid var(--line); padding-right:22px; }
+  .vals--five .val:nth-child(3n){ border-right:0; padding-right:0; }
+  .vals--five .val:nth-child(-n+3){ border-bottom:1px solid var(--line); }
+  .awards--seven{ grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .split{ gap:40px; }
+  .newsband{ padding:40px; gap:32px; }
+}
+@media (max-width:900px){
+  .vals--three, .vals--five{ grid-template-columns:minmax(0,1fr); }
+  .vals--three .val, .vals--five .val{ padding:26px 0; border-right:0; border-bottom:1px solid var(--line); }
+  .vals--three .val:last-child, .vals--five .val:last-child{ border-bottom:0; }
+  .split, .split--rev{ grid-template-columns:minmax(0,1fr); gap:32px; }
+  .split__media{ order:-1; }
+  .split__media img, .split--rev .split__media img, .story__fig img{ box-shadow:8px 8px 0 var(--sage-green); }
+  .split--lead{ margin-bottom:40px; }
+  .split__copy p{ max-width:none; }
+  .split__badge, .story__badge{ width:220px; }
+  .story--tight{ margin-top:48px; }
+  .pts{ grid-template-columns:minmax(0,1fr); margin-top:36px; }
+  .pts li:nth-child(odd):last-child{ grid-column:auto; max-width:none; }
+  .pts li{ padding:20px 0; }
+  .pull{ padding-left:16px; }
+  .pull p{ font-size:var(--h-card); }
+  .vid{ box-shadow:8px 8px 0 var(--sage-green); }
+  .awards--seven{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .newsband{ grid-template-columns:minmax(0,1fr); gap:28px; padding:32px 24px; }
+  .lhero__media--photo{ padding-block:0 40px; }
+  .lhero__media--photo img{ box-shadow:8px 8px 0 var(--coral); }
+}
+@media (max-width:640px){
+  .awards--seven{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .newsband{ padding:28px 20px; }
+  .newsband .signup__field{ flex-wrap:wrap; gap:8px; }
+  .newsband .signup__field input{ flex:1 1 100%; }
+  .newsband .signup__field .btn{ flex:1 1 100%; }
+}

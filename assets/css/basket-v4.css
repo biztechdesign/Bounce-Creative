@@ -1,6 +1,6 @@
 /* ==========================================================================
    Basket - layered on style-v4.css, list-v4.css and pdp-v4.css (the stepper,
-   field and link-button styles come from there). Desktop layout only.
+   field and link-button styles come from there). Desktop first, with the responsive steps at the end of the file.
    ========================================================================== */
 
 /* ---------- Reward prompt ---------- */
@@ -125,3 +125,56 @@
 .deadline a{ color:var(--coral-text); font-weight:700; }
 .accept{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); }
 .accept__card{ padding:4px 8px; background:var(--white); box-shadow:inset 0 0 0 1px var(--line); font-family:var(--f-text); font-size:var(--t-micro); letter-spacing:0; text-transform:none; font-weight:700; color:var(--forest); }
+
+/* ==========================================================================
+   Responsive. The basket becomes a receipt on a phone: item and media on
+   top, then Qty and Subtotal as labelled rows, then the summary card.
+   ========================================================================== */
+@media (max-width:1180px){
+  .basket{ grid-template-columns:minmax(0,1fr) 340px; gap:28px; }
+  .basket__cols{ grid-template-columns:minmax(0,1fr) 170px 120px; gap:16px; }
+  .line__main{ grid-template-columns:100px minmax(0,1fr) 170px 120px; gap:16px; }
+  .line__media{ width:100px; }
+}
+@media (max-width:900px){
+  .reward-note{ flex-wrap:wrap; padding:14px 16px; }
+  .reward-note p{ flex:1 1 200px; }
+  .reward-note .btn{ flex:1 1 auto; order:3; }
+  .reward-note__x{ margin-left:auto; }
+  .basket-head{ flex-direction:column; align-items:flex-start; gap:6px; margin:24px 0 20px; }
+  .basket-head__meta{ padding-bottom:0; }
+  .basket{ grid-template-columns:minmax(0,1fr); gap:32px; }
+  .basket__cols{ display:none; }
+  .summary-card{ position:static; }
+  .line__main{ grid-template-columns:96px minmax(0,1fr); gap:14px 16px; }
+  .line__media{ width:96px; }
+  .line__info{ min-width:0; }
+  /* Qty and Subtotal drop under the item as labelled rows. The label that was
+     screen-reader-only on desktop is shown here, in the header row's voice. */
+  .line__qty, .line__sub{ grid-column:1 / -1; display:flex; align-items:center; justify-content:space-between; gap:12px 16px; flex-wrap:wrap; }
+  .line__lbl{
+    position:static; width:auto; height:auto; margin:0; clip-path:none; overflow:visible; white-space:normal;
+    font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid);
+  }
+  .line__qty{ padding-top:14px; border-top:1px solid var(--line); }
+  .line__qty .qty{ max-width:150px; }
+  .line__each{ flex-basis:100%; margin-top:0; text-align:right; }
+  .line__sub{ text-align:right; }
+  .line__cfg{ grid-template-columns:minmax(0,1fr); max-width:none; }
+  .pan__row{ gap:12px; }
+  .pan__field{ flex:1 1 200px; }
+  .pan__field input{ width:100%; }
+  .basket__foot{ flex-direction:column; align-items:stretch; }
+  .basket__foot .btn{ width:100%; }
+}
+@media (max-width:640px){
+  .line__main{ grid-template-columns:80px minmax(0,1fr); }
+  .line__media{ width:80px; padding:6px; }
+  .line__name{ font-size:var(--t-lead); }
+  .line__acts{ flex-wrap:wrap; gap:12px 18px; }
+  .art{ grid-template-columns:minmax(0,1fr); }
+  .drop{ aspect-ratio:auto; min-height:180px; }
+  .summary-card{ padding:20px; }
+  .code__row{ flex-wrap:wrap; }
+  .code__row .btn{ flex:1 1 100%; }
+}
