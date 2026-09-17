@@ -1,0 +1,157 @@
+/* ==========================================================================
+   Mega menu - layered on style-v4.css.
+
+   The category nav strip stays exactly as it was; each category that carries
+   sub-categories gains a full-width panel that drops from the strip. The panel
+   borrows the page's own furniture - mono group labels and hairline lists from
+   the category landing page, a display heading with a coral half, portrait
+   tiles with the forest gradient caption - so it reads as a slice of the
+   category page rather than a separate widget.
+
+   Desktop only (> 900px). Below that the strip is hidden and the drawer takes
+   over, so none of this applies.
+   ========================================================================== */
+
+/* ---------- Trigger ---------- */
+.nav{ position:relative; }
+.nav__list > li{ position:static; }
+.nav__item{ display:inline-flex; align-items:stretch; }
+/* The link keeps its job (it goes to the category page); the chevron is a
+   real button for keyboard and touch, so the panel is reachable without a
+   pointer that can hover. Together they read as one control. */
+.nav__item > a{ padding-right:4px; }
+.nav__tog{
+  display:inline-grid; place-items:center; width:26px; min-height:46px;
+  margin-left:-2px; color:var(--forest-mid);
+  border-bottom:2px solid transparent;
+  transition:color .18s var(--ease);
+}
+.nav__tog .ic{ transform:rotate(90deg); transition:transform .22s var(--ease), color .18s var(--ease); }
+.nav__tog:hover{ color:var(--coral-text); }
+.nav__tog:focus-visible{ outline:2px solid var(--coral-text); outline-offset:-2px; }
+/* The current-page underline runs under the chevron too, so it reads as one control. */
+.nav__item:has(> a[aria-current="page"]) .nav__tog{ border-bottom-color:var(--coral-text); }
+.nav__item.is-open > a{ color:var(--coral-text); }
+.nav__item.is-open > a::after{
+  /* A coral notch under the open item points into its panel. */
+  content:''; position:absolute; left:0; right:0; bottom:-1px; height:3px; background:var(--coral);
+}
+.nav__item.is-open .nav__tog{ color:var(--coral-text); }
+.nav__item.is-open .nav__tog .ic{ transform:rotate(-90deg); }
+
+/* ---------- Panel ---------- */
+.mega{
+  position:absolute; left:0; right:0; top:100%; z-index:5;
+  background:var(--white);
+  border-top:1px solid var(--line); border-bottom:3px solid var(--forest);
+  box-shadow:0 24px 40px -24px rgba(19,57,53,.35);
+  padding-block:34px 36px;
+}
+.mega[hidden]{ display:none; }
+/* With JS the panels are always in the DOM and the class drives them.
+   visibility keeps a closed panel's links out of the tab order. */
+.js .mega{
+  display:block; visibility:hidden; opacity:0; transform:translateY(-6px); pointer-events:none;
+  transition:opacity .18s var(--ease), transform .22s var(--ease), visibility 0s linear .22s;
+}
+.js .nav__item.is-open .mega{ visibility:visible; opacity:1; transform:none; pointer-events:auto; transition-delay:0s; }
+.mega .wrap{ display:block; }
+
+/* Seven tracks: an intro column, five list columns, a feature column. The
+   intro and feature columns are fixed so the lists get whatever is left. */
+.mega__grid{
+  display:grid;
+  grid-template-columns:minmax(180px,210px) repeat(5,minmax(0,1fr)) minmax(210px,232px);
+  gap:0 30px; align-items:start;
+}
+
+/* ---------- Intro column ---------- */
+.mega__intro{ padding-right:30px; border-right:1px solid var(--line); align-self:stretch; }
+.mega__intro .eyebrow{ margin-bottom:14px; font-size:var(--t-micro); white-space:nowrap; }
+.mega__intro h3{
+  font-family:var(--f-display); font-size:var(--h-lg); font-weight:600;
+  letter-spacing:-.045em; line-height:1; color:var(--forest);
+}
+.mega__intro h3 .hl{ color:var(--coral-display); }
+.mega__intro p{ margin-top:12px; font-size:var(--t-ui); line-height:1.55; color:var(--forest-mid); max-width:26ch; }
+.mega__intro .tlink{ margin-top:18px; font-size:var(--t-ui); }
+/* Counts sit in the intro as a stat, in the same mono voice as the group labels. */
+.mega__stat{ margin-top:26px; padding-top:18px; border-top:1px solid var(--line); display:flex; gap:14px; align-items:baseline; }
+.mega__stat b{ font-family:var(--f-display); font-size:var(--h-xl); font-weight:700; letter-spacing:-.05em; line-height:1; color:var(--forest); }
+.mega__stat span{ font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); line-height:1.35; }
+
+/* ---------- Group lists ---------- */
+.mega__col{ display:grid; gap:28px; align-content:start; }
+.mega__t{
+  margin:0; font-family:var(--f-mono); font-size:var(--t-micro); font-weight:500;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid);
+  padding-bottom:10px; border-bottom:2px solid var(--forest);
+}
+.mega__list{ margin:0; padding:0; list-style:none; }
+.mega__list a{
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  padding:7px 0; border-bottom:1px solid var(--line);
+  font-size:var(--t-ui); font-weight:600; color:var(--forest); line-height:1.3;
+  transition:color .15s var(--ease), padding-left .18s var(--ease);
+}
+.mega__list a:hover{ color:var(--coral-text); padding-left:4px; }
+.mega__list a:focus-visible{ outline:2px solid var(--coral-text); outline-offset:-2px; }
+/* Small mono flags on a handful of lines - the same voice as the product flags. */
+.mega__flag{
+  flex:0 0 auto; padding:2px 7px; font-family:var(--f-mono); font-size:11px; font-weight:500;
+  letter-spacing:.08em; text-transform:uppercase; line-height:1.4;
+  background:var(--coral-wash); color:var(--coral-text);
+}
+.mega__flag--eco{ background:var(--green-wash); color:var(--green-text); }
+.mega__t--trend{ color:var(--coral-text); border-color:var(--coral); }
+
+/* ---------- Feature column ---------- */
+.mega__feat{
+  display:grid; grid-template-rows:1fr 1fr; gap:14px;
+  padding-left:30px; border-left:1px solid var(--line); align-self:stretch;
+}
+/* The two tiles split the column's height between them, so the feature column
+   always lands level with the longest list beside it. */
+.mega__tile{
+  position:relative; display:block; overflow:hidden; min-height:150px;
+  background:var(--sage-green);
+}
+.mega__tile img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease); }
+.mega__tile:hover img{ transform:scale(1.04); }
+.mega__tile__cap{
+  position:absolute; left:0; right:0; bottom:0; padding:32px 16px 14px;
+  background:linear-gradient(to top, rgba(19,57,53,.92), rgba(19,57,53,0));
+  color:var(--oat); display:flex; align-items:flex-end; justify-content:space-between; gap:10px;
+}
+.mega__tile__cap b{ font-family:var(--f-display); font-size:var(--t-lead); font-weight:700; letter-spacing:-.03em; line-height:1.1; }
+.mega__tile__cap small{ display:block; margin-top:3px; font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:rgba(238,233,222,.8); }
+.mega__tile__cap .ic{ color:var(--coral-on-forest); transition:transform .22s var(--ease); }
+.mega__tile:hover .ic{ transform:translateX(4px); }
+.mega__tile:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
+/* One tile can carry the sticker, angled into the corner as on the page. */
+.mega__tile .sticker{ position:absolute; top:12px; right:12px; padding:8px 12px; }
+.mega__tile .sticker b{ font-size:var(--t-lead); }
+.mega__tile .sticker span{ font-size:10px; }
+
+/* ---------- Scrim ----------
+   The page under the header dims a touch while a panel is open, which keeps
+   the eye on the panel and makes the open state unmistakable. Sits under the
+   sticky header (z 80) so the header and the panel stay crisp. */
+.mega-scrim{
+  position:fixed; inset:0; z-index:70; background:rgba(19,57,53,.28);
+  opacity:0; pointer-events:none; transition:opacity .22s var(--ease);
+}
+.mega-scrim.is-on{ opacity:1; }
+
+/* ---------- Compact tracks ---------- */
+@media (max-width:1180px){
+  .mega__grid{ grid-template-columns:minmax(170px,200px) repeat(5,minmax(0,1fr)); gap:0 24px; }
+  .mega__feat{ display:none; }
+}
+@media (max-width:900px){
+  .nav__tog, .mega, .mega-scrim{ display:none !important; }
+}
+@media (prefers-reduced-motion: reduce){
+  .js .mega{ transition:none; transform:none; }
+  .mega-scrim{ transition:none; }
+}

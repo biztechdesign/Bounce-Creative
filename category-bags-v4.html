@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="assets/css/style-v4.css?v=114">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=21">
 <link rel="stylesheet" href="assets/css/category-v4.css?v=3">
+<link rel="stylesheet" href="assets/css/mega-v4.css?v=1">
 <script>document.documentElement.className += " js";</script>
 </head>
 <body>
@@ -83,9 +84,249 @@
     <div class="wrap">
       <ul class="nav__list">
         <li><a href="index-v4.html#catalogue">All Products</a></li>
-        <li><a href="products-v4.html">Bags</a></li>
-        <li><a href="index-v4.html#catalogue">Drinkware</a></li>
-        <li><a href="index-v4.html#catalogue">Clothing</a></li>
+        <li class="nav__item">
+          <a href="products-v4.html" aria-current="page">Bags</a>
+          <button class="nav__tog" type="button" aria-expanded="false" aria-controls="mega-bags" aria-label="Bags sub-categories"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+      <div class="mega" id="mega-bags" hidden>
+        <div class="wrap">
+        <div class="mega__grid">
+        <div class="mega__intro">
+          <span class="eyebrow">Printed bags</span>
+          <h3>Bags for <span class="hl">every brand.</span></h3>
+          <p>Totes to anti-theft backpacks, printed in the UK with instant quotes on bulk orders.</p>
+          <a href="products-v4.html" class="tlink">View all bags <svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <div class="mega__stat"><b>31</b><span>sub-categories<br>of bags</span></div>
+        </div>
+        <div class="mega__col">
+          <h4 class="mega__t">Business bags</h4>
+          <ul class="mega__list">
+            <li><a href="#">Anti theft bags</a></li>
+            <li><a href="#">Conference bags</a></li>
+            <li><a href="#">Document bags</a></li>
+            <li><a href="#">Laptop bags</a></li>
+            <li><a href="#">Exhibition bags</a></li>
+          </ul>
+        </div>
+        <div class="mega__col">
+          <h4 class="mega__t">Backpacks</h4>
+          <ul class="mega__list">
+            <li><a href="#">Anti theft backpacks</a></li>
+            <li><a href="#">Backpacks</a></li>
+            <li><a href="#">Drawstring bags</a></li>
+          </ul>
+          <h4 class="mega__t">Sports bags</h4>
+          <ul class="mega__list">
+            <li><a href="#">Gym bags</a></li>
+            <li><a href="#">Sports backpacks</a></li>
+            <li><a href="#">Sports duffel bags</a></li>
+            <li><a href="#">Sports holdalls</a></li>
+          </ul>
+        </div>
+        <div class="mega__col">
+          <h4 class="mega__t">Shopping bags</h4>
+          <ul class="mega__list">
+            <li><a href="#">Shopper bags</a></li>
+            <li><a href="#">Foldable bags</a></li>
+            <li><a href="#">Tote bags</a></li>
+            <li><a href="#">Jute bags <span class="mega__flag mega__flag--eco">Eco</span></a></li>
+            <li><a href="#">Canvas bags</a></li>
+            <li><a href="#">Paper bags</a></li>
+            <li><a href="#">Cotton bags <span class="mega__flag mega__flag--eco">Eco</span></a></li>
+            <li><a href="#">Non woven bags</a></li>
+          </ul>
+        </div>
+        <div class="mega__col">
+          <h4 class="mega__t">Travel bags</h4>
+          <ul class="mega__list">
+            <li><a href="#">Beach bags</a></li>
+            <li><a href="#">Cooler bags</a></li>
+            <li><a href="#">Picnic bags</a></li>
+            <li><a href="#">Toiletry bags</a></li>
+            <li><a href="#">Suitcases &amp; trolleys</a></li>
+            <li><a href="#">Waist bags</a></li>
+            <li><a href="#">Weekend holdalls</a></li>
+          </ul>
+        </div>
+        <div class="mega__col">
+          <h4 class="mega__t mega__t--trend">Trending</h4>
+          <ul class="mega__list">
+            <li><a href="#">New bags <span class="mega__flag">New</span></a></li>
+            <li><a href="#">Recommended</a></li>
+            <li><a href="#">Top 10 budget</a></li>
+            <li><a href="#">Top 10 picks</a></li>
+          </ul>
+        </div>
+        <div class="mega__feat">
+        <a href="#" class="mega__tile">
+          <img src="assets/img/categories/bags/tile-anti-theft.jpg" alt="" loading="lazy" width="600" height="360">
+          <span class="mega__tile__cap"><span><b>Anti theft bags</b><small>Most ordered this month</small></span><svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+          <span class="sticker sticker--coral"><b>Top</b><span>pick</span></span>
+        </a>
+        <a href="#" class="mega__tile">
+          <img src="assets/img/categories/bags/tile-rpet.jpg" alt="" loading="lazy" width="600" height="360">
+          <span class="mega__tile__cap"><span><b>rPET bags</b><small>Made from recycled bottles</small></span><svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+        </div>
+        </div>
+        </div>
+      </div>
+        </li>
+        <li class="nav__item">
+          <a href="index-v4.html#catalogue">Drinkware</a>
+          <button class="nav__tog" type="button" aria-expanded="false" aria-controls="mega-drinkware" aria-label="Drinkware sub-categories"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+      <div class="mega" id="mega-drinkware" hidden>
+        <div class="wrap">
+        <div class="mega__grid">
+        <div class="mega__intro">
+          <span class="eyebrow">Printed drinkware</span>
+          <h3>Drinkware that <span class="hl">gets used daily.</span></h3>
+          <p>Bottles, cups and tumblers with your logo, from 24-hour prints to bespoke colour runs.</p>
+          <a href="index-v4.html#catalogue" class="tlink">View all drinkware <svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <div class="mega__stat"><b>18</b><span>sub-categories<br>of drinkware</span></div>
+        </div>
+        <div class="mega__col">
+          <h4 class="mega__t">Bottles</h4>
+          <ul class="mega__list">
+            <li><a href="#">Sports bottles</a></li>
+            <li><a href="#">Steel bottles</a></li>
+            <li><a href="#">Glass bottles</a></li>
+            <li><a href="#">Insulated bottles</a></li>
+            <li><a href="#">Aluminium bottles</a></li>
+          </ul>
+        </div>
+        <div class="mega__col">
+          <h4 class="mega__t">Mugs &amp; cups</h4>
+          <ul class="mega__list">
+            <li><a href="#">Ceramic mugs</a></li>
+            <li><a href="#">Travel mugs</a></li>
+            <li><a href="#">Coffee cups</a></li>
+            <li><a href="#">Enamel mugs</a></li>
+            <li><a href="#">Glass cups</a></li>
+          </ul>
+        </div>
+        <div class="mega__col">
+          <h4 class="mega__t">Tumblers</h4>
+          <ul class="mega__list">
+            <li><a href="#">Insulated tumblers</a></li>
+            <li><a href="#">Quencher tumblers</a></li>
+            <li><a href="#">Vacuum flasks</a></li>
+            <li><a href="#">Hip flasks</a></li>
+          </ul>
+        </div>
+        <div class="mega__col">
+          <h4 class="mega__t">Glassware</h4>
+          <ul class="mega__list">
+            <li><a href="#">Pint glasses</a></li>
+            <li><a href="#">Wine glasses</a></li>
+            <li><a href="#">Shot glasses</a></li>
+            <li><a href="#">Tankards</a></li>
+          </ul>
+        </div>
+        <div class="mega__col">
+          <h4 class="mega__t mega__t--trend">Trending</h4>
+          <ul class="mega__list">
+            <li><a href="#">Recycled cups <span class="mega__flag mega__flag--eco">Eco</span></a></li>
+            <li><a href="#">Quenchers <span class="mega__flag">New</span></a></li>
+            <li><a href="#">Top 10 picks</a></li>
+            <li><a href="#">Gift sets</a></li>
+          </ul>
+        </div>
+        <div class="mega__feat">
+        <a href="#" class="mega__tile">
+          <img src="assets/img/products/40_oz_quencher_tumbler_in_black.jpg" alt="" loading="lazy" width="600" height="360">
+          <span class="mega__tile__cap"><span><b>40oz quencher tumbler</b><small>New for autumn</small></span><svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+          <span class="sticker sticker--coral"><b>New</b><span>in</span></span>
+        </a>
+        <a href="#" class="mega__tile">
+          <img src="assets/img/products/kivu_500ml_recycled_insulated_cup.jpg" alt="" loading="lazy" width="600" height="360">
+          <span class="mega__tile__cap"><span><b>Recycled insulated cups</b><small>Lower carbon, same price</small></span><svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+        </div>
+        </div>
+        </div>
+      </div>
+        </li>
+        <li class="nav__item">
+          <a href="index-v4.html#catalogue">Clothing</a>
+          <button class="nav__tog" type="button" aria-expanded="false" aria-controls="mega-clothing" aria-label="Clothing sub-categories"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+      <div class="mega" id="mega-clothing" hidden>
+        <div class="wrap">
+        <div class="mega__grid">
+        <div class="mega__intro">
+          <span class="eyebrow">Printed clothing</span>
+          <h3>Workwear and <span class="hl">merch that fits.</span></h3>
+          <p>Embroidered and printed clothing for teams, events and uniforms, decorated in Bristol.</p>
+          <a href="index-v4.html#catalogue" class="tlink">View all clothing <svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <div class="mega__stat"><b>24</b><span>sub-categories<br>of clothing</span></div>
+        </div>
+        <div class="mega__col">
+          <h4 class="mega__t">T-shirts</h4>
+          <ul class="mega__list">
+            <li><a href="#">Printed t-shirts</a></li>
+            <li><a href="#">Organic t-shirts</a></li>
+            <li><a href="#">Polo shirts</a></li>
+            <li><a href="#">Vests</a></li>
+            <li><a href="#">Long sleeve tops</a></li>
+          </ul>
+        </div>
+        <div class="mega__col">
+          <h4 class="mega__t">Outerwear</h4>
+          <ul class="mega__list">
+            <li><a href="#">Softshell jackets</a></li>
+            <li><a href="#">Fleeces</a></li>
+            <li><a href="#">Puffer jackets</a></li>
+            <li><a href="#">Rain jackets</a></li>
+          </ul>
+          <h4 class="mega__t">Hoodies</h4>
+          <ul class="mega__list">
+            <li><a href="#">Hoodies</a></li>
+            <li><a href="#">Sweatshirts</a></li>
+            <li><a href="#">Zip hoodies</a></li>
+          </ul>
+        </div>
+        <div class="mega__col">
+          <h4 class="mega__t">Workwear</h4>
+          <ul class="mega__list">
+            <li><a href="#">Hi-vis vests <span class="mega__flag">24hr</span></a></li>
+            <li><a href="#">Hi-vis jackets</a></li>
+            <li><a href="#">Aprons</a></li>
+            <li><a href="#">Tabards</a></li>
+            <li><a href="#">Chef wear</a></li>
+          </ul>
+        </div>
+        <div class="mega__col">
+          <h4 class="mega__t">Headwear</h4>
+          <ul class="mega__list">
+            <li><a href="#">Caps</a></li>
+            <li><a href="#">Beanies</a></li>
+            <li><a href="#">Bucket hats</a></li>
+            <li><a href="#">Snapbacks</a></li>
+          </ul>
+        </div>
+        <div class="mega__col">
+          <h4 class="mega__t mega__t--trend">Trending</h4>
+          <ul class="mega__list">
+            <li><a href="#">Organic range <span class="mega__flag mega__flag--eco">Eco</span></a></li>
+            <li><a href="#">Top 10 picks</a></li>
+            <li><a href="#">Bundles</a></li>
+            <li><a href="#">Uniform packs</a></li>
+          </ul>
+        </div>
+        <div class="mega__feat">
+        <a href="#" class="mega__tile">
+          <img src="assets/img/products/clothing/minsk-jacket-navy-royal.jpg" alt="" loading="lazy" width="600" height="360">
+          <span class="mega__tile__cap"><span><b>Minsk softshell jacket</b><small>Team favourite</small></span><svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+        <a href="#" class="mega__tile">
+          <img src="assets/img/products/clothing/hi-vis-vest-visicoat-yellow.jpg" alt="" loading="lazy" width="600" height="360">
+          <span class="mega__tile__cap"><span><b>Hi-vis vests</b><small>Printed next day</small></span><svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+          <span class="sticker sticker--coral"><b>24</b><span>hr</span></span>
+        </a>
+        </div>
+        </div>
+        </div>
+      </div>
+        </li>
         <li><a href="index-v4.html#catalogue">Tech</a></li>
         <li><a href="index-v4.html#catalogue">Notebooks</a></li>
         <li><a href="index-v4.html#catalogue">Pens</a></li>
@@ -664,5 +905,6 @@
 
 <script src="assets/js/a11y-v4.js?v=5"></script>
 <script src="assets/js/category-v4.js?v=1"></script>
+<script src="assets/js/mega-v4.js?v=1"></script>
 </body>
 </html>
