@@ -1,0 +1,76 @@
+/* ==========================================================================
+   Category landing page - layered on style-v4.css and list-v4.css.
+   Desktop layout only: this is a design reference for estimation.
+   ========================================================================== */
+
+/* ---------- Hero: copy on forest, the category composite on the right ---------- */
+.lhero{ background:var(--forest); color:var(--oat); overflow:hidden; }
+.lhero__grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:56px; align-items:center; }
+.lhero__copy{ padding-block:clamp(40px,5vw,72px); }
+.lhero h1{ font-size:var(--d-1); color:var(--oat); }
+.lhero h1 .hl{ color:var(--coral-on-forest); }
+.lhero p{ margin-top:18px; font-size:var(--t-lead); color:rgba(238,233,222,.82); max-width:56ch; }
+.lhero__cta{ display:flex; gap:14px; margin-top:28px; flex-wrap:wrap; }
+.btn--outline-onforest{ border-color:rgba(238,233,222,.55); color:var(--oat); }
+.btn--outline-onforest:hover{ border-color:var(--oat); color:var(--oat); background:rgba(238,233,222,.08); }
+.lhero__media{ align-self:end; }
+.lhero__media img{ display:block; width:100%; height:auto; max-height:520px; object-fit:contain; object-position:bottom; }
+
+/* ---------- Featured type tiles: five portrait cards ---------- */
+.ftiles{ display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:16px; }
+.ftile{ position:relative; display:block; aspect-ratio:512/620; overflow:hidden; background:var(--sage-green); }
+.ftile img{ width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease); }
+.ftile:hover img{ transform:scale(1.04); }
+.ftile__name{
+  position:absolute; left:0; right:0; bottom:0; padding:18px 18px 16px;
+  background:linear-gradient(to top, rgba(19,57,53,.92), rgba(19,57,53,0));
+  color:var(--oat); font-family:var(--f-display); font-size:var(--h-card); font-weight:700; letter-spacing:-.03em;
+}
+.ftile:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
+
+/* ---------- Every sub-category, in its groups ---------- */
+.subcats{ display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:32px; padding-top:8px; border-top:2px solid var(--forest); }
+.subcat{ padding-top:20px; }
+.subcat__t{ font-family:var(--f-mono); font-size:var(--t-micro); font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); }
+.subcat__list{ list-style:none; margin:14px 0 0; padding:0; display:grid; gap:0; }
+.subcat__list a{
+  display:block; padding:9px 0; border-bottom:1px solid var(--line);
+  font-size:var(--t-ui); font-weight:600; color:var(--forest); text-decoration:none;
+}
+.subcat__list a:hover{ color:var(--coral-text); }
+.subcat--trend .subcat__t{ color:var(--coral-text); }
+
+/* ---------- Product cards on this page ---------- */
+#product-grid.rail--grid{ grid-template-columns:repeat(4,minmax(0,1fr)); }
+.prod__flag--quote{ background:var(--paper); color:var(--forest); }
+
+/* ---------- More to explore: five landscape tiles ---------- */
+.mtiles{ display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:16px; }
+.mtile{ display:block; text-decoration:none; color:var(--forest); }
+.mtile img{ display:block; width:100%; aspect-ratio:8/5; object-fit:cover; background:var(--sage-green); transition:transform .5s var(--ease); }
+.mtile:hover img{ transform:translateY(-3px); }
+.mtile__name{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:12px 2px 0; font-family:var(--f-display); font-size:var(--t-md); font-weight:700; letter-spacing:-.02em;
+}
+.mtile__name .ic{ color:var(--coral-text); }
+.mtile:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
+
+/* ---------- Category copy: an editorial two-column ----------
+   The heading and standfirst stay put on the left while the copy reads as one
+   article on the right, each section under a hairline. */
+.story{ display:grid; grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr); gap:72px; align-items:start; }
+.story__aside{ position:sticky; top:150px; }
+.story__aside h2{ margin-top:14px; font-size:var(--d-2); }
+.story__stand{ margin-top:18px; font-size:var(--t-lead); color:var(--forest-mid); max-width:40ch; }
+.story__aside .btn{ margin-top:26px; }
+.story__body{ border-top:2px solid var(--forest); }
+.story__part{ padding:28px 0; border-bottom:1px solid var(--line); }
+.story__part h3{ font-size:var(--d-3); max-width:28ch; }
+.story__part p{ margin-top:12px; font-size:var(--t-md); color:var(--forest-mid); line-height:1.65; max-width:68ch; }
+.story__part h3 + p{ margin-top:14px; }
+.story__list{ list-style:none; margin:16px 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 28px; }
+.story__list li{ display:flex; gap:10px; align-items:flex-start; font-size:var(--t-body); color:var(--forest-mid); line-height:1.5; }
+.story__list .ic{ flex:0 0 auto; margin-top:3px; color:var(--green-text); }
+.story__list b{ display:block; color:var(--forest); font-weight:800; }
+.story__part > p:first-child{ margin-top:0; font-size:var(--t-lead); color:var(--forest); }
