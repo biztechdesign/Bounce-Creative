@@ -2,7 +2,7 @@
 """Generate the quote email in the v4 system.
 
 Email HTML: nested tables, inline styles, absolute image URLs, a 640px
-container. Fonts fall back to Arial where web fonts are not supported.
+container. Arial throughout - no web fonts.
 
     python scripts/email/build.py
 """
@@ -24,9 +24,9 @@ CORAL_TEXT = "#B93B1C"
 GREEN = "#19754C"
 SAGE = "#D8E4D1"
 
-FONT = "'Manrope', Arial, Helvetica, sans-serif"
-DISPLAY = "'Space Grotesk', Arial, Helvetica, sans-serif"
-MONO = "'DM Mono', Menlo, Consolas, monospace"
+FONT = "Arial, Helvetica, sans-serif"
+DISPLAY = "Arial, Helvetica, sans-serif"
+MONO = "Arial, Helvetica, sans-serif"
 
 QUOTE = {
     "number": "MID-MO6666-TVDAWUGGCF",
@@ -147,7 +147,6 @@ def build():
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="x-apple-disable-message-reformatting">
 <title>Your quote #{q["number"]} | Bounce Creative Designs</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;700;800&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   body{{ margin:0; padding:0; background:{OAT}; -webkit-text-size-adjust:100%; }}
   table{{ border-collapse:collapse; }}
