@@ -1056,3 +1056,28 @@ body.is-locked{ overflow:hidden; }
 @media (max-width:900px){
   .faq{ columns:1; }
 }
+
+/* ---------- 20. BACK TO TOP ----------
+   A forest square in the bottom corner, in the same voice as the buttons:
+   it lifts onto the hard offset shadow and turns coral on hover. Hidden until
+   the reader is a screen down, and never in the way of the drawer (z 100). */
+.totop{
+  position:fixed; right:22px; bottom:22px; z-index:60;
+  width:48px; height:48px; display:grid; place-items:center;
+  background:var(--forest); color:var(--oat); border:2px solid var(--forest);
+  opacity:0; transform:translateY(12px); pointer-events:none;
+  transition:opacity .22s var(--ease), transform .22s var(--ease), background .18s var(--ease), color .18s var(--ease), box-shadow .18s var(--ease);
+}
+.totop.is-on{ opacity:1; transform:none; pointer-events:auto; }
+.totop.is-on:hover{ background:var(--coral-btn); color:var(--forest); transform:translate(-3px,-3px); box-shadow:var(--shadow-hard); }
+.totop.is-on:active{ transform:none; box-shadow:none; }
+.totop:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
+.totop svg{ display:block; }
+body.is-locked .totop{ opacity:0; pointer-events:none; }
+@media (max-width:640px){
+  .totop{ right:16px; bottom:16px; width:44px; height:44px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .totop{ transition:none; transform:none; }
+  .totop.is-on:hover{ transform:none; }
+}

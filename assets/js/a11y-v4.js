@@ -164,9 +164,45 @@
     window.addEventListener('load', check);
   }
 
+  /* ---------- Back to top ----------
+     Built here rather than in the markup so every page gets it. Shows once the
+     reader is a screen below the top, scrolls smoothly (unless motion is
+     reduced) and hands focus to the main landmark so keyboard users land
+     where the page starts, not where the button was. */
+  function initToTop() {
+    var main = document.getElementById('main');
+    var btn = document.createElement('button');
+    btn.className = 'totop';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Back to top');
+    btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+      '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 15L12 8L19 15"/></svg>';
+    document.body.appendChild(btn);
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var shown = false, ticking = false;
+    function check() {
+      ticking = false;
+      var on = window.scrollY > window.innerHeight * 0.8;
+      if (on !== shown) { shown = on; btn.classList.toggle('is-on', on); }
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(check);
+    }
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduce.matches ? 'auto' : 'smooth' });
+      if (main) main.focus({ preventScroll: true });
+    });
+    check();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
   function start() {
     initDrawer();
     initReveal();
+    initToTop();
     [].forEach.call(document.querySelectorAll('[role="tablist"]'), initTabs);
     [].forEach.call(document.querySelectorAll('.marquee-pause'), initMarqueePause);
   }
