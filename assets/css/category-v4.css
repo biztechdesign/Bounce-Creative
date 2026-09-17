@@ -74,12 +74,16 @@
 .story__list .ic{ flex:0 0 auto; margin-top:3px; color:var(--green-text); }
 .story__list b{ display:block; color:var(--forest); font-weight:800; }
 .story__part > p:first-child{ margin-top:0; font-size:var(--t-lead); color:var(--forest); }
-/* Single-column story: the head sits above the copy and both are capped to a
-   reading measure, so the article reads top to bottom rather than side by side. */
-.story--one{ grid-template-columns:minmax(0,1fr); gap:40px; max-width:860px; }
+/* Single-column story: head above the copy, and everything runs the full
+   width of the container so the section stays as short as the copy allows. */
+.story--one{ grid-template-columns:minmax(0,1fr); gap:32px; }
 .story--one .story__aside{ position:static; }
-.story--one .story__aside h2{ max-width:18ch; }
+.story--one .story__aside h2{ max-width:none; }
+.story--one .story__stand{ max-width:none; }
+.story--one .story__part{ padding:22px 0; }
 .story--one .story__part h3{ max-width:none; }
+.story--one .story__part p{ max-width:none; }
+.story--one .story__list{ gap:8px 40px; }
 
 /* ==========================================================================
    Responsive. Same breakpoints as style-v4.css: 1180 (the sidebar-and-grid
