@@ -20,7 +20,7 @@ CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
 FOOTER = (PDP / "_footer.html").read_text(encoding="utf-8").replace(
     '<script src="assets/js/pdp-v4.js?v=23"></script>', "")
 
-CSS_V = 4
+CSS_V = 6
 
 
 def esc(s):
