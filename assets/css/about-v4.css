@@ -1,0 +1,81 @@
+/* ==========================================================================
+   About - layered on style-v4.css, list-v4.css and category-v4.css (the
+   hero, story, values, awards and signup blocks come from there).
+   Desktop layout only.
+   ========================================================================== */
+
+/* Hero with a photograph rather than a cut-out */
+.lhero__media--photo{ align-self:center; padding-block:48px; }
+.lhero__media--photo img{
+  max-height:none; aspect-ratio:4/3; object-fit:cover;
+  box-shadow:12px 12px 0 var(--coral);
+}
+
+/* ---------- Values grids at other counts ---------- */
+.vals--three{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+.vals--five{ grid-template-columns:repeat(5,minmax(0,1fr)); }
+.vals--five .val{ padding:30px 22px 30px 0; }
+.vals--five .val:not(:first-child){ padding-left:22px; }
+.vals--five .val h3{ font-size:var(--h-card); }
+.vals--five .val p{ font-size:var(--t-cap); }
+
+/* ---------- Photo + copy split ---------- */
+.split{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:64px; align-items:center; }
+.split--rev{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+.split--lead{ margin-bottom:52px; }
+.split__media{ margin:0; }
+.split__media img{ display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; box-shadow:12px 12px 0 var(--sage-green); }
+.split--rev .split__media img{ box-shadow:-12px 12px 0 var(--sage-green); }
+.split__copy h2{ margin-top:14px; font-size:var(--d-2); }
+.split__copy p{ margin-top:16px; font-size:var(--t-md); line-height:1.65; color:var(--forest-mid); max-width:56ch; }
+.split__copy h2 + p{ margin-top:22px; }
+.split__note{ font-size:var(--t-body) !important; }
+.split__badge{ display:block; margin-top:26px; width:300px; height:auto; }
+.split .story__list{ margin-top:22px; }
+.story__list--one{ grid-template-columns:minmax(0,1fr); }
+
+/* Second story block sits under the split inside the same band */
+.story--tight{ margin-top:72px; }
+.story__badge{ display:block; margin-top:26px; width:280px; height:auto; }
+
+/* ---------- Numbered points ---------- */
+.pts{ list-style:none; margin:52px 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 56px; border-top:2px solid var(--forest); }
+.pts--one{ margin:0; grid-template-columns:minmax(0,1fr); }
+.story__fig{ margin:28px 0 0; }
+.story__fig img{ display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; box-shadow:-12px 12px 0 var(--sage-green); }
+.pts li{ display:flex; gap:18px; padding:26px 0; border-bottom:1px solid var(--line); }
+.pts li:nth-child(odd):last-child{ grid-column:1 / -1; max-width:60ch; }
+.pt__n{ flex:0 0 auto; font-family:var(--f-mono); font-size:var(--t-cap); color:var(--coral-text); padding-top:4px; }
+.pts p{ font-size:var(--t-body); line-height:1.6; color:var(--forest-mid); }
+.pts b{ color:var(--forest); font-weight:800; }
+
+/* ---------- Advantage benefits ---------- */
+.adv{ list-style:none; margin:16px 0 0; padding:0; display:grid; gap:12px; }
+.adv li{ display:flex; gap:12px; align-items:flex-start; }
+.adv .ic{ flex:0 0 auto; margin-top:3px; color:var(--green-text); }
+.adv p{ margin:0; font-size:var(--t-body); line-height:1.6; color:var(--forest-mid); }
+.adv b{ color:var(--forest); font-weight:800; }
+
+/* ---------- Pull quotes inside story parts ---------- */
+.pull{ margin:0; padding-left:22px; border-left:3px solid var(--coral); }
+.pull p{ margin:0; font-family:var(--f-display); font-size:var(--h-lg); font-weight:500; line-height:1.4; letter-spacing:-.01em; color:var(--forest); max-width:none; }
+.pull .quote__by{ margin-top:18px; }
+
+/* ---------- Video ---------- */
+.vid{ background:var(--forest); box-shadow:14px 14px 0 var(--sage-green); }
+.vid video{ display:block; width:100%; height:auto; aspect-ratio:16/9; }
+
+/* ---------- Awards at seven ---------- */
+.awards--seven{ grid-template-columns:repeat(7,minmax(0,1fr)); }
+
+/* ---------- Newsletter band ---------- */
+.newsband{
+  display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:48px; align-items:center;
+  padding:48px 56px; background:var(--forest); color:var(--oat);
+}
+.newsband h2{ margin-top:14px; font-size:var(--d-3); color:var(--oat); }
+.newsband h2 .hl{ color:var(--coral-on-forest); }
+.newsband .signup{ display:flex; }
+.newsband .signup__field{ max-width:none; }
+.newsband .signup__field input{ background:var(--oat); }
+.newsband .signup__note{ color:rgba(238,233,222,.7); }
