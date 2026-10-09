@@ -1004,3 +1004,8 @@
 .qquote__awards img{width:76px;height:76px;flex:0 0 76px;}
 .qquote__awards img:first-child{background:var(--oat);border-radius:50%;}
 .qquote__awards img:not(:first-child){filter:grayscale(1) invert(1);}
+
+.qquote__price #quote-quantity-slot:has(.cfg){max-width:none;}
+.qquote__price .cfg__rows{grid-template-columns:minmax(0,1fr);}
+.qquote__price .cfg__legend{width:auto;}
+.qquote__price .cfg{padding:12px;background:transparent;box-shadow:none;}

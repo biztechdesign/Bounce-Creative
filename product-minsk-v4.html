@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style-v4.css?v=116">
-<link rel="stylesheet" href="assets/css/list-v4.css?v=21">
-<link rel="stylesheet" href="assets/css/pdp-v4.css?v=65">
+<link rel="stylesheet" href="assets/css/list-v4.css?v=31">
+<link rel="stylesheet" href="assets/css/pdp-v4.css?v=70">
 <!-- The reveal animation hides content until it is observed, so it is scoped to
      JS being available. Without this, a JS failure would leave a blank page. -->
 <script>document.documentElement.className += " js";</script>
@@ -379,7 +379,8 @@
   "expressShip": 1,
   "stock": 16,
   "freeDeliveryOver": 3000,
-  "maxLocations": 4
+  "maxLocations": 4,
+  "quotePreview": true
 }
 </script>
 </head>
@@ -559,15 +560,6 @@
           <p class="buy__rate"><svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b> <span>(37 reviews)</span> &middot; <span>612 happy customers</span></p>
 
           <p class="buy__lede">Unisex jacket in two-fabric combination: fixed adjusted hood. Raglan sleeves. Sleeves, side panels and hood in softshell fabric. Quilted feather touch fabric in front and back. Inverted zip with matching chin protector and puller. Two front pockets with zippers. Matching elastic trim in collar, cuffs and hem. Removable label. Wind-proof model. The male model is 184 cm and is wearing size L, and the female model is 179 cm and is wearing size S.</p>
-
-          <!-- The headline is the published from-price, unprinted, exactly as the
-               counter quotes it. The configured price lives in the breakdown below,
-               so the two are never confused for one another. -->
-          <div class="buy__price">
-            <span class="buy__from">From</span>
-            <b>&pound;18.69</b>
-            <span class="buy__unit">per unit, unprinted &middot; minimum 1</span>
-          </div>
 
           <form class="buy__form" onsubmit="return false;">
             <fieldset class="opt">
@@ -841,14 +833,14 @@
                   and the team will come back with shipping costs.</span>
                 </p>
 
-                <p class="summary__lbl">Updated price with configuration:</p>
+                <p class="summary__lbl">Your configured total:</p>
                 <p class="summary__price">
                   <b id="c-total">&mdash;</b>
                   <span class="summary__vat" id="c-vat-lbl">Ex VAT</span>
                   <button class="summary__info" type="button" aria-expanded="false" aria-controls="breakdown"
                           aria-label="Show the price breakdown">i</button>
                 </p>
-                <p class="summary__sub"><span id="c-total-note">&mdash;</span> &middot; <span id="c-perunit">&mdash;</span></p>
+                <p class="summary__sub"><span id="c-total-note">&mdash;</span></p>
 
                 <div class="calc" id="breakdown" hidden>
                   <ul class="calc__rows">
@@ -913,13 +905,14 @@
           <dialog class="qmodal" id="quote-modal" aria-labelledby="qmodal-t">
             <form class="qmodal__form" method="dialog">
               <div class="qmodal__head">
-                <h2 class="qmodal__t" id="qmodal-t">Get a quote</h2>
+                <h2 class="qmodal__t" id="qmodal-t">Email quote</h2>
                 <button class="qmodal__x" type="submit" value="close" formnovalidate aria-label="Close">
                   <svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-close"/></svg>
                 </button>
               </div>
 
               <p class="qmodal__sku">Quoting on <b>Minsk Unisex Hybrid Insulated Jacket</b> &middot; SKU pf-R1120</p>
+              <p class="qmodal__lede" id="quote-config-summary" aria-live="polite"></p>
 
               <div class="qmodal__grid">
                 <label class="qfield qfield--wide">
@@ -934,18 +927,27 @@
                   <span class="qfield__t">Phone number <b class="req" aria-hidden="true">*</b></span>
                   <input type="tel" name="phone" autocomplete="tel" required>
                 </label>
+                <label class="qfield"><span class="qfield__t">Colleague’s email (optional)</span><input type="email" name="colleague"></label>
+                <label class="qfield"><span class="qfield__t">Company name (optional)</span><input type="text" name="company" autocomplete="organization"></label>
               </div>
 
               <div class="qmodal__opts">
                 <label class="qopt"><input type="checkbox" name="pricebreaks" checked> Include price breaks for different quantities</label>
-                <label class="qopt"><input type="checkbox" name="mockup"> Send me a mock up proof</label>
-                <label class="qopt"><input type="checkbox" name="vat"> Send me costs including VAT</label>
+                <label class="qopt"><input type="checkbox" name="mockup"> Request a mock-up with my logo</label>
+                <label class="qopt"><input type="checkbox" name="vat"> Include VAT in this email quote</label>
               </div>
 
+              <div id="quote-artwork-field" hidden>
+                <label class="qfield"><span class="qfield__t">Your logo / artwork <b class="req" aria-hidden="true">*</b></span>
+                <input type="file" name="artwork" accept=".ai,.eps,.pdf,.svg,.png,.jpg,.jpeg,.webp" aria-describedby="quote-artwork-note"></label>
+                <p class="qmodal__note" id="quote-artwork-note">Upload your logo once for the mock-up. AI, EPS, PDF, SVG, PNG or JPEG, up to 10 MB.</p>
+              </div>
               <div class="qmodal__cta">
-                <button class="btn btn--solid" type="submit" value="send">Submit for a quote <svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                <button class="btn btn--solid" type="submit" value="send">Preview email quote <svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></button>
                 <button class="btn btn--outline" type="submit" value="close" formnovalidate>Cancel</button>
               </div>
+              <p class="qmodal__note">Preview your configured quote. No email is sent from this preview.</p>
+              <p id="quote-preview-error" role="alert" hidden></p>
             </form>
           </dialog>
 
@@ -1476,6 +1478,7 @@
 </footer>
 
 <script src="assets/js/a11y-v4.js?v=6"></script>
-<script src="assets/js/pdp-v4.js?v=23"></script>
+<script src="assets/js/quote-artwork-v4.js?v=1"></script>
+<script src="assets/js/pdp-v4.js?v=30"></script>
 </body>
 </html>

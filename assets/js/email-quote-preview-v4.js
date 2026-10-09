@@ -10,9 +10,9 @@
   var GBP = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' });
   function money(n) { return GBP.format(n); }
   var tax = q.incVat ? 'Inc VAT' : 'Ex VAT';
-  text('email-total', money(q.costs.total)); text('email-vat', tax);
+  text('email-total', q.pricingPending ? 'To be confirmed' : money(q.costs.total)); text('email-vat', tax);
   var preheader = document.querySelector('body > div');
-  if (preheader) preheader.textContent = 'Your quote for ' + q.product + ' — ' + money(q.costs.total) + ' ' + tax.toLowerCase() + '.';
+  if (preheader) preheader.textContent = 'Your quote for ' + q.product + ' — ' + (q.pricingPending ? 'Pricing to be confirmed' : money(q.costs.total) + ' ' + tax.toLowerCase()) + '.';
   text('email-number', '#PREVIEW-' + q.sku);
   text('email-date', new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', day: 'numeric', month: 'short', year: 'numeric' }).format(new Date()));
   text('email-contact-name', q.contact.company || q.contact.name); text('email-recipient', q.contact.email);
@@ -40,9 +40,12 @@
   if (q.contact.colleague) addConfig('Copy to', q.contact.colleague);
   addConfig('Product colour', q.colour); addConfig('Quantity', q.costs.quantity);
   if (q.size) addConfig('Size', q.size);
+  (q.sizes || []).forEach(function (size) { addConfig('Size ' + size.size, size.quantity + ' units'); });
   q.locations.forEach(function (loc, index) {
     addConfig('Branding ' + (index + 1), loc.area + ' — ' + loc.method + ', ' + loc.colours + (loc.logoSize ? ', ' + loc.logoSize : ''));
   });
+  if (q.pricingPending) addConfig('Branding and pricing', 'To be confirmed by the team');
+  else {
   addConfig('Production', q.express ? 'Express' : 'Standard');
   addConfig('Delivery destination', q.ukMainland ? 'UK mainland' : 'To be confirmed');
   addConfig('Product cost (ex VAT)', money(q.costs.product));
@@ -50,6 +53,7 @@
   addConfig('Setup cost (ex VAT)', money(q.costs.setup));
   if (q.costs.surcharge) addConfig('Surcharges (ex VAT)', money(q.costs.surcharge));
   if (q.costs.express) addConfig('Express charge (ex VAT)', money(q.costs.express));
+  }
   var table = $('email-breaks-table');
   Array.from(table.rows).slice(1).forEach(function (row) { row.remove(); });
   if (!q.breaks || !q.breaks.length) $('email-breaks-section').hidden = true;
@@ -68,7 +72,7 @@
     });
   }
   var priceNote = document.createElement('p');
-  priceNote.textContent = 'All prices ' + tax.toLowerCase() + ', as selected in your quote request.';
+  priceNote.textContent = q.pricingPending ? 'Requested pricing: ' + tax.toLowerCase() + '. The team will confirm your bespoke quote.' : 'All prices ' + tax.toLowerCase() + ', as selected in your quote request.';
   priceNote.style.cssText = 'font:12px Arial;color:#33564F;';
   $('email-vat').parentElement.appendChild(priceNote);
   var artworks = Array.isArray(q.artworks) ? q.artworks : q.artwork ? [q.artwork] : [];

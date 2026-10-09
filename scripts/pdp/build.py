@@ -481,8 +481,8 @@ def head(p):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style-v4.css?v=114">
-<link rel="stylesheet" href="assets/css/list-v4.css?v=21">
-<link rel="stylesheet" href="assets/css/pdp-v4.css?v=69">
+<link rel="stylesheet" href="assets/css/list-v4.css?v=31">
+<link rel="stylesheet" href="assets/css/pdp-v4.css?v=70">
 <!-- The reveal animation hides content until it is observed, so it is scoped to
      JS being available. Without this, a JS failure would leave a blank page. -->
 <script>document.documentElement.className += " js";</script>
@@ -495,7 +495,7 @@ def head(p):
 
 def config_island(p):
     cfg = {
-        "quotePreview": p["file"] == "product-hivis-v4.html",
+        "quotePreview": True,
         "tiers": [{"min": m, "each": e} for m, e in p["tiers"]],
         "pricing": p.get("pricing", "ladder"),
         "methods": [{
@@ -959,6 +959,13 @@ def quote_box(p):
               </label>
             </div>
 
+            <div class="qmodal__opts">
+              <label class="qopt"><input type="checkbox" name="mockup"> Send me a mock-up proof</label>
+              <label class="qopt"><input type="checkbox" name="vat"> Send me costs including VAT</label>
+              <label class="qopt"><input type="checkbox" name="uk" checked> I can confirm delivery is to the UK mainland</label>
+            </div>
+            <p class="qmodal__note">Preview your quote request. The team will confirm branding, pricing and delivery. No email is sent from this preview.</p>
+            <p id="bespoke-quote-error" role="alert" hidden></p>
             <div class="acts">
               <button class="btn btn--solid" type="submit">Submit for a quote {icon("i-arrow", 18)}</button>
               <button class="btn btn--outline wishlist" type="button">{icon("i-heart", 17)}Add to wishlist</button>
@@ -1155,7 +1162,7 @@ def buy_box(p):
         </div>"""
 
 
-    if p["file"] == "product-hivis-v4.html":
+    if p.get("mode") != "quote":
         price_start = markup.index("          <!-- The headline")
         price_end = markup.index('          <form class="buy__form"', price_start)
         markup = markup[:price_start] + markup[price_end:]

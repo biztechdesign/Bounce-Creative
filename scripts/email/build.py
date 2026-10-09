@@ -409,7 +409,7 @@ def build(quote=None):
 def main():
     out = ROOT / "email-quote-v4.html"
     html = build()
-    browser_scripts = '<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n<script src="assets/js/email-quote-preview-v4.js?v=4"></script>\n'
+    browser_scripts = '<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n<script src="assets/js/email-quote-preview-v4.js?v=5"></script>\n'
     out.write_text(html.replace('</body>', browser_scripts + '</body>'), encoding="utf-8")
     print(f"wrote {out.name}  ({out.stat().st_size:,} bytes)")
 

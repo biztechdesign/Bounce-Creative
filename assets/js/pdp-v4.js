@@ -752,6 +752,7 @@
       delivery: (expressEl && expressEl.checked ? CFG.expressShip || 1 : CFG.baseShip || 2) + ' working days',
       colour: $('colour-val') ? $('colour-val').textContent : '',
       size: sizeVal ? sizeVal.textContent : '',
+      sizes: grid ? gridInputs.filter(function (input) { return Number(input.value) > 0; }).map(function (input) { return { size: input.dataset.size, quantity: Number(input.value) }; }) : [],
       locations: locs().map(function (loc) {
         var m = methodOf(loc), logoSize = chosen(loc, 'logo');
         return { area: loc.dataset.area, method: m.name,
@@ -823,16 +824,21 @@
     var nodes = all('.buy__form > fieldset.opt');
     if (locWrap) nodes.push(locWrap);
     if (grid) nodes.push(grid);
-    if (qtyEl) nodes.push(qtyEl.parentElement);
+    if (qtyEl && !grid) nodes.push(qtyEl.parentElement);
     nodes.forEach(function (node) {
       var marker = document.createComment('quote control position');
       node.before(marker); quoteMoves.push({ node: node, marker: marker });
-      (node.contains(qtyEl) ? quoteQtySlot : quoteConfigSlot).appendChild(node);
+      (node === grid || node.contains(qtyEl) ? quoteQtySlot : quoteConfigSlot).appendChild(node);
     });
   }
   function syncQuotePanel() {
     if (!quoteConfigSlot || !quoteModal.open) return;
     var snap = quoteSnapshot(quoteModal.querySelector('form'), true);
+    if (grid && gridTotal() === 0) {
+      set($('quote-total'), 'Select sizes'); set($('quote-tax-label'), '');
+      $('quote-costs').textContent = ''; set($('quote-timing'), 'Enter the quantity needed for each size to calculate your quote.');
+      syncQuoteArtwork(snap.locations); return;
+    }
     var displayVat = $('quote-display-vat').checked;
     set($('quote-total'), money(snap.costs.net * (displayVat ? 1 + VAT : 1)));
     set($('quote-tax-label'), displayVat ? 'Inc VAT' : 'Ex VAT');
@@ -915,6 +921,11 @@
         if (CFG.quotePreview && ev.submitter && ev.submitter.value === 'send') {
           ev.preventDefault();
           try {
+            if (grid && gridTotal() === 0) {
+              set($('quote-preview-error'), 'Enter a quantity for at least one size.');
+              $('quote-preview-error').hidden = false;
+              gridInputs[0].focus(); return;
+            }
             var snapshot = quoteSnapshot(quoteForm);
             snapshot.artworks = [];
             for (var input of all('[data-quote-artwork]', quoteForm)) {
@@ -935,6 +946,44 @@
         }
       });
     }
+  }
+
+  // Bespoke products retain their request form; the team confirms the price.
+  var bespokeForm = document.querySelector('.qform');
+  if (bespokeForm) {
+    var bespokeArtwork = bespokeForm.elements.artwork, bespokeQty = $('qty-quote');
+    bespokeQty.required = true;
+    var bespokeCaption = bespokeArtwork.parentElement.querySelector('span');
+    bespokeArtwork.addEventListener('change', function () {
+      var file = this.files[0];
+      this.setCustomValidity(file && file.size > 10 * 1024 * 1024 ? 'Choose artwork smaller than 10 MB.' : '');
+      bespokeCaption.textContent = file ? file.name : 'Click or drag a file here to upload';
+    });
+    bespokeForm.elements.mockup.addEventListener('change', function () { bespokeArtwork.required = this.checked; });
+    bespokeForm.addEventListener('submit', async function (ev) {
+      ev.preventDefault();
+      if (!bespokeForm.reportValidity()) return;
+      var error = $('bespoke-quote-error'); error.hidden = true;
+      try {
+        var request = {
+          product: $('p-h').textContent, sku: document.querySelector('.buy__sku b').textContent,
+          image: stage ? stage.src : '', description: document.querySelector('.buy__lede').textContent,
+          source: window.location.pathname.split('/').pop(), pricingPending: true,
+          costs: { quantity: Number(bespokeQty.value) }, breaks: [], locations: [],
+          colour: 'To be confirmed', production: 'To be confirmed', delivery: 'To be confirmed',
+          ukMainland: bespokeForm.elements.uk.checked, incVat: bespokeForm.elements.vat.checked,
+          mockup: bespokeForm.elements.mockup.checked,
+          contact: { name: bespokeForm.elements.name.value.trim(), email: bespokeForm.elements.email.value.trim(), company: bespokeForm.elements.company.value.trim() },
+          artworks: []
+        };
+        if (bespokeArtwork.files[0]) {
+          var attachment = await window.BounceQuoteArtwork.save(bespokeArtwork.files[0]);
+          attachment.area = 'Artwork'; request.artworks.push(attachment);
+        }
+        sessionStorage.setItem('bounce-quote-preview', JSON.stringify(request));
+        window.location.assign('email-quote-v4.html');
+      } catch (failure) { error.textContent = 'The quote preview could not be opened. Please try again.'; error.hidden = false; }
+    });
   }
 
   // The first panel belongs to the position selected in the markup.

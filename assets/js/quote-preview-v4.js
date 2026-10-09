@@ -3,7 +3,7 @@
   var quote;
   try { quote = JSON.parse(sessionStorage.getItem('bounce-quote-preview')); } catch (error) { quote = null; }
   function $(id) { return document.getElementById(id); }
-  if (!quote || !quote.costs || !Number.isFinite(quote.costs.total) || !quote.contact || !Array.isArray(quote.locations)) {
+  if (!quote || !quote.costs || (!quote.pricingPending && !Number.isFinite(quote.costs.total)) || !quote.contact || !Array.isArray(quote.locations)) {
     $('quote-empty').hidden = false;
     return;
   }
@@ -20,6 +20,7 @@
   line($('quote-configuration'), 'Quantity', quote.costs.quantity);
   line($('quote-configuration'), 'Product colour', quote.colour);
   if (quote.size) line($('quote-configuration'), 'Size', quote.size);
+  (quote.sizes || []).forEach(function (size) { line($('quote-configuration'), 'Size ' + size.size, size.quantity + ' units'); });
   line($('quote-configuration'), 'Delivery', quote.ukMainland ? 'Single UK mainland address' : 'Delivery quote required');
   line($('quote-configuration'), 'Production', quote.express ? 'Express' : 'Standard');
   quote.locations.forEach(function (location) {
@@ -27,11 +28,12 @@
     li.textContent = location.area + ' — ' + location.method + ', ' + location.colours + (location.colours === 'Full colour' ? '' : ' print colour(s)') + (location.logoSize ? ', ' + location.logoSize : '');
     $('quote-branding').appendChild(li);
   });
-  $('quote-total').textContent = money(quote.costs.total);
+  $('quote-total').textContent = quote.pricingPending ? 'To be confirmed' : money(quote.costs.total);
   $('quote-tax').textContent = quote.costs.quantity + ' units · ' + (quote.incVat ? 'Including VAT at 20%' : 'Excluding VAT');
   $('quote-shipping').textContent = quote.ukMainland ? 'Delivery costs to be confirmed.' : 'Shipping requires a separate quote for your destination.';
   var factor = quote.incVat ? 1.2 : 1;
-  [['Product', 'product'], ['Branding', 'branding'], ['Setup', 'setup'], ['Small-order surcharge', 'surcharge'], ['Express', 'express']].forEach(function (item) {
+  if (quote.pricingPending) line($('quote-costs'), 'Branding and pricing', 'To be confirmed by the team');
+  else [['Product', 'product'], ['Branding', 'branding'], ['Setup', 'setup'], ['Small-order surcharge', 'surcharge'], ['Express', 'express']].forEach(function (item) {
     line($('quote-costs'), item[0], money(quote.costs[item[1]] * factor));
   });
   if (quote.breaks && quote.breaks.length) {
@@ -46,7 +48,8 @@
   }
   line($('quote-recipient'), 'Name', quote.contact.name);
   line($('quote-recipient'), 'Email', quote.contact.email);
-  line($('quote-recipient'), 'Phone', quote.contact.phone);
+  if (quote.contact.phone) line($('quote-recipient'), 'Phone', quote.contact.phone);
+  if (quote.contact.company) line($('quote-recipient'), 'Company', quote.contact.company);
   $('quote-mockup').textContent = quote.mockup ? 'Mock-up proof requested.' : 'Mock-up proof not requested.';
   if (/^product[-\w]*-v4\.html$/.test(quote.source)) $('quote-back').href = quote.source;
 })();
