@@ -472,6 +472,7 @@ def head(p):
     return f"""<!DOCTYPE html>
 <html lang="en-GB">
 <head>
+<meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(p["title"])}</title>
@@ -481,7 +482,7 @@ def head(p):
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style-v4.css?v=114">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=21">
-<link rel="stylesheet" href="assets/css/pdp-v4.css?v=65">
+<link rel="stylesheet" href="assets/css/pdp-v4.css?v=69">
 <!-- The reveal animation hides content until it is observed, so it is scoped to
      JS being available. Without this, a JS failure would leave a blank page. -->
 <script>document.documentElement.className += " js";</script>
@@ -494,6 +495,7 @@ def head(p):
 
 def config_island(p):
     cfg = {
+        "quotePreview": p["file"] == "product-hivis-v4.html",
         "tiers": [{"min": m, "each": e} for m, e in p["tiers"]],
         "pricing": p.get("pricing", "ladder"),
         "methods": [{
@@ -971,7 +973,7 @@ def buy_box(p):
         return quote_box(p)
     loc = location_block(p)
 
-    return f"""        <!-- Buy box -->
+    markup = f"""        <!-- Buy box -->
         <div class="buy">
           <div class="buy__top">
             <p class="buy__sku">SKU <b>{esc(p["sku"])}</b> &middot; <span class="buy__stock">{icon("i-check", 14)}In stock</span></p>
@@ -1034,7 +1036,7 @@ def buy_box(p):
                 <p class="summary__free" id="c-free-delivery">&mdash;</p>
 
                 <label class="summary__gate">
-                  <input type="checkbox" id="uk-mainland" aria-describedby="uk-mainland-note">
+                  <input type="checkbox" id="uk-mainland" aria-describedby="uk-mainland-note" checked>
                   <span>I can confirm delivery is to the UK mainland</span>
                 </label>
                 <p class="summary__gatenote" id="uk-mainland-note">Checkout is mainland UK only. Anywhere
@@ -1152,6 +1154,21 @@ def buy_box(p):
 
         </div>"""
 
+
+    if p["file"] == "product-hivis-v4.html":
+        price_start = markup.index("          <!-- The headline")
+        price_end = markup.index('          <form class="buy__form"', price_start)
+        markup = markup[:price_start] + markup[price_end:]
+        markup = markup.replace("Updated price with configuration:", "Your configured total:")
+        markup = markup.replace(' &middot; <span id="c-perunit">&mdash;</span>', "")
+        markup = markup.replace('id="qmodal-t">Get a quote', 'id="qmodal-t">Email quote')
+        markup = markup.replace('<div class="qmodal__grid">', '<p class="qmodal__lede" id="quote-config-summary" aria-live="polite"></p>\n              <div class="qmodal__grid">', 1)
+        markup = markup.replace('              <div class="qmodal__cta">', '              <div id="quote-artwork-field" hidden>\n                <label class="qfield"><span class="qfield__t">Your logo / artwork <b class="req" aria-hidden="true">*</b></span>\n                <input type="file" name="artwork" accept=".ai,.eps,.pdf,.svg,.png,.jpg,.jpeg,.webp" aria-describedby="quote-artwork-note"></label>\n                <p class="qmodal__note" id="quote-artwork-note">Upload your logo once for the mock-up. AI, EPS, PDF, SVG, PNG or JPEG, up to 10 MB.</p>\n              </div>\n' + '              <div class="qmodal__cta">')
+        markup = markup.replace("Send me a mock up proof", "Request a mock-up with my logo").replace("Send me costs including VAT", "Include VAT in this email quote")
+        markup = markup.replace('              </div>\n\n              <div class="qmodal__opts">', '                <label class="qfield"><span class="qfield__t">Colleague’s email (optional)</span><input type="email" name="colleague"></label>\n                <label class="qfield"><span class="qfield__t">Company name (optional)</span><input type="text" name="company" autocomplete="organization"></label>\n' + '              </div>\n\n              <div class="qmodal__opts">')
+        markup = markup.replace('value="send">Submit for a quote', 'value="send">Preview email quote')
+        markup = markup.replace('            </form>\n          </dialog>', '              <p class="qmodal__note">Preview your configured quote. No email is sent from this preview.</p>\n              <p id="quote-preview-error" role="alert" hidden></p>\n            </form>\n          </dialog>')
+    return markup
 
 # --------------------------------------------------------------------------
 # Branding guides - the right-hand accordion on the live product page. Copy is

@@ -8,6 +8,7 @@ container. Arial throughout - no web fonts.
 """
 
 import pathlib
+from decimal import Decimal, ROUND_HALF_UP
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 BASE = "https://biztechdesign.github.io/Bounce-Creative/"
@@ -48,24 +49,32 @@ QUOTE = {
         ("Print area", "Top"),
         ("Branding type", "Screen printing"),
         ("Number of colours", "1"),
+        ("Product cost (ex VAT)", "£1.46"),
+        ("Branding cost (ex VAT)", "£1.58"),
+        ("Setup cost (ex VAT)", "£35.00"),
+        ("Surcharges (ex VAT)", "£50.00"),
     ],
+    "inc_vat": False,
+    "source_inc_vat": False,  # Store quote amounts net; format using the email VAT choice.
+    "mockup_requested": False,
+    "artwork": None,
     "qty": 1,
-    "total": "105.76",
-    "production": "10–12 working days",
-    "delivery": "3–4 working days",
+    "total": "88.04",
+    "production": "5–7 working days",
+    "delivery": "2–3 working days",
     "min_order": 25,
     "breaks": [
-        (1,    "Pre-production", "3.76", "105.76"),
-        (25,   "0.00%",  "3.76", "195.90"),
-        (50,   "12.78%", "3.28", "265.80"),
-        (100,  "18.85%", "3.05", "346.80"),
-        (250,  "25.56%", "2.80", "741.00"),
-        (500,  "30.03%", "2.63", "1,356.00"),
-        (750,  "30.03%", "2.63", "2,013.00"),
-        (1000, "34.50%", "2.46", "2,502.00"),
-        (1500, "34.50%", "2.46", "3,732.00"),
-        (2000, "34.50%", "2.46", "4,962.00"),
-        (5000, "36.74%", "2.38", "11,922.00"),
+        (1,    "Pre-production", "3.04", "88.04"),
+        (25,   "0.00%",  "3.13", "163.25"),
+        (50,   "12.78%", "2.73", "221.50"),
+        (100,  "18.85%", "2.54", "289.00"),
+        (250,  "25.56%", "2.33", "617.50"),
+        (500,  "30.03%", "2.19", "1,130.00"),
+        (750,  "30.03%", "2.19", "1,677.50"),
+        (1000, "34.50%", "2.05", "2,085.00"),
+        (1500, "34.50%", "2.05", "3,110.00"),
+        (2000, "34.50%", "2.05", "4,135.00"),
+        (5000, "36.74%", "1.98", "9,935.00"),
     ],
 }
 
@@ -102,9 +111,76 @@ def btn(text, href, solid=True):
             f'font-size:14px; font-weight:800; text-decoration:none; {style}">{text}</a>')
 
 
-def build():
-    q = QUOTE
+def preview_hooks(html):
+    import re
+    def section(name, end_name, callback):
+        nonlocal html
+        start = html.index(f'<!-- ===== {name} ===== -->')
+        end = html.index(f'<!-- ===== {end_name} ===== -->', start)
+        html = html[:start] + callback(html[start:end]) + html[end:]
+    def meta(s):
+        s = re.sub(r'(<span[^>]*>)(#[^<]+)(</span>)', r'<span id="email-number">\2\3', s, count=1)
+        s = re.sub(r'(>Date</span><br>\s*)<span ', r'\1<span id="email-date" ', s, count=1)
+        s = re.sub(r'(>Company name</span><br>\s*)<span ', r'\1<span id="email-contact-name" ', s, count=1)
+        return s.replace('<a href="mailto:', '<a id="email-recipient" href="mailto:', 1)
+    section('Quote meta', 'Product', meta)
+    def product(s):
+        s = s.replace('<img ', '<img id="email-product-image" ', 1)
+        s = s.replace('<a href=', '<a data-email-product-link href=')
+        s = s.replace('<h2 ', '<h2 id="email-product-title" ', 1)
+        s = re.sub(r'(<span[^>]*>)(Product code [^<]+)', r'<span id="email-product-code">\2', s, count=1)
+        s = s.replace('<p ', '<p id="email-product-description" ', 1)
+        # Replace colour / stock swatches for a live quote, leaving the fixture intact otherwise.
+        s = re.sub(r'<table ([^>]*style="margin-top:14px;"[^>]*)>', r'<table id="email-product-colour" \1>', s, count=1)
+        return s
+    section('Product', 'Your quote', product)
+    def summary(s):
+        s = re.sub(r'<table ([^>]*style="margin-top:10px;[^>]*)>', r'<table id="email-configuration" \1>', s, count=1)
+        s = re.sub(r'<div ([^>]*font-size:36px;[^>]*)>', r'<div id="email-total" \1>', s, count=1)
+        s = re.sub(r'<div ([^>]*margin-top:4px;[^>]*)>', r'<div id="email-vat" \1>', s, count=1)
+        s = re.sub(r'(Estimated production<br>)<b ', r'\1<b id="email-production" ', s)
+        s = re.sub(r'(Estimated delivery<br>)<b ', r'\1<b id="email-delivery" ', s)
+        return s
+    section('Your quote', 'Actions', summary)
+    def actions(s):
+        return s.replace('<a href=', '<a data-email-product-link href=')
+    section('Actions', 'Price breaks', actions)
+    def breaks(s):
+        return s.replace('<tr><td ', '<tr id="email-breaks-section"><td ', 1).replace('<table ', '<table id="email-breaks-table" ', 1)
+    section('Price breaks', 'Rewards + awards', breaks)
+    return html
+
+
+def build(quote=None):
+    q = quote or QUOTE
     p = q["product"]
+    tax_label = "Inc VAT" if q.get("inc_vat", False) else "Ex VAT"
+    def price_display(value):
+        amount = Decimal(str(value).replace(",", ""))
+        if q.get("source_inc_vat", False):
+            amount /= Decimal("1.2")
+        if q.get("inc_vat", False):
+            amount *= Decimal("1.2")
+        return f"{amount.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP):,.2f}"
+    artworks = q.get("artworks")
+    if artworks is None:
+        artworks = [q["artwork"]] if q.get("artwork") else []
+    if artworks:
+        artwork_status = "Mock-up requested using your supplied artwork for each branding location." if q.get("mockup_requested") else "Artwork supplied for the selected branding locations."
+        artwork_name = ""
+        items = []
+        for artwork in artworks:
+            title = (artwork.get("area", "") + ": " if artwork.get("area") else "") + artwork["name"]
+            action = '<span style="color:#33564F;">File unavailable</span>'
+            if artwork.get("url", "").startswith(("https://", "http://")):
+                action = '<a href="' + esc(artwork["url"]) + '" title="' + esc(title) + '" style="color:#d50040;font-weight:bold;text-decoration:underline;">Download</a>'
+            items.append('<tr><td style="width:35%;padding:9px 10px;background:#fff;color:#000;font-weight:bold;border-right:2px solid #e7e9e8;">LOGO</td><td style="padding:9px 10px;background:#fff;">' + action + '</td></tr>')
+        artwork_image = '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:350px;border-collapse:separate;border-spacing:0 10px;font:14px Arial;">' + "".join(items) + '</table>'
+    elif q.get("mockup_requested"):
+        artwork_status, artwork_name, artwork_image = "Mock-up requested. No artwork is attached to this example quote.", "", ""
+    else:
+        artwork_status, artwork_name, artwork_image = "No mock-up requested for this quote.", "", ""
+
 
     swatches = "".join(
         f'<td style="padding:0 8px 0 0;"><div style="width:22px; height:22px; border-radius:50%; background:{hexv}; '
@@ -125,8 +201,8 @@ def build():
         return (f'<tr style="background:{bg};">'
                 f'<td style="padding:9px 12px; font-family:{FONT}; font-size:13px; font-weight:800; color:{FOREST};">{n:,}</td>'
                 f'<td style="padding:9px 12px; font-family:{FONT}; font-size:13px;">{save_html}</td>'
-                f'<td align="right" style="padding:9px 12px; font-family:{FONT}; font-size:13px; color:{FOREST};">&pound;{price}</td>'
-                f'<td align="right" style="padding:9px 12px; font-family:{FONT}; font-size:13px; font-weight:800; color:{FOREST};">&pound;{sub}</td>'
+                f'<td align="right" style="padding:9px 12px; font-family:{FONT}; font-size:13px; color:{FOREST};">&pound;{price_display(price)}</td>'
+                f'<td align="right" style="padding:9px 12px; font-family:{FONT}; font-size:13px; font-weight:800; color:{FOREST};">&pound;{price_display(sub)}</td>'
                 f'</tr>')
 
     break_rows = []
@@ -143,6 +219,7 @@ def build():
     html = f"""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB">
 <head>
+<meta name="robots" content="noindex, nofollow">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="x-apple-disable-message-reformatting">
@@ -155,7 +232,7 @@ def build():
 </style>
 </head>
 <body style="margin:0; padding:0; background:{OAT};">
-<div style="display:none; max-height:0; overflow:hidden; opacity:0; font-size:1px; line-height:1px; color:{OAT};">Your quote for the {esc(p["name"])} &mdash; &pound;{q["total"]} inc VAT, with price breaks from {q["min_order"]} units.</div>
+<div style="display:none; max-height:0; overflow:hidden; opacity:0; font-size:1px; line-height:1px; color:{OAT};">Your quote for the {esc(p["name"])} &mdash; &pound;{price_display(q["total"])} {tax_label.lower()}, with price breaks from {q["min_order"]} units.</div>
 
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{OAT};">
 <tr><td align="center" style="padding:28px 12px;">
@@ -228,8 +305,8 @@ def build():
       </td>
       <td width="45%" valign="top" style="padding:22px;">
         {label("Updated price with configuration")}
-        <div style="margin-top:8px; font-family:{DISPLAY}; font-size:36px; line-height:1; letter-spacing:-1px; font-weight:700; color:{FOREST};">&pound;{q["total"]}</div>
-        <div style="margin-top:4px; font-family:{MONO}; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:{FOREST_MID};">Inc VAT</div>
+        <div style="margin-top:8px; font-family:{DISPLAY}; font-size:36px; line-height:1; letter-spacing:-1px; font-weight:700; color:{FOREST};">&pound;{price_display(q["total"])}</div>
+        <div style="margin-top:4px; font-family:{MONO}; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:{FOREST_MID};">{tax_label}</div>
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:16px; border-top:1px solid {LINE};">
           <tr><td style="padding:10px 0 0; font-family:{FONT}; font-size:12px; line-height:1.5; color:{FOREST_MID};">Estimated production<br><b style="color:{FOREST};">{q["production"]}</b></td></tr>
           <tr><td style="padding:8px 0 0; font-family:{FONT}; font-size:12px; line-height:1.5; color:{FOREST_MID};">Estimated delivery<br><b style="color:{FOREST};">{q["delivery"]}</b></td></tr>
@@ -242,9 +319,14 @@ def build():
   <tr><td style="padding:20px 32px 0;">
     <table role="presentation" cellpadding="0" cellspacing="0"><tr>
       <td style="padding-right:10px;">{btn("Order online &rarr;", p["url"])}</td>
-      <td>{btn("Send me a mock-up proof", "mailto:" + COMPANY["email"], solid=False)}</td>
+
     </tr></table>
-    <p style="margin:12px 0 0; font-family:{FONT}; font-size:13px; color:{FOREST_MID};"><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:{CORAL}; margin-right:8px;"></span><i>Your visual is on its way.</i> Need a professional visual? Reply with your logo and we will mock it up on the product.</p>
+    <div id="email-artwork" style="margin-top:20px; padding:16px; background:#e7e9e8; border:1px solid {LINE};">
+      {label("Artwork &amp; mock-up")}
+      <p id="email-artwork-status" style="margin:10px 0 0; font-family:{FONT}; font-size:13px; color:{FOREST_MID};">{artwork_status}</p>
+      <p id="email-artwork-name" style="margin:8px 0; font-family:{FONT}; font-size:13px; color:{FOREST};">{artwork_name}</p>
+      <div id="email-artwork-image">{artwork_image}</div>
+    </div>
   </td></tr>
 
   <!-- ===== Price breaks ===== -->
@@ -318,12 +400,14 @@ def build():
 </body>
 </html>
 """
-    return html
+    return preview_hooks(html)
 
 
 def main():
     out = ROOT / "email-quote-v4.html"
-    out.write_text(build(), encoding="utf-8")
+    html = build()
+    browser_scripts = '<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n<script src="assets/js/email-quote-preview-v4.js?v=3"></script>\n'
+    out.write_text(html.replace('</body>', browser_scripts + '</body>'), encoding="utf-8")
     print(f"wrote {out.name}  ({out.stat().st_size:,} bytes)")
 
 

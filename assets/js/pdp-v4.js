@@ -577,6 +577,8 @@
     if (lead < 1) lead = 1;
     var ship = express ? (CFG.expressShip || 1) : (CFG.baseShip || 2);
 
+    set($('info-production'), lead + ' working days');
+    set($('info-delivery'), ukEl && !ukEl.checked ? 'To be confirmed' : ship + ' working days');
     set(out.product, money(productCost * f));
     set(out.branding, c.branding ? money(c.branding * f) : 'Included');
     set(out.setup, c.setup ? money(c.setup * f) : 'None');
@@ -590,6 +592,7 @@
     set(out.points, NUM.format(pts) + ' points');
     set(out.pointsGbp, money(pts * (CFG.pointValue || 0)));
     set(out.vatLbl, incVat ? 'Inc VAT' : 'Ex VAT');
+    if (quoteModal && quoteModal.open) syncQuotePanel();
 
     /* Keep the three quantity controls telling the same story. */
     if (rangeEl) {
@@ -669,12 +672,59 @@
   var infoBtn = document.querySelector('.summary__info');
   var breakdown = $('breakdown');
   if (infoBtn && breakdown) {
-    infoBtn.addEventListener('click', function () {
-      var open = infoBtn.getAttribute('aria-expanded') === 'true';
-      breakdown.hidden = open;
-      infoBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
-      infoBtn.setAttribute('aria-label', (open ? 'Show' : 'Hide') + ' the price breakdown');
-    });
+    if (CFG.quotePreview) {
+      breakdown.classList.add('calc--popover');
+      breakdown.setAttribute('role', 'region');
+      breakdown.setAttribute('aria-label', 'Configured price breakdown');
+      var timings = document.createElement('div'); timings.className = 'calc__timings';
+      timings.innerHTML = '<p>Estimated production time:<br><b id="info-production"></b></p><p>Estimated delivery time:<br><b id="info-delivery"></b></p>';
+      breakdown.appendChild(timings); document.body.appendChild(breakdown);
+      var pinned = false, closeTimer;
+      function positionBreakdown() {
+        if (breakdown.hidden) return;
+        var rect = infoBtn.getBoundingClientRect(), box = breakdown.getBoundingClientRect();
+        breakdown.style.left = Math.max(12, Math.min(rect.left, window.innerWidth - box.width - 12)) + 'px';
+        var top = rect.bottom + 10;
+        if (top + box.height > window.innerHeight - 12) top = Math.max(12, rect.top - box.height - 10);
+        breakdown.style.top = top + 'px';
+      }
+      function showBreakdown() {
+        clearTimeout(closeTimer); breakdown.hidden = false;
+        infoBtn.setAttribute('aria-expanded', 'true');
+        infoBtn.setAttribute('aria-label', 'Hide the price breakdown');
+        positionBreakdown();
+      }
+      function hideBreakdown() {
+        clearTimeout(closeTimer); breakdown.hidden = true; pinned = false;
+        infoBtn.setAttribute('aria-expanded', 'false');
+        infoBtn.setAttribute('aria-label', 'Show the price breakdown');
+      }
+      function deferHide() {
+        closeTimer = setTimeout(function () { if (!pinned) hideBreakdown(); }, 180);
+      }
+      infoBtn.addEventListener('pointerenter', function (ev) { if (ev.pointerType !== 'touch') showBreakdown(); });
+      infoBtn.addEventListener('pointerleave', deferHide);
+      infoBtn.addEventListener('focus', showBreakdown);
+      infoBtn.addEventListener('blur', deferHide);
+      infoBtn.addEventListener('click', function () {
+        if (pinned) hideBreakdown(); else { pinned = true; showBreakdown(); }
+      });
+      breakdown.addEventListener('pointerenter', function () { clearTimeout(closeTimer); });
+      breakdown.addEventListener('pointerleave', deferHide);
+      document.addEventListener('click', function (ev) {
+        if (!infoBtn.contains(ev.target) && !breakdown.contains(ev.target)) hideBreakdown();
+      });
+      document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape') hideBreakdown(); });
+      window.addEventListener('resize', positionBreakdown);
+      window.addEventListener('scroll', positionBreakdown, true);
+    } else {
+      infoBtn.addEventListener('click', function () {
+        var open = infoBtn.getAttribute('aria-expanded') === 'true';
+        breakdown.hidden = open;
+        infoBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
+        infoBtn.setAttribute('aria-label', (open ? 'Show' : 'Hide') + ' the price breakdown');
+      });
+    }
   }
 
   /* ---------- Get a quote ----------
@@ -682,9 +732,171 @@
      inert without any of that being reimplemented. Every "request a quote"
      link on the page opens the same dialog. */
   var quoteModal = $('quote-modal');
+  function quoteSnapshot(form, skipUpdate) {
+    if (!skipUpdate) update();
+    var n = parseInt(qtyEl.value, 10);
+    var min = parseInt(qtyEl.min, 10) || 1;
+    var incVat = form.elements.vat.checked;
+    function quoteAt(quantity) {
+      var c = costsAt(quantity, quantity < min);
+      var express = expressEl && expressEl.checked ? (CFG.expressRate || 0) * quantity + (CFG.expressFee || 0) : 0;
+      var net = c.product + c.branding + c.setup + c.surcharge + express;
+      return { quantity: quantity, product: c.product, branding: c.branding, setup: c.setup,
+        surcharge: c.surcharge, express: express, net: net, vat: net * VAT,
+        total: net * (incVat ? 1 + VAT : 1) };
+    }
+    return {
+      product: $('p-h').textContent, sku: document.querySelector('.buy__sku b').textContent,
+      image: stage ? stage.src : '', description: document.querySelector('.buy__lede').textContent,
+      production: Math.max(1, (CFG.baseLead || 0) + costsAt(n, n < min).lead - (expressEl && expressEl.checked ? CFG.expressSaving || 0 : 0)) + ' working days',
+      delivery: (expressEl && expressEl.checked ? CFG.expressShip || 1 : CFG.baseShip || 2) + ' working days',
+      colour: $('colour-val') ? $('colour-val').textContent : '',
+      size: sizeVal ? sizeVal.textContent : '',
+      locations: locs().map(function (loc) {
+        var m = methodOf(loc), logoSize = chosen(loc, 'logo');
+        return { area: loc.dataset.area, method: m.name,
+          colours: m.cmyk ? 'Full colour' : String(tileValue(loc, 'colours', 1)),
+          logoSize: logoSize && !role(loc, 'logo-field').hidden ? logoSize.dataset.value + ' cm²' : '' };
+      }),
+      contact: { name: form.elements.name.value.trim(), email: form.elements.email.value.trim(), phone: form.elements.phone.value.trim(), company: form.elements.company ? form.elements.company.value.trim() : '', colleague: form.elements.colleague ? form.elements.colleague.value.trim() : '' },
+      ukMainland: !!(ukEl && ukEl.checked), express: !!(expressEl && expressEl.checked),
+      incVat: incVat, mockup: form.elements.mockup.checked,
+      costs: quoteAt(n),
+      breaks: form.elements.pricebreaks.checked ? (CFG.tiers || []).filter(function (tier) { return tier.min >= min; }).map(function (tier) { return quoteAt(tier.min); }) : [],
+      source: window.location.pathname.split('/').pop()
+    };
+  }
+  // Use the actual configuration controls in the quote, preserving their handlers.
+  var quoteMoves = [], quoteConfigSlot, quoteQtySlot, quoteArtworkByArea = new Map();
+  if (quoteModal && CFG.quotePreview) {
+    quoteModal.classList.add('qmodal--full');
+    var qForm = quoteModal.querySelector('form');
+    var contact = document.createElement('section');
+    contact.className = 'qquote__contact';
+    while (qForm.firstChild) contact.appendChild(qForm.firstChild);
+    var layout = document.createElement('div');
+    layout.className = 'qquote';
+    layout.innerHTML = '<section class="qquote__options" aria-label="Product configuration"><div id="quote-options-slot"></div></section>' +
+      '<section class="qquote__price" aria-label="Configured quote"><h3>Quantity</h3><div id="quote-quantity-slot"></div>' +
+      '<h3>Updated price with configuration</h3><p class="qquote__total"><b id="quote-total"></b> <span id="quote-tax-label">Ex VAT</span></p>' +
+      '<h4>Breakdown <small>(ex VAT)</small></h4><dl id="quote-costs"></dl>' +
+      '<label class="toggle"><span class="toggle__lbl">Show price with VAT</span><input type="checkbox" id="quote-display-vat"><span class="toggle__track" aria-hidden="true"></span></label>' +
+      '<p class="qquote__timing" id="quote-timing"></p></section>';
+    var awards = document.createElement('div'); awards.className = 'qquote__awards';
+    awards.innerHTML = '<img src="assets/img/logo/bounce-badge-cream.svg" alt="Bounce Creative Designs" width="76" height="76">' +
+      '<img src="assets/img/awards/bpma-winners-bounce-creative-designs-promotional-products-uk.png" alt="Award-winning merchandise supplier" width="76" height="76">' +
+      '<img src="assets/img/awards/bpma-winners-2023-bounce-creative-designs-promotional-products-uk.png" alt="Award-winning promotional products" width="76" height="76">';
+    contact.appendChild(awards);
+    layout.appendChild(contact); qForm.appendChild(layout);
+    quoteConfigSlot = $('quote-options-slot'); quoteQtySlot = $('quote-quantity-slot');
+    $('qmodal-t').textContent = 'Get a quote';
+    // Match the reference's contact fields; name and phone remain optional data.
+    ['name', 'phone'].forEach(function (name) {
+      var input = qForm.elements[name]; input.required = false; input.closest('label').hidden = true;
+    });
+    contact.querySelector('.qmodal__sku').hidden = true;
+    $('quote-config-summary').hidden = true;
+    contact.querySelector('button[value="close"]:not(.qmodal__x)').hidden = true;
+    contact.querySelector('button[value="send"]').firstChild.textContent = 'Submit for a quote ';
+    contact.querySelector('.qmodal__grid').classList.add('qquote__fields');
+    qForm.elements.email.placeholder = 'my email address*';
+    qForm.elements.colleague.placeholder = 'my colleague’s email address';
+    qForm.elements.company.placeholder = 'company name';
+    qForm.elements.pricebreaks.closest('label').lastChild.textContent = ' Include price breaks for different qty';
+    qForm.elements.mockup.closest('label').lastChild.textContent = ' Send me a mock-up proof';
+    qForm.elements.vat.closest('label').lastChild.textContent = ' Send me costs including VAT';
+    var artworkField = $('quote-artwork-field');
+    artworkField.textContent = ''; artworkField.hidden = false;
+    var artworkHelp = document.createElement('p');
+    artworkHelp.id = 'quote-artwork-note'; artworkHelp.className = 'qmodal__note';
+    artworkHelp.textContent = 'AI, EPS, PDF, SVG, PNG or JPEG, up to 10 MB per file. Supply artwork for each location when requesting a mock-up.';
+    artworkField.appendChild(artworkHelp);
+    qForm.elements.mockup.addEventListener('change', syncQuotePanel);
+    $('quote-display-vat').addEventListener('change', syncQuotePanel);
+    quoteModal.addEventListener('close', function () {
+      quoteMoves.forEach(function (move) { move.marker.replaceWith(move.node); });
+      quoteMoves = [];
+    });
+  }
+  function moveQuoteControls() {
+    if (!quoteConfigSlot || quoteMoves.length) return;
+    var nodes = all('.buy__form > fieldset.opt');
+    if (locWrap) nodes.push(locWrap);
+    if (grid) nodes.push(grid);
+    if (qtyEl) nodes.push(qtyEl.parentElement);
+    nodes.forEach(function (node) {
+      var marker = document.createComment('quote control position');
+      node.before(marker); quoteMoves.push({ node: node, marker: marker });
+      (node.contains(qtyEl) ? quoteQtySlot : quoteConfigSlot).appendChild(node);
+    });
+  }
+  function syncQuotePanel() {
+    if (!quoteConfigSlot || !quoteModal.open) return;
+    var snap = quoteSnapshot(quoteModal.querySelector('form'), true);
+    var displayVat = $('quote-display-vat').checked;
+    set($('quote-total'), money(snap.costs.net * (displayVat ? 1 + VAT : 1)));
+    set($('quote-tax-label'), displayVat ? 'Inc VAT' : 'Ex VAT');
+    var dl = $('quote-costs'); dl.textContent = '';
+    [['Product cost', snap.costs.product], ['Branding cost', snap.costs.branding], ['Setup cost', snap.costs.setup], ['Surcharges', snap.costs.surcharge], ['Express', snap.costs.express]].forEach(function (cost) {
+      var dt = document.createElement('dt'), dd = document.createElement('dd');
+      dt.textContent = cost[0] + ':'; dd.textContent = money(cost[1]); dl.append(dt, dd);
+    });
+    set($('quote-timing'), 'Estimated production time: ' + snap.production + '\nEstimated delivery time: ' + (snap.ukMainland ? snap.delivery : 'To be confirmed'));
+    locs().forEach(function (loc) {
+      var area = areaBtns.filter(function (button) { return button.dataset.area === loc.dataset.area; })[0];
+      var image = area && area.querySelector('img'), thumb = loc.querySelector('.loc__thumb');
+      if (image && thumb) thumb.src = image.src;
+    });
+    syncQuoteArtwork(snap.locations);
+
+  }
+  function syncQuoteArtwork(locations) {
+    var field = $('quote-artwork-field'), form = quoteModal.querySelector('form');
+    var active = locations.map(function (location) { return location.area; });
+    quoteArtworkByArea.forEach(function (entry, area) {
+      if (active.indexOf(area) === -1) entry.label.remove();
+    });
+    locations.forEach(function (location) {
+      var entry = quoteArtworkByArea.get(location.area);
+      if (!entry) {
+        var label = document.createElement('label'); label.className = 'qfield qquote__upload';
+        var title = document.createElement('span'); title.className = 'qfield__t';
+        title.textContent = 'Artwork for: ' + location.area;
+        var input = document.createElement('input'); input.type = 'file';
+        input.name = 'artwork-' + quoteArtworkByArea.size;
+        input.accept = '.ai,.eps,.pdf,.svg,.png,.jpg,.jpeg,.webp';
+        input.dataset.quoteArtwork = location.area;
+        input.setAttribute('aria-describedby', 'quote-artwork-note');
+        var caption = document.createElement('span'); caption.className = 'qquote__drop-caption';
+        caption.textContent = 'Click here or drag file here to upload';
+        label.append(title, input, caption);
+        input.addEventListener('change', function () {
+          var file = this.files[0];
+          this.setCustomValidity(file && file.size > 10 * 1024 * 1024 ? 'Choose artwork smaller than 10 MB.' : '');
+          caption.textContent = file ? file.name : 'Click here or drag file here to upload';
+        });
+        entry = { label: label, input: input }; quoteArtworkByArea.set(location.area, entry);
+      }
+      entry.input.required = form.elements.mockup.checked;
+      // Reuse each input so uploads survive configuration changes and reopening.
+      field.insertBefore(entry.label, $('quote-artwork-note'));
+    });
+    field.hidden = locations.length === 0;
+  }
   if (quoteModal && typeof quoteModal.showModal === 'function') {
     all('#quote-open, [data-opens="quote-modal"]').forEach(function (b) {
-      b.addEventListener('click', function () { quoteModal.showModal(); });
+      b.addEventListener('click', function () {
+        if (CFG.quotePreview) {
+          update();
+          var form = quoteModal.querySelector('form');
+          // Email VAT is an independent preference, defaulting to ex VAT.
+          set($('quote-config-summary'), qtyEl.value + ' units · ' + ($('colour-val') ? $('colour-val').textContent : '') + ' · ' + locs().map(function (loc) { return loc.dataset.area + ': ' + methodOf(loc).name; }).join('; '));
+          if ($('quote-preview-error')) $('quote-preview-error').hidden = true;
+        }
+        if (CFG.quotePreview) moveQuoteControls();
+        quoteModal.showModal();
+        if (CFG.quotePreview) syncQuotePanel();
+      });
     });
     // Click on the backdrop (outside the form) closes, as the live popup does.
     quoteModal.addEventListener('click', function (ev) {
@@ -692,12 +904,34 @@
     });
     var quoteForm = quoteModal.querySelector('form');
     if (quoteForm) {
-      quoteForm.addEventListener('submit', function (ev) {
+      quoteForm.addEventListener('submit', async function (ev) {
         // "Cancel" and the close button submit with value=close, which the
         // dialog method handles; a send needs the required fields first.
         if (ev.submitter && ev.submitter.value === 'send' && !quoteForm.checkValidity()) {
           ev.preventDefault();
           quoteForm.reportValidity();
+          return;
+        }
+        if (CFG.quotePreview && ev.submitter && ev.submitter.value === 'send') {
+          ev.preventDefault();
+          try {
+            var snapshot = quoteSnapshot(quoteForm);
+            snapshot.artworks = [];
+            for (var input of all('[data-quote-artwork]', quoteForm)) {
+              var file = input.files[0];
+              if (file) {
+                var attachment = await window.BounceQuoteArtwork.save(file);
+                attachment.area = input.dataset.quoteArtwork;
+                snapshot.artworks.push(attachment);
+              }
+            }
+            if (snapshot.artworks.length) snapshot.artwork = snapshot.artworks[0];
+            sessionStorage.setItem('bounce-quote-preview', JSON.stringify(snapshot));
+            window.location.assign('email-quote-v4.html');
+          } catch (error) {
+            set($('quote-preview-error'), 'The quote preview could not be opened. Please try again.');
+            if ($('quote-preview-error')) $('quote-preview-error').hidden = false;
+          }
         }
       });
     }

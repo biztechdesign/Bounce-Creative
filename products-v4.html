@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style-v4.css?v=116">
-<link rel="stylesheet" href="assets/css/list-v4.css?v=21">
+<link rel="stylesheet" href="assets/css/list-v4.css?v=30">
 <!-- The reveal animation hides content until it is observed, so it is scoped to
      JS being available. Without this, a JS failure would leave a blank page. -->
 <script>document.documentElement.className += " js";</script>
@@ -139,20 +139,19 @@
   </nav>
 
   <!-- ============ CATEGORY HEAD ============ -->
-  <section class="cathero" aria-labelledby="cat-h">
-    <img class="cathero__bg" src="assets/img/hero-bags.png" alt="" aria-hidden="true">
+  <section class="category-banner" aria-labelledby="cat-h">
     <div class="wrap">
-      <div class="cathero__in">
-        <span class="eyebrow eyebrow--onforest">Bags &amp; totes</span>
-        <h1 id="cat-h">Branded bags<br><span class="hl">people reuse.</span></h1>
-        <p>Cotton shoppers, canvas totes, drawstrings and backpacks &mdash; with real
-        starting prices, live stock and the carbon figure published on every line.</p>
+      <div class="category-banner__in">
+        <div class="category-banner__copy">
+          <h1 id="cat-h">Branded bags</h1>
+          <p>Shoppers, totes and backpacks. Find the right fit for your brand and budget.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ============ LISTING ============ -->
-  <section class="sec sec--flush" aria-labelledby="list-h">
+  <section class="sec sec--flush" id="product-list" aria-labelledby="list-h">
     <div class="wrap">
       <h2 id="list-h" class="vh">All bags</h2>
 
@@ -160,7 +159,7 @@
         <button class="btn btn--outline btn--sm listbar__toggle" type="button" aria-expanded="false" aria-controls="filters">
           <svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-transfer"/></svg>Filters
         </button>
-        <p class="listbar__count"><b id="result-count">15</b> of 980 products</p>
+        <p class="listbar__count" aria-live="polite" aria-atomic="true"><b id="result-count">15</b> products</p>
         <label class="listbar__sort">
           <span>Sort</span>
           <select id="sort">
@@ -180,40 +179,246 @@
 
       <div class="listing">
         <form class="filters" id="filters" aria-label="Filter products">
-        <details class="facet" open>
-          <summary class="facet__t">Material<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
-          <div class="facet__body" role="group" aria-label="Material">
-          <label class="facet__row"><input type="checkbox" name="material" value="cotton"><span>Cotton</span><em>3</em></label>
-          <label class="facet__row"><input type="checkbox" name="material" value="organic"><span>Organic cotton</span><em>6</em></label>
-          <label class="facet__row"><input type="checkbox" name="material" value="canvas"><span>Canvas</span><em>1</em></label>
-          <label class="facet__row"><input type="checkbox" name="material" value="nonwoven"><span>Non-woven</span><em>2</em></label>
-          <label class="facet__row"><input type="checkbox" name="material" value="jute"><span>Jute</span><em>1</em></label>
-          <label class="facet__row"><input type="checkbox" name="material" value="recycled"><span>Recycled</span><em>2</em></label>
-        </div>
-        </details>
+<h3 class="filters__title">Filter by</h3>
+<details class="facet" open><summary class="facet__t">Price <svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body"><div class="facet__options" id="options-priceBand"><label class="facet__row"><input type="checkbox" name="priceBand" value="0-10"><span>£0.00 - £9.99</span></label>
+<label class="facet__row"><input type="checkbox" name="priceBand" value="10-20"><span>£10.00 - £19.99</span></label>
+<label class="facet__row"><input type="checkbox" name="priceBand" value="20-30"><span>£20.00 - £29.99</span></label>
+<label class="facet__row"><input type="checkbox" name="priceBand" value="30-40"><span>£30.00 - £39.99</span></label>
+<label class="facet__row"><input type="checkbox" name="priceBand" value="60-70"><span>£60.00 and above</span></label></div><p class="facet__hint facet__hint--price">Starting price per item</p><div class="price-fields"><label>Min (£)<input type="number" name="priceMin" min="0" step="0.01" placeholder="0.00" inputmode="decimal"></label><label>Max (£)<input type="number" name="priceMax" min="0" step="0.01" placeholder="Any" inputmode="decimal"></label></div></div></details>
+<details class="facet" open><summary class="facet__t">Collection<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Collection"><div class="facet__options" id="options-collection"><label class="facet__row facet__row--image" data-preview="assets/img/filters/eco-products.png"><input class="vh" type="checkbox" name="collection" value="eco-products"><img class="facet__icon" src="assets/img/filters/eco-products.png" alt="" width="32" height="32"><span>Eco Products</span></label>
+<label class="facet__row facet__row--image" data-preview="assets/img/filters/express-products.png"><input class="vh" type="checkbox" name="collection" value="express-products"><img class="facet__icon" src="assets/img/filters/express-products.png" alt="" width="32" height="32"><span>Express Products</span></label>
+<label class="facet__row facet__row--image" data-preview="assets/img/filters/value-range-products.png"><input class="vh" type="checkbox" name="collection" value="value-range-products"><img class="facet__icon" src="assets/img/filters/value-range-products.png" alt="" width="32" height="32"><span>Value Range Products</span></label>
+<label class="facet__row facet__row--image" data-preview="assets/img/filters/bespoke-products.png"><input class="vh" type="checkbox" name="collection" value="bespoke-products"><img class="facet__icon" src="assets/img/filters/bespoke-products.png" alt="" width="32" height="32"><span>Bespoke Products</span></label>
+<label class="facet__row facet__row--image" data-preview="assets/img/filters/new-products.png"><input class="vh" type="checkbox" name="collection" value="new-products"><img class="facet__icon" src="assets/img/filters/new-products.png" alt="" width="32" height="32"><span>New Products</span></label>
+<label class="facet__row facet__row--image" data-preview="assets/img/filters/co2-products.png"><input class="vh" type="checkbox" name="collection" value="co2-products"><img class="facet__icon" src="assets/img/filters/co2-products.png" alt="" width="32" height="32"><span>Co2 Products</span></label>
+<label class="facet__row"><input type="checkbox" name="collection" value="to-be-discontinued"><span>To Be Discontinued</span></label></div></div></details>
+<details class="facet" open><summary class="facet__t">Swag Box<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Swag Box"><div class="facet__options" id="options-swag"><label class="facet__row"><input type="checkbox" name="swag" value="create-your-swag-box-products"><span>Create Your Swag Box Products</span></label></div></div></details>
+<details class="facet" open><summary class="facet__t">CO₂<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="CO₂"><label class="facet__row"><input type="checkbox" name="co2" value="yes"><span>CO₂ data available</span></label>
+<label class="facet__row"><input type="checkbox" name="co2" value="no"><span>No published CO₂ data</span></label></div></details>
+<details class="facet"><summary class="facet__t">Instant quote<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Instant quote"><div class="facet__options" id="options-quote"><label class="facet__row"><input type="checkbox" name="quote" value="online-quote"><span>Online Quote</span></label></div></div></details>
+<details class="facet"><summary class="facet__t">Colours<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Colours"><label class="facet__search-label" for="search-colour">Search colours</label><input class="facet__search" id="search-colour" type="search" placeholder="Search colours" data-facet-search="colour" aria-controls="options-colour"><div class="facet__options" id="options-colour"><label class="facet__row"><input type="checkbox" name="colour" value="amber"><span>amber</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="baby-blue"><span>baby blue</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="baby-pink"><span>baby pink</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="black-natural"><span>black / natural</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="brick"><span>brick</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="clay"><span>clay</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="cloud-blue"><span>cloud blue</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="cobalt-blue"><span>cobalt blue</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="cyan"><span>cyan</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="dark-pink"><span>dark pink</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="dusty-pink"><span>dusty pink</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="greige"><span>greige</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="light-brown"><span>light brown</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="light-natural"><span>light natural</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="luscious-red"><span>luscious red</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="medium-grey"><span>medium grey</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="mint-green"><span>mint green</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="natural-black"><span>natural / black</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="navy-natural"><span>navy / natural</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="navy-blue"><span>navy blue</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="navy-grey"><span>navy, grey</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="oatmeal"><span>oatmeal</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="ochre"><span>ochre</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="petrol"><span>petrol</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="red-natural"><span>red / natural</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="sandstone"><span>sandstone</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="stone-grey"><span>stone grey</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="sundial-orange"><span>sundial orange</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="tranquil-blue"><span>tranquil blue</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="verdigris"><span>verdigris</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="natural-natural"><span>natural / natural</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="anthracite"><span>anthracite</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="army-green"><span>army green</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="beige"><span>beige</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="black"><span>Black</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="black-black"><span>black / black</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="black-grey"><span>black, grey</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="blue-grey"><span>blue, grey</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="bright-green"><span>bright green</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="burgundy"><span>burgundy</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="charcoal"><span>charcoal</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="chocolate"><span>chocolate</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="dark-blue"><span>dark blue</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="dark-green"><span>dark green</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="dark-grey"><span>dark grey</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="denim"><span>denim</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="earth"><span>earth</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="forest-green"><span>forest green</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="french-navy"><span>french navy</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="fuchsia"><span>fuchsia</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="gold"><span>gold</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="golden"><span>golden</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="grey"><span>grey</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="grey-grey"><span>grey, grey</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="heather-black"><span>heather black</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="heather-blue"><span>heather blue</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="heather-green"><span>heather green</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="heather-natural"><span>heather natural</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="ivory"><span>ivory</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="khaki"><span>khaki</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="lavender"><span>lavender</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="light-blue"><span>light blue</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="light-green"><span>light green</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="light-grey"><span>light grey</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="lilac"><span>lilac</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="lime"><span>lime</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="lime-green"><span>lime green</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="magenta"><span>magenta</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="matt-silver"><span>matt silver</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="mid-blue"><span>mid blue</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="multi"><span>multi</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="multicolour"><span>multicolour</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="natural"><span>natural</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="natural-bright-green"><span>natural / bright green</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="natural-green"><span>natural / green</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="natural-lime"><span>natural / lime</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="natural-navy"><span>natural / navy</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="natural-orange"><span>natural / orange</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="natural-red"><span>natural / red</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="natural-royal-blue"><span>natural / royal blue</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="natural-white"><span>natural / white</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="natural-yellow"><span>natural / yellow</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="navy"><span>navy</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="ocean-blue"><span>ocean blue</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="off-white"><span>off white</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="olive"><span>olive</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="pink"><span>pink</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="process-blue"><span>process blue</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="rainbow"><span>rainbow</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="rope"><span>rope</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="royal-blue"><span>royal blue</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="silver"><span>silver</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="solid-black"><span>solid black</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="turquoise"><span>turquoise</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="violet"><span>violet</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="blue"><span>Blue</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="brown"><span>Brown</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="green"><span>Green</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="orange"><span>Orange</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="purple"><span>Purple</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="red"><span>Red</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="white"><span>White</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="yellow"><span>Yellow</span></label>
+<label class="facet__row"><input type="checkbox" name="colour" value="moss"><span>Moss</span></label></div></div></details>
+<details class="facet"><summary class="facet__t">Brand<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Brand"><label class="facet__search-label" for="search-brand">Search brand</label><input class="facet__search" id="search-brand" type="search" placeholder="Search brand" data-facet-search="brand" aria-controls="options-brand"><div class="facet__options" id="options-brand"><label class="facet__row"><input type="checkbox" name="brand" value="aodaci"><span>Aodaci</span></label>
+<label class="facet__row"><input type="checkbox" name="brand" value="bellroy"><span>bellroy</span></label>
+<label class="facet__row"><input type="checkbox" name="brand" value="black-blum"><span>black + blum</span></label>
+<label class="facet__row"><input type="checkbox" name="brand" value="case-logic"><span>Case Logic</span></label>
+<label class="facet__row"><input type="checkbox" name="brand" value="hi-deatm"><span>hi!dea™</span></label>
+<label class="facet__row"><input type="checkbox" name="brand" value="swiss-peak"><span>Swiss Peak</span></label>
+<label class="facet__row"><input type="checkbox" name="brand" value="unbranded"><span>Unbranded</span></label>
+<label class="facet__row"><input type="checkbox" name="brand" value="vinga"><span>vinga</span></label>
+<label class="facet__row"><input type="checkbox" name="brand" value="xd-collection"><span>XD Collection</span></label>
+<label class="facet__row"><input type="checkbox" name="brand" value="xd-design"><span>XD Design</span></label>
+<label class="facet__row"><input type="checkbox" name="brand" value="xd-xclusive"><span>XD Xclusive</span></label></div></div></details>
+<details class="facet"><summary class="facet__t">Size<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Size"><label class="facet__search-label" for="search-size">Search size</label><input class="facet__search" id="search-size" type="search" placeholder="Search size" data-facet-search="size" aria-controls="options-size"><div class="facet__options" id="options-size"><label class="facet__row"><input type="checkbox" name="size" value="210x230x80mm"><span>210x230x80mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="260x205x105mm"><span>260x205x105mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="300-x-280mm"><span>300 x 280mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="300x300x160mm"><span>300x300x160mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="307-x-307-x-170-mm"><span>307 x 307 x 170 mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="315-x-385-x-121-mm"><span>315 x 385 x 121 mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="320-x-370-x-110mm"><span>320 x 370 x 110mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="323-x-300-mm-handles-60-cm"><span>323 x 300 mm (handles - 60 cm)</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="340-x-410mm"><span>340 x 410mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="350-x-400mm"><span>350 x 400mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="355-x-400mm"><span>355 x 400mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="355-x-400mm-handles-60-cm"><span>355 x 400mm (handles - 60 cm)</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="360x430x100mm"><span>360x430x100mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="370-x-400-x-100-mm"><span>370 x 400 x 100 mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="375-x-400mm"><span>375 x 400mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="375x300x160mm"><span>375x300x160mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="377-x-408-mm"><span>377 x 408 mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="37x41"><span>37x41</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="380-x-410mm-handles-60-cm"><span>380 x 410mm (handles - 60 cm)</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="380x310x110mm"><span>380x310x110mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="380x395mm"><span>380x395mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="380x420mm"><span>380x420mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="385-x-415-mm-handles-60-cm"><span>385 x 415 mm (handles - 60 cm)</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="38x40x1"><span>38x40x1</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="38x40x8"><span>38x40x8</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="390-x-350mm"><span>390 x 350mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="390-x-360-x-25mm"><span>390 x 360 x 25mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="395x310x110mm"><span>395x310x110mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="404-x-460-x-165mm"><span>404 x 460 x 165mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="405-x-355-mm"><span>405 x 355 mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="40x38"><span>40x38</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="410-x-385-x-205mm"><span>410 x 385 x 205mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="410x375mm"><span>410x375mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="420-x-340-x-200mm"><span>420 x 340 x 200mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="420x357mm"><span>420x357mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="420x385mm"><span>420x385mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="423-x-350-x-187-mm"><span>423 x 350 x 187 mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="430x350x200mm"><span>430x350x200mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="430x395mm"><span>430x395mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="450-x-390-mm"><span>450 x 390 mm</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="46x38x1"><span>46x38x1</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="46x38x10"><span>46x38x10</span></label>
+<label class="facet__row"><input type="checkbox" name="size" value="475x355x160mm"><span>475x355x160mm</span></label></div></div></details>
+<details class="facet"><summary class="facet__t">Gender<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Gender"><div class="facet__options" id="options-gender"><label class="facet__row"><input type="checkbox" name="gender" value="unisex"><span>Unisex</span></label></div></div></details>
+        <details class="facet" open><summary class="facet__t">Material<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Material"><label class="facet__search-label" for="search-material">Search material</label><input class="facet__search" id="search-material" type="search" placeholder="Search material" data-facet-search="material" aria-controls="options-material"><div class="facet__options" id="options-material"><label class="facet__row"><input type="checkbox" name="material" value="190t-of-recycled-polyester"><span>190T of Recycled Polyester</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="210d-of-polyester"><span>210D of Polyester</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="210d-of-recycled-polyester"><span>210D of Recycled Polyester</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="60-grs-certified-recycled-cotton-and-40-grs-certified-recycled-polyester-140-g-m2"><span>60% grs certified recycled cotton and 40% grs certified recycled polyester, 140 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="60-grs-certified-recycled-cotton-and-40-grs-certified-recycled-polyester-180-g-m2"><span>60% grs certified recycled cotton and 40% grs certified recycled polyester, 180 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="600d-of-grs-certified-recycled-polyester"><span>600d of grs certified recycled polyester</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="600d-of-polyester"><span>600D of Polyester</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="600d-of-recycled-polyester"><span>600D of Recycled Polyester</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="70-recycled-cotton-and-30-recycled-polyester-500-g-m2"><span>70% recycled cotton and 30% recycled polyester, 500 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="88-grs-certified-recycled-polyester-and-12-polyamide"><span>88% grs certified recycled polyester and 12% polyamide</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="canvas-320-g-m2-jute-330-g-m2"><span>canvas, 320 g/m2, jute, 330 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="cotton"><span>Cotton</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="cotton-100-g-m2"><span>cotton, 100 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="cotton-140-g-m2"><span>cotton, 140 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="cotton-220-g-m2"><span>cotton, 220 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="fscr-certified-paper"><span>fsc® certified paper</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="grs-certified-recycled-cotton"><span>grs certified recycled cotton</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="grs-certified-recycled-cotton-cotton"><span>grs certified recycled cotton cotton</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="grs-certified-recycled-cotton-140-g-m2"><span>grs certified recycled cotton, 140 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="grs-certified-recycled-cotton-270-g-m2"><span>grs certified recycled cotton, 270 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="grs-certified-recycled-cotton-320-g-m2"><span>grs certified recycled cotton, 320 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="grs-certified-recycled-nylon"><span>grs certified recycled nylon</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="grs-certified-recycled-plastic"><span>grs certified recycled plastic</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="grs-certified-recycled-polyester"><span>grs certified recycled polyester</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="grs-certified-recycled-polyester-80-g-m2"><span>grs certified recycled polyester, 80 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="jute"><span>Jute</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="non-woven-80gr"><span>Non woven 80gr</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="organic-cotton-100-g-m2"><span>organic cotton, 100 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="organic-cotton-140-g-m2"><span>organic cotton, 140 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="organic-cotton-180-g-m2"><span>organic cotton, 180 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="organic-cotton-270-g-m2"><span>organic cotton, 270 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="pet"><span>PET</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="pp-plastic-non-woven-80-g-m2"><span>pp plastic non woven, 80 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="recycled-cotton-recycled-polyester"><span>recycled cotton recycled polyester</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="recycled-cotton-recycled-polyester-210-g-m2"><span>recycled cotton recycled polyester, 210 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="recycled-cotton-recycled-polyester-210-g-m2-recycled-polyester"><span>recycled cotton recycled polyester, 210 g/m2, recycled polyester</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="recycled-cotton-recycled-polyester-500-g-m2"><span>recycled cotton recycled polyester, 500 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="recycled-cotton-220-g-m2"><span>recycled cotton, 220 g/m2</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="recycled-polyester"><span>Recycled Polyester</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="ripstop-of-grs-certified-recycled-polyester-420d"><span>ripstop of grs certified recycled polyester, 420d</span></label>
+<label class="facet__row"><input type="checkbox" name="material" value="rpet"><span>RPET</span></label></div></div></details>
         <details class="facet" open>
           <summary class="facet__t">Certification<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
-          <div class="facet__body" role="group" aria-label="Certification"><label class="facet__row"><input type="checkbox" name="cert" value="grs"><span>GRS recycled</span><em>2</em></label>
-          <label class="facet__row"><input type="checkbox" name="cert" value="gots"><span>GOTS organic</span><em>5</em></label>
-          <label class="facet__row"><input type="checkbox" name="cert" value="fsc"><span>FSC</span><em>1</em></label></div>
+          <div class="facet__body" role="group" aria-label="Certification"><label class="facet__row"><input type="checkbox" name="cert" value="grs"><span>GRS recycled</span></label>
+          <label class="facet__row"><input type="checkbox" name="cert" value="gots"><span>GOTS organic</span></label>
+          <label class="facet__row"><input type="checkbox" name="cert" value="fsc"><span>FSC</span></label></div>
         </details>
         <details class="facet" open>
           <summary class="facet__t">Lead time<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
-          <div class="facet__body" role="group" aria-label="Lead time"><label class="facet__row"><input type="checkbox" name="lead" value="next"><span>Next day</span><em>5</em></label>
-          <label class="facet__row"><input type="checkbox" name="lead" value="3-10"><span>3&ndash;10 days</span><em>7</em></label></div>
+          <div class="facet__body" role="group" aria-label="Lead time"><label class="facet__row"><input type="checkbox" name="lead" value="next"><span>Next day</span></label>
+          <label class="facet__row"><input type="checkbox" name="lead" value="3-10"><span>3&ndash;10 days</span></label></div>
         </details>
-        <details class="facet" open>
-          <summary class="facet__t">Print method<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
-          <div class="facet__body" role="group" aria-label="Print method"><label class="facet__row"><input type="checkbox" name="print" value="screen"><span>Screen print</span><em>9</em></label>
-          <label class="facet__row"><input type="checkbox" name="print" value="embroidery"><span>Embroidery</span><em>4</em></label>
-          <label class="facet__row"><input type="checkbox" name="print" value="transfer"><span>Full colour transfer</span><em>6</em></label></div>
-        </details>
+        <details class="facet" open><summary class="facet__t">Branding Techniques<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Branding Techniques"><div class="facet__options" id="options-print"><label class="facet__row"><input type="checkbox" name="print" value="embroider"><span>Embroider</span></label>
+<label class="facet__row"><input type="checkbox" name="print" value="emboss-deboss"><span>Emboss/ deboss</span></label>
+<label class="facet__row"><input type="checkbox" name="print" value="laser-engaving"><span>Laser engraving</span></label>
+<label class="facet__row"><input type="checkbox" name="print" value="full-colour-printing"><span>Full colour Printing</span></label>
+<label class="facet__row"><input type="checkbox" name="print" value="spot-colour-pantone-print"><span>Spot colour Pantone Print</span></label></div></div></details>
           <button class="btn btn--outline btn--sm filters__clear" type="reset">Clear all</button>
         </form>
 
         <div class="listing__main">
+          <!-- Additional facet attributes are demo fixtures; replace with catalogue data before production. -->
           <div class="rail rail--grid" id="product-grid">
-        <a href="#" class="prod" data-material="cotton" data-price="3.48" data-rating="4.8">
+        <a href="#" class="prod" data-material="cotton" data-price="3.48" data-rating="4.8" data-collection="express-products value-range-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="natural black blue green" data-brand="unbranded" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="" data-gender="unisex" data-lead="next">
           <span class="prod__media"><span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-delivery"/></svg>Next day</span><img src="assets/img/products/bags/same-day-natural-cotton-shopper.jpg" alt="Natural Cotton Shopper" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b> (126)</span>
           <span class="prod__name">Natural Cotton Shopper</span>
@@ -225,7 +430,7 @@
           </span>
           <span class="prod__cta">Get a visual <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="cotton" data-price="3.93" data-rating="4.8">
+        <a href="#" class="prod" data-material="cotton" data-price="3.93" data-rating="4.8" data-collection="express-products value-range-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="blue red yellow green" data-brand="unbranded" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="" data-gender="unisex" data-lead="next">
           <span class="prod__media"><span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-delivery"/></svg>Next day</span><img src="assets/img/products/bags/next-day-coloured-cotton-shopper-blue.jpg" alt="Coloured Cotton Shopper" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b> (92)</span>
           <span class="prod__name">Coloured Cotton Shopper</span>
@@ -237,7 +442,7 @@
           </span>
           <span class="prod__cta">Get a visual <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="cotton" data-price="4.25" data-rating="4.9">
+        <a href="#" class="prod" data-material="cotton" data-price="4.25" data-rating="4.9" data-collection="express-products value-range-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="black natural" data-brand="bagbase" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="" data-gender="unisex" data-lead="next">
           <span class="prod__media"><span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-delivery"/></svg>Next day</span><img src="assets/img/products/bags/next-day-sling-bag-for-life-black.jpg" alt="Sling Bag for Life" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b> (38)</span>
           <span class="prod__name">Sling Bag for Life</span>
@@ -249,7 +454,7 @@
           </span>
           <span class="prod__cta">Get a visual <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="nonwoven" data-price="3.40" data-rating="4.9">
+        <a href="#" class="prod" data-material="" data-price="3.40" data-rating="4.9" data-collection="express-products value-range-products bespoke-products" data-swag="" data-co2="no" data-quote="" data-colour="yellow blue black" data-brand="unbranded" data-size="large" data-print="spot-colour-pantone-print full-colour-printing" data-cert="" data-gender="unisex" data-lead="next">
           <span class="prod__media"><span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-delivery"/></svg>Next day</span><img src="assets/img/products/bags/jumbo-exhibition-bag-yellow.jpg" alt="Jumbo Non Woven Exhibition Bag" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b> (54)</span>
           <span class="prod__name">Jumbo Non Woven Exhibition Bag</span>
@@ -261,7 +466,7 @@
           </span>
           <span class="prod__cta">Get a visual <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="nonwoven" data-price="0.51" data-rating="4.7">
+        <a href="#" class="prod" data-material="" data-price="0.51" data-rating="4.7" data-collection="express-products value-range-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="online-quote" data-colour="blue black" data-brand="unbranded" data-size="standard" data-print="spot-colour-pantone-print" data-cert="" data-gender="unisex" data-lead="next">
           <span class="prod__media"><span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-delivery"/></svg>Next day</span><img src="assets/img/products/bags/next-day-non-woven-royal-blue.jpg" alt="Non Woven Bag" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.7</b> (188)</span>
           <span class="prod__name">Non Woven Bag</span>
@@ -273,7 +478,7 @@
           </span>
           <span class="prod__cta">Get a visual <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="canvas" data-price="8.41" data-rating="4.7">
+        <a href="#" class="prod" data-material="" data-price="8.41" data-rating="4.7" data-collection="bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="black natural" data-brand="westford" data-size="standard" data-print="spot-colour-pantone-print embroider full-colour-printing" data-cert="" data-gender="unisex" data-lead="3-10">
           <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>Recycled</span><img src="assets/img/products/bags/westcove-canvas-tote-black.jpg" alt="Westcove Canvas Tote" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.7</b> (210)</span>
           <span class="prod__name">Westcove Canvas Tote</span>
@@ -285,7 +490,7 @@
           </span>
           <span class="prod__cta">Get a visual <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="organic" data-price="6.32" data-rating="4.8">
+        <a href="#" class="prod" data-material="" data-price="6.32" data-rating="4.8" data-collection="eco-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="natural black" data-brand="westford" data-size="standard" data-print="spot-colour-pantone-print embroider" data-cert="gots" data-gender="unisex" data-lead="3-10">
           <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>GOTS</span><img src="assets/img/products/bags/organic-festival-backpack.jpg" alt="Organic Festival Backpack" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b> (74)</span>
           <span class="prod__name">Organic Festival Backpack</span>
@@ -297,7 +502,7 @@
           </span>
           <span class="prod__cta">Get a visual <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="organic" data-price="3.66" data-rating="4.7">
+        <a href="#" class="prod" data-material="" data-price="3.66" data-rating="4.7" data-collection="eco-products value-range-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="black natural" data-brand="westford" data-size="large" data-print="spot-colour-pantone-print embroider full-colour-printing" data-cert="gots" data-gender="unisex" data-lead="3-10">
           <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>GOTS</span><img src="assets/img/products/bags/heavy-organic-shopper-tote-bag-black.jpg" alt="Heavy Organic Shopper Tote" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.7</b> (118)</span>
           <span class="prod__name">Heavy Organic Shopper Tote</span>
@@ -309,7 +514,7 @@
           </span>
           <span class="prod__cta">Get a visual <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="organic" data-price="5.12" data-rating="4.9">
+        <a href="#" class="prod" data-material="" data-price="5.12" data-rating="4.9" data-collection="eco-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="green natural" data-brand="westford" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="gots" data-gender="unisex" data-lead="3-10">
           <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>GOTS</span><img src="assets/img/products/bags/organic-fashion-tote-bag-green.jpg" alt="Organic Fashion Tote Bag" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b> (61)</span>
           <span class="prod__name">Organic Fashion Tote Bag</span>
@@ -321,7 +526,7 @@
           </span>
           <span class="prod__cta">Get a visual <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="organic" data-price="5.69" data-rating="4.8">
+        <a href="#" class="prod" data-material="" data-price="5.69" data-rating="4.8" data-collection="eco-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="natural" data-brand="westford" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="gots" data-gender="unisex" data-lead="3-10">
           <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>GOTS</span><img src="assets/img/products/bags/earthaware-organic-siena-tote-natural.jpg" alt="EarthAware Organic Siena Tote" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b> (83)</span>
           <span class="prod__name">EarthAware Organic Siena Tote</span>
@@ -333,7 +538,7 @@
           </span>
           <span class="prod__cta">Get a visual <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="organic" data-price="8.16" data-rating="4.9">
+        <a href="#" class="prod" data-material="" data-price="8.16" data-rating="4.9" data-collection="eco-products express-products bespoke-products" data-swag="" data-co2="no" data-quote="" data-colour="blue natural" data-brand="westford" data-size="large" data-print="spot-colour-pantone-print embroider full-colour-printing" data-cert="gots" data-gender="unisex" data-lead="next">
           <span class="prod__media"><span class="prod__flags"><span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-delivery"/></svg>Next day</span><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>GOTS</span></span><img src="assets/img/products/bags/next-day-earthaware-organic-siena-tote-bag-xl-frech-navy.jpg" alt="EarthAware Organic Siena Tote XL" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b> (47)</span>
           <span class="prod__name">EarthAware Organic Siena Tote XL</span>
@@ -345,7 +550,7 @@
           </span>
           <span class="prod__cta">Get a visual <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="organic" data-price="4.10" data-rating="4.8">
+        <a href="#" class="prod" data-material="" data-price="4.10" data-rating="4.8" data-collection="eco-products value-range-products co2-products" data-swag="create-your-swag-box-products" data-co2="yes" data-quote="online-quote" data-colour="natural" data-brand="midocean" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="gots" data-gender="unisex" data-lead="3-10">
           <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>GOTS</span><img src="assets/img/products/bags/mo2197-85-2.jpg" alt="Bente Organic Cotton Shopping Bag" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b> (96)</span>
           <span class="prod__name">Bente Organic Cotton Shopping Bag</span>
@@ -357,7 +562,7 @@
           </span>
           <span class="prod__cta">Get a visual <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="jute" data-price="2.85" data-rating="4.6">
+        <a href="#" class="prod" data-material="jute" data-price="2.85" data-rating="4.6" data-collection="value-range-products co2-products" data-swag="create-your-swag-box-products" data-co2="yes" data-quote="online-quote" data-colour="natural" data-brand="midocean" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="" data-gender="unisex" data-lead="3-10">
           <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>Recycled</span><img src="assets/img/products/bags/mo2190-13.jpg" alt="Fukuro Jute Drawstring Bag" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.6</b> (64)</span>
           <span class="prod__name">Fukuro Jute Drawstring Bag</span>
@@ -369,7 +574,7 @@
           </span>
           <span class="prod__cta">Get a visual <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="recycled" data-price="1.95" data-rating="4.7">
+        <a href="#" class="prod" data-material="" data-price="1.95" data-rating="4.7" data-collection="eco-products value-range-products co2-products" data-swag="create-your-swag-box-products" data-co2="yes" data-quote="online-quote" data-colour="natural black" data-brand="midocean" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="grs" data-gender="unisex" data-lead="3-10">
           <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>Recycled</span><img src="assets/img/products/bags/mo2193-53-1.jpg" alt="Kaimono Recycled Shopping Bag" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.7</b> (142)</span>
           <span class="prod__name">Kaimono Recycled Shopping Bag</span>
@@ -381,7 +586,7 @@
           </span>
           <span class="prod__cta">Get a visual <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="recycled" data-price="14.60" data-rating="4.9">
+        <a href="#" class="prod" data-material="" data-price="14.60" data-rating="4.9" data-collection="eco-products co2-products" data-swag="" data-co2="yes" data-quote="online-quote" data-colour="black" data-brand="midocean" data-size="large" data-print="full-colour-printing" data-cert="grs" data-gender="unisex" data-lead="3-10">
           <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>Recycled</span><img src="assets/img/products/bags/mo2181-37.jpg" alt="Scubaroll Recycled Waterproof Rolltop" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b> (35)</span>
           <span class="prod__name">Scubaroll Recycled Waterproof Rolltop</span>
@@ -429,7 +634,7 @@
     <div class="wrap">
       <div class="sechead" data-reveal>
         <span class="eyebrow">About this range</span>
-        <h2 id="about-h">What to know before<br><span class="hl">you brief a bag.</span></h2>
+        <h2 id="about-h">Branded bags for events,<br><span class="hl">work and everyday life.</span></h2>
       </div>
       <div class="prose" data-reveal>
         <div>
@@ -439,8 +644,7 @@
           given away. Organic cotton certified to GOTS costs a little more and carries the
           paperwork your ESG team will ask for.</p>
           <p>Non-woven polypropylene is the budget option for high-volume events. Recycled
-          rPET, certified to GRS, sits between the two and carries the lowest published
-          footprint in the range.</p>
+          rPET, certified to GRS, sits between the two and offers another material choice for your campaign. Compare published CO₂ data where available.</p>
         </div>
         <div>
           <h3>Getting the print right</h3>
@@ -454,7 +658,7 @@
         </div>
         <div>
           <h3>Why bags earn their place</h3>
-          <p>A bag is genuinely useful, which is what separates it from most merchandise. It
+          <p>A bag is useful, which is what separates it from most merchandise. It
           gets carried through stations, offices and high streets, generating brand visibility
           long after the event it was handed out at.</p>
           <p>That reuse is also what makes the carbon figure worth reading: the footprint is
@@ -463,6 +667,10 @@
       </div>
     </div>
   </section>
+
+  <figure class="category-image">
+    <img src="assets/img/hero-bags.png" alt="Reusable bags from the branded bags collection" loading="lazy" width="1536" height="1024">
+  </figure>
 
   <!-- ============ FAQ ============ -->
   <section class="sec sec--band" id="faq" aria-labelledby="faq-h">
@@ -474,7 +682,7 @@
       <div class="faq" data-reveal>
           <details open>
             <summary>What is the most eco-friendly material for promotional bags?</summary>
-            <p>Organic cotton certified to GOTS, and recycled cotton or rPET certified to GRS. Both carry a chain of custody you can trace back to the fibre, rather than a claim made at the factory gate. Every bag on this page shows its measured CO&#8322;e figure.</p>
+            <p>Organic cotton certified to GOTS, and recycled cotton or rPET certified to GRS. Both carry a chain of custody you can trace back to the fibre, rather than a claim made at the factory gate. Use the CO₂ filter to find products with published footprint data.</p>
           </details>
           <details>
             <summary>Can the logo be printed on both sides?</summary>
@@ -679,6 +887,6 @@
 </footer>
 
 <script src="assets/js/a11y-v4.js?v=6"></script>
-<script src="assets/js/list-v4.js?v=3"></script>
+<script src="assets/js/list-v4.js?v=6"></script>
 </body>
 </html>

@@ -11,9 +11,58 @@
 
   var cards = [].slice.call(grid.querySelectorAll('.prod'));
   var form = document.getElementById('filters');
+  if (!form) return;
   var sortSel = document.getElementById('sort');
   var countEl = document.getElementById('result-count');
   var noneEl = document.getElementById('no-results');
+
+  /* Collection icon previews live outside the scrollable option list. */
+  var preview = document.createElement('div');
+  preview.id = 'collection-preview';
+  preview.className = 'collection-preview';
+  preview.setAttribute('role', 'tooltip');
+  preview.hidden = true;
+  var previewImage = document.createElement('img');
+  previewImage.alt = '';
+  var previewLabel = document.createElement('strong');
+  preview.appendChild(previewImage);
+  preview.appendChild(previewLabel);
+  document.body.appendChild(preview);
+  var previewInput;
+  var hideTimer;
+  function hidePreview() {
+    window.clearTimeout(hideTimer);
+    preview.hidden = true;
+    if (previewInput) previewInput.removeAttribute('aria-describedby');
+    previewInput = null;
+  }
+  function scheduleHide() { hideTimer = window.setTimeout(hidePreview, 120); }
+  function showPreview(row) {
+    hidePreview();
+    previewImage.src = row.dataset.preview;
+    previewLabel.textContent = row.querySelector('span').textContent;
+    previewInput = row.querySelector('input');
+    previewInput.setAttribute('aria-describedby', preview.id);
+    preview.hidden = false;
+    var rect = row.querySelector('img').getBoundingClientRect();
+    var height = preview.offsetHeight;
+    var top = rect.top - height - 10;
+    if (top < 8) top = rect.bottom + 10;
+    preview.style.top = Math.max(8, Math.min(top, window.innerHeight - height - 8)) + 'px';
+    preview.style.left = Math.max(8, Math.min(rect.left, window.innerWidth - preview.offsetWidth - 8)) + 'px';
+  }
+  [].forEach.call(form.querySelectorAll('[data-preview]'), function (row) {
+    row.addEventListener('pointerenter', function (event) { if (event.pointerType !== 'touch') showPreview(row); });
+    row.addEventListener('pointerleave', scheduleHide);
+    row.addEventListener('focusin', function () { showPreview(row); });
+    row.addEventListener('focusout', scheduleHide);
+  });
+  preview.addEventListener('pointerenter', function () { window.clearTimeout(hideTimer); });
+  preview.addEventListener('pointerleave', scheduleHide);
+  document.addEventListener('keydown', function (event) { if (event.key === 'Escape') hidePreview(); });
+  document.addEventListener('scroll', hidePreview, true);
+  window.addEventListener('resize', hidePreview);
+  form.addEventListener('reset', hidePreview);
 
   /* ---------- Filter + sort ---------- */
   function checkedValues(name) {
@@ -22,28 +71,40 @@
   }
 
   function apply() {
-    var materials = checkedValues('material');
+    var names = ['material', 'cert', 'lead', 'print', 'collection', 'swag', 'co2', 'quote', 'colour', 'brand', 'size', 'gender'];
+    var selected = names.map(function (name) { return { name: name, values: checkedValues(name) }; });
+    var minInput = form.elements.priceMin;
+    var maxInput = form.elements.priceMax;
+    var minPrice = minInput && minInput.value !== '' ? Number(minInput.value) : 0;
+    var maxPrice = maxInput && maxInput.value !== '' ? Number(maxInput.value) : Infinity;
+    var priceBands = checkedValues('priceBand');
     var shown = 0;
 
     cards.forEach(function (card) {
-      // Only the material facet maps to real data on this concept; the others
-      // are presentational, so they must not silently hide everything.
-      var ok = !materials.length || materials.indexOf(card.dataset.material) !== -1;
+      // OR within a facet, AND across facets. Additional attributes on the
+      // static page are representative fixtures, pending catalogue integration.
+      var ok = selected.every(function (facet) {
+        var values = (card.dataset[facet.name] || '').split(' ');
+        return !facet.values.length || facet.values.some(function (value) { return values.indexOf(value) !== -1; });
+      }) && Number(card.dataset.price) >= minPrice && Number(card.dataset.price) <= maxPrice
+        && (!priceBands.length || priceBands.some(function (band) {
+          var bounds = band.split('-').map(Number);
+          var price = Number(card.dataset.price);
+          return price >= bounds[0] && (bounds[0] === 60 || price < bounds[1]);
+        }));
       card.hidden = !ok;
       if (ok) shown++;
     });
 
     var order = sortSel ? sortSel.value : 'popular';
     var visible = cards.filter(function (c) { return !c.hidden; });
-    if (order !== 'popular') {
-      visible.sort(function (a, b) {
-        if (order === 'price-asc')  return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
-        if (order === 'price-desc') return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
-        if (order === 'rating')     return parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating);
-        return 0;
-      });
-      visible.forEach(function (c) { grid.appendChild(c); });
-    }
+    visible.sort(function (a, b) {
+      if (order === 'price-asc')  return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+      if (order === 'price-desc') return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+      if (order === 'rating')     return parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating);
+      return cards.indexOf(a) - cards.indexOf(b);
+    });
+    visible.forEach(function (c) { grid.appendChild(c); });
 
     if (countEl) countEl.textContent = String(shown);
     if (noneEl) noneEl.hidden = shown !== 0;
@@ -56,12 +117,14 @@
 
   function renderApplied() {
     if (!appliedBar || !appliedChips || !form) return;
-    var on = [].slice.call(form.querySelectorAll('input[type="checkbox"]:checked'));
+    var on = [].slice.call(form.querySelectorAll('input[type="checkbox"]:checked, input[type="number"]'))
+      .filter(function (input) { return input.type === 'checkbox' || input.value !== ''; });
     appliedChips.textContent = '';
 
     on.forEach(function (input) {
       var label = input.closest('.facet__row');
-      var text = label ? label.querySelector('span').textContent : input.value;
+      var text = label ? label.querySelector('span').textContent :
+        (input.name === 'priceMin' ? 'Min price: £' : 'Max price: £') + Number(input.value).toFixed(2);
       var chip = document.createElement('button');
       chip.type = 'button';
       chip.className = 'applied__chip';
@@ -75,7 +138,8 @@
       use.setAttribute('href', '#i-close');
       svg.appendChild(use); chip.appendChild(svg);
       chip.addEventListener('click', function () {
-        input.checked = false;
+        if (input.type === 'checkbox') input.checked = false;
+        else input.value = '';
         apply();
         input.focus();          // keep the keyboard user somewhere sensible
       });
@@ -87,7 +151,22 @@
 
   if (form) {
     form.addEventListener('change', apply);
-    form.addEventListener('reset', function () { window.setTimeout(apply, 0); });
+    function searchOptions(input) {
+      var group = document.getElementById('options-' + input.dataset.facetSearch);
+      var query = input.value.trim().toLowerCase();
+      [].forEach.call(group.querySelectorAll('.facet__row'), function (row) {
+        row.hidden = row.textContent.toLowerCase().indexOf(query) === -1;
+      });
+    }
+    form.addEventListener('input', function (event) {
+      if (event.target.type === 'number') apply();
+      if (event.target.hasAttribute('data-facet-search')) searchOptions(event.target);
+    });
+    form.addEventListener('submit', function (event) { event.preventDefault(); apply(); });
+    form.addEventListener('reset', function () { window.setTimeout(function () {
+      [].forEach.call(form.querySelectorAll('[data-facet-search]'), searchOptions);
+      apply();
+    }, 0); });
   }
   if (sortSel) sortSel.addEventListener('change', apply);
 

@@ -1,0 +1,15 @@
+# Email quote feedback
+
+Reference: supplied HAKO quote-box screenshot and https://www.bouncecreativedesigns.co.uk/gift-card-box-with-magnetic-closure-hako.
+
+Email VAT is a separate preference, unchecked by default. The configured hi-vis quote snapshot supplies totals, branding, quantity, colour, UK destination, production timings and optional price breaks to email-quote-v4.html. Company and optional colleague email carry through. Mock-up requests require artwork once; the preview stores the original file in IndexedDB and displays raster thumbnails or vector filenames. No email or upload to a server occurs.
+
+The HAKO example uses the screenshot total £88.04 net: £1.46 product + £1.58 branding + £35 setup + £50 surcharge. Timings match the screenshot. Other HAKO price-break rows remain historical example data, not refreshed supplier prices.
+
+Verified in Playwright: default ex VAT £188.25 for 25 configured hi-vis vests, explicit inc VAT £225.90, supplied PNG persists and loads in email, missing artwork prevents mock-up submission, optional price breaks hidden when unchecked, and no mobile overflow at 390px. Generator supports VAT preference and supplied artwork without JavaScript in its email output; production sending must render actual quote data and permanent attachment URLs on the server.
+
+Get a quote popup now uses the supplied reference: three columns, grey product controls and pricing, dark contact panel, pink submit/upload accents, quantity stepper, always-visible price breakdown, display VAT toggle, optional email VAT preference, and supplier award marks. Original configurator nodes move into the dialog and return on close to keep a single configuration state. Verified quantity/colour/location changes, close/reopen, accurate email total and artwork, plus a 390px mobile stack without overflow or script errors. Only email is required among contact details, matching the reference; mock-up requests additionally require the artwork file.
+
+Configured total info now opens a fixed cost-and-timing popover on hover, keyboard focus or click. Click pins it; outside click or Escape closes it. Existing calculated cost outputs are reused, including VAT changes. Verified hover, pin, toggle close, Escape, outside click, VAT cost update and mobile popover viewport bounds.
+
+Artwork uploads are now per selected branding location, always visible beneath contact options. Removing a location excludes its artwork from submission; reselecting it restores the chosen file during that page session. Mock-up requests require each active upload. Verified three locations, per-location required validation, remove/re-add retention, close/reopen retention, and all three labelled thumbnails in the email preview.

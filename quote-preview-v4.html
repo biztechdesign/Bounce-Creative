@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Email quote preview — Bounce Creative Designs</title>
+<link rel="stylesheet" href="assets/css/style-v4.css?v=116">
+<style>
+.quote-preview{max-width:820px;margin:40px auto;padding:0 24px;color:var(--forest)}
+.quote-preview__logo{width:220px;height:auto;margin-bottom:32px}
+.quote-preview h1{font-size:clamp(28px,4vw,40px)}
+.quote-preview h2{font-size:22px;margin:28px 0 12px}
+.quote-preview p{line-height:1.6;margin-top:10px}
+.quote-preview__note{color:var(--forest-mid);font-size:var(--t-ui)}
+.quote-preview__card{margin:24px 0;padding:24px;background:var(--oat)}
+.quote-preview__total{font-size:36px;font-weight:800}
+.quote-preview dl{display:grid;grid-template-columns:140px minmax(0,1fr);gap:10px 16px;margin-top:18px}
+.quote-preview dt{color:var(--forest-mid)}
+.quote-preview dd{margin:0;overflow-wrap:anywhere}
+.quote-preview table{width:100%;border-collapse:collapse;margin:16px 0}
+.quote-preview th,.quote-preview td{padding:12px 8px;text-align:left;border-bottom:1px solid var(--line)}
+.quote-preview details{margin-top:20px}
+.quote-preview summary{cursor:pointer;font-weight:700}
+.quote-preview ul{padding-left:20px;line-height:1.8}
+.quote-preview .btn{margin-top:24px}
+@media(max-width:480px){.quote-preview{margin:24px auto;padding:0 20px}.quote-preview dl{grid-template-columns:1fr;gap:4px}.quote-preview dd{margin-bottom:8px}.quote-preview__card{padding:20px}}
+</style>
+</head>
+<body>
+<main class="quote-preview">
+  <a href="index-v4.html"><img class="quote-preview__logo" src="assets/img/logo/bounce-lockup-light.svg?v=2" alt="Bounce Creative Designs" width="220" height="54"></a>
+  <h1>Email quote preview</h1>
+  <p class="quote-preview__note">Review your selected configuration and costs. No email has been sent.</p>
+  <p id="quote-empty" hidden>No quote to preview yet. Configure your product and choose “Email a quote”.</p>
+  <section id="quote-result" hidden aria-labelledby="quote-product">
+    <h2 id="quote-product"></h2>
+    <p id="quote-sku"></p>
+    <dl id="quote-configuration"></dl>
+    <h2>Branding</h2>
+    <ul id="quote-branding"></ul>
+    <div class="quote-preview__card">
+      <p>Your configured total</p>
+      <p class="quote-preview__total" id="quote-total"></p>
+      <p id="quote-tax"></p>
+      <p id="quote-shipping"></p>
+      <details><summary>View cost breakdown</summary><dl id="quote-costs"></dl></details>
+    </div>
+    <section id="quote-breaks" hidden aria-labelledby="quote-breaks-title">
+      <h2 id="quote-breaks-title">Quantity price breaks</h2>
+      <table><thead><tr><th scope="col">Quantity</th><th scope="col">Per unit</th><th scope="col">Total</th></tr></thead><tbody id="quote-break-rows"></tbody></table>
+    </section>
+    <h2>Quote recipient</h2>
+    <dl id="quote-recipient"></dl>
+    <p id="quote-mockup"></p>
+  </section>
+  <a class="btn btn--solid" id="quote-back" href="product-hivis-v4.html">Back to product</a>
+</main>
+<script src="assets/js/quote-preview-v4.js?v=1"></script>
+</body>
+</html>

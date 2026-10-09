@@ -1,0 +1,1151 @@
+{
+  "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags",
+  "reviewed": "2026-10-09",
+  "groups": [
+    {
+      "title": "Gender",
+      "options": [
+        {
+          "label": "Unisex",
+          "value": "unisex",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/gender:unisex"
+        }
+      ]
+    },
+    {
+      "title": "Collection",
+      "options": [
+        {
+          "label": "Eco Products",
+          "value": "eco-products",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/collection-type:eco-products"
+        },
+        {
+          "label": "Express Products",
+          "value": "express-products",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/collection-type:express-products"
+        },
+        {
+          "label": "Value Range Products",
+          "value": "value-range-products",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/collection-type:value-range-products"
+        },
+        {
+          "label": "Bespoke Products",
+          "value": "bespoke-products",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/collection-type:bespoke-products"
+        },
+        {
+          "label": "New Products",
+          "value": "new-products",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/collection-type:new-products"
+        },
+        {
+          "label": "Co2 Products",
+          "value": "co2-products",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/collection-type:co2-products"
+        },
+        {
+          "label": "To Be Discontinued",
+          "value": "to-be-discontinued",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/collection-type:to-be-discontinued"
+        }
+      ]
+    },
+    {
+      "title": "Branding Techniques",
+      "options": [
+        {
+          "label": "Embroider",
+          "value": "embroider",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/branding-type:embroider"
+        },
+        {
+          "label": "Emboss/ deboss",
+          "value": "emboss-deboss",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/branding-type:emboss-deboss"
+        },
+        {
+          "label": "Laser engaving",
+          "value": "laser-engaving",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/branding-type:laser-engaving"
+        },
+        {
+          "label": "Full colour Printing",
+          "value": "full-colour-printing",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/branding-type:full-colour-printing"
+        },
+        {
+          "label": "Spot colour Pantone Print",
+          "value": "spot-colour-pantone-print",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/branding-type:spot-colour-pantone-print"
+        }
+      ]
+    },
+    {
+      "title": "Swag Box",
+      "options": [
+        {
+          "label": "Create Your Swag Box Products",
+          "value": "create-your-swag-box-products",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/swag-box:create-your-swag-box-products"
+        }
+      ]
+    },
+    {
+      "title": "INSTANT QUOTE",
+      "options": [
+        {
+          "label": "Online Quote",
+          "value": "online-quote",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/instant-quote:online-quote"
+        }
+      ]
+    },
+    {
+      "title": "Colours",
+      "options": [
+        {
+          "label": "amber",
+          "value": "amber",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:amber"
+        },
+        {
+          "label": "baby blue",
+          "value": "baby-blue",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:baby-blue"
+        },
+        {
+          "label": "baby pink",
+          "value": "baby-pink",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:baby-pink"
+        },
+        {
+          "label": "black / natural",
+          "value": "black-natural",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:black-natural"
+        },
+        {
+          "label": "brick",
+          "value": "brick",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:brick"
+        },
+        {
+          "label": "clay",
+          "value": "clay",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:clay"
+        },
+        {
+          "label": "cloud blue",
+          "value": "cloud-blue",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:cloud-blue"
+        },
+        {
+          "label": "cobalt blue",
+          "value": "cobalt-blue",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:cobalt-blue"
+        },
+        {
+          "label": "cyan",
+          "value": "cyan",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:cyan"
+        },
+        {
+          "label": "dark pink",
+          "value": "dark-pink",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:dark-pink"
+        },
+        {
+          "label": "dusty pink",
+          "value": "dusty-pink",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:dusty-pink"
+        },
+        {
+          "label": "greige",
+          "value": "greige",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:greige"
+        },
+        {
+          "label": "light brown",
+          "value": "light-brown",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:light-brown"
+        },
+        {
+          "label": "light natural",
+          "value": "light-natural",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:light-natural"
+        },
+        {
+          "label": "luscious red",
+          "value": "luscious-red",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:luscious-red"
+        },
+        {
+          "label": "medium grey",
+          "value": "medium-grey",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:medium-grey"
+        },
+        {
+          "label": "mint green",
+          "value": "mint-green",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:mint-green"
+        },
+        {
+          "label": "natural / black",
+          "value": "natural-black",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:natural-black"
+        },
+        {
+          "label": "navy / natural",
+          "value": "navy-natural",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:navy-natural"
+        },
+        {
+          "label": "navy blue",
+          "value": "navy-blue",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:navy-blue"
+        },
+        {
+          "label": "navy, grey",
+          "value": "navy-grey",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:navy-grey"
+        },
+        {
+          "label": "oatmeal",
+          "value": "oatmeal",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:oatmeal"
+        },
+        {
+          "label": "ochre",
+          "value": "ochre",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:ochre"
+        },
+        {
+          "label": "petrol",
+          "value": "petrol",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:petrol"
+        },
+        {
+          "label": "red / natural",
+          "value": "red-natural",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:red-natural"
+        },
+        {
+          "label": "sandstone",
+          "value": "sandstone",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:sandstone"
+        },
+        {
+          "label": "stone grey",
+          "value": "stone-grey",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:stone-grey"
+        },
+        {
+          "label": "sundial orange",
+          "value": "sundial-orange",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:sundial-orange"
+        },
+        {
+          "label": "tranquil blue",
+          "value": "tranquil-blue",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:tranquil-blue"
+        },
+        {
+          "label": "verdigris",
+          "value": "verdigris",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:verdigris"
+        },
+        {
+          "label": "natural / natural",
+          "value": "natural-natural",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:natural-natural"
+        },
+        {
+          "label": "anthracite",
+          "value": "anthracite",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:anthracite"
+        },
+        {
+          "label": "army green",
+          "value": "army-green",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:army-green"
+        },
+        {
+          "label": "beige",
+          "value": "beige",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:beige"
+        },
+        {
+          "label": "Black",
+          "value": "black",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:black"
+        },
+        {
+          "label": "black / black",
+          "value": "black-black",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:black-black"
+        },
+        {
+          "label": "black, grey",
+          "value": "black-grey",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:black-grey"
+        },
+        {
+          "label": "blue, grey",
+          "value": "blue-grey",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:blue-grey"
+        },
+        {
+          "label": "bright green",
+          "value": "bright-green",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:bright-green"
+        },
+        {
+          "label": "burgundy",
+          "value": "burgundy",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:burgundy"
+        },
+        {
+          "label": "charcoal",
+          "value": "charcoal",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:charcoal"
+        },
+        {
+          "label": "chocolate",
+          "value": "chocolate",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:chocolate"
+        },
+        {
+          "label": "dark blue",
+          "value": "dark-blue",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:dark-blue"
+        },
+        {
+          "label": "dark green",
+          "value": "dark-green",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:dark-green"
+        },
+        {
+          "label": "dark grey",
+          "value": "dark-grey",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:dark-grey"
+        },
+        {
+          "label": "denim",
+          "value": "denim",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:denim"
+        },
+        {
+          "label": "earth",
+          "value": "earth",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:earth"
+        },
+        {
+          "label": "forest green",
+          "value": "forest-green",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:forest-green"
+        },
+        {
+          "label": "french navy",
+          "value": "french-navy",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:french-navy"
+        },
+        {
+          "label": "fuchsia",
+          "value": "fuchsia",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:fuchsia"
+        },
+        {
+          "label": "gold",
+          "value": "gold",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:gold"
+        },
+        {
+          "label": "golden",
+          "value": "golden",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:golden"
+        },
+        {
+          "label": "grey",
+          "value": "grey",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:grey"
+        },
+        {
+          "label": "grey, grey",
+          "value": "grey-grey",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:grey-grey"
+        },
+        {
+          "label": "heather black",
+          "value": "heather-black",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:heather-black"
+        },
+        {
+          "label": "heather blue",
+          "value": "heather-blue",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:heather-blue"
+        },
+        {
+          "label": "heather green",
+          "value": "heather-green",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:heather-green"
+        },
+        {
+          "label": "heather natural",
+          "value": "heather-natural",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:heather-natural"
+        },
+        {
+          "label": "ivory",
+          "value": "ivory",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:ivory"
+        },
+        {
+          "label": "khaki",
+          "value": "khaki",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:khaki"
+        },
+        {
+          "label": "lavender",
+          "value": "lavender",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:lavender"
+        },
+        {
+          "label": "light blue",
+          "value": "light-blue",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:light-blue"
+        },
+        {
+          "label": "light green",
+          "value": "light-green",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:light-green"
+        },
+        {
+          "label": "light grey",
+          "value": "light-grey",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:light-grey"
+        },
+        {
+          "label": "lilac",
+          "value": "lilac",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:lilac"
+        },
+        {
+          "label": "lime",
+          "value": "lime",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:lime"
+        },
+        {
+          "label": "lime green",
+          "value": "lime-green",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:lime-green"
+        },
+        {
+          "label": "magenta",
+          "value": "magenta",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:magenta"
+        },
+        {
+          "label": "matt silver",
+          "value": "matt-silver",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:matt-silver"
+        },
+        {
+          "label": "mid blue",
+          "value": "mid-blue",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:mid-blue"
+        },
+        {
+          "label": "multi",
+          "value": "multi",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:multi"
+        },
+        {
+          "label": "multicolour",
+          "value": "multicolour",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:multicolour"
+        },
+        {
+          "label": "natural",
+          "value": "natural",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:natural"
+        },
+        {
+          "label": "natural / bright green",
+          "value": "natural-bright-green",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:natural-bright-green"
+        },
+        {
+          "label": "natural / green",
+          "value": "natural-green",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:natural-green"
+        },
+        {
+          "label": "natural / lime",
+          "value": "natural-lime",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:natural-lime"
+        },
+        {
+          "label": "natural / navy",
+          "value": "natural-navy",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:natural-navy"
+        },
+        {
+          "label": "natural / orange",
+          "value": "natural-orange",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:natural-orange"
+        },
+        {
+          "label": "natural / red",
+          "value": "natural-red",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:natural-red"
+        },
+        {
+          "label": "natural / royal blue",
+          "value": "natural-royal-blue",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:natural-royal-blue"
+        },
+        {
+          "label": "natural / white",
+          "value": "natural-white",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:natural-white"
+        },
+        {
+          "label": "natural / yellow",
+          "value": "natural-yellow",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:natural-yellow"
+        },
+        {
+          "label": "navy",
+          "value": "navy",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:navy"
+        },
+        {
+          "label": "ocean blue",
+          "value": "ocean-blue",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:ocean-blue"
+        },
+        {
+          "label": "off white",
+          "value": "off-white",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:off-white"
+        },
+        {
+          "label": "olive",
+          "value": "olive",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:olive"
+        },
+        {
+          "label": "pink",
+          "value": "pink",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:pink"
+        },
+        {
+          "label": "process blue",
+          "value": "process-blue",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:process-blue"
+        },
+        {
+          "label": "rainbow",
+          "value": "rainbow",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:rainbow"
+        },
+        {
+          "label": "rope",
+          "value": "rope",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:rope"
+        },
+        {
+          "label": "royal blue",
+          "value": "royal-blue",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:royal-blue"
+        },
+        {
+          "label": "silver",
+          "value": "silver",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:silver"
+        },
+        {
+          "label": "solid black",
+          "value": "solid-black",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:solid-black"
+        },
+        {
+          "label": "turquoise",
+          "value": "turquoise",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:turquoise"
+        },
+        {
+          "label": "violet",
+          "value": "violet",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:violet"
+        },
+        {
+          "label": "Blue",
+          "value": "blue",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:blue"
+        },
+        {
+          "label": "Brown",
+          "value": "brown",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:brown"
+        },
+        {
+          "label": "Green",
+          "value": "green",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:green"
+        },
+        {
+          "label": "Orange",
+          "value": "orange",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:orange"
+        },
+        {
+          "label": "Purple",
+          "value": "purple",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:purple"
+        },
+        {
+          "label": "Red",
+          "value": "red",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:red"
+        },
+        {
+          "label": "White",
+          "value": "white",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:white"
+        },
+        {
+          "label": "Yellow",
+          "value": "yellow",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:yellow"
+        },
+        {
+          "label": "Moss",
+          "value": "moss",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/colour:moss"
+        }
+      ]
+    },
+    {
+      "title": "Price",
+      "options": [
+        {
+          "label": "£0.00 - £9.99",
+          "value": "0-10",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/price:0-10"
+        },
+        {
+          "label": "£10.00 - £19.99",
+          "value": "10-20",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/price:10-20"
+        },
+        {
+          "label": "£20.00 - £29.99",
+          "value": "20-30",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/price:20-30"
+        },
+        {
+          "label": "£30.00 - £39.99",
+          "value": "30-40",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/price:30-40"
+        },
+        {
+          "label": "£60.00 and above",
+          "value": "60-70",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/price:60-70"
+        }
+      ]
+    },
+    {
+      "title": "BRAND",
+      "options": [
+        {
+          "label": "Aodaci",
+          "value": "aodaci",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/brand:aodaci"
+        },
+        {
+          "label": "bellroy",
+          "value": "bellroy",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/brand:bellroy"
+        },
+        {
+          "label": "black + blum",
+          "value": "black-blum",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/brand:black-blum"
+        },
+        {
+          "label": "Case Logic",
+          "value": "case-logic",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/brand:case-logic"
+        },
+        {
+          "label": "hi!dea™",
+          "value": "hi-deatm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/brand:hi-deatm"
+        },
+        {
+          "label": "Swiss Peak",
+          "value": "swiss-peak",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/brand:swiss-peak"
+        },
+        {
+          "label": "Unbranded",
+          "value": "unbranded",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/brand:unbranded"
+        },
+        {
+          "label": "vinga",
+          "value": "vinga",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/brand:vinga"
+        },
+        {
+          "label": "XD Collection",
+          "value": "xd-collection",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/brand:xd-collection"
+        },
+        {
+          "label": "XD Design",
+          "value": "xd-design",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/brand:xd-design"
+        },
+        {
+          "label": "XD Xclusive",
+          "value": "xd-xclusive",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/brand:xd-xclusive"
+        }
+      ]
+    },
+    {
+      "title": "Size",
+      "options": [
+        {
+          "label": "210x230x80mm",
+          "value": "210x230x80mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:210x230x80mm"
+        },
+        {
+          "label": "260x205x105mm",
+          "value": "260x205x105mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:260x205x105mm"
+        },
+        {
+          "label": "300 x 280mm",
+          "value": "300-x-280mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:300-x-280mm"
+        },
+        {
+          "label": "300x300x160mm",
+          "value": "300x300x160mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:300x300x160mm"
+        },
+        {
+          "label": "307 x 307 x 170 mm",
+          "value": "307-x-307-x-170-mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:307-x-307-x-170-mm"
+        },
+        {
+          "label": "315 x 385 x 121 mm",
+          "value": "315-x-385-x-121-mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:315-x-385-x-121-mm"
+        },
+        {
+          "label": "320 x 370 x 110mm",
+          "value": "320-x-370-x-110mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:320-x-370-x-110mm"
+        },
+        {
+          "label": "323 x 300 mm (handles - 60 cm)",
+          "value": "323-x-300-mm-handles-60-cm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:323-x-300-mm-handles-60-cm"
+        },
+        {
+          "label": "340 x 410mm",
+          "value": "340-x-410mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:340-x-410mm"
+        },
+        {
+          "label": "350 x 400mm",
+          "value": "350-x-400mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:350-x-400mm"
+        },
+        {
+          "label": "355 x 400mm",
+          "value": "355-x-400mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:355-x-400mm"
+        },
+        {
+          "label": "355 x 400mm (handles - 60 cm)",
+          "value": "355-x-400mm-handles-60-cm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:355-x-400mm-handles-60-cm"
+        },
+        {
+          "label": "360x430x100mm",
+          "value": "360x430x100mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:360x430x100mm"
+        },
+        {
+          "label": "370 x 400 x 100 mm",
+          "value": "370-x-400-x-100-mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:370-x-400-x-100-mm"
+        },
+        {
+          "label": "375 x 400mm",
+          "value": "375-x-400mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:375-x-400mm"
+        },
+        {
+          "label": "375x300x160mm",
+          "value": "375x300x160mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:375x300x160mm"
+        },
+        {
+          "label": "377 x 408 mm",
+          "value": "377-x-408-mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:377-x-408-mm"
+        },
+        {
+          "label": "37x41",
+          "value": "37x41",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:37x41"
+        },
+        {
+          "label": "380 x 410mm (handles - 60 cm)",
+          "value": "380-x-410mm-handles-60-cm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:380-x-410mm-handles-60-cm"
+        },
+        {
+          "label": "380x310x110mm",
+          "value": "380x310x110mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:380x310x110mm"
+        },
+        {
+          "label": "380x395mm",
+          "value": "380x395mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:380x395mm"
+        },
+        {
+          "label": "380x420mm",
+          "value": "380x420mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:380x420mm"
+        },
+        {
+          "label": "385 x 415 mm (handles - 60 cm)",
+          "value": "385-x-415-mm-handles-60-cm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:385-x-415-mm-handles-60-cm"
+        },
+        {
+          "label": "38x40x1",
+          "value": "38x40x1",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:38x40x1"
+        },
+        {
+          "label": "38x40x8",
+          "value": "38x40x8",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:38x40x8"
+        },
+        {
+          "label": "390 x 350mm",
+          "value": "390-x-350mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:390-x-350mm"
+        },
+        {
+          "label": "390 x 360 x 25mm",
+          "value": "390-x-360-x-25mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:390-x-360-x-25mm"
+        },
+        {
+          "label": "395x310x110mm",
+          "value": "395x310x110mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:395x310x110mm"
+        },
+        {
+          "label": "404 x 460 x 165mm",
+          "value": "404-x-460-x-165mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:404-x-460-x-165mm"
+        },
+        {
+          "label": "405 x 355 mm",
+          "value": "405-x-355-mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:405-x-355-mm"
+        },
+        {
+          "label": "40x38",
+          "value": "40x38",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:40x38"
+        },
+        {
+          "label": "410 x 385 x 205mm",
+          "value": "410-x-385-x-205mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:410-x-385-x-205mm"
+        },
+        {
+          "label": "410x375mm",
+          "value": "410x375mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:410x375mm"
+        },
+        {
+          "label": "420 x 340 x 200mm",
+          "value": "420-x-340-x-200mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:420-x-340-x-200mm"
+        },
+        {
+          "label": "420x357mm",
+          "value": "420x357mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:420x357mm"
+        },
+        {
+          "label": "420x385mm",
+          "value": "420x385mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:420x385mm"
+        },
+        {
+          "label": "423 x 350 x 187 mm",
+          "value": "423-x-350-x-187-mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:423-x-350-x-187-mm"
+        },
+        {
+          "label": "430x350x200mm",
+          "value": "430x350x200mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:430x350x200mm"
+        },
+        {
+          "label": "430x395mm",
+          "value": "430x395mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:430x395mm"
+        },
+        {
+          "label": "450 x 390 mm",
+          "value": "450-x-390-mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:450-x-390-mm"
+        },
+        {
+          "label": "46x38x1",
+          "value": "46x38x1",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:46x38x1"
+        },
+        {
+          "label": "46x38x10",
+          "value": "46x38x10",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:46x38x10"
+        },
+        {
+          "label": "475x355x160mm",
+          "value": "475x355x160mm",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/size:475x355x160mm"
+        }
+      ]
+    },
+    {
+      "title": "Material",
+      "options": [
+        {
+          "label": "190T of Recycled Polyester",
+          "value": "190t-of-recycled-polyester",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:190t-of-recycled-polyester"
+        },
+        {
+          "label": "210D of Polyester",
+          "value": "210d-of-polyester",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:210d-of-polyester"
+        },
+        {
+          "label": "210D of Recycled Polyester",
+          "value": "210d-of-recycled-polyester",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:210d-of-recycled-polyester"
+        },
+        {
+          "label": "60% grs certified recycled cotton and 40% grs certified recycled polyester, 140 g/m2",
+          "value": "60-grs-certified-recycled-cotton-and-40-grs-certified-recycled-polyester-140-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:60-grs-certified-recycled-cotton-and-40-grs-certified-recycled-polyester-140-g-m2"
+        },
+        {
+          "label": "60% grs certified recycled cotton and 40% grs certified recycled polyester, 180 g/m2",
+          "value": "60-grs-certified-recycled-cotton-and-40-grs-certified-recycled-polyester-180-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:60-grs-certified-recycled-cotton-and-40-grs-certified-recycled-polyester-180-g-m2"
+        },
+        {
+          "label": "600d of grs certified recycled polyester",
+          "value": "600d-of-grs-certified-recycled-polyester",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:600d-of-grs-certified-recycled-polyester"
+        },
+        {
+          "label": "600D of Polyester",
+          "value": "600d-of-polyester",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:600d-of-polyester"
+        },
+        {
+          "label": "600D of Recycled Polyester",
+          "value": "600d-of-recycled-polyester",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:600d-of-recycled-polyester"
+        },
+        {
+          "label": "70% recycled cotton and 30% recycled polyester, 500 g/m2",
+          "value": "70-recycled-cotton-and-30-recycled-polyester-500-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:70-recycled-cotton-and-30-recycled-polyester-500-g-m2"
+        },
+        {
+          "label": "88% grs certified recycled polyester and 12% polyamide",
+          "value": "88-grs-certified-recycled-polyester-and-12-polyamide",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:88-grs-certified-recycled-polyester-and-12-polyamide"
+        },
+        {
+          "label": "canvas, 320 g/m2, jute, 330 g/m2",
+          "value": "canvas-320-g-m2-jute-330-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:canvas-320-g-m2-jute-330-g-m2"
+        },
+        {
+          "label": "Cotton",
+          "value": "cotton",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:cotton"
+        },
+        {
+          "label": "cotton, 100 g/m2",
+          "value": "cotton-100-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:cotton-100-g-m2"
+        },
+        {
+          "label": "cotton, 140 g/m2",
+          "value": "cotton-140-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:cotton-140-g-m2"
+        },
+        {
+          "label": "cotton, 220 g/m2",
+          "value": "cotton-220-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:cotton-220-g-m2"
+        },
+        {
+          "label": "fsc® certified paper",
+          "value": "fscr-certified-paper",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:fscr-certified-paper"
+        },
+        {
+          "label": "grs certified recycled cotton",
+          "value": "grs-certified-recycled-cotton",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:grs-certified-recycled-cotton"
+        },
+        {
+          "label": "grs certified recycled cotton cotton",
+          "value": "grs-certified-recycled-cotton-cotton",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:grs-certified-recycled-cotton-cotton"
+        },
+        {
+          "label": "grs certified recycled cotton, 140 g/m2",
+          "value": "grs-certified-recycled-cotton-140-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:grs-certified-recycled-cotton-140-g-m2"
+        },
+        {
+          "label": "grs certified recycled cotton, 270 g/m2",
+          "value": "grs-certified-recycled-cotton-270-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:grs-certified-recycled-cotton-270-g-m2"
+        },
+        {
+          "label": "grs certified recycled cotton, 320 g/m2",
+          "value": "grs-certified-recycled-cotton-320-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:grs-certified-recycled-cotton-320-g-m2"
+        },
+        {
+          "label": "grs certified recycled nylon",
+          "value": "grs-certified-recycled-nylon",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:grs-certified-recycled-nylon"
+        },
+        {
+          "label": "grs certified recycled plastic",
+          "value": "grs-certified-recycled-plastic",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:grs-certified-recycled-plastic"
+        },
+        {
+          "label": "grs certified recycled polyester",
+          "value": "grs-certified-recycled-polyester",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:grs-certified-recycled-polyester"
+        },
+        {
+          "label": "grs certified recycled polyester, 80 g/m2",
+          "value": "grs-certified-recycled-polyester-80-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:grs-certified-recycled-polyester-80-g-m2"
+        },
+        {
+          "label": "Jute",
+          "value": "jute",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:jute"
+        },
+        {
+          "label": "Non woven 80gr",
+          "value": "non-woven-80gr",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:non-woven-80gr"
+        },
+        {
+          "label": "organic cotton, 100 g/m2",
+          "value": "organic-cotton-100-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:organic-cotton-100-g-m2"
+        },
+        {
+          "label": "organic cotton, 140 g/m2",
+          "value": "organic-cotton-140-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:organic-cotton-140-g-m2"
+        },
+        {
+          "label": "organic cotton, 180 g/m2",
+          "value": "organic-cotton-180-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:organic-cotton-180-g-m2"
+        },
+        {
+          "label": "organic cotton, 270 g/m2",
+          "value": "organic-cotton-270-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:organic-cotton-270-g-m2"
+        },
+        {
+          "label": "PET",
+          "value": "pet",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:pet"
+        },
+        {
+          "label": "pp plastic non woven, 80 g/m2",
+          "value": "pp-plastic-non-woven-80-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:pp-plastic-non-woven-80-g-m2"
+        },
+        {
+          "label": "recycled cotton recycled polyester",
+          "value": "recycled-cotton-recycled-polyester",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:recycled-cotton-recycled-polyester"
+        },
+        {
+          "label": "recycled cotton recycled polyester, 210 g/m2",
+          "value": "recycled-cotton-recycled-polyester-210-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:recycled-cotton-recycled-polyester-210-g-m2"
+        },
+        {
+          "label": "recycled cotton recycled polyester, 210 g/m2, recycled polyester",
+          "value": "recycled-cotton-recycled-polyester-210-g-m2-recycled-polyester",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:recycled-cotton-recycled-polyester-210-g-m2-recycled-polyester"
+        },
+        {
+          "label": "recycled cotton recycled polyester, 500 g/m2",
+          "value": "recycled-cotton-recycled-polyester-500-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:recycled-cotton-recycled-polyester-500-g-m2"
+        },
+        {
+          "label": "recycled cotton, 220 g/m2",
+          "value": "recycled-cotton-220-g-m2",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:recycled-cotton-220-g-m2"
+        },
+        {
+          "label": "Recycled Polyester",
+          "value": "recycled-polyester",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:recycled-polyester"
+        },
+        {
+          "label": "ripstop of grs certified recycled polyester, 420d",
+          "value": "ripstop-of-grs-certified-recycled-polyester-420d",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:ripstop-of-grs-certified-recycled-polyester-420d"
+        },
+        {
+          "label": "RPET",
+          "value": "rpet",
+          "source": "https://www.bouncecreativedesigns.co.uk/bags/shopping-bags/tote-bags/l/material-all:rpet"
+        }
+      ]
+    }
+  ]
+}
