@@ -57,7 +57,8 @@ QUOTE = {
     "inc_vat": False,
     "source_inc_vat": False,  # Store quote amounts net; format using the email VAT choice.
     "mockup_requested": False,
-    "artwork": None,
+    "artwork": {"area": "Top", "name": "bounce-logo-ink.png", "url": BASE + "assets/img/bounce-logo-ink.png"},
+    "example_artwork": True,
     "qty": 1,
     "total": "88.04",
     "production": "5–7 working days",
@@ -167,6 +168,8 @@ def build(quote=None):
         artworks = [q["artwork"]] if q.get("artwork") else []
     if artworks:
         artwork_status = "Mock-up requested using your supplied artwork for each branding location." if q.get("mockup_requested") else "Artwork supplied for the selected branding locations."
+        if q.get("example_artwork"):
+            artwork_status = "Example logo file for review."
         artwork_name = ""
         items = []
         for artwork in artworks:
@@ -322,7 +325,7 @@ def build(quote=None):
 
     </tr></table>
     <div id="email-artwork" style="margin-top:20px; padding:16px; background:#e7e9e8; border:1px solid {LINE};">
-      {label("Artwork &amp; mock-up")}
+      {label("Uploaded artwork")}
       <p id="email-artwork-status" style="margin:10px 0 0; font-family:{FONT}; font-size:13px; color:{FOREST_MID};">{artwork_status}</p>
       <p id="email-artwork-name" style="margin:8px 0; font-family:{FONT}; font-size:13px; color:{FOREST};">{artwork_name}</p>
       <div id="email-artwork-image">{artwork_image}</div>
@@ -406,7 +409,7 @@ def build(quote=None):
 def main():
     out = ROOT / "email-quote-v4.html"
     html = build()
-    browser_scripts = '<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n<script src="assets/js/email-quote-preview-v4.js?v=3"></script>\n'
+    browser_scripts = '<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n<script src="assets/js/email-quote-preview-v4.js?v=4"></script>\n'
     out.write_text(html.replace('</body>', browser_scripts + '</body>'), encoding="utf-8")
     print(f"wrote {out.name}  ({out.stat().st_size:,} bytes)")
 

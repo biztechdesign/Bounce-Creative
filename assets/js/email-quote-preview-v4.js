@@ -74,6 +74,7 @@
   var artworks = Array.isArray(q.artworks) ? q.artworks : q.artwork ? [q.artwork] : [];
   text('email-artwork-status', q.mockup ? 'Mock-up requested using your supplied artwork for each branding location.' : artworks.length ? 'Artwork supplied for the selected branding locations.' : 'No mock-up requested for this quote.');
   text('email-artwork-name', '');
+  $('email-artwork-image').textContent = '';
   var artworkTable = document.createElement('table');
   artworkTable.setAttribute('role', 'presentation');
   artworkTable.setAttribute('cellpadding', '0'); artworkTable.setAttribute('cellspacing', '0');
