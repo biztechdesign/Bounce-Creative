@@ -57,7 +57,12 @@ QUOTE = {
     "inc_vat": False,
     "source_inc_vat": False,  # Store quote amounts net; format using the email VAT choice.
     "mockup_requested": False,
-    "artwork": {"area": "Top", "name": "bounce-logo-ink.png", "url": BASE + "assets/img/bounce-logo-ink.png"},
+    "artworks": [
+        {"area": "Top", "name": "bounce-logo-ink.png", "url": BASE + "assets/img/bounce-logo-ink.png"},
+        {"area": "Bottom", "name": "bounce-logo-white.png", "url": BASE + "assets/img/bounce-logo-white.png"},
+        {"area": "Inside", "name": "eco-products.png", "url": BASE + "assets/img/filters/eco-products.png"},
+        {"area": "Artwork 4", "name": "co2-products.png", "url": BASE + "assets/img/filters/co2-products.png"},
+    ],
     "example_artwork": True,
     "qty": 1,
     "total": "88.04",
@@ -169,7 +174,7 @@ def build(quote=None):
     if artworks:
         artwork_status = "Mock-up requested using your supplied artwork for each branding location." if q.get("mockup_requested") else "Artwork supplied for the selected branding locations."
         if q.get("example_artwork"):
-            artwork_status = "Example logo file for review."
+            artwork_status = "Example artwork files for review."
         artwork_name = ""
         items = []
         for artwork in artworks:
