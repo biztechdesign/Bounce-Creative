@@ -18,7 +18,7 @@ PDP = ROOT / "scripts" / "pdp"
 CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
 FOOTER = re.sub(r'<script src="assets/js/quote-artwork-v4\.js\?v=\d+"></script>\n', "",
                 (PDP / "_footer.html").read_text(encoding="utf-8")).replace(
-    '<script src="assets/js/pdp-v4.js?v=31"></script>',
+    '<script src="assets/js/pdp-v4.js?v=32"></script>',
     '<script src="assets/js/deals-v4.js?v=2"></script>\n<script src="assets/js/offers-v4.js?v=1"></script>')
 
 DISCOUNT = 0.10
@@ -63,6 +63,58 @@ def bag_cards():
     return out
 
 
+RAIL_CATS = {"bags": "bags", "drink": "drinkware", "tech": "tech", "pens": "pens",
+             "office": "office", "give": "giveaways"}
+
+
+def home_cards():
+    """The home page's category and eco rails - the rest of the range the
+    mocks have imagery for."""
+    html = (ROOT / "index-v4.html").read_text(encoding="utf-8")
+    out = []
+    for m in re.finditer(r'id="rail-([a-z-]+)"[^>]*>(.*?)\n      </div>', html, re.S):
+        key, block = m.group(1), m.group(2)
+        cat = "eco" if key.startswith("eco") else RAIL_CATS.get(key)
+        if not cat:
+            continue
+        for c in re.finditer(r'<a href="[^"]*" class="prod">(.*?)</a>', block, re.S):
+            body = c.group(1)
+            img = re.search(r'<img src="([^"]+)" alt="([^"]*)"', body)
+            name = re.search(r'<span class="prod__name">(.*?)</span>', body)
+            price = re.search(r'<b>&pound;([\d.,]+)</b>', body)
+            if not (img and name and price):
+                continue
+            rate = re.search(r'<b>([\d.]+)</b> \((\d+)\)', body)
+            flag = re.search(r'<span class="prod__flag[^>]*>.*?</span>', body, re.S)
+            sw = re.search(r'<span class="prod__sw">.*?</span>', body, re.S)
+            out.append({
+                "name": name.group(1), "img": img.group(1), "alt": img.group(2),
+                "price": float(price.group(1).replace(",", "")),
+                "rating": rate.group(1) if rate else None, "count": rate.group(2) if rate else None,
+                "flag": flag.group(0) if flag else "", "sw": sw.group(0) if sw else "",
+                "cat": cat, "href": "#",
+            })
+    return out
+
+
+def week_pool(n=50):
+    """Up to `n` distinct products, a mix across categories (round-robin, so
+    one big category never crowds out the rest)."""
+    seen, by_cat = set(), {}
+    for p in bag_cards() + EXTRA + home_cards():
+        k = p["name"].lower()
+        if k in seen:
+            continue
+        seen.add(k)
+        by_cat.setdefault(p["cat"], []).append(p)
+    out, lists = [], list(by_cat.values())
+    while len(out) < n and any(lists):
+        for lst in lists:
+            if lst and len(out) < n:
+                out.append(lst.pop(0))
+    return out
+
+
 EXTRA = [
     {"name": "Hi-Vis Vest VISICOAT", "img": "assets/img/products/clothing/hi-vis-vest-visicoat-yellow.jpg",
      "alt": "Hi-Vis Vest VISICOAT in fluorescent yellow", "price": 2.19, "rating": "4.7", "count": "84",
@@ -95,7 +147,8 @@ EXTRA = [
      "cat": "office", "href": "#"},
 ]
 
-CATS = [("all", "All offers"), ("bags", "Bags"), ("clothing", "Clothing"), ("drinkware", "Drinkware"), ("office", "Office")]
+CATS = [("all", "All offers"), ("bags", "Bags"), ("tech", "Tech"), ("drinkware", "Drinkware"), ("clothing", "Clothing"),
+        ("pens", "Pens"), ("office", "Office"), ("giveaways", "Giveaways"), ("eco", "Eco")]
 
 
 def card(p):
@@ -113,7 +166,7 @@ def card(p):
 
 
 def page():
-    pool = bag_cards() + EXTRA
+    pool = week_pool()
     cards = chr(10).join(card(p) for p in pool)
     chips = chr(10).join(
         f'          <button class="chip" type="button" data-cat="{k}" aria-pressed="{"true" if k == "all" else "false"}">{label}</button>'
@@ -209,11 +262,11 @@ def page():
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style-v4.css?v=119">
+<link rel="stylesheet" href="assets/css/style-v4.css?v=121">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=32">
 <link rel="stylesheet" href="assets/css/category-v4.css?v=5">
 <link rel="stylesheet" href="assets/css/offers-v4.css?v=1">
-<link rel="stylesheet" href="assets/css/mega-v4.css?v=2">
+<link rel="stylesheet" href="assets/css/mega-v4.css?v=6">
 <script>document.documentElement.className += " js";</script>
 """
     footer = FOOTER.replace("</main>\n", "", 1)

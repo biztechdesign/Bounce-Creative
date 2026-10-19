@@ -366,6 +366,15 @@ PRODUCTS = [
         "reviews": 126,
         "customers": "3,056",
         "flag": ("i-delivery", "Next day"),
+        "short": "cotton shopper",
+        "custom": [
+            ("bags/custom/shopper-natural-front.jpg", "Front panel, one-colour screen print",
+             "Natural cotton shopper with the Bounce logo printed large on the front"),
+            ("bags/custom/shopper-navy-front.jpg", "White print on a coloured shopper",
+             "Navy cotton shopper with the Bounce logo printed in white"),
+            ("bags/custom/shopper-natural-corner.jpg", "Small corner logo, subtle branding",
+             "Natural cotton shopper with a small Bounce logo in the lower corner"),
+        ],
         "colours": [
             ("Natural", "#E4DFCF", "v4/same_day_natural_cotton_shopper.jpg",
              "Next Day Natural Cotton Shopper, shown unbranded"),
@@ -507,12 +516,12 @@ def head(p):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style-v4.css?v=119">
+<link rel="stylesheet" href="assets/css/style-v4.css?v=121">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=32">
 <link rel="stylesheet" href="assets/css/pdp-v4.css?v=72">
 <!-- The reveal animation hides content until it is observed, so it is scoped to
      JS being available. Without this, a JS failure would leave a blank page. -->
-<link rel="stylesheet" href="assets/css/mega-v4.css?v=2">
+<link rel="stylesheet" href="assets/css/mega-v4.css?v=6">
 <script>document.documentElement.className += " js";</script>
 
 <script type="application/ld+json">
@@ -1796,7 +1805,7 @@ def related(p):
             <span>{icon("i-delivery", 14)}Tracked UK delivery</span>
             <span>{icon("i-check", 14)}Free visual in two hours</span>
           </span>
-          <span class="prod__cta">Get a visual {icon("i-arrow", 15)}</span>
+          <span class="prod__cta">Explore {icon("i-arrow", 15)}</span>
         </a>""")
     return f"""  <!-- ============ YOU MIGHT ALSO LIKE ============ -->
   <section class="sec" aria-labelledby="rel-h">

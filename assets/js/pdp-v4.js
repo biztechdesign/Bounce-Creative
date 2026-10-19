@@ -996,7 +996,8 @@
     bespokeForm.elements.mockup.addEventListener('change', function () { bespokeArtwork.required = this.checked; });
     /* "Request a visual": the same request with the mock-up ticked and the
        artwork field brought into view. */
-    all('[data-ticks-mockup]', bespokeForm).forEach(function (b) {
+    // Includes the "Request a visual" button in the custom-images section.
+    all('[data-ticks-mockup], [data-opens-visual]').forEach(function (b) {
       b.addEventListener('click', function () {
         bespokeForm.elements.mockup.checked = true;
         bespokeArtwork.required = true;

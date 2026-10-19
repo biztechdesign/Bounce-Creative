@@ -110,6 +110,10 @@
 .code__row{ display:flex; gap:8px; margin-top:8px; }
 .code__row input{ flex:1 1 auto; min-width:0; min-height:44px; padding:0 14px; font:inherit; font-size:var(--t-ui); color:var(--forest); background:var(--white); border:1px solid var(--line-input); }
 .code__row input:focus-visible{ outline:2px solid var(--coral-text); outline-offset:-1px; }
+.code__ok{ display:flex; align-items:flex-start; gap:8px; margin-top:10px; padding:10px 12px; background:var(--sage-green); font-size:var(--t-cap); color:var(--forest); }
+.code__ok .ic{ flex:0 0 auto; margin-top:2px; color:var(--green-text); }
+.code__ok b{ font-weight:800; }
+.code__ok[hidden]{ display:none; }
 /* ---------- Spend your points ---------- */
 .pts{ padding:18px 0 4px; border-top:1px solid var(--line); }
 .pts__t{ font-size:var(--h-card); letter-spacing:-.02em; }

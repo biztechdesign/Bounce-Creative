@@ -21,6 +21,33 @@
     return Math.min(PT_BAL, Math.max(0, n));
   }
 
+  /* Discount codes. QUOTE5 arrives from the email quote's "Order now and
+     save an extra 5%" button (?code=QUOTE5) and is applied automatically;
+     the same code typed into the field applies too. */
+  var CODES = { QUOTE5: { pct: 0.05, desc: '5% off for ordering from your email quote' } };
+  var codePct = 0;
+  var codeForm = document.querySelector('form.code');
+  var codeInput = document.getElementById('code');
+  function applyCode(raw) {
+    var key = String(raw || '').trim().toUpperCase();
+    var hit = CODES[key];
+    var ok = document.getElementById('code-ok');
+    codePct = hit ? hit.pct : 0;
+    if (ok) {
+      ok.hidden = !hit;
+      if (hit) {
+        document.getElementById('code-name').textContent = key;
+        document.getElementById('code-desc').textContent = hit.desc;
+        document.getElementById('t-code-n').textContent = key;
+      }
+    }
+    if (codeInput && hit) codeInput.value = key;
+    return !!hit;
+  }
+  if (codeForm) codeForm.addEventListener('submit', function () { applyCode(codeInput.value); recalc(); });
+  var fromUrl = new URLSearchParams(window.location.search).get('code');
+  if (fromUrl) applyCode(fromUrl);
+
   function recalc() {
     var sub = 0, units = 0;
     [].forEach.call(document.querySelectorAll('.line'), function (line) {
@@ -34,9 +61,21 @@
     // Points: when maximising, spend only what the subtotal can absorb
     var maxUseful = PT_VALUE ? Math.min(PT_BAL, Math.floor(sub / PT_VALUE)) : 0;
     if (ptsMax && ptsMax.checked) { ptsN.value = maxUseful; ptsRange.value = maxUseful; }
+    // Discount code first (a percentage of the subtotal), then points on what's left.
+    var codeOff = sub * codePct;
+    var codeRow = document.getElementById('t-code-row');
+    if (codeRow) {
+      codeRow.hidden = !codePct;
+      set('t-code', '−' + GBP.format(codeOff));
+    }
+    var afterCode = sub - codeOff;
+    if (ptsMax && ptsMax.checked && PT_VALUE) {
+      maxUseful = Math.min(PT_BAL, Math.floor(afterCode / PT_VALUE));
+      ptsN.value = maxUseful; ptsRange.value = maxUseful;
+    }
     var spent = pointsSpent();
-    var off = Math.min(sub, spent * PT_VALUE);
-    var net = sub - off;
+    var off = Math.min(afterCode, spent * PT_VALUE);
+    var net = afterCode - off;
     var row = document.getElementById('t-pts-row');
     if (row) {
       row.hidden = !spent;

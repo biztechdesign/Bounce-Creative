@@ -154,7 +154,7 @@ main:focus{ outline:none; }
 /* A rotation note beside an eyebrow: the section changes on a schedule. */
 .rotates{
   display:inline-flex; align-items:center; gap:6px; margin-left:14px; padding:3px 10px;
-  background:var(--sage-green); color:var(--forest); letter-spacing:.06em;
+  background:var(--sage-green); color:var(--forest); letter-spacing:.06em; white-space:nowrap;
 }
 .rotates::before{ content:''; width:6px; height:6px; border-radius:50%; background:var(--green-text); }
 /* Reads as a sentence rather than a label, so it drops the tracking. */
@@ -312,10 +312,12 @@ main:focus{ outline:none; }
 .nav .wrap{ display:flex; align-items:center; }
 /* Gap tightens as the row narrows, so the eleven categories stay on one line
    further down before wrapping. */
-.nav__list{ display:flex; align-items:center; gap:clamp(16px,2.1vw,30px); flex-wrap:wrap; }
+/* Thirteen entries now, as the live menu has: the row spreads across the full
+   width and tightens its gap rather than wrapping. */
+.nav__list{ display:flex; align-items:center; justify-content:space-between; gap:clamp(6px,0.9vw,16px); flex-wrap:wrap; width:100%; }
 .nav__list a{
   display:inline-flex; align-items:center; min-height:46px;
-  font-size:var(--t-body); font-weight:700; color:var(--forest);
+  font-size:var(--t-ui); font-weight:700; color:var(--forest); white-space:nowrap;
   border-bottom:2px solid transparent; transition:color .18s var(--ease), border-color .18s var(--ease);
 }
 .nav__list a:hover{ color:var(--coral-text); }
@@ -832,6 +834,10 @@ body.is-locked{ overflow:hidden; }
 
 /* Promotional branding: three tall cards that lift on hover */
 .brandcards{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+.brandcards[hidden]{ display:none; }
+/* Rotation tabs: week number, the three categories, and a flag on this week. */
+.chip__sub{ font-weight:500; opacity:.75; margin-left:4px; }
+.chip__now{ margin-left:8px; padding:2px 7px; background:var(--coral-btn); color:var(--forest); font-family:var(--f-mono); font-size:10px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; }
 .brandcard{
   display:flex; flex-direction:column; padding:0 0 26px;
   background:var(--paper); border:1px solid var(--line);

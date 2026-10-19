@@ -21,7 +21,7 @@
    pointer that can hover. Together they read as one control. */
 .nav__item > a{ padding-right:4px; }
 .nav__tog{
-  display:inline-grid; place-items:center; width:26px; min-height:46px;
+  display:inline-grid; place-items:center; width:20px; min-height:46px;
   margin-left:-2px; color:var(--forest-mid);
   border-bottom:2px solid transparent;
   transition:color .18s var(--ease);
@@ -104,6 +104,23 @@
 }
 .mega__flag--eco{ background:var(--green-wash); color:var(--green-text); }
 .mega__t--trend{ color:var(--coral-text); border-color:var(--coral); }
+.mega__t--eco{ color:var(--green-text); border-color:var(--green-text); }
+.mega__t a{ color:inherit; }
+.mega__t a:hover{ color:var(--coral-text); }
+/* Eco-friendly sub-ranges with no children of their own sit in the intro as a
+   link, in the eco green the nav uses. */
+.mega__eco{ display:inline-flex; align-items:center; gap:7px; margin-top:12px; font-size:var(--t-ui); font-weight:700; color:var(--green-text); }
+.mega__eco:hover{ color:var(--coral-text); }
+.mega__intro .tlink{ display:inline-flex; }
+.mega__intro .tlink + .mega__eco{ display:flex; }
+/* Headings reserve two lines, so a long one ("Health & wellbeing") never
+   pushes its list below its neighbours'. */
+.mega__t{ min-height:calc(2 * 1.45em + 10px); display:flex; align-items:flex-end; line-height:1.45; }
+/* The nav strip keeps its labels on one line; text inside the panel wraps. */
+.mega a, .mega__t{ white-space:normal; }
+.mega__more{ color:var(--coral-text) !important; font-weight:700 !important; border-bottom:0 !important; }
+.mega__tile__cap > span{ min-width:0; }
+.mega__tile__cap small{ white-space:normal; }
 
 /* ---------- Feature column ---------- */
 .mega__feat{

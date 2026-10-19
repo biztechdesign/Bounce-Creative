@@ -17,7 +17,7 @@ PDP = ROOT / "scripts" / "pdp"
 
 CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
 FOOTER = re.sub(r'<script src="assets/js/pdp-v4\.js\?v=\d+"></script>',
-                '<script src="assets/js/basket-v4.js?v=2"></script>', (PDP / "_footer.html").read_text(encoding="utf-8")).replace('<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n', '')
+                '<script src="assets/js/basket-v4.js?v=3"></script>', (PDP / "_footer.html").read_text(encoding="utf-8")).replace('<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n', '')
 
 VAT = 0.20
 
@@ -194,6 +194,7 @@ def page(c):
 
           <dl class="totals">
             <div><dt>Subtotal</dt><dd id="t-sub">{money(subtotal)}</dd></div>
+            <div class="totals__pts" id="t-code-row" hidden><dt>Discount <span id="t-code-n">QUOTE5</span></dt><dd id="t-code">&minus;&pound;0.00</dd></div>
             <div class="totals__pts" id="t-pts-row" hidden><dt>Reward points <span id="t-pts-n">0 pts</span></dt><dd id="t-pts">&minus;&pound;0.00</dd></div>
             <div><dt>VAT <span>20%</span></dt><dd id="t-vat">{money(vat)}</dd></div>
             <div class="totals__ship"><dt>Delivery</dt><dd>Calculated at checkout</dd></div>
@@ -208,6 +209,7 @@ def page(c):
               <input type="text" id="code" placeholder="Enter discount code">
               <button class="btn btn--outline btn--sm" type="submit">Apply</button>
             </div>
+            <p class="code__ok" id="code-ok" role="status" hidden>{icon("i-check", 15)}<span><b id="code-name">QUOTE5</b> applied &mdash; <span id="code-desc">5% off for ordering from your email quote</span></span></p>
           </form>
 
           <!-- Spend reward points: slider and field stay in sync; "maximise" pins to the balance -->
@@ -267,11 +269,11 @@ def page(c):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style-v4.css?v=119">
+<link rel="stylesheet" href="assets/css/style-v4.css?v=121">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=32">
 <link rel="stylesheet" href="assets/css/pdp-v4.css?v=72">
-<link rel="stylesheet" href="assets/css/basket-v4.css?v=4">
-<link rel="stylesheet" href="assets/css/mega-v4.css?v=2">
+<link rel="stylesheet" href="assets/css/basket-v4.css?v=6">
+<link rel="stylesheet" href="assets/css/mega-v4.css?v=6">
 <script>document.documentElement.className += " js";</script>
 """
     # the footer partial opens with </main>; this page closes main itself
