@@ -1,0 +1,49 @@
+/* ==========================================================================
+   Brands landing - layered on style-v4.css, list-v4.css and category-v4.css
+   (hero, story, cards, deals and countdown come from there).
+   ========================================================================== */
+
+/* ---------- A to Z ---------- */
+.az{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:24px; }
+.az__l{
+  min-width:34px; height:34px; display:inline-flex; align-items:center; justify-content:center;
+  font-family:var(--f-mono); font-size:var(--t-cap); color:var(--forest-mid); text-decoration:none;
+  border:1px solid var(--line);
+}
+.az__l.is-on{ color:var(--forest); border-color:var(--line-input); font-weight:500; }
+.az__l:not(.is-on){ opacity:.45; pointer-events:none; }
+.az__l:hover{ border-color:var(--forest); color:var(--forest); }
+
+/* ---------- Brand tiles ---------- */
+.brandgrid{ display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:16px; }
+.brandcell{
+  display:grid; gap:4px; padding:0 0 14px; text-decoration:none; color:var(--forest);
+  background:var(--white); border:1px solid var(--line);
+  transition:transform .22s var(--ease), box-shadow .22s var(--ease);
+}
+.brandcell:hover{ transform:translate(-3px,-3px); box-shadow:6px 6px 0 var(--sage-green); }
+.brandcell__logo{ display:grid; place-items:center; height:110px; padding:22px; border-bottom:1px solid var(--line); background:var(--white); }
+.brandcell__logo img{ max-width:100%; max-height:100%; object-fit:contain; }
+.brandcell__name{ margin:12px 16px 0; font-size:var(--t-ui); font-weight:800; }
+.brandcell__n{ margin:0 16px; font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.08em; text-transform:uppercase; color:var(--forest-mid); }
+
+/* ---------- Featured brand stories ---------- */
+.brandfeats{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+.brandfeat{ position:relative; display:block; aspect-ratio:4/3; overflow:hidden; background:var(--sage-green); text-decoration:none; color:var(--oat); }
+.brandfeat img{ width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease); }
+.brandfeat:hover img{ transform:scale(1.05); }
+.brandfeat__cap{
+  position:absolute; inset:auto 0 0 0; display:grid; gap:6px; padding:22px;
+  background:linear-gradient(180deg, rgba(19,57,53,0) 0%, rgba(19,57,53,.88) 60%);
+}
+.brandfeat__logo{ width:auto !important; height:26px !important; object-fit:contain !important; object-position:left; filter:brightness(0) invert(1); margin-bottom:4px; }
+.brandfeat__word{ font-family:var(--f-display); font-size:var(--t-lead); font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+.brandfeat__cap b{ font-family:var(--f-display); font-size:var(--h-lg); font-weight:700; letter-spacing:-.02em; line-height:1.2; }
+.brandfeat__cap > span{ display:inline-flex; align-items:center; gap:6px; font-size:var(--t-cap); font-weight:700; color:var(--coral-on-forest); }
+
+@media (max-width:1180px){ .brandgrid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+@media (max-width:900px){
+  .brandgrid{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+  .brandfeats{ grid-template-columns:minmax(0,1fr); }
+}
+@media (max-width:640px){ .brandgrid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }

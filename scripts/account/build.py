@@ -14,16 +14,16 @@ Desktop layout only: a design reference for estimation.
 """
 
 import pathlib
+import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 PDP = ROOT / "scripts" / "pdp"
 
 CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
-FOOTER = (PDP / "_footer.html").read_text(encoding="utf-8").replace(
-    '<script src="assets/js/pdp-v4.js?v=23"></script>',
-    '<script src="assets/js/account-v4.js?v=1"></script>')
+FOOTER = re.sub(r'<script src="assets/js/pdp-v4\.js\?v=\d+"></script>',
+                '<script src="assets/js/account-v4.js?v=1"></script>', (PDP / "_footer.html").read_text(encoding="utf-8")).replace('<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n', '')
 
-CSS_V = 1
+CSS_V = 3
 
 
 def esc(s):
@@ -167,14 +167,15 @@ def shell(c, active, crumbs, head_extra, main_html):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(c["title"])}</title>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style-v4.css?v=114">
-<link rel="stylesheet" href="assets/css/list-v4.css?v=21">
-<link rel="stylesheet" href="assets/css/pdp-v4.css?v=65">
+<link rel="stylesheet" href="assets/css/style-v4.css?v=118">
+<link rel="stylesheet" href="assets/css/list-v4.css?v=32">
+<link rel="stylesheet" href="assets/css/pdp-v4.css?v=71">
 <link rel="stylesheet" href="assets/css/account-v4.css?v={CSS_V}">
+<link rel="stylesheet" href="assets/css/mega-v4.css?v=2">
 <script>document.documentElement.className += " js";</script>
 """
     footer = FOOTER.replace("</main>\n", "", 1)
@@ -377,6 +378,32 @@ def rewards_page():
               <span class="stat__sub">Redeemed against orders</span>
             </article>
           </div>
+
+          <!-- Spin the wheel: one spin a day once the feature is live -->
+          <section class="spin" aria-labelledby="spin-h">
+            <div class="spin__wheel" aria-hidden="true">
+              <svg viewBox="0 0 100 100" width="112" height="112">
+                <circle cx="50" cy="50" r="48" fill="#EEE9DE"/>
+                <path d="M50 50 L50 2 A48 48 0 0 1 91.6 26 Z" fill="#F37259"/>
+                <path d="M50 50 L91.6 26 A48 48 0 0 1 91.6 74 Z" fill="#133935"/>
+                <path d="M50 50 L91.6 74 A48 48 0 0 1 50 98 Z" fill="#D8E4D1"/>
+                <path d="M50 50 L50 98 A48 48 0 0 1 8.4 74 Z" fill="#F37259"/>
+                <path d="M50 50 L8.4 74 A48 48 0 0 1 8.4 26 Z" fill="#133935"/>
+                <path d="M50 50 L8.4 26 A48 48 0 0 1 50 2 Z" fill="#D8E4D1"/>
+                <circle cx="50" cy="50" r="9" fill="#133935"/>
+                <path d="M50 0 L44 10 L56 10 Z" fill="#DE3110"/>
+              </svg>
+            </div>
+            <div class="spin__body">
+              <span class="spin__tag">{icon("i-star", 14)}1 spin left today</span>
+              <h2 id="spin-h">Spin the wheel for bonus points</h2>
+              <p>One free spin every day. Win between 10 and 500 points, or a discount code for your next order &mdash; your spin resets at midnight, so come back tomorrow and spin again.</p>
+              <div class="spin__acts">
+                <button class="btn btn--coral" type="button">Spin now {icon("i-arrow", 16)}</button>
+                <span class="spin__next">Next spin available <b>tomorrow at 00:00</b></span>
+              </div>
+            </div>
+          </section>
 
           <section class="acct-sec" aria-labelledby="info-h">
             <div class="acct-sec__head">

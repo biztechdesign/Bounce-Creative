@@ -12,15 +12,20 @@ only: design references for estimation.
 """
 
 import pathlib
+import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 PDP = ROOT / "scripts" / "pdp"
 
 CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
-FOOTER = (PDP / "_footer.html").read_text(encoding="utf-8").replace(
-    '<script src="assets/js/pdp-v4.js?v=23"></script>', "")
+# The footer partial carries the product-page scripts; these pages want the
+# shared countdown instead.
+FOOTER = re.sub(r'<script src="assets/js/(?:quote-artwork|pdp)-v4\.js\?v=\d+"></script>\n', "",
+                (PDP / "_footer.html").read_text(encoding="utf-8")).replace(
+    '<script src="assets/js/mega-v4.js?v=1"></script>',
+    '<script src="assets/js/mega-v4.js?v=1"></script>\n<script src="assets/js/deals-v4.js?v=2"></script>')
 
-CSS_V = 6
+CSS_V = 8
 
 
 def esc(s):
@@ -56,14 +61,15 @@ def page(title, body, css):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style-v4.css?v=114">
-<link rel="stylesheet" href="assets/css/list-v4.css?v=21">
-<link rel="stylesheet" href="assets/css/category-v4.css?v=3">
+<link rel="stylesheet" href="assets/css/style-v4.css?v=118">
+<link rel="stylesheet" href="assets/css/list-v4.css?v=32">
+<link rel="stylesheet" href="assets/css/category-v4.css?v=4">
 <link rel="stylesheet" href="assets/css/{css}?v={CSS_V}">
+<link rel="stylesheet" href="assets/css/mega-v4.css?v=2">
 <script>document.documentElement.className += " js";</script>
 """
     footer = FOOTER.replace("</main>\n", "", 1)
@@ -539,6 +545,33 @@ LARQ_PRODUCTS = [
 ]
 
 
+OFFER_PRODUCTS = [
+    ("products/bags/same-day-natural-cotton-shopper.jpg", "Natural Cotton Shopper", "3.48"),
+    ("products/bags/jumbo-exhibition-bag-yellow.jpg", "Jumbo Non Woven Exhibition Bag", "3.40"),
+    ("products/bags/westcove-canvas-tote-black.jpg", "Westcove Canvas Tote", "8.41"),
+    ("products/bags/next-day-sling-bag-for-life-black.jpg", "Sling Bag for Life", "4.25"),
+]
+
+
+def prod_card(img, name, price, deal=False, href="#"):
+    """A full product card, as the list page draws it; the deal variant shows
+    the week's price against the normal one with the shared countdown."""
+    was = float(price)
+    if deal:
+        flag = f'<span class="prod__flag prod__flag--deal">{icon("i-tag", 17)}10% off this week</span>'
+        price_html = (f'<span class="prod__price"><span class="prod__aslow">This week, as low as</span><b>&pound;{was * 0.9:,.2f}</b> <s>&pound;{was:,.2f}</s></span>\n'
+                      f'          <span class="prod__ends">{icon("i-bolt", 13)}Ends in <b data-countdown="short">&mdash;</b></span>')
+    else:
+        flag = ""
+        price_html = f'<span class="prod__price"><span class="prod__aslow">As low as</span><b>&pound;{was:,.2f}</b> <small>per unit</small></span>'
+    return f"""        <a href="{href}" class="prod">
+          <span class="prod__media">{flag}<img src="assets/img/{img}" alt="{esc(name)}" loading="lazy" width="360" height="360"></span>
+          <span class="prod__name">{esc(name)}</span>
+          {price_html}
+          <span class="prod__cta">Explore {icon("i-arrow", 15)}</span>
+        </a>"""
+
+
 def bold_list(items):
     return chr(10).join(f'          <li>{icon("i-check", 18)}<p><b>{esc(h)}</b> {esc(p)}</p></li>' for h, p in items)
 
@@ -660,20 +693,57 @@ def article_page():
           <section class="sidecard" aria-labelledby="shop-h">
             <span class="eyebrow">Featured in this story</span>
             <h2 id="shop-h">Shop the LARQ range</h2>
-            <div class="minis">
+            <div class="minis minis--big">
 {prods}
             </div>
-            <a href="products-v4.html" class="btn btn--outline btn--sm">All drinkware {icon("i-arrow", 16)}</a>
-          </section>
-          <section class="sidecard sidecard--forest">
-            <span class="eyebrow eyebrow--onforest">Order online</span>
-            <p><b>Instant prices, free artwork check, a proof before print.</b> Upload your logo and a named consultant follows your order from proof to delivery.</p>
-            <a href="#" class="btn btn--onforest btn--sm">Get a visual {icon("i-arrow", 16)}</a>
           </section>
         </aside>
       </div>
     </div>
   </article>
+
+  <!-- ============ PRODUCTS IN THIS STORY ============ -->
+  <section class="sec" aria-labelledby="feat-h">
+    <div class="wrap">
+      <div class="sechead sechead--row" data-reveal>
+        <div class="sechead__t">
+          <span class="eyebrow">Products in this story</span>
+          <h2 id="feat-h">Every bottle mentioned, <span class="hl">with live prices.</span></h2>
+          <p>A story can carry as many products as it needs &mdash; each one a full card, not a thumbnail.</p>
+        </div>
+        <a href="products-v4.html" class="tlink">All drinkware {icon("i-arrow", 16)}</a>
+      </div>
+      <div class="rail rail--four" data-reveal>
+{chr(10).join(prod_card(*p) for p in LARQ_PRODUCTS)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ON OFFER THIS WEEK ============ -->
+  <section class="sec sec--band deals" aria-labelledby="offer-h">
+    <div class="wrap">
+      <div class="deals__head" data-reveal>
+        <div class="sechead">
+          <span class="eyebrow">On offer this week</span>
+          <h2 id="offer-h">Sale products, <span class="hl">10% off until Monday.</span></h2>
+          <p>Four of this week&rsquo;s fifty offers. New products and prices every Monday.</p>
+        </div>
+        <div class="countdown" aria-live="polite">
+          <span class="countdown__t">Offers end in</span>
+          <div class="countdown__clock" data-countdown>
+            <span><b>0</b><small>days</small></span><span><b>00</b><small>hrs</small></span><span><b>00</b><small>min</small></span><span><b>00</b><small>sec</small></span>
+          </div>
+        </div>
+      </div>
+      <div class="rail rail--four" data-reveal>
+{chr(10).join(prod_card(*p, deal=True) for p in OFFER_PRODUCTS)}
+      </div>
+      <p class="deals__foot">
+        <span>Prices revert at midnight on Sunday. <b id="deals-week"></b></span>
+        <a href="offers-v4.html" class="tlink">View all offers this week {icon("i-arrow", 16)}</a>
+      </p>
+    </div>
+  </section>
 
   <!-- ============ MORE STORIES ============ -->
   <section class="sec sec--band" aria-labelledby="more-h">

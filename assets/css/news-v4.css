@@ -122,6 +122,12 @@
 .mini__name{ font-size:var(--t-cap); font-weight:700; line-height:1.35; }
 .mini:hover .mini__name{ color:var(--coral-text); }
 .mini__price{ font-size:var(--t-micro); color:var(--forest-mid); margin-top:3px; }
+/* Bigger featured products in the side rail: two-up tiles, not a list. */
+.minis--big{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; border-top:0; }
+.minis--big .mini{ grid-template-columns:minmax(0,1fr); grid-template-rows:auto auto auto; column-gap:0; row-gap:6px; padding:0; border:0; }
+.minis--big .mini__media{ grid-row:auto; width:100%; aspect-ratio:1/1; padding:12px; }
+.minis--big .mini__name{ font-size:var(--t-cap); }
+.minis--big .mini__price{ margin-top:0; font-weight:800; color:var(--forest); font-size:var(--t-cap); }
 .sidecard--forest{ background:var(--forest); color:var(--oat); box-shadow:none; }
 .sidecard--forest p{ margin-top:12px; font-size:var(--t-cap); line-height:1.6; color:rgba(238,233,222,.8); }
 .sidecard--forest p b{ color:var(--oat); font-weight:800; }

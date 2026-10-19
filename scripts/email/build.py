@@ -325,10 +325,12 @@ def build(quote=None):
 
   <!-- ===== Actions ===== -->
   <tr><td style="padding:20px 32px 0;">
+    <!-- The order button adds the configured product to the basket with the
+         5% quote code applied, rather than returning to the product page. -->
     <table role="presentation" cellpadding="0" cellspacing="0"><tr>
-      <td style="padding-right:10px;">{btn("Order online &rarr;", p["url"])}</td>
-
+      <td style="padding-right:10px;">{btn("Order now and save an extra 5% &rarr;", "basket-v4.html?add=" + q["number"] + "&code=QUOTE5")}</td>
     </tr></table>
+    <p style="margin:10px 0 0; font-family:{FONT}; font-size:12px; line-height:1.5; color:{FOREST_MID};">Adds this product, exactly as configured, to your basket and applies code <b style="color:{FOREST};">QUOTE5</b> automatically &mdash; 5% off on top of the price above.</p>
     <div id="email-artwork" style="margin-top:20px; padding:16px; background:#e7e9e8; border:1px solid {LINE};">
       {label("Uploaded artwork")}
       <p id="email-artwork-status" style="margin:10px 0 0; font-family:{FONT}; font-size:13px; color:{FOREST_MID};">{artwork_status}</p>

@@ -10,14 +10,14 @@ is a design reference for estimation, not a responsive build.
 """
 
 import pathlib
+import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 PDP = ROOT / "scripts" / "pdp"
 
 CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
-FOOTER = (PDP / "_footer.html").read_text(encoding="utf-8").replace(
-    '<script src="assets/js/pdp-v4.js?v=23"></script>',
-    '<script src="assets/js/category-v4.js?v=1"></script>')
+FOOTER = re.sub(r'<script src="assets/js/pdp-v4\.js\?v=\d+"></script>',
+                '<script src="assets/js/category-v4.js?v=1"></script>\n<script src="assets/js/deals-v4.js?v=2"></script>', (PDP / "_footer.html").read_text(encoding="utf-8")).replace('<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n', '')
 
 
 def esc(s):
@@ -193,9 +193,10 @@ def head(c):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style-v4.css?v=114">
-<link rel="stylesheet" href="assets/css/list-v4.css?v=21">
-<link rel="stylesheet" href="assets/css/category-v4.css?v=3">
+<link rel="stylesheet" href="assets/css/style-v4.css?v=118">
+<link rel="stylesheet" href="assets/css/list-v4.css?v=32">
+<link rel="stylesheet" href="assets/css/category-v4.css?v=4">
+<link rel="stylesheet" href="assets/css/mega-v4.css?v=2">
 <script>document.documentElement.className += " js";</script>
 """
 
@@ -321,6 +322,31 @@ def weekly(c):
         </div>
       </div>
       <div class="rail rail--four" id="weekly-picks" data-reveal></div>
+    </div>
+  </section>
+
+  <!-- ============ WEEKLY DEALS ============ -->
+  <section class="sec deals" aria-labelledby="deals-h">
+    <div class="wrap">
+      <div class="deals__head" data-reveal>
+        <div class="sechead">
+          <span class="eyebrow">This week&rsquo;s deals</span>
+          <h2 id="deals-h">Top four deals, <span class="hl">10% off until Monday.</span></h2>
+          <p>Four products picked at random each week with 10% off. When the week closes they go back
+          to the normal price and a new four take over &mdash; the same four are listed on the Offers page.</p>
+        </div>
+        <div class="countdown" aria-live="polite">
+          <span class="countdown__t">Deal ends in</span>
+          <div class="countdown__clock" id="deals-clock" data-countdown>
+            <span><b>0</b><small>days</small></span><span><b>00</b><small>hrs</small></span><span><b>00</b><small>min</small></span><span><b>00</b><small>sec</small></span>
+          </div>
+        </div>
+      </div>
+      <div class="rail rail--four" id="weekly-deals" data-reveal></div>
+      <p class="deals__foot">
+        <span>Prices revert at midnight on Sunday. <b id="deals-week"></b></span>
+        <a href="offers-v4.html" class="tlink">View all offers this week <svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </p>
     </div>
   </section>"""
 

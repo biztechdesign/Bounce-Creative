@@ -108,6 +108,7 @@
 .listing__main .prod__price b,
 .rail--four .prod__price b{ font-size:var(--h-lg); }
 .prod__price .prod__aslow{ flex:1 1 100%; font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); white-space:nowrap; }
+.prod__price small{ white-space:nowrap; }
 .prod__co2{ display:inline-flex; align-items:center; gap:6px; margin-top:8px; font-size:var(--t-micro); font-weight:700; color:var(--green-text); }
 .prod__co2 .ic{ flex:0 0 auto; }
 .prod__co2--none{ color:var(--forest-mid); font-weight:400; }
@@ -133,6 +134,9 @@
 .prod__flag--deal .ic{ color:var(--white); }
 .prod__price s{ font-size:var(--t-cap); color:var(--forest-mid); font-weight:400; }
 .deals__foot{ margin-top:24px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; font-size:var(--t-cap); color:var(--forest-mid); }
+.prod__ends{ display:inline-flex; align-items:center; gap:6px; margin-top:8px; font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.06em; text-transform:uppercase; color:var(--coral-text); }
+.prod__ends .ic{ flex:0 0 auto; }
+.prod__ends b{ font-weight:500; font-variant-numeric:tabular-nums; }
 
 .listbar{
   display:flex; align-items:center; gap:20px; flex-wrap:wrap;
