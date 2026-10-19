@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-  <meta name="robots" content="noindex, nofollow">
-  <meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hi-Vis Vest VISICOAT — Branded Safety Waistcoat | Bounce Creative Designs</title>
 <meta name="description" content="Hi-Vis Vest VISICOAT from £2.19. EN ISO 20471 Class 2 safety waistcoat in 100% knitted polyester, screen printed or transfer branded in the UK.">
@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style-v4.css?v=117">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=31">
-<link rel="stylesheet" href="assets/css/pdp-v4.css?v=70">
+<link rel="stylesheet" href="assets/css/pdp-v4.css?v=71">
 <!-- The reveal animation hides content until it is observed, so it is scoped to
      JS being available. Without this, a JS failure would leave a blank page. -->
 <script>document.documentElement.className += " js";</script>
@@ -518,14 +518,11 @@
     <div class="wrap">
       <div class="pdp">
 
-        <!-- Gallery -->
-        <div class="gal">
-          <div class="gal__stage">
-            <span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-check"/></svg>EN ISO 20471</span>
-            <img id="gal-main" src="assets/img/products/clothing/hi-vis-vest-visicoat-yellow.jpg"
-                 alt="Hi-Vis Vest VISICOAT in fluorescent yellow, shown unbranded" width="360" height="360">
-          </div>
-          <div class="gal__thumbs" role="group" aria-label="Product images">
+        <!-- Media column: thumbnails down the left of a larger stage, the
+             USPs underneath. The column sticks while the buy box scrolls. -->
+        <div class="media">
+          <div class="gal">
+            <div class="gal__thumbs" role="group" aria-label="Product images">
             <button aria-current="true" class="gal__thumb is-on" type="button" aria-label="View Fluorescent yellow, front"
                     data-img="assets/img/products/clothing/hi-vis-vest-visicoat-yellow.jpg" data-alt="Hi-Vis Vest VISICOAT — Fluorescent yellow, front">
               <img src="assets/img/products/clothing/hi-vis-vest-visicoat-yellow.jpg" alt="" loading="lazy" width="360" height="360">
@@ -542,7 +539,22 @@
                     data-img="assets/img/products/clothing/hi-vis-vest-visicoat-orange-worn.jpg" data-alt="Hi-Vis Vest VISICOAT — Fluorescent orange, worn">
               <img src="assets/img/products/clothing/hi-vis-vest-visicoat-orange-worn.jpg" alt="" loading="lazy" width="360" height="360">
             </button>
+            </div>
+            <div class="gal__stage">
+              <span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-check"/></svg>EN ISO 20471</span>
+              <img id="gal-main" src="assets/img/products/clothing/hi-vis-vest-visicoat-yellow.jpg"
+                   alt="Hi-Vis Vest VISICOAT in fluorescent yellow, shown unbranded" width="360" height="360">
+            </div>
           </div>
+          <section class="usp" aria-labelledby="usp-h">
+            <h2 class="usp__t" id="usp-h">Our USP</h2>
+            <ul class="usp__list">
+            <li><svg class="ic" width="20" height="20" aria-hidden="true"><use href="#i-bolt"/></svg><span><b>Free visual in 2 hours</b><span>A print-accurate mock-up before you commit</span></span></li>
+            <li><svg class="ic" width="20" height="20" aria-hidden="true"><use href="#i-check"/></svg><span><b>Free artwork check</b><span>Every order proofed by a designer, approved by you</span></span></li>
+            <li><svg class="ic" width="20" height="20" aria-hidden="true"><use href="#i-tag"/></svg><span><b>Bulk pricing from 25 units</b><span>Live tiered rates — no waiting for a quote</span></span></li>
+            <li><svg class="ic" width="20" height="20" aria-hidden="true"><use href="#i-leaf"/></svg><span><b>CO₂e on every item</b><span>A published footprint, not an estimate</span></span></li>
+            </ul>
+          </section>
         </div>
 
         <!-- Buy box -->
@@ -560,6 +572,15 @@
           <p class="buy__rate"><svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg><b>4.7</b> <span>(84 reviews)</span> &middot; <span>1,940 happy customers</span></p>
 
           <p class="buy__lede">A Class 2 safety waistcoat in 100% knitted polyester, certified to EN ISO 20471. The site-standard vest, branded front and back and stocked in volume.</p>
+
+          <!-- The headline is the published from-price, unprinted, exactly as the
+               counter quotes it. The configured price lives in the breakdown below,
+               so the two are never confused for one another. -->
+          <div class="buy__price">
+            <b>&pound;2.19</b>
+            <span class="buy__vat">Ex VAT</span>
+            <span class="buy__unit">From price per unit, unprinted &middot; minimum order 25</span>
+          </div>
 
           <form class="buy__form" onsubmit="return false;">
             <fieldset class="opt">
@@ -779,8 +800,8 @@
                     <td class="break__sub" data-role="sub">&pound;89.13</td>
                     <td><button class="break__up" type="button" aria-label="Upload artwork for 1 unit"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-transfer"/></svg></button></td>
                   </tr>
-                  <tr data-qty="25" class="break is-on">
-                    <td><input type="radio" name="qty-break" id="break-25" value="25" checked></td>
+                  <tr data-qty="25" class="break">
+                    <td><input type="radio" name="qty-break" id="break-25" value="25"></td>
                     <th scope="row"><label for="break-25">25</label></th>
                     <td class="break__save" data-role="save">Save 0.00%</td>
                     <td class="break__each" data-role="each">&pound;5.53</td>
@@ -882,6 +903,10 @@
                   and the team will come back with shipping costs.</span>
                 </p>
 
+                <!-- Nothing is priced until a quantity is chosen, as the live
+                     configurator behaves; the from-price holds the space. -->
+                <p class="summary__select" id="c-select">Select a quantity to see your configured price.
+                  <small>From &pound;2.19 Ex VAT &middot; unprinted, per unit</small></p>
                 <p class="summary__lbl">Your configured total:</p>
                 <p class="summary__price">
                   <b id="c-total">&mdash;</b>
@@ -926,10 +951,9 @@
               </div>
             </div>
 
-            <div class="acts">
-              <button class="btn btn--outline" type="button" id="quote-open">Email a quote</button>
-              <button class="btn btn--outline wishlist" type="button"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-heart"/></svg>Add to wishlist</button>
-            </div>
+            <!-- Quantity and the cart first; the three softer routes on the
+                 line below. A visual request opens the quote dialog with the
+                 mock-up already ticked. -->
             <div class="acts acts--cart">
               <div class="qty">
                 <button class="qty__btn" type="button" data-step="down" aria-label="Decrease quantity">&minus;</button>
@@ -937,8 +961,24 @@
                        step="25" inputmode="numeric" aria-label="Quantity">
                 <button class="qty__btn" type="button" data-step="up" aria-label="Increase quantity">&plus;</button>
               </div>
+              <button class="btn btn--solid" type="submit" id="add-to-cart"><svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-bag"/></svg>Add to cart</button>
+            </div>
+            <div class="acts acts--more">
               <button class="btn btn--outline" type="button">Order a sample</button>
-              <button class="btn btn--solid" type="submit" id="add-to-cart">Add to cart</button>
+              <button class="btn btn--outline" type="button" id="quote-open">Email a quote</button>
+              <button class="btn btn--outline" type="button" id="visual-open" data-opens-visual><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-eye"/></svg>Request a visual</button>
+            </div>
+            <div class="paywith">
+              <p class="paywith__t"><svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-check"/></svg>Secure checkout &middot; all major cards and American Express</p>
+              <ul class="cards cards--pay" aria-label="Accepted payment methods">
+                <li class="card card--visa"><span>VISA</span></li>
+                <li class="card card--mc" aria-label="Mastercard"><svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true"><circle cx="13" cy="11" r="7" fill="#EB001B"/><circle cx="21" cy="11" r="7" fill="#F79E1B" fill-opacity=".85"/></svg></li>
+                <li class="card card--amex"><span>AMEX</span></li>
+                <li class="card card--maestro" aria-label="Maestro"><svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true"><circle cx="13" cy="11" r="7" fill="#0099DF"/><circle cx="21" cy="11" r="7" fill="#EB001B" fill-opacity=".85"/></svg></li>
+                <li class="card card--pp"><span>PayPal</span></li>
+                <li class="card card--wallet"><span>Apple Pay</span></li>
+                <li class="card card--wallet"><span>G Pay</span></li>
+              </ul>
             </div>
 
 
@@ -957,8 +997,8 @@
               </div>
 
               <p class="qmodal__sku">Quoting on <b>Hi-Vis Vest VISICOAT</b> &middot; SKU mid-MO2243</p>
-              <p class="qmodal__lede" id="quote-config-summary" aria-live="polite"></p>
 
+              <p class="qmodal__lede" id="quote-config-summary" aria-live="polite"></p>
               <div class="qmodal__grid">
                 <label class="qfield qfield--wide">
                   <span class="qfield__t">Full name <b class="req" aria-hidden="true">*</b></span>
@@ -996,7 +1036,73 @@
             </form>
           </dialog>
 
+          <dialog class="qdone" id="quote-done" aria-labelledby="qdone-t">
+            <form method="dialog" class="qdone__form">
+              <button class="qmodal__x qdone__x" type="submit" value="close" aria-label="Close"><svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-close"/></svg></button>
+              <span class="qdone__tick" aria-hidden="true"><svg class="ic" width="30" height="30" aria-hidden="true"><use href="#i-check"/></svg></span>
+              <h2 class="qdone__t" id="qdone-t">Thank you &mdash; your quote is in your inbox.</h2>
+              <p class="qdone__p">It was sent the moment you pressed submit. If you requested a visual, our designers will have it with you shortly.</p>
+              <p class="qdone__link"><a href="email-quote-v4.html">View the email quote <svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+              <div class="qdone__offers">
+                <div class="qdone__head">
+                  <span class="eyebrow">Have you seen this week's offers?</span>
+                  <a href="offers-v4.html" class="tlink">View all offers this week <svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                </div>
+                <div class="offers">
+                <a href="product-minsk-v4.html" class="offer">
+                  <span class="offer__media"><img src="assets/img/products/clothing/minsk-jacket-black-heather.jpg" alt="" loading="lazy" width="300" height="300"><span class="offer__badge">&minus;10%</span></span>
+                  <span class="offer__name">Minsk Unisex Hybrid Insulated Jacket</span>
+                  <span class="offer__price"><b>&pound;16.82</b> <s>&pound;18.69</s> <small>per unit</small></span>
+                </a>
+                <a href="product-v4.html" class="offer">
+                  <span class="offer__media"><img src="assets/img/products/v4/same_day_natural_cotton_shopper.jpg" alt="" loading="lazy" width="300" height="300"><span class="offer__badge">&minus;10%</span></span>
+                  <span class="offer__name">Natural Cotton Shopper</span>
+                  <span class="offer__price"><b>&pound;3.13</b> <s>&pound;3.48</s> <small>per unit</small></span>
+                </a>
+                <a href="#" class="offer">
+                  <span class="offer__media"><img src="assets/img/products/branded_full_colour_bucket_hat.jpg" alt="" loading="lazy" width="300" height="300"><span class="offer__badge">&minus;10%</span></span>
+                  <span class="offer__name">Full Colour Bucket Hat</span>
+                  <span class="offer__price"><b>&pound;4.16</b> <s>&pound;4.62</s> <small>per unit</small></span>
+                </a>
+                <a href="#" class="offer">
+                  <span class="offer__media"><img src="assets/img/products/v4/jumbo_exhibition_bag_yellow.jpg" alt="" loading="lazy" width="300" height="300"><span class="offer__badge">&minus;10%</span></span>
+                  <span class="offer__name">Jumbo Non Woven Exhibition Bag</span>
+                  <span class="offer__price"><b>&pound;3.06</b> <s>&pound;3.40</s> <small>per unit</small></span>
+                </a>
+                </div>
+              </div>
+            </form>
+          </dialog>
+
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW WOULD BOUNCE BRAND IT ============ -->
+  <section class="sec sec--band howbrand" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="sechead sechead--row" data-reveal>
+        <div class="sechead__t">
+          <span class="eyebrow">Custom images</span>
+          <h2 id="how-h">How would Bounce brand <span class="hl">the VISICOAT vest?</span></h2>
+          <p>Mock-ups from our studio with the logo at the real print positions &mdash; up to three per product. Send us yours and we will do the same, free.</p>
+        </div>
+        <button class="btn btn--outline" type="button" data-opens-visual>Request a visual <svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </div>
+      <div class="howbrand__grid" data-reveal>
+        <figure class="howbrand__fig">
+          <img src="assets/img/products/clothing/custom/vest-left-breast.jpg" alt="Hi-Vis Vest VISICOAT in yellow with the Bounce logo on the left breast" loading="lazy" width="700" height="700">
+          <figcaption>Left breast, one-colour transfer</figcaption>
+        </figure>
+        <figure class="howbrand__fig">
+          <img src="assets/img/products/clothing/custom/vest-back-centre.jpg" alt="Hi-Vis Vest VISICOAT in yellow with the Bounce logo across the back" loading="lazy" width="700" height="700">
+          <figcaption>Back centre, 250 × 200mm screen print</figcaption>
+        </figure>
+        <figure class="howbrand__fig">
+          <img src="assets/img/products/clothing/custom/vest-front-centre.jpg" alt="Hi-Vis Vest VISICOAT in orange with the Bounce logo on the front" loading="lazy" width="700" height="700">
+          <figcaption>Front centre on fluorescent orange</figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -1571,12 +1677,10 @@
       </nav>
     </div>
   </div>
-<
-  </div>
 </footer>
 
 <script src="assets/js/a11y-v4.js?v=6"></script>
 <script src="assets/js/quote-artwork-v4.js?v=1"></script>
-<script src="assets/js/pdp-v4.js?v=30"></script>
+<script src="assets/js/pdp-v4.js?v=31"></script>
 </body>
 </html>

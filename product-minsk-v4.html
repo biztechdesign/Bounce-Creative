@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-  <meta name="robots" content="noindex, nofollow">
-  <meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Minsk Unisex Hybrid Insulated Jacket — Branded Softshell | Bounce Creative Designs</title>
 <meta name="description" content="Minsk unisex hybrid insulated jacket from £18.69. Quilted front with softshell sleeves and hood, embroidered or transfer branded in the UK. Sizes S to 3XL.">
@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style-v4.css?v=117">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=31">
-<link rel="stylesheet" href="assets/css/pdp-v4.css?v=70">
+<link rel="stylesheet" href="assets/css/pdp-v4.css?v=71">
 <!-- The reveal animation hides content until it is observed, so it is scoped to
      JS being available. Without this, a JS failure would leave a blank page. -->
 <script>document.documentElement.className += " js";</script>
@@ -44,6 +44,7 @@
 </script>
 <script type="application/json" id="pdp-config">
 {
+  "quotePreview": true,
   "tiers": [
     {
       "min": 1,
@@ -379,8 +380,7 @@
   "expressShip": 1,
   "stock": 16,
   "freeDeliveryOver": 3000,
-  "maxLocations": 4,
-  "quotePreview": true
+  "maxLocations": 4
 }
 </script>
 </head>
@@ -518,14 +518,11 @@
     <div class="wrap">
       <div class="pdp">
 
-        <!-- Gallery -->
-        <div class="gal">
-          <div class="gal__stage">
-            <span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-star"/></svg>Premium</span>
-            <img id="gal-main" src="assets/img/products/clothing/minsk-jacket-black-heather.jpg"
-                 alt="Minsk jacket in black with heather black panels, shown unbranded" width="360" height="360">
-          </div>
-          <div class="gal__thumbs" role="group" aria-label="Product images">
+        <!-- Media column: thumbnails down the left of a larger stage, the
+             USPs underneath. The column sticks while the buy box scrolls. -->
+        <div class="media">
+          <div class="gal">
+            <div class="gal__thumbs" role="group" aria-label="Product images">
             <button aria-current="true" class="gal__thumb is-on" type="button" aria-label="View Black / heather black, front"
                     data-img="assets/img/products/clothing/minsk-jacket-black-heather.jpg" data-alt="Minsk Unisex Hybrid Insulated Jacket — Black / heather black, front">
               <img src="assets/img/products/clothing/minsk-jacket-black-heather.jpg" alt="" loading="lazy" width="360" height="360">
@@ -542,7 +539,22 @@
                     data-img="assets/img/products/clothing/minsk-jacket-detail.jpg" data-alt="Minsk Unisex Hybrid Insulated Jacket — Hood and zip detail">
               <img src="assets/img/products/clothing/minsk-jacket-detail.jpg" alt="" loading="lazy" width="360" height="360">
             </button>
+            </div>
+            <div class="gal__stage">
+              <span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-star"/></svg>Premium</span>
+              <img id="gal-main" src="assets/img/products/clothing/minsk-jacket-black-heather.jpg"
+                   alt="Minsk jacket in black with heather black panels, shown unbranded" width="360" height="360">
+            </div>
           </div>
+          <section class="usp" aria-labelledby="usp-h">
+            <h2 class="usp__t" id="usp-h">Our USP</h2>
+            <ul class="usp__list">
+            <li><svg class="ic" width="20" height="20" aria-hidden="true"><use href="#i-bolt"/></svg><span><b>Free visual in 2 hours</b><span>A print-accurate mock-up before you commit</span></span></li>
+            <li><svg class="ic" width="20" height="20" aria-hidden="true"><use href="#i-check"/></svg><span><b>Free artwork check</b><span>Every order proofed by a designer, approved by you</span></span></li>
+            <li><svg class="ic" width="20" height="20" aria-hidden="true"><use href="#i-tag"/></svg><span><b>Bulk pricing from 25 units</b><span>Live tiered rates — no waiting for a quote</span></span></li>
+            <li><svg class="ic" width="20" height="20" aria-hidden="true"><use href="#i-leaf"/></svg><span><b>CO₂e on every item</b><span>A published footprint, not an estimate</span></span></li>
+            </ul>
+          </section>
         </div>
 
         <!-- Buy box -->
@@ -560,6 +572,15 @@
           <p class="buy__rate"><svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b> <span>(37 reviews)</span> &middot; <span>612 happy customers</span></p>
 
           <p class="buy__lede">Unisex jacket in two-fabric combination: fixed adjusted hood. Raglan sleeves. Sleeves, side panels and hood in softshell fabric. Quilted feather touch fabric in front and back. Inverted zip with matching chin protector and puller. Two front pockets with zippers. Matching elastic trim in collar, cuffs and hem. Removable label. Wind-proof model. The male model is 184 cm and is wearing size L, and the female model is 179 cm and is wearing size S.</p>
+
+          <!-- The headline is the published from-price, unprinted, exactly as the
+               counter quotes it. The configured price lives in the breakdown below,
+               so the two are never confused for one another. -->
+          <div class="buy__price">
+            <b>&pound;18.69</b>
+            <span class="buy__vat">Ex VAT</span>
+            <span class="buy__unit">From price per unit, unprinted &middot; minimum order 1</span>
+          </div>
 
           <form class="buy__form" onsubmit="return false;">
             <fieldset class="opt">
@@ -833,6 +854,10 @@
                   and the team will come back with shipping costs.</span>
                 </p>
 
+                <!-- Nothing is priced until a quantity is chosen, as the live
+                     configurator behaves; the from-price holds the space. -->
+                <p class="summary__select" id="c-select">Select a quantity to see your configured price.
+                  <small>From &pound;18.69 Ex VAT &middot; unprinted, per unit</small></p>
                 <p class="summary__lbl">Your configured total:</p>
                 <p class="summary__price">
                   <b id="c-total">&mdash;</b>
@@ -877,10 +902,9 @@
               </div>
             </div>
 
-            <div class="acts">
-              <button class="btn btn--outline" type="button" id="quote-open">Email a quote</button>
-              <button class="btn btn--outline wishlist" type="button"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-heart"/></svg>Add to wishlist</button>
-            </div>
+            <!-- Quantity and the cart first; the three softer routes on the
+                 line below. A visual request opens the quote dialog with the
+                 mock-up already ticked. -->
             <div class="acts acts--cart">
               <div class="qty" hidden>
                 <button class="qty__btn" type="button" data-step="down" aria-label="Decrease quantity">&minus;</button>
@@ -888,8 +912,24 @@
                        step="1" inputmode="numeric" aria-label="Quantity">
                 <button class="qty__btn" type="button" data-step="up" aria-label="Increase quantity">&plus;</button>
               </div>
+              <button class="btn btn--solid" type="submit" id="add-to-cart"><svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-bag"/></svg>Add to cart</button>
+            </div>
+            <div class="acts acts--more">
               <button class="btn btn--outline" type="button">Order a sample</button>
-              <button class="btn btn--solid" type="submit" id="add-to-cart">Add to cart</button>
+              <button class="btn btn--outline" type="button" id="quote-open">Email a quote</button>
+              <button class="btn btn--outline" type="button" id="visual-open" data-opens-visual><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-eye"/></svg>Request a visual</button>
+            </div>
+            <div class="paywith">
+              <p class="paywith__t"><svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-check"/></svg>Secure checkout &middot; all major cards and American Express</p>
+              <ul class="cards cards--pay" aria-label="Accepted payment methods">
+                <li class="card card--visa"><span>VISA</span></li>
+                <li class="card card--mc" aria-label="Mastercard"><svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true"><circle cx="13" cy="11" r="7" fill="#EB001B"/><circle cx="21" cy="11" r="7" fill="#F79E1B" fill-opacity=".85"/></svg></li>
+                <li class="card card--amex"><span>AMEX</span></li>
+                <li class="card card--maestro" aria-label="Maestro"><svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true"><circle cx="13" cy="11" r="7" fill="#0099DF"/><circle cx="21" cy="11" r="7" fill="#EB001B" fill-opacity=".85"/></svg></li>
+                <li class="card card--pp"><span>PayPal</span></li>
+                <li class="card card--wallet"><span>Apple Pay</span></li>
+                <li class="card card--wallet"><span>G Pay</span></li>
+              </ul>
             </div>
             <p class="esg">
               <span class="esg__t">ESG footprint</span>
@@ -912,8 +952,8 @@
               </div>
 
               <p class="qmodal__sku">Quoting on <b>Minsk Unisex Hybrid Insulated Jacket</b> &middot; SKU pf-R1120</p>
-              <p class="qmodal__lede" id="quote-config-summary" aria-live="polite"></p>
 
+              <p class="qmodal__lede" id="quote-config-summary" aria-live="polite"></p>
               <div class="qmodal__grid">
                 <label class="qfield qfield--wide">
                   <span class="qfield__t">Full name <b class="req" aria-hidden="true">*</b></span>
@@ -951,7 +991,73 @@
             </form>
           </dialog>
 
+          <dialog class="qdone" id="quote-done" aria-labelledby="qdone-t">
+            <form method="dialog" class="qdone__form">
+              <button class="qmodal__x qdone__x" type="submit" value="close" aria-label="Close"><svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-close"/></svg></button>
+              <span class="qdone__tick" aria-hidden="true"><svg class="ic" width="30" height="30" aria-hidden="true"><use href="#i-check"/></svg></span>
+              <h2 class="qdone__t" id="qdone-t">Thank you &mdash; your quote is in your inbox.</h2>
+              <p class="qdone__p">It was sent the moment you pressed submit. If you requested a visual, our designers will have it with you shortly.</p>
+              <p class="qdone__link"><a href="email-quote-v4.html">View the email quote <svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+              <div class="qdone__offers">
+                <div class="qdone__head">
+                  <span class="eyebrow">Have you seen this week's offers?</span>
+                  <a href="offers-v4.html" class="tlink">View all offers this week <svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                </div>
+                <div class="offers">
+                <a href="product-hivis-v4.html" class="offer">
+                  <span class="offer__media"><img src="assets/img/products/clothing/hi-vis-vest-visicoat-yellow.jpg" alt="" loading="lazy" width="300" height="300"><span class="offer__badge">&minus;10%</span></span>
+                  <span class="offer__name">Hi-Vis Vest VISICOAT</span>
+                  <span class="offer__price"><b>&pound;1.97</b> <s>&pound;2.19</s> <small>per unit</small></span>
+                </a>
+                <a href="#" class="offer">
+                  <span class="offer__media"><img src="assets/img/products/branded_full_colour_bucket_hat.jpg" alt="" loading="lazy" width="300" height="300"><span class="offer__badge">&minus;10%</span></span>
+                  <span class="offer__name">Full Colour Bucket Hat</span>
+                  <span class="offer__price"><b>&pound;4.16</b> <s>&pound;4.62</s> <small>per unit</small></span>
+                </a>
+                <a href="#" class="offer">
+                  <span class="offer__media"><img src="assets/img/products/v4/westcove_canvas_tote_black.jpg" alt="" loading="lazy" width="300" height="300"><span class="offer__badge">&minus;10%</span></span>
+                  <span class="offer__name">Westcove Canvas Tote</span>
+                  <span class="offer__price"><b>&pound;7.57</b> <s>&pound;8.41</s> <small>per unit</small></span>
+                </a>
+                <a href="#" class="offer">
+                  <span class="offer__media"><img src="assets/img/products/v4/organic_festival_backpack.jpg" alt="" loading="lazy" width="300" height="300"><span class="offer__badge">&minus;10%</span></span>
+                  <span class="offer__name">Organic Festival Backpack</span>
+                  <span class="offer__price"><b>&pound;8.87</b> <s>&pound;9.85</s> <small>per unit</small></span>
+                </a>
+                </div>
+              </div>
+            </form>
+          </dialog>
+
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW WOULD BOUNCE BRAND IT ============ -->
+  <section class="sec sec--band howbrand" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="sechead sechead--row" data-reveal>
+        <div class="sechead__t">
+          <span class="eyebrow">Custom images</span>
+          <h2 id="how-h">How would Bounce brand <span class="hl">the Minsk jacket?</span></h2>
+          <p>Mock-ups from our studio with the logo at the real print positions &mdash; up to three per product. Send us yours and we will do the same, free.</p>
+        </div>
+        <button class="btn btn--outline" type="button" data-opens-visual>Request a visual <svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </div>
+      <div class="howbrand__grid" data-reveal>
+        <figure class="howbrand__fig">
+          <img src="assets/img/products/clothing/custom/jacket-left-chest.jpg" alt="Minsk jacket in black with the Bounce logo embroidered on the left chest" loading="lazy" width="700" height="700">
+          <figcaption>Left chest embroidery, 14cm²</figcaption>
+        </figure>
+        <figure class="howbrand__fig">
+          <img src="assets/img/products/clothing/custom/jacket-upper-back.jpg" alt="Minsk jacket in black with the Bounce logo printed across the upper back" loading="lazy" width="700" height="700">
+          <figcaption>Impact upper back, screen print</figcaption>
+        </figure>
+        <figure class="howbrand__fig">
+          <img src="assets/img/products/clothing/custom/jacket-red-left-chest.jpg" alt="Minsk jacket in red with the Bounce logo embroidered on the left chest" loading="lazy" width="700" height="700">
+          <figcaption>Left chest on red / black</figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -1509,12 +1615,10 @@
       </nav>
     </div>
   </div>
-<
-  </div>
 </footer>
 
 <script src="assets/js/a11y-v4.js?v=6"></script>
 <script src="assets/js/quote-artwork-v4.js?v=1"></script>
-<script src="assets/js/pdp-v4.js?v=30"></script>
+<script src="assets/js/pdp-v4.js?v=31"></script>
 </body>
 </html>

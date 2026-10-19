@@ -125,6 +125,17 @@ PRODUCTS = [
         "step": 25,
         "base_lead": 5,
         "stock": 12480,
+        "short": "VISICOAT vest",
+        # "How would Bounce brand this product": studio mock-ups at the real
+        # print positions. Up to three per product.
+        "custom": [
+            ("clothing/custom/vest-left-breast.jpg", "Left breast, one-colour transfer",
+             "Hi-Vis Vest VISICOAT in yellow with the Bounce logo on the left breast"),
+            ("clothing/custom/vest-back-centre.jpg", "Back centre, 250 × 200mm screen print",
+             "Hi-Vis Vest VISICOAT in yellow with the Bounce logo across the back"),
+            ("clothing/custom/vest-front-centre.jpg", "Front centre on fluorescent orange",
+             "Hi-Vis Vest VISICOAT in orange with the Bounce logo on the front"),
+        ],
         "spec": [
             ("Material", "100% knitted polyester"),
             ("Certification", "EN ISO 20471 Class 2"),
@@ -239,6 +250,15 @@ PRODUCTS = [
             ("Left bicep", "left-bicep", ["EMBF02", "MR07"]),
         ],
         "position_img": "clothing/minsk-positions/{code}-{pos}.jpg",
+        "short": "Minsk jacket",
+        "custom": [
+            ("clothing/custom/jacket-left-chest.jpg", "Left chest embroidery, 14cm²",
+             "Minsk jacket in black with the Bounce logo embroidered on the left chest"),
+            ("clothing/custom/jacket-upper-back.jpg", "Impact upper back, screen print",
+             "Minsk jacket in black with the Bounce logo printed across the upper back"),
+            ("clothing/custom/jacket-red-left-chest.jpg", "Left chest on red / black",
+             "Minsk jacket in red with the Bounce logo embroidered on the left chest"),
+        ],
         # Live pricing engine data for this product. Branding is priced from a
         # matrix of price-each by quantity and colour count, plus a setup per
         # colour count; the unprinted price is flat.
@@ -480,9 +500,9 @@ def head(p):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style-v4.css?v=114">
+<link rel="stylesheet" href="assets/css/style-v4.css?v=117">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=31">
-<link rel="stylesheet" href="assets/css/pdp-v4.css?v=70">
+<link rel="stylesheet" href="assets/css/pdp-v4.css?v=71">
 <!-- The reveal animation hides content until it is observed, so it is scoped to
      JS being available. Without this, a JS failure would leave a blank page. -->
 <script>document.documentElement.className += " js";</script>
@@ -547,17 +567,119 @@ def gallery(p):
     thumbs[0] = thumbs[0].replace('class="gal__thumb"', 'class="gal__thumb is-on"', 1)
     thumbs[0] = thumbs[0].replace("<button", '<button aria-current="true"', 1)
     flag_icon, flag_text = p["flag"]
-    return f"""        <!-- Gallery -->
-        <div class="gal">
-          <div class="gal__stage">
-            <span class="prod__flag">{icon(flag_icon, 17)}{esc(flag_text)}</span>
-            <img id="gal-main" src="{img_path(p, p["gallery"][0][0])}"
-                 alt="{esc(first_alt)}" width="360" height="360">
-          </div>
-          <div class="gal__thumbs" role="group" aria-label="Product images">
+    return f"""        <!-- Media column: thumbnails down the left of a larger stage, the
+             USPs underneath. The column sticks while the buy box scrolls. -->
+        <div class="media">
+          <div class="gal">
+            <div class="gal__thumbs" role="group" aria-label="Product images">
 {chr(10).join(thumbs)}
+            </div>
+            <div class="gal__stage">
+              <span class="prod__flag">{icon(flag_icon, 17)}{esc(flag_text)}</span>
+              <img id="gal-main" src="{img_path(p, p["gallery"][0][0])}"
+                   alt="{esc(first_alt)}" width="360" height="360">
+            </div>
           </div>
+{usp(p)}
         </div>"""
+
+
+USPS = [
+    ("i-bolt", "Free visual in 2 hours", "A print-accurate mock-up before you commit"),
+    ("i-check", "Free artwork check", "Every order proofed by a designer, approved by you"),
+    ("i-tag", "Bulk pricing from 25 units", "Live tiered rates — no waiting for a quote"),
+    ("i-leaf", "CO₂e on every item", "A published footprint, not an estimate"),
+]
+
+
+def usp(p):
+    items = chr(10).join(
+        f"""            <li>{icon(ic, 20)}<span><b>{esc(h)}</b><span>{esc(s)}</span></span></li>"""
+        for ic, h, s in USPS)
+    return f"""          <section class="usp" aria-labelledby="usp-h">
+            <h2 class="usp__t" id="usp-h">Our USP</h2>
+            <ul class="usp__list">
+{items}
+            </ul>
+          </section>"""
+
+
+# Card marks, shared with the footer so the two rows never drift apart.
+CARDS = """<ul class="cards cards--pay" aria-label="Accepted payment methods">
+                <li class="card card--visa"><span>VISA</span></li>
+                <li class="card card--mc" aria-label="Mastercard"><svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true"><circle cx="13" cy="11" r="7" fill="#EB001B"/><circle cx="21" cy="11" r="7" fill="#F79E1B" fill-opacity=".85"/></svg></li>
+                <li class="card card--amex"><span>AMEX</span></li>
+                <li class="card card--maestro" aria-label="Maestro"><svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true"><circle cx="13" cy="11" r="7" fill="#0099DF"/><circle cx="21" cy="11" r="7" fill="#EB001B" fill-opacity=".85"/></svg></li>
+                <li class="card card--pp"><span>PayPal</span></li>
+                <li class="card card--wallet"><span>Apple Pay</span></li>
+                <li class="card card--wallet"><span>G Pay</span></li>
+              </ul>"""
+
+
+def paywith():
+    return f"""            <div class="paywith">
+              <p class="paywith__t">{icon("i-check", 15)}Secure checkout &middot; all major cards and American Express</p>
+              {CARDS}
+            </div>"""
+
+
+def howbrand(p):
+    """Custom images - the studio's mock-ups at the real print positions."""
+    if not p.get("custom"):
+        return ""
+    figs = chr(10).join(f"""        <figure class="howbrand__fig">
+          <img src="assets/img/products/{rel}" alt="{esc(alt)}" loading="lazy" width="700" height="700">
+          <figcaption>{esc(cap)}</figcaption>
+        </figure>""" for rel, cap, alt in p["custom"])
+    short = p.get("short") or p["name"]
+    return f"""
+  <!-- ============ HOW WOULD BOUNCE BRAND IT ============ -->
+  <section class="sec sec--band howbrand" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="sechead sechead--row" data-reveal>
+        <div class="sechead__t">
+          <span class="eyebrow">Custom images</span>
+          <h2 id="how-h">How would Bounce brand <span class="hl">the {esc(short)}?</span></h2>
+          <p>Mock-ups from our studio with the logo at the real print positions &mdash; up to three per product. Send us yours and we will do the same, free.</p>
+        </div>
+        <button class="btn btn--outline" type="button" data-opens-visual>Request a visual {icon("i-arrow", 16)}</button>
+      </div>
+      <div class="howbrand__grid" data-reveal>
+{figs}
+      </div>
+    </div>
+  </section>
+"""
+
+
+def done_dialog(p):
+    """After a quote is submitted: confirmation, then this week's offers."""
+    cards = []
+    for name, rel, price, _rating, _n, href in p["related"][:4]:
+        was = float(price)
+        cards.append(f"""                <a href="{href}" class="offer">
+                  <span class="offer__media"><img src="assets/img/products/{rel}" alt="" loading="lazy" width="300" height="300"><span class="offer__badge">&minus;10%</span></span>
+                  <span class="offer__name">{esc(name)}</span>
+                  <span class="offer__price"><b>{money(was * 0.9)}</b> <s>{money(was)}</s> <small>per unit</small></span>
+                </a>""")
+    return f"""          <dialog class="qdone" id="quote-done" aria-labelledby="qdone-t">
+            <form method="dialog" class="qdone__form">
+              <button class="qmodal__x qdone__x" type="submit" value="close" aria-label="Close">{icon("i-close", 18)}</button>
+              <span class="qdone__tick" aria-hidden="true">{icon("i-check", 30)}</span>
+              <h2 class="qdone__t" id="qdone-t">Thank you &mdash; your quote is in your inbox.</h2>
+              <p class="qdone__p">It was sent the moment you pressed submit. If you requested a visual, our designers will have it with you shortly.</p>
+              <p class="qdone__link"><a href="email-quote-v4.html">View the email quote {icon("i-arrow", 14)}</a></p>
+              <div class="qdone__offers">
+                <div class="qdone__head">
+                  <span class="eyebrow">Have you seen this week's offers?</span>
+                  <a href="offers-v4.html" class="tlink">View all offers this week {icon("i-arrow", 16)}</a>
+                </div>
+                <div class="offers">
+{chr(10).join(cards)}
+                </div>
+              </div>
+            </form>
+          </dialog>"""
 
 
 def swatches(p):
@@ -658,6 +780,17 @@ def area_picker(p):
                   <span class="area__name">{esc(label)}</span>
                   <span class="area__tick" aria-hidden="true">{icon("i-check", 15)}</span>
                 </button>""")
+    # Suppliers without position images: the same control as a row of named
+    # tiles, styled like the branding-type picker, so onboarding never waits
+    # on artwork. The script sees the same buttons either way.
+    strip_cls = "areas__strip"
+    if p.get("position_tiles"):
+        strip_cls = "areas__strip areas__strip--tiles"
+        cards = [f"""                <button class="area area--tile{" is-on" if i == 0 else ""}" type="button"
+                        aria-pressed="{'true' if i == 0 else 'false'}" data-area="{esc(pos[0])}" data-i="{i}">
+                  <span class="area__name">{esc(pos[0])}</span>
+                  <span class="area__tick" aria-hidden="true">{icon("i-check", 13)}</span>
+                </button>""" for i, pos in enumerate(p["positions"])]
     return f"""            <fieldset class="opt areas" aria-labelledby="areas-t">
               <div class="areas__head">
                 <span class="opt__t" id="areas-t">Branding location</span>
@@ -667,7 +800,7 @@ def area_picker(p):
                   <span class="toggle__lbl">Multiple branding location</span>
                 </label>
               </div>
-              <div class="areas__strip" role="group" aria-label="Branding location"
+              <div class="{strip_cls}" role="group" aria-label="Branding location"
                    tabindex="0" aria-describedby="areas-help">
 {chr(10).join(cards)}
               </div>
@@ -853,8 +986,10 @@ def breaks_table(p):
     for i, mn in enumerate(qtys):
         each, sub = row(mn)
         pct = (1 - each / baseline) * 100 if baseline else 0
-        checked = " checked" if i == 0 else ""
-        on = " is-on" if i == 0 else ""
+        # No row is pre-selected: the configured total appears once the
+        # customer chooses a quantity, as on the live page.
+        checked = ""
+        on = ""
         more = " break--more" if i >= BREAKS_SHOWN else ""
         hidden = " hidden" if i >= BREAKS_SHOWN else ""
         rows.append(f"""                  <tr data-qty="{mn}" class="break{on}{more}"{hidden}>
@@ -968,9 +1103,11 @@ def quote_box(p):
             <p id="bespoke-quote-error" role="alert" hidden></p>
             <div class="acts">
               <button class="btn btn--solid" type="submit">Submit for a quote {icon("i-arrow", 18)}</button>
-              <button class="btn btn--outline wishlist" type="button">{icon("i-heart", 17)}Add to wishlist</button>
+              <button class="btn btn--outline" type="button" data-ticks-mockup>{icon("i-eye", 17)}Request a visual</button>
             </div>
           </form>
+
+{done_dialog(p)}
 
         </div>"""
 
@@ -1000,9 +1137,9 @@ def buy_box(p):
                counter quotes it. The configured price lives in the breakdown below,
                so the two are never confused for one another. -->
           <div class="buy__price">
-            <span class="buy__from">From</span>
             <b>{money(p["tiers"][0][1])}</b>
-            <span class="buy__unit">per unit, unprinted &middot; minimum {p["min_qty"]}</span>
+            <span class="buy__vat">Ex VAT</span>
+            <span class="buy__unit">From price per unit, unprinted &middot; minimum order {p["min_qty"]}</span>
           </div>
 
           <form class="buy__form" onsubmit="return false;">
@@ -1055,6 +1192,10 @@ def buy_box(p):
                   and the team will come back with shipping costs.</span>
                 </p>
 
+                <!-- Nothing is priced until a quantity is chosen, as the live
+                     configurator behaves; the from-price holds the space. -->
+                <p class="summary__select" id="c-select">Select a quantity to see your configured price.
+                  <small>From {money(p["tiers"][0][1])} Ex VAT &middot; unprinted, per unit</small></p>
                 <p class="summary__lbl">Updated price with configuration:</p>
                 <p class="summary__price">
                   <b id="c-total">&mdash;</b>
@@ -1099,10 +1240,9 @@ def buy_box(p):
               </div>
             </div>
 
-            <div class="acts">
-              <button class="btn btn--outline" type="button" id="quote-open">Email a quote</button>
-              <button class="btn btn--outline wishlist" type="button">{icon("i-heart", 17)}Add to wishlist</button>
-            </div>
+            <!-- Quantity and the cart first; the three softer routes on the
+                 line below. A visual request opens the quote dialog with the
+                 mock-up already ticked. -->
             <div class="acts acts--cart">
               <div class="qty"{" hidden" if p.get("stock_by_size") else ""}>
                 <button class="qty__btn" type="button" data-step="down" aria-label="Decrease quantity">&minus;</button>
@@ -1110,9 +1250,14 @@ def buy_box(p):
                        step="{p["step"]}" inputmode="numeric" aria-label="Quantity">
                 <button class="qty__btn" type="button" data-step="up" aria-label="Increase quantity">&plus;</button>
               </div>
-              <button class="btn btn--outline" type="button">Order a sample</button>
-              <button class="btn btn--solid" type="submit" id="add-to-cart">Add to cart</button>
+              <button class="btn btn--solid" type="submit" id="add-to-cart">{icon("i-bag", 18)}Add to cart</button>
             </div>
+            <div class="acts acts--more">
+              <button class="btn btn--outline" type="button">Order a sample</button>
+              <button class="btn btn--outline" type="button" id="quote-open">Email a quote</button>
+              <button class="btn btn--outline" type="button" id="visual-open" data-opens-visual>{icon("i-eye", 17)}Request a visual</button>
+            </div>
+{paywith()}
 {esg(p)}
 
           </form>
@@ -1159,13 +1304,12 @@ def buy_box(p):
             </form>
           </dialog>
 
+{done_dialog(p)}
+
         </div>"""
 
 
     if p.get("mode") != "quote":
-        price_start = markup.index("          <!-- The headline")
-        price_end = markup.index('          <form class="buy__form"', price_start)
-        markup = markup[:price_start] + markup[price_end:]
         markup = markup.replace("Updated price with configuration:", "Your configured total:")
         markup = markup.replace(' &middot; <span id="c-perunit">&mdash;</span>', "")
         markup = markup.replace('id="qmodal-t">Get a quote', 'id="qmodal-t">Email quote')
@@ -1174,7 +1318,8 @@ def buy_box(p):
         markup = markup.replace("Send me a mock up proof", "Request a mock-up with my logo").replace("Send me costs including VAT", "Include VAT in this email quote")
         markup = markup.replace('              </div>\n\n              <div class="qmodal__opts">', '                <label class="qfield"><span class="qfield__t">Colleague’s email (optional)</span><input type="email" name="colleague"></label>\n                <label class="qfield"><span class="qfield__t">Company name (optional)</span><input type="text" name="company" autocomplete="organization"></label>\n' + '              </div>\n\n              <div class="qmodal__opts">')
         markup = markup.replace('value="send">Submit for a quote', 'value="send">Preview email quote')
-        markup = markup.replace('            </form>\n          </dialog>', '              <p class="qmodal__note">Preview your configured quote. No email is sent from this preview.</p>\n              <p id="quote-preview-error" role="alert" hidden></p>\n            </form>\n          </dialog>')
+        # First dialog only: the thank-you dialog that follows closes the same way.
+        markup = markup.replace('            </form>\n          </dialog>', '              <p class="qmodal__note">Preview your configured quote. No email is sent from this preview.</p>\n              <p id="quote-preview-error" role="alert" hidden></p>\n            </form>\n          </dialog>', 1)
     return markup
 
 # --------------------------------------------------------------------------
@@ -1722,7 +1867,7 @@ def page(p):
       </div>
     </div>
   </section>
-
+{howbrand(p)}
 {detail(p)}
 
 {loved(p)}

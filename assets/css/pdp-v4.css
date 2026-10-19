@@ -6,16 +6,19 @@
    ========================================================================== */
 
 /* ---------- Layout ---------- */
-.pdp{ display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:clamp(28px,4vw,64px); align-items:start; }
+.pdp{ display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:clamp(28px,4vw,64px); align-items:start; }
 
-/* ---------- Gallery ---------- */
-.gal{ position:sticky; top:150px; min-width:0; }
-/* Sized off the fold rather than a fixed square, so the main image and its
-   thumbnails are both visible without scrolling. 232px covers the sticky
-   chrome, the breadcrumb, the section padding and the thumbnail strip. */
+/* ---------- Gallery ----------
+   The media column (gallery + USPs) sticks while the buy box scrolls; the
+   thumbnails run down the left of a larger stage. */
+.media{ position:sticky; top:150px; min-width:0; display:grid; gap:18px; }
+.gal{ display:grid; grid-template-columns:88px minmax(0,1fr); gap:14px; min-width:0; }
+/* Sized off the fold rather than a fixed square, so the stage and the USP
+   block under it both fit without scrolling. 232px covers the sticky chrome,
+   the breadcrumb and the section padding; 170px the USP block. */
 .gal__stage{
   position:relative; background:var(--white); border:1px solid var(--line);
-  height:clamp(300px, calc(100vh - 232px - 160px), 620px);
+  height:clamp(360px, calc(100vh - 232px - 170px), 680px);
   overflow:hidden;
 }
 /* Absolutely placed so it fills the frame exactly - as a centred grid item
@@ -24,9 +27,9 @@
   object-fit:contain; padding:clamp(20px,3vw,44px); }
 /* Left aligned rather than stretched across the stage: a fixed square reads as
    a filmstrip and holds its proportions whatever the stage is doing. */
-.gal__thumbs{ display:flex; flex-wrap:wrap; gap:20px; margin-top:20px; }
+.gal__thumbs{ display:flex; flex-direction:column; gap:10px; margin:0; }
 .gal__thumb{
-  flex:0 0 auto; width:132px; aspect-ratio:1/1;
+  flex:0 0 auto; width:88px; aspect-ratio:1/1;
   background:var(--white); border:1px solid var(--line); padding:8px;
   transition:border-color .18s var(--ease);
 }
@@ -194,8 +197,11 @@
 }
 @media (max-width:900px){
   .pdp{ grid-template-columns:minmax(0,1fr); }
-  /* Stacked, the buy box is what matters, so the image goes back to a square. */
-  .gal{ position:static; }
+  /* Stacked, the buy box is what matters, so the image goes back to a square
+     with the thumbnails in a row beneath it. */
+  .media{ position:static; }
+  .gal{ grid-template-columns:minmax(0,1fr); }
+  .gal__thumbs{ flex-direction:row; flex-wrap:wrap; order:2; }
   .gal__stage{ height:auto; aspect-ratio:1/1; }
   .spec{ grid-template-columns:minmax(0,1fr); gap:0; }
   .facts{ grid-template-columns:minmax(0,1fr); }
@@ -1002,6 +1008,129 @@
 .qquote__upload{min-height:76px;}
 
 .qquote__awards img{width:76px;height:76px;flex:0 0 76px;}
+
+/* ==========================================================================
+   Client round 2: price at the top, USPs under the gallery, cart first, the
+   payment row, custom images, the post-quote dialog and the quote popup
+   brought onto the v4 palette.
+   ========================================================================== */
+
+/* ---------- Price at the top ---------- */
+.buy__price{ flex-wrap:wrap; align-items:baseline; gap:8px 12px; }
+.buy__price b{ font-size:clamp(34px,3vw,44px); }
+.buy__vat{ font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); }
+.buy__unit{ flex:1 1 100%; }
+
+/* ---------- Our USP, under the gallery ---------- */
+.usp{ padding:16px 18px; background:var(--paper); box-shadow:inset 0 0 0 1px var(--line); }
+.usp__t{ font-family:var(--f-mono); font-size:var(--t-micro); font-weight:400; letter-spacing:.12em; text-transform:uppercase; color:var(--forest-mid); }
+.usp__list{ list-style:none; margin:10px 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 20px; }
+.usp__list li{ display:flex; align-items:flex-start; gap:10px; }
+.usp__list .ic{ flex:0 0 auto; margin-top:2px; color:var(--coral-text); }
+.usp__list b{ display:block; font-size:var(--t-cap); font-weight:800; color:var(--forest); }
+.usp__list b + span{ display:block; margin-top:2px; font-size:var(--t-micro); line-height:1.4; color:var(--forest-mid); }
+
+/* ---------- Summary before a quantity is chosen ---------- */
+.summary__select{ font-size:var(--t-body); font-weight:700; color:var(--forest); }
+.summary__select small{ display:block; margin-top:4px; font-size:var(--t-cap); font-weight:400; color:var(--forest-mid); }
+.summary:not(.is-unset) .summary__select{ display:none; }
+.summary.is-unset .summary__lbl,
+.summary.is-unset .summary__price,
+.summary.is-unset .summary__sub,
+.summary.is-unset .summary__pts,
+.summary.is-unset .summary__ptsnote{ display:none; }
+.breaks__table tr.break:not(.is-on) input[type="radio"]{ accent-color:var(--line-input); }
+
+/* ---------- Cart first, softer routes below, then payment ---------- */
+.acts--cart .btn--solid{ flex:1 1 240px; gap:10px; }
+.acts--more .btn{ flex:1 1 160px; padding-inline:14px; font-size:var(--t-ui); min-height:48px; gap:8px; }
+.acts--more .btn .ic{ color:var(--coral-text); }
+.paywith{ display:flex; align-items:center; justify-content:space-between; gap:12px 20px; flex-wrap:wrap; padding:12px 0 2px; border-top:1px solid var(--line); }
+.paywith__t{ display:inline-flex; align-items:center; gap:8px; font-size:var(--t-cap); font-weight:700; color:var(--forest-mid); }
+.paywith__t .ic{ color:var(--green-text); }
+.cards--pay .card{ width:46px; height:30px; box-shadow:inset 0 0 0 1px var(--line); }
+.cards--pay .card--visa span{ font-size:12px; }
+.cards--pay .card--mc svg,
+.cards--pay .card--maestro svg{ width:30px; height:20px; }
+.card--wallet{ background:var(--forest); }
+.card--wallet span{ color:var(--white); font-size:9px; letter-spacing:0; }
+
+/* ---------- Custom images: how Bounce would brand it ---------- */
+.howbrand .sechead--row{ align-items:flex-end; }
+.howbrand .sechead p{ margin-top:12px; font-size:var(--t-body); max-width:56ch; }
+.howbrand__grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+.howbrand__fig{ margin:0; }
+.howbrand__fig img{ display:block; width:100%; height:auto; aspect-ratio:1/1; object-fit:contain; padding:24px; background:var(--white); border:1px solid var(--line); }
+.howbrand__fig figcaption{ margin-top:12px; font-size:var(--t-cap); font-weight:700; color:var(--forest); }
+.howbrand__fig figcaption::before{ content:''; display:inline-block; width:8px; height:8px; margin-right:8px; background:var(--coral); vertical-align:middle; }
+
+/* ---------- Branding locations without supplier images ---------- */
+.areas__strip--tiles{ flex-wrap:wrap; overflow:visible; gap:8px; padding-bottom:0; }
+.area--tile{ width:auto; min-height:48px; display:inline-flex; align-items:center; padding:0 40px 0 16px; }
+.area--tile .area__name{ padding:0; border:0; font-size:var(--t-ui); }
+.area--tile .area__tick{ display:flex; opacity:0; }
+.area--tile.is-on .area__tick{ opacity:1; }
+
+/* ---------- After the quote is sent ---------- */
+.qdone{ width:min(900px,calc(100vw - 32px)); max-height:calc(100dvh - 32px); padding:0; border:0; background:var(--oat); box-shadow:12px 12px 0 var(--coral); }
+.qdone::backdrop{ background:rgba(19,57,53,.55); }
+.qdone__form{ position:relative; padding:clamp(24px,3vw,40px); display:grid; gap:14px; }
+.qdone__x{ position:absolute; top:16px; right:16px; }
+.qdone__tick{ width:52px; height:52px; display:inline-flex; align-items:center; justify-content:center; background:var(--sage-green); color:var(--forest); }
+.qdone__t{ font-size:var(--d-3); max-width:22ch; }
+.qdone__p{ font-size:var(--t-md); color:var(--forest-mid); max-width:58ch; line-height:1.6; }
+.qdone__link a{ display:inline-flex; align-items:center; gap:6px; font-weight:800; color:var(--coral-text); }
+.qdone__offers{ margin-top:14px; padding-top:22px; border-top:2px solid var(--forest); }
+.qdone__head{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.offers{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:16px; }
+.offer{ display:grid; gap:6px; text-decoration:none; color:inherit; }
+.offer__media{ position:relative; display:block; aspect-ratio:1/1; background:var(--white); border:1px solid var(--line); padding:10px; }
+.offer__media img{ width:100%; height:100%; object-fit:contain; }
+.offer__badge{ position:absolute; top:0; left:0; padding:4px 8px; background:var(--coral-badge); color:var(--white); font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.06em; }
+.offer__name{ font-size:var(--t-cap); font-weight:700; line-height:1.3; }
+.offer:hover .offer__name{ color:var(--coral-text); }
+.offer__price b{ font-weight:800; }
+.offer__price s{ color:var(--forest-mid); font-size:var(--t-micro); margin-left:4px; }
+.offer__price small{ color:var(--forest-mid); font-size:var(--t-micro); }
+
+/* ---------- Quote popup on the v4 palette ---------- */
+.qmodal--full{ background:var(--oat); border-radius:0; box-shadow:12px 12px 0 var(--coral); }
+.qquote h3,.qquote .opt__t,.qquote .tiles__t{ font-family:var(--f-mono); font-weight:400; font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); }
+.qquote .tile.is-on,.qquote .qty input,.qquote .qty__btn{ background:var(--forest); color:var(--oat); border-color:var(--forest); }
+.qquote .tile__tick,.qquote .area__tick{ background:var(--coral-badge); }
+.qquote__price{ border-left:1px solid var(--line); }
+.qquote__total{ color:var(--forest); font-family:var(--f-display); font-size:var(--h-num); font-weight:700; letter-spacing:-.04em; }
+.qquote__total span{ font-family:var(--f-text); font-style:normal; font-size:var(--t-ui); font-weight:700; color:var(--forest-mid); }
+.qquote__price h4{ font-weight:700; color:var(--forest); }
+#quote-costs{ color:var(--forest-mid); }
+.qquote__timing{ color:var(--forest); }
+.qquote__contact{ background:var(--forest); color:var(--oat); }
+.qquote__contact .qmodal__head{ background:var(--oat); color:var(--forest); padding:14px 20px; }
+.qquote__contact .qmodal__t{ font-family:var(--f-display); font-size:var(--h-lg); font-weight:700; text-transform:none; letter-spacing:-.02em; }
+.qquote__contact .qmodal__x{ color:var(--coral-text); top:12px; }
+.qquote__contact .qfield input{ background:var(--white); border-color:var(--white); color:var(--forest); }
+.qquote__contact .qopt{ color:var(--oat); }
+.qquote__contact .qopt input{ accent-color:var(--coral); }
+.qquote__contact .qmodal__note{ color:rgba(238,233,222,.72); }
+.qquote__contact .qmodal__cta .btn{ background:var(--coral-btn); border-color:var(--coral-btn); color:var(--forest); text-transform:none; font-size:var(--t-ui); font-weight:800; min-height:52px; }
+.qquote__contact .qmodal__cta .btn:hover{ background:var(--oat); border-color:var(--oat); color:var(--forest); }
+.qquote__upload{ border:2px dashed rgba(238,233,222,.5); background:var(--oat); }
+.qquote__upload .qfield__t{ color:var(--coral-on-forest); font-family:var(--f-mono); font-weight:400; letter-spacing:.1em; font-size:var(--t-micro); }
+.qquote__upload:focus-within{ outline-color:var(--coral-on-forest); }
+.qquote__awards{ padding-top:24px; border-top:1px solid rgba(238,233,222,.16); }
+.calc--popover{ border:1px solid var(--line); border-radius:0; box-shadow:6px 6px 0 var(--sage-green); }
+.calc__timings{ border-top-color:var(--coral); }
+
+@media (max-width:900px){
+  .howbrand__grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+  .offers{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .usp__list{ grid-template-columns:minmax(0,1fr); }
+}
+@media (max-width:640px){
+  .howbrand__grid{ grid-template-columns:minmax(0,1fr); }
+  .acts--more .btn{ flex:1 1 100%; }
+  .qdone__t{ font-size:var(--h-lg); }
+}
 .qquote__awards img:first-child{background:var(--oat);border-radius:50%;}
 .qquote__awards img:not(:first-child){filter:grayscale(1) invert(1);}
 

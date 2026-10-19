@@ -413,6 +413,14 @@
   var rangeEl = $('qty-range');
   var badgeEl = $('qty-badge');
 
+  /* Nothing is priced until the customer picks a quantity - a break row, the
+     slider, the stepper or the field. With the size grid, entering any size
+     counts. Registered before the update listeners so the flag is set first. */
+  var qtyPicked = false;
+  var summaryEl = document.querySelector('.summary');
+  if (qtyEl) qtyEl.addEventListener('input', function () { qtyPicked = true; });
+  function picked() { return grid ? gridTotal() > 0 : qtyPicked; }
+
   function set(el, v) { if (el) el.textContent = v; }
 
   /* Costs for the current configuration at quantity n.
@@ -496,9 +504,10 @@
         saveEl.textContent = 'Save ' + pct.toFixed(2) + '%';
         saveEl.classList.toggle('is-neg', pct < 0);
       }
-      row.classList.toggle('is-on', q === n);
+      var on = picked() && q === n;
+      row.classList.toggle('is-on', on);
       var radio = row.querySelector('input[type="radio"]');
-      if (radio) radio.checked = (q === n);
+      if (radio) radio.checked = on;
     });
   }
 
@@ -539,6 +548,7 @@
       var q = parseInt(radio.value, 10) || 1;
       if (grid) q = distribute(q);
       qtyEl.value = q;
+      qtyPicked = true;
       update();
     });
   });
@@ -556,6 +566,7 @@
     if (n > stock) n = stock;
     var empty = grid && n === 0;
     if (empty) n = 1;   // price the single-unit row until sizes are entered
+    if (summaryEl) summaryEl.classList.toggle('is-unset', !picked());
 
     /* Anything under the minimum is the single pre-production sample, priced
        at the type's sample rate rather than off the volume ladder. */
@@ -650,6 +661,7 @@
   if (rangeEl && qtyEl) {
     rangeEl.addEventListener('input', function () {
       qtyEl.value = rangeEl.value;
+      qtyPicked = true;
       update();
     });
   }
@@ -664,7 +676,7 @@
       var max = field === qtyEl ? (CFG.stock || Infinity) : Infinity;
       var n = (parseInt(field.value, 10) || min) + (b.dataset.step === 'up' ? step : -step);
       field.value = Math.min(max, Math.max(min, n));
-      if (field === qtyEl) update();
+      if (field === qtyEl) { qtyPicked = true; update(); }
     });
   });
 
@@ -732,6 +744,22 @@
      inert without any of that being reimplemented. Every "request a quote"
      link on the page opens the same dialog. */
   var quoteModal = $('quote-modal');
+
+  /* Sent: close the quote, confirm, and show this week's offers. The email
+     itself is a link from the confirmation rather than a redirect. Shared by
+     the configured quote and the bespoke request form. */
+  var doneModal = $('quote-done');
+  function showDone() {
+    if (quoteModal && quoteModal.open) quoteModal.close('close');
+    if (doneModal && typeof doneModal.showModal === 'function') doneModal.showModal();
+    else window.location.assign('email-quote-v4.html');
+  }
+  if (doneModal) {
+    doneModal.addEventListener('click', function (ev) {
+      if (ev.target === doneModal) doneModal.close('close');
+    });
+  }
+
   function quoteSnapshot(form, skipUpdate) {
     if (!skipUpdate) update();
     var n = parseInt(qtyEl.value, 10);
@@ -890,7 +918,7 @@
     field.hidden = locations.length === 0;
   }
   if (quoteModal && typeof quoteModal.showModal === 'function') {
-    all('#quote-open, [data-opens="quote-modal"]').forEach(function (b) {
+    all('#quote-open, [data-opens="quote-modal"], [data-opens-visual]').forEach(function (b) {
       b.addEventListener('click', function () {
         if (CFG.quotePreview) {
           update();
@@ -900,10 +928,16 @@
           if ($('quote-preview-error')) $('quote-preview-error').hidden = true;
         }
         if (CFG.quotePreview) moveQuoteControls();
+        /* "Request a visual" is the same quote with the mock-up pre-ticked. */
+        if (b.hasAttribute('data-opens-visual')) {
+          var mk = quoteModal.querySelector('input[name="mockup"]');
+          if (mk && !mk.checked) { mk.checked = true; mk.dispatchEvent(new Event('change')); }
+        }
         quoteModal.showModal();
         if (CFG.quotePreview) syncQuotePanel();
       });
     });
+
     // Click on the backdrop (outside the form) closes, as the live popup does.
     quoteModal.addEventListener('click', function (ev) {
       if (ev.target === quoteModal) quoteModal.close('close');
@@ -938,7 +972,7 @@
             }
             if (snapshot.artworks.length) snapshot.artwork = snapshot.artworks[0];
             sessionStorage.setItem('bounce-quote-preview', JSON.stringify(snapshot));
-            window.location.assign('email-quote-v4.html');
+            showDone();
           } catch (error) {
             set($('quote-preview-error'), 'The quote preview could not be opened. Please try again.');
             if ($('quote-preview-error')) $('quote-preview-error').hidden = false;
@@ -960,6 +994,16 @@
       bespokeCaption.textContent = file ? file.name : 'Click or drag a file here to upload';
     });
     bespokeForm.elements.mockup.addEventListener('change', function () { bespokeArtwork.required = this.checked; });
+    /* "Request a visual": the same request with the mock-up ticked and the
+       artwork field brought into view. */
+    all('[data-ticks-mockup]', bespokeForm).forEach(function (b) {
+      b.addEventListener('click', function () {
+        bespokeForm.elements.mockup.checked = true;
+        bespokeArtwork.required = true;
+        bespokeArtwork.closest('label').scrollIntoView({ block: 'center' });
+        bespokeArtwork.focus();
+      });
+    });
     bespokeForm.addEventListener('submit', async function (ev) {
       ev.preventDefault();
       if (!bespokeForm.reportValidity()) return;
@@ -981,7 +1025,7 @@
           attachment.area = 'Artwork'; request.artworks.push(attachment);
         }
         sessionStorage.setItem('bounce-quote-preview', JSON.stringify(request));
-        window.location.assign('email-quote-v4.html');
+        showDone();
       } catch (failure) { error.textContent = 'The quote preview could not be opened. Please try again.'; error.hidden = false; }
     });
   }
