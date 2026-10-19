@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style-v4.css?v=116">
+<link rel="stylesheet" href="assets/css/style-v4.css?v=117">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=31">
 <link rel="stylesheet" href="assets/css/category-v4.css?v=7">
 <link rel="stylesheet" href="assets/css/mega-v4.css?v=2">
@@ -994,14 +994,50 @@
     </svg>
     </div>
 
+    <!-- Apps and payment: the two things a customer looks for before checkout -->
+    <div class="ftr__extra">
+      <div class="ftr__apps">
+        <h3>Get the Bounce app</h3>
+        <div class="appbadges">
+          <a href="#" class="appbadge" aria-label="Download on the App Store">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 12.04c-.03-2.73 2.23-4.04 2.33-4.1-1.27-1.86-3.25-2.11-3.95-2.14-1.68-.17-3.28.99-4.14.99-.85 0-2.17-.97-3.56-.94-1.83.03-3.52 1.06-4.46 2.7-1.9 3.3-.48 8.19 1.37 10.87.9 1.31 1.98 2.78 3.39 2.73 1.36-.06 1.88-.88 3.52-.88 1.64 0 2.1.88 3.54.85 1.46-.03 2.39-1.33 3.28-2.65 1.04-1.52 1.47-2.99 1.49-3.07-.03-.01-2.86-1.1-2.89-4.36ZM14.4 4.01c.75-.91 1.25-2.17 1.11-3.43-1.08.04-2.38.72-3.15 1.62-.69.8-1.3 2.08-1.14 3.31 1.2.09 2.43-.61 3.18-1.5Z"/></svg>
+            <span><small>Download on the</small>App Store</span>
+          </a>
+          <a href="#" class="appbadge" aria-label="Get it on Google Play">
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.3c-.3.3-.5.8-.5 1.4v16.6c0 .6.2 1.1.5 1.4l.1.1 9.3-9.3v-.2L3.7 2.2l-.1.1Z" fill="#00A0FF"/><path d="m16.1 15.6-3.1-3.1v-.2l3.1-3.1.1.1 3.7 2.1c1.1.6 1.1 1.6 0 2.2l-3.7 2.1-.1-.1Z" fill="#FFCE00"/><path d="m16.2 15.5-3.2-3.2-9.4 9.4c.4.4 1 .4 1.7.1l10.9-6.3Z" fill="#FF3A44"/><path d="M16.2 8.5 5.3 2.3c-.7-.4-1.3-.4-1.7.1l9.4 9.3 3.2-3.2Z" fill="#00D97E"/></svg>
+            <span><small>Get it on</small>Google Play</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="ftr__pay">
+        <h3>We accept</h3>
+        <ul class="cards">
+          <li class="card card--visa"><span>VISA</span></li>
+          <li class="card card--mc" aria-label="Mastercard">
+            <svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true"><circle cx="13" cy="11" r="7" fill="#EB001B"/><circle cx="21" cy="11" r="7" fill="#F79E1B" fill-opacity=".85"/></svg>
+          </li>
+          <li class="card card--amex"><span>AMEX</span></li>
+          <li class="card card--maestro" aria-label="Maestro">
+            <svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true"><circle cx="13" cy="11" r="7" fill="#0099DF"/><circle cx="21" cy="11" r="7" fill="#EB001B" fill-opacity=".85"/></svg>
+          </li>
+          <li class="card card--pp"><span>PayPal</span></li>
+        </ul>
+      </div>
+    </div>
+
     <div class="ftr__bot">
       <span>&copy; 2026 Bounce Creative Designs Ltd. Concept v4.</span>
       <nav class="ftr__social" aria-label="Social media">
         <a href="#" aria-label="LinkedIn"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5ZM3 9.5h4V21H3V9.5Zm6.5 0h3.8v1.6h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.2c0-1.24-.02-2.84-1.9-2.84-1.9 0-2.2 1.36-2.2 2.75V21h-4V9.5Z"/></svg></a>
         <a href="#" aria-label="Instagram"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
         <a href="#" aria-label="Facebook"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.8 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.6 1.6-1.6H17V3.5c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.2H7.6V13h2.7v8h3.5Z"/></svg></a>
+        <a href="#" aria-label="X"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.1 8.1L23.2 22h-6.5l-5.1-6.7L5.8 22H2.7l7.6-8.7L2 2h6.7l4.6 6.1L18.9 2Zm-1.1 18.1h1.7L7.3 3.8H5.5l12.3 16.3Z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 4.8 12 4.8 12 4.8s-7 0-8.9.6A3 3 0 0 0 1 7.5 31 31 0 0 0 .4 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1c1.9.6 8.9.6 8.9.6s7 0 8.9-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.6 12 31 31 0 0 0 23 7.5ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg></a>
       </nav>
     </div>
+  </div>
+<
   </div>
 </footer>
 

@@ -682,6 +682,41 @@ main:focus{ outline:none; }
 .ftr__social a:hover{ background:var(--coral-btn); color:var(--forest); transform:translateY(-3px); }
 .ftr__social a:focus-visible{ outline:2px solid var(--coral-on-forest); outline-offset:3px; }
 
+/* App badges and card marks sit in their own row above the legal line. The
+   badges keep the platform lock-up proportions; the card marks go on white
+   so they read as the real thing against the forest. */
+.ftr__extra{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:40px; flex-wrap:wrap;
+  padding-block:28px; border-top:1px solid rgba(244,240,230,.16);
+}
+.ftr__extra h3{
+  font-family:var(--f-mono); font-size:var(--t-cap); font-weight:400; letter-spacing:.14em;
+  text-transform:uppercase; color:rgba(244,240,230,.56); margin-bottom:16px;
+}
+.appbadges{ display:flex; gap:12px; flex-wrap:wrap; }
+.appbadge{
+  display:inline-flex; align-items:center; gap:10px; min-height:52px; padding:0 18px;
+  background:#2D4E49; color:var(--oat);
+  transition:background .18s var(--ease), color .18s var(--ease), transform .18s var(--ease);
+}
+.appbadge svg{ flex:0 0 auto; }
+.appbadge span{ display:grid; font-size:var(--t-ui); font-weight:800; line-height:1.15; letter-spacing:-.01em; }
+.appbadge small{ font-size:var(--t-micro); font-weight:400; letter-spacing:.04em; opacity:.72; }
+.appbadge:hover{ background:var(--coral-btn); color:var(--forest); transform:translateY(-3px); }
+.appbadge:hover small{ opacity:.9; }
+.appbadge:focus-visible{ outline:2px solid var(--coral-on-forest); outline-offset:3px; }
+
+.cards{ display:flex; gap:8px; flex-wrap:wrap; list-style:none; margin:0; padding:0; }
+.card{
+  display:grid; place-items:center; width:52px; height:34px;
+  background:var(--white); border-radius:3px;
+  font-size:11px; font-weight:800; letter-spacing:.02em;
+}
+.card--visa span{ color:#1A1F71; font-style:italic; font-size:13px; letter-spacing:-.02em; }
+.card--amex{ background:#006FCF; }
+.card--amex span{ color:var(--white); font-size:10px; }
+.card--pp span{ color:#003087; font-size:10px; letter-spacing:-.01em; }
+
 /* ---------- 18. MOBILE DRAWER ---------- */
 .drawer-scrim{ position:fixed; inset:0; z-index:90; background:rgba(12,26,24,.55); }
 .drawer{
@@ -755,6 +790,7 @@ body.is-locked{ overflow:hidden; }
   .trust__list li{ border-right:0; border-bottom:1px solid var(--line); padding-right:0; }
   .trust__list li:last-child{ border-bottom:0; }
   .ftr__top{ grid-template-columns:minmax(0,1fr); }
+  .ftr__extra{ flex-direction:column; gap:26px; }
   .announce .wrap{ gap:14px; font-size:var(--t-micro); }
   .announce span::after{ display:none; }
   /* One message at a time on a phone; three would stack to three lines. */
