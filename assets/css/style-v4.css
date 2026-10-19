@@ -196,20 +196,20 @@ main:focus{ outline:none; }
    the forest border stays on to carry the 3:1 control boundary. */
 .btn:hover{ transform:translate(-3px,-3px); box-shadow:var(--shadow-hard); }
 .btn:active{ transform:translate(0,0); box-shadow:none; }
+/* One hover for every variant: coral fill, forest label, forest border, the
+   lift above. Solid, outline and oat all land in the same place; the coral
+   button is already there, so it only lifts. Nothing swaps into another
+   button's resting colour. */
+.btn:hover{ background:var(--coral-btn); color:var(--forest); border-color:var(--forest); }
 .btn--solid{ background:var(--forest); color:var(--oat); border-color:var(--forest); }
-.btn--solid:hover{ background:var(--coral-btn); color:var(--forest); border-color:var(--forest); }
 .btn--outline{ border-color:var(--forest); color:var(--forest); }
-/* Stays an outline on hover - it just turns coral - so it never becomes
-   indistinguishable from the solid button beside it.
-   Coral at 4.68:1 on oat carries both the label and the border. */
-.btn--outline:hover{ background:transparent; color:var(--coral-text); border-color:var(--coral-text); }
 /* Brand coral itself lands at 4.42:1 under forest, just short of 4.5.
    The button fill is lifted a touch so the label clears AA at 4.63:1. */
-.btn--coral{ background:var(--coral-btn); color:var(--forest); }
-.btn--coral{ border-color:var(--forest); }
-.btn--coral:hover{ background:var(--forest); color:var(--oat); }
+.btn--coral{ background:var(--coral-btn); color:var(--forest); border-color:var(--forest); }
 .btn--onforest{ background:var(--oat); color:var(--forest); border-color:var(--oat); }
-.btn--onforest:hover{ background:var(--coral-btn); color:var(--forest); border-color:var(--oat); box-shadow:4px 4px 0 0 var(--oat); }
+/* On a forest ground the forest shadow would vanish, so these two lift onto oat. */
+.btn--onforest:hover,
+.btn--outline-onforest:hover{ box-shadow:4px 4px 0 0 var(--oat); }
 .btn--sm{ min-height:44px; padding:0 20px; font-size:var(--t-ui); }
 
 /* Text link with the reference's underline treatment */

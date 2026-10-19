@@ -107,6 +107,9 @@
 .rail--four .prod__price{ flex-wrap:wrap; align-items:baseline; gap:4px 8px; }
 .listing__main .prod__price b,
 .rail--four .prod__price b{ font-size:var(--h-lg); }
+/* The label takes a row of its own, so the price row has to be allowed to
+   wrap wherever a card appears - not only inside the list layout. */
+.prod__price{ flex-wrap:wrap; }
 .prod__price .prod__aslow{ flex:1 1 100%; font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); white-space:nowrap; }
 .prod__price small{ white-space:nowrap; }
 .prod__co2{ display:inline-flex; align-items:center; gap:6px; margin-top:8px; font-size:var(--t-micro); font-weight:700; color:var(--green-text); }

@@ -1113,7 +1113,7 @@
 .qquote__contact .qopt input{ accent-color:var(--coral); }
 .qquote__contact .qmodal__note{ color:rgba(238,233,222,.72); }
 .qquote__contact .qmodal__cta .btn{ background:var(--coral-btn); border-color:var(--coral-btn); color:var(--forest); text-transform:none; font-size:var(--t-ui); font-weight:800; min-height:52px; }
-.qquote__contact .qmodal__cta .btn:hover{ background:var(--oat); border-color:var(--oat); color:var(--forest); }
+.qquote__contact .qmodal__cta .btn:hover{ background:var(--coral-btn); border-color:var(--forest); color:var(--forest); box-shadow:4px 4px 0 0 var(--oat); }
 .qquote__upload{ border:2px dashed rgba(238,233,222,.5); background:var(--oat); }
 .qquote__upload .qfield__t{ color:var(--coral-on-forest); font-family:var(--f-mono); font-weight:400; letter-spacing:.1em; font-size:var(--t-micro); }
 .qquote__upload:focus-within{ outline-color:var(--coral-on-forest); }
