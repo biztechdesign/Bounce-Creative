@@ -51,29 +51,40 @@
       var was = parseFloat(clone.dataset.price) || 0;
       var price = clone.querySelector('.prod__price');
       if (price && was) {
-        price.innerHTML = '<span class="prod__aslow">This week, as low as</span><b>' + GBP.format(was * 0.9) + '</b> <s>' + GBP.format(was) + '</s> <small>per unit</small>';
+        price.innerHTML = '<span class="prod__aslow">This week, as low as</span><b>' + GBP.format(was * 0.9) + '</b> <s>' + GBP.format(was) + '</s>';
       }
       slot.appendChild(clone);
     });
-    var weekEl = document.getElementById('deals-week');
-    if (weekEl) weekEl.textContent = 'Week ' + week + ', ' + now.getFullYear() + '.';
+  }
 
-    // Countdown to the coming Monday, 00:00 local.
-    var clock = document.getElementById('deals-clock');
-    if (clock) {
-      var cells = clock.querySelectorAll('b');
-      function pad(n) { return (n < 10 ? '0' : '') + n; }
-      function tick() {
-        var t = new Date();
-        var end = new Date(t.getFullYear(), t.getMonth(), t.getDate() + ((8 - t.getDay()) % 7 || 7));
-        var left = Math.max(0, end - t);
-        var d = Math.floor(left / 86400000), h = Math.floor(left / 3600000) % 24,
-            m = Math.floor(left / 60000) % 60, s = Math.floor(left / 1000) % 60;
+  // Week stamp wherever a page shows one.
+  var weekEl = document.getElementById('deals-week');
+  if (weekEl) { var w = new Date(); weekEl.textContent = 'Week ' + isoWeek(w) + ', ' + w.getFullYear() + '.'; }
+
+  /* ---------- Countdown to the coming Monday, 00:00 local ----------
+     Any clock on the page: the deals section, the Offers page hero, and the
+     per-card clocks on the Offers grid all read the same end time. */
+  var clocks = [].slice.call(document.querySelectorAll('[data-countdown]'));
+  if (clocks.length) {
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function tick() {
+      var t = new Date();
+      var end = new Date(t.getFullYear(), t.getMonth(), t.getDate() + ((8 - t.getDay()) % 7 || 7));
+      var left = Math.max(0, end - t);
+      var d = Math.floor(left / 86400000), h = Math.floor(left / 3600000) % 24,
+          m = Math.floor(left / 60000) % 60, s = Math.floor(left / 1000) % 60;
+      clocks.forEach(function (clock) {
+        if (clock.dataset.countdown === 'short') {
+          clock.textContent = d + 'd ' + pad(h) + 'h ' + pad(m) + 'm';
+          return;
+        }
+        var cells = clock.querySelectorAll('b');
+        if (cells.length < 4) return;
         cells[0].textContent = d; cells[1].textContent = pad(h); cells[2].textContent = pad(m); cells[3].textContent = pad(s);
-      }
-      tick();
-      setInterval(tick, 1000);
+      });
     }
+    tick();
+    setInterval(tick, 1000);
   }
 
   /* ---------- Swatches ---------- */

@@ -1,0 +1,40 @@
+/* ==========================================================================
+   Offers - layered on style-v4.css, list-v4.css (cards, countdown, chips) and
+   category-v4.css (the compact hero). Desktop first.
+   ========================================================================== */
+
+/* ---------- Hero with the big clock ---------- */
+.offers-hero .lhero__grid{ grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); align-items:center; }
+.offers-hero h1{ font-size:var(--d-1); }
+.offers-clock{ display:grid; gap:12px; justify-items:end; padding-block:clamp(22px,2.6vw,36px); }
+.offers-clock .countdown__t{ color:rgba(238,233,222,.7); }
+.countdown__clock--big span{ min-width:92px; padding:14px 12px; background:var(--oat); color:var(--forest); }
+.countdown__clock--big b{ font-size:var(--d-2); }
+.countdown__clock--big small{ color:var(--forest-mid); opacity:1; }
+.offers-clock__n{ font-size:var(--t-cap); color:rgba(238,233,222,.7); text-align:right; }
+.offers-clock__n b{ color:var(--oat); font-weight:700; }
+
+/* ---------- Three-up trust strip ---------- */
+.trust__list--three{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+
+/* ---------- Filter bar ---------- */
+.offers-bar{ display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-bottom:32px; }
+.offers-bar .chips{ margin-bottom:0; }
+.offers-bar .chip[aria-pressed="true"]{ background:var(--forest); border-color:var(--forest); color:var(--oat); }
+.offers-bar__count{ font-size:var(--t-ui); color:var(--forest-mid); }
+.offers-bar__count b{ color:var(--forest); font-weight:800; }
+
+/* ---------- Offer cards ---------- */
+#offers-grid .prod__price b{ font-size:var(--h-lg); }
+#offers-grid .prod[hidden]{ display:none; }
+.prod__ends{ display:inline-flex; align-items:center; gap:6px; margin-top:8px; font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.06em; text-transform:uppercase; color:var(--coral-text); }
+.prod__ends .ic{ flex:0 0 auto; }
+.prod__ends b{ font-weight:500; font-variant-numeric:tabular-nums; }
+
+@media (max-width:900px){
+  .offers-hero .lhero__grid{ grid-template-columns:minmax(0,1fr); }
+  .offers-clock{ justify-items:start; padding-top:0; }
+  .offers-clock__n{ text-align:left; }
+  .countdown__clock--big span{ min-width:70px; }
+  .trust__list--three{ grid-template-columns:minmax(0,1fr); }
+}

@@ -107,7 +107,7 @@
 .rail--four .prod__price{ flex-wrap:wrap; align-items:baseline; gap:4px 8px; }
 .listing__main .prod__price b,
 .rail--four .prod__price b{ font-size:var(--h-lg); }
-.prod__price .prod__aslow{ flex:1 1 100%; font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); }
+.prod__price .prod__aslow{ flex:1 1 100%; font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); white-space:nowrap; }
 .prod__co2{ display:inline-flex; align-items:center; gap:6px; margin-top:8px; font-size:var(--t-micro); font-weight:700; color:var(--green-text); }
 .prod__co2 .ic{ flex:0 0 auto; }
 .prod__co2--none{ color:var(--forest-mid); font-weight:400; }
