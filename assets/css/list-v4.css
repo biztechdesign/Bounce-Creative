@@ -82,6 +82,58 @@
 .price-fields input{ display:block; width:100%; min-width:0; min-height:44px; margin-top:6px; padding:8px; border:1px solid var(--line-input); background:var(--white); color:var(--forest); font:inherit; }
 .price-fields input:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
 
+/* ==========================================================================
+   Client round 2 - list page: facet icons drawn in the v4 system, prices
+   that lead with "as low as", a CO2 line, colour swatches that swap the
+   photo and expand, and the weekly deals with a countdown.
+   ========================================================================== */
+
+/* ---------- Facet icons: sprite marks on a chip, not the old site's PNGs ---------- */
+.facet__row .facet__ic{
+  flex:0 0 32px; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center;
+  border-radius:50%; background:var(--paper); color:var(--forest); box-shadow:inset 0 0 0 1px var(--line);
+}
+.facet__ic--eco{ background:var(--sage-green); color:var(--green-text); }
+.facet__ic--express{ background:var(--coral-wash); color:var(--coral-text); }
+.facet__ic--value{ background:var(--oat); }
+.facet__ic--bespoke{ background:var(--forest); color:var(--oat); box-shadow:none; }
+.facet__ic--new{ background:var(--sun, #F2C94C); color:var(--forest); box-shadow:none; }
+.facet__ic--co2{ background:var(--sage-green); color:var(--forest); }
+.facet__row--image input:checked + .facet__ic{ outline:2px solid var(--forest); outline-offset:2px; }
+.facet__row--image input:focus-visible + .facet__ic{ outline:2px solid var(--coral-text); outline-offset:3px; }
+
+/* ---------- Cards on the list page ---------- */
+.listing__main .prod__price,
+.rail--four .prod__price{ flex-wrap:wrap; align-items:baseline; gap:4px 8px; }
+.listing__main .prod__price b,
+.rail--four .prod__price b{ font-size:var(--h-lg); }
+.prod__price .prod__aslow{ flex:1 1 100%; font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); }
+.prod__co2{ display:inline-flex; align-items:center; gap:6px; margin-top:8px; font-size:var(--t-micro); font-weight:700; color:var(--green-text); }
+.prod__co2 .ic{ flex:0 0 auto; }
+.prod__co2--none{ color:var(--forest-mid); font-weight:400; }
+.prod__sw{ flex-wrap:wrap; }
+.prod__sw i{ cursor:pointer; transition:transform .15s var(--ease), box-shadow .15s var(--ease); }
+.prod__sw i:hover,
+.prod__sw i.is-on{ box-shadow:inset 0 0 0 1px var(--forest), 0 0 0 2px var(--white), 0 0 0 3px var(--forest); }
+.prod__sw i[hidden]{ display:none; }
+.prod__sw em{ cursor:pointer; padding:2px 6px; border:1px solid var(--line); }
+.prod__sw em:hover{ border-color:var(--forest); color:var(--forest); }
+.prod__sw.is-open em{ display:none; }
+
+/* ---------- Weekly deals with a countdown ---------- */
+.deals__head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:28px; }
+.deals__head .sechead{ margin-bottom:0; }
+.countdown{ display:grid; gap:8px; justify-items:end; }
+.countdown__t{ font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); }
+.countdown__clock{ display:flex; gap:8px; }
+.countdown__clock span{ display:grid; justify-items:center; min-width:62px; padding:8px 10px; background:var(--forest); color:var(--oat); }
+.countdown__clock b{ font-family:var(--f-display); font-size:var(--h-lg); font-weight:700; line-height:1; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+.countdown__clock small{ margin-top:4px; font-family:var(--f-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; opacity:.72; }
+.prod__flag--deal{ background:var(--coral-badge); color:var(--white); }
+.prod__flag--deal .ic{ color:var(--white); }
+.prod__price s{ font-size:var(--t-cap); color:var(--forest-mid); font-weight:400; }
+.deals__foot{ margin-top:24px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; font-size:var(--t-cap); color:var(--forest-mid); }
+
 .listbar{
   display:flex; align-items:center; gap:20px; flex-wrap:wrap;
   padding-block:20px; border-block:1px solid var(--line); margin-bottom:36px;

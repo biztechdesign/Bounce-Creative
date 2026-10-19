@@ -439,6 +439,13 @@ PRODUCTS = [
 # Helpers
 # --------------------------------------------------------------------------
 
+# The vest again, as a supplier without position images would ship it: the
+# branding-location strip falls back to named tiles. A side-by-side for the
+# client, nothing else differs.
+PRODUCTS.append({**PRODUCTS[0], "file": "product-hivis-nopos-v4.html", "position_tiles": True,
+                 "copy_key": PRODUCTS[0]["file"]})
+
+
 def esc(s):
     return (s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
              .replace('"', "&quot;"))
@@ -1721,7 +1728,7 @@ REVIEW_COPY = {
 
 def reviews(p, stars, stars4):
     out = []
-    for score, body, by in REVIEW_COPY[p["file"]]:
+    for score, body, by in REVIEW_COPY[p.get("copy_key", p["file"])]:
         s = stars if score == 5 else stars4
         out.append(f"""            <article class="rev__item">
               <p class="rev__stars" aria-label="{score} out of 5">{s}</p>
