@@ -84,6 +84,8 @@
   // On the rewards page the card is the way in; the floating tab would only
   // cover the account menu.
   if (member && tab) tab.hidden = true;
+  // Same on the log-in / create-account pages: the customer is mid log-in.
+  if (document.querySelector('[data-auth-form]') && tab) tab.hidden = true;
 
   /* ---------- States ---------- */
   function show(name) {
@@ -192,14 +194,13 @@
     }
   }
 
-  /* ---------- Logged out: go to the log-in page ----------
-     [BUILD] Magento customer log-in, with a referer back to this page plus
-     ?spin=open so the wheel opens on return. The prototype has no log-in
-     page, so it jumps straight to the "returned" URL. */
-  function goLogin() {
-    var back = window.location.pathname + '?spin=open';
-    var url = tab && tab.dataset.loginUrl;
-    window.location.href = url && url !== 'login' ? url + '?referer=' + encodeURIComponent(back) : back;
+  /* ---------- Logged out: go to the log-in / create-account page ----------
+     The referer brings the customer back to this page with ?spin=open, so
+     the wheel opens on return.
+     [BUILD] Magento customer/account/login and /create with that referer. */
+  function goLogin(url) {
+    var back = (window.location.pathname.replace(/^.*\//, '') || 'index-v4.html') + '?spin=open';
+    window.location.href = (url || 'login-v4.html') + '?referer=' + encodeURIComponent(back);
   }
 
   /* ---------- Countdowns and labels ---------- */
@@ -248,7 +249,7 @@
   var openBtn = document.getElementById('spin-open');
   if (openBtn) openBtn.addEventListener('click', open);
   $all('[data-spin-go]', dlg).forEach(function (b) { b.addEventListener('click', spin); });
-  $all('[data-spin-login]', dlg).forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); goLogin(); }); });
+  $all('[data-spin-login]', dlg).forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); goLogin(a.getAttribute('href')); }); });
   $all('[data-spin-close]', dlg).forEach(function (b) { b.addEventListener('click', function () { dlg.close(); }); });
   dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
 

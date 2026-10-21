@@ -106,7 +106,7 @@ def snippet():
 <link rel="stylesheet" href="assets/css/spin-v4.css?v=7">
 
 <!-- Floating entry point, every page -->
-<button class="spintab" type="button" id="spin-tab" aria-haspopup="dialog" aria-controls="spin-dlg" data-login-url="login">
+<button class="spintab" type="button" id="spin-tab" aria-haspopup="dialog" aria-controls="spin-dlg">
   {wheel_svg(30, "spintab__wheel")}
   <span class="spintab__t"><b>Spin &amp; Win</b><small id="spin-tab-sub">Log in to spin</small></span>
 </button>
@@ -133,8 +133,8 @@ def snippet():
         <h2 class="spindlg__t">Spin &amp; <span class="hl">win.</span></h2>
         <p class="spindlg__p">Every spin wins. Points, discounts, free delivery &mdash; or this month&rsquo;s free product. Log in to take your free spin.</p>
         <div class="spinwin__acts">
-          <a href="#" class="btn btn--coral" data-spin-login>Log in to spin {icon("i-arrow", 16)}</a>
-          <a href="#" class="btn btn--outline" data-spin-login>Create account</a>
+          <a href="login-v4.html" class="btn btn--coral" data-spin-login>Log in to spin {icon("i-arrow", 16)}</a>
+          <a href="register-v4.html" class="btn btn--outline" data-spin-login>Create account</a>
         </div>
         <p class="spindlg__terms">1 free spin every day for logged-in customers. Points are added to your rewards; codes go in the offer-code field at checkout. No minimum order.</p>
       </div>
@@ -187,10 +187,10 @@ def snippet():
       </div>
     </div>
   </div>
-  <p class="spindlg__demo">Design preview: the log-in buttons go to the log-in page; today&rsquo;s spin is remembered in this browser.
+  <p class="spindlg__demo">Design preview: log in or create an account with any details; today&rsquo;s spin is remembered in this browser.
     <button class="linkbtn" type="button" data-spin-reset>Reset the demo</button></p>
 </dialog>
-<script src="assets/js/spin-v4.js?v=8" defer></script>
+<script src="assets/js/spin-v4.js?v=10" defer></script>
 <!-- SPIN:END -->"""
 
 

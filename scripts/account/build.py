@@ -22,9 +22,9 @@ PDP = ROOT / "scripts" / "pdp"
 
 CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
 FOOTER = re.sub(r'<script src="assets/js/pdp-v4\.js\?v=\d+"></script>',
-                '<script src="assets/js/account-v4.js?v=1"></script>', (PDP / "_footer.html").read_text(encoding="utf-8")).replace('<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n', '')
+                '<script src="assets/js/account-v4.js?v=2"></script>', (PDP / "_footer.html").read_text(encoding="utf-8")).replace('<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n', '')
 
-CSS_V = 3
+CSS_V = 5
 
 
 def esc(s):
@@ -459,10 +459,133 @@ def rewards_page():
         head_extra, main)
 
 
+# --------------------------------------------------------------------------
+# Log in / create account (customer/account/login/, customer/account/create/)
+# No side navigation - the customer isn't signed in yet.
+# --------------------------------------------------------------------------
+
+PERKS = [
+    ("i-star", "1 free spin every day", "Spin &amp; Win for points, discounts and free delivery."),
+    ("i-tag", "Reward points on every order", "Worth money off your next order."),
+    ("i-bag", "Re-order in two clicks", "Your orders, artwork and addresses in one place."),
+    ("i-bolt", "Faster quotes", "Your details filled in for every quote request."),
+]
+
+
+def auth_shell(c, crumb, main_html):
+    body = f"""
+<main id="main" tabindex="-1">
+
+  <!-- ============ BREADCRUMB ============ -->
+  <nav class="crumb" aria-label="Breadcrumb">
+    <div class="wrap">
+      <ol><li><a href="index-v4.html">Home</a></li><li aria-current="page">{esc(crumb)}</li></ol>
+    </div>
+  </nav>
+
+  <section class="sec sec--flush" aria-labelledby="acct-h">
+    <div class="wrap">
+      <div class="acct-head">
+        <div>
+          <span class="eyebrow">My account</span>
+          <h1 id="acct-h">{c["h1"]}</h1>
+        </div>
+      </div>
+
+      <!-- Shown when the customer arrived from Spin & Win (?referer=...spin=open) -->
+      <p class="auth-spin" data-auth-spin hidden>{icon("i-star", 16)}<span><b>Your free spin is waiting.</b> {c["spin"]}</span></p>
+
+      <div class="auth">
+{main_html}
+      </div>
+    </div>
+  </section>
+
+</main>
+"""
+    page = shell({"title": c["title"], "h1": ""}, None, [], "", "")
+    head = page.split(CHROME, 1)[0]
+    footer = FOOTER.replace("</main>\n", "", 1)
+    return head + CHROME + body + footer
+
+
+def perks_panel(title, cta):
+    items = "".join(
+        f'\n            <li>{icon(i, 18)}<span><b>{t}</b>{d}</span></li>' for i, t, d in PERKS)
+    return f"""        <aside class="auth__perks" aria-labelledby="perks-h">
+          <h2 id="perks-h">{title}</h2>
+          <ul class="auth__list">{items}
+          </ul>
+{cta}
+        </aside>"""
+
+
+def login_page():
+    main = f"""        <form class="aform auth__form" data-auth-form="login" action="#" method="post" novalidate>
+          <fieldset class="aform__set">
+            <legend class="aform__legend">Registered customers</legend>
+            <p class="auth__lead">Log in with your email address and password.</p>
+{field("Email", "email", kind="email", required=True, wide=True, autocomplete="email")}
+{field("Password", "password", kind="password", required=True, wide=True, autocomplete="current-password")}
+            <div class="auth__meta">
+              <label class="check"><input type="checkbox" name="remember" checked><span>Keep me logged in</span></label>
+              <a href="#" class="linkbtn">Forgot your password?</a>
+            </div>
+            <button class="btn btn--solid auth__go" type="submit">Log in {icon("i-arrow", 16)}</button>
+            <p class="aform__req"><b class="req" aria-hidden="true">*</b> Required field</p>
+          </fieldset>
+        </form>
+
+{perks_panel("New customers", f'          <p class="auth__lead">Creating an account takes a minute.</p>' + chr(10) + f'          <a href="register-v4.html" class="btn btn--outline auth__go" data-auth-keep>Create an account {icon("i-arrow", 16)}</a>')}"""
+    return auth_shell(
+        {"title": "Customer login | Bounce Creative Designs",
+         "h1": 'Log in to your <span class="hl">account.</span>',
+         "spin": "Log in and the wheel opens on the page you came from."},
+        "Customer login", main)
+
+
+def register_page():
+    main = f"""        <form class="aform auth__form" data-auth-form="register" action="#" method="post" novalidate>
+          <fieldset class="aform__set">
+            <legend class="aform__legend">Personal information</legend>
+            <div class="aform__grid">
+{field("First name", "firstname", required=True, autocomplete="given-name")}
+{field("Last name", "lastname", required=True, autocomplete="family-name")}
+            </div>
+{field("Company", "company", wide=True, autocomplete="organization")}
+            <label class="check"><input type="checkbox" name="is_subscribed" checked><span>Send me offers and new products</span></label>
+          </fieldset>
+
+          <fieldset class="aform__set">
+            <legend class="aform__legend">Sign-in information</legend>
+{field("Email", "email", kind="email", required=True, wide=True, autocomplete="email")}
+            <div class="aform__grid">
+{field("Password", "password", kind="password", required=True, autocomplete="new-password")}
+{field("Confirm password", "password_confirmation", kind="password", required=True, autocomplete="new-password")}
+            </div>
+            <p class="aform__req">At least 8 characters, with a mix of letters, numbers and symbols.</p>
+          </fieldset>
+
+          <div class="aform__foot">
+            <p class="aform__req"><b class="req" aria-hidden="true">*</b> Required field</p>
+            <button class="btn btn--solid" type="submit">Create an account {icon("i-arrow", 16)}</button>
+          </div>
+        </form>
+
+{perks_panel("Why create an account", f'          <p class="auth__lead">Already have an account?</p>' + chr(10) + f'          <a href="login-v4.html" class="btn btn--outline auth__go" data-auth-keep>Log in {icon("i-arrow", 16)}</a>')}"""
+    return auth_shell(
+        {"title": "Create an account | Bounce Creative Designs",
+         "h1": 'Create an <span class="hl">account.</span>',
+         "spin": "Create your account and the wheel opens on the page you came from."},
+        "Create an account", main)
+
+
 PAGES = [
     ("account-address-v4.html", address_page),
     ("account-address-new-v4.html", new_address_page),
     ("account-rewards-v4.html", rewards_page),
+    ("login-v4.html", login_page),
+    ("register-v4.html", register_page),
 ]
 
 

@@ -149,6 +149,26 @@
 .notify{ padding:24px; background:var(--paper); box-shadow:inset 0 0 0 1px var(--line); display:grid; gap:18px; }
 .notify .acct-sec__head{ margin-bottom:0; }
 
+/* ---------- Log in / create account ---------- */
+.auth{ display:grid; grid-template-columns:minmax(0,700px) 400px; gap:48px; align-items:start; margin-bottom:64px; }
+.auth__form{ max-width:none; }
+.auth__lead{ font-size:var(--t-ui); color:var(--forest-mid); }
+.auth__meta{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.auth__go{ justify-self:start; }
+.auth__perks{ display:grid; gap:18px; padding:28px; background:var(--forest); color:var(--oat); }
+.auth__perks h2{ font-size:var(--h-card); color:var(--oat); }
+.auth__perks .auth__lead{ color:var(--oat); opacity:.85; }
+.auth__perks .btn--outline{ color:var(--oat); border-color:var(--oat); }
+.auth__perks .btn--outline:hover{ background:var(--oat); color:var(--forest); }
+.auth__list{ display:grid; gap:14px; margin:0; padding:0 0 18px; list-style:none; border-bottom:1px solid rgba(238,233,222,.2); }
+.auth__list li{ display:flex; gap:12px; align-items:flex-start; font-size:var(--t-cap); }
+.auth__list .ic{ flex:0 0 auto; margin-top:2px; color:var(--coral); }
+.auth__list b{ display:block; font-size:var(--t-ui); }
+.auth-spin{ display:flex; align-items:center; gap:10px; margin:-12px 0 24px; padding:12px 16px; background:var(--sage-green); font-size:var(--t-ui); color:var(--forest); }
+.auth-spin[hidden]{ display:none; }
+.auth-spin .ic{ color:var(--coral-text); flex:0 0 auto; }
+.auth__form input.is-bad{ border-color:var(--coral-badge); }
+
 /* ==========================================================================
    Responsive. The account nav turns into a scrolling tab row above the
    page, and each table stacks into labelled rows on a phone. The labels
@@ -177,6 +197,8 @@
   .acct-nav__out{ padding:12px 18px; }
   .addr-grid{ grid-template-columns:minmax(0,1fr); gap:14px; }
   .aform__set{ padding:20px; }
+  .auth{ grid-template-columns:minmax(0,1fr); gap:24px; margin-bottom:40px; }
+  .auth__perks{ padding:22px; }
   .aform__grid, .aform__grid--name{ grid-template-columns:minmax(0,1fr); gap:14px; }
   .aform__foot{ flex-direction:column-reverse; align-items:stretch; gap:12px; }
   .aform__foot .btn{ width:100%; }
