@@ -104,23 +104,6 @@ body.is-locked .spintab{ opacity:0; pointer-events:none; }
 .spindlg__next .ic{ color:var(--coral-text); }
 .spindlg__next b{ color:var(--forest); font-variant-numeric:tabular-nums; }
 
-/* Register-to-claim form */
-.spinform{ display:grid; gap:12px; padding:18px; background:var(--white); box-shadow:inset 0 0 0 1px var(--line); }
-.spinform__row{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-.spinform .qfield{ display:block; min-width:0; }
-.spinform .qfield__t{ display:block; padding-bottom:6px; font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); }
-.spinform input:not([type="checkbox"]){
-  width:100%; min-height:44px; padding:0 12px; font:inherit; font-size:var(--t-ui); color:var(--forest);
-  background:var(--white); border:1px solid var(--line-input);
-}
-.spinform input:focus-visible{ outline:2px solid var(--coral-text); outline-offset:-1px; }
-.spinform input.is-bad{ border-color:var(--coral-badge); }
-.spinform .check{ display:flex; align-items:center; gap:10px; font-size:var(--t-cap); cursor:pointer; }
-.spinform .check input{ width:18px; height:18px; margin:0; accent-color:var(--forest); }
-.spinform .btn{ width:100%; }
-.spinform__alt{ font-size:var(--t-cap); color:var(--forest-mid); text-align:center; }
-.spinform__alt a{ color:var(--coral-text); font-weight:700; }
-
 /* Logged-in strip: who you are and your points, above the spin */
 .spinme{ display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:12px; padding:12px 14px; background:var(--white); box-shadow:inset 0 0 0 1px var(--line); }
 .spinme__av{ width:40px; height:40px; display:inline-grid; place-items:center; background:var(--forest); color:var(--oat); font-family:var(--f-display); font-weight:700; letter-spacing:.02em; }
@@ -133,15 +116,6 @@ body.is-locked .spintab{ opacity:0; pointer-events:none; }
 .spinme__new[hidden]{ display:none; }
 .spinme__new .ic{ color:var(--coral-text); }
 .spinme__new b{ font-weight:800; font-variant-numeric:tabular-nums; }
-
-/* Log in / create account switch */
-.spinswitch{ display:grid; grid-template-columns:1fr 1fr; border:2px solid var(--forest); }
-.spinswitch button{ min-height:42px; background:var(--white); color:var(--forest); border:0; font:inherit; font-size:var(--t-ui); font-weight:800; cursor:pointer; }
-.spinswitch button[aria-selected="true"]{ background:var(--forest); color:var(--oat); }
-.spinswitch button:focus-visible{ outline:2px solid var(--coral-text); outline-offset:-4px; }
-.spinform [hidden]{ display:none !important; }
-.spinform__meta{ display:flex; align-items:center; justify-content:space-between; gap:12px; font-size:var(--t-cap); }
-.spinform__meta a{ color:var(--coral-text); font-weight:700; }
 
 .spindlg__demo{ padding:10px 40px 14px; font-size:var(--t-micro); color:var(--forest-mid); border-top:1px solid var(--line); background:var(--paper); }
 
@@ -158,7 +132,7 @@ body.is-locked .spintab{ opacity:0; pointer-events:none; }
 }
 @media (max-width:640px){
   .spintab{ left:16px; bottom:16px; padding:6px 12px 6px 6px; }
-  .spinform__row, .wheel__legend{ grid-template-columns:minmax(0,1fr); }
+  .wheel__legend{ grid-template-columns:minmax(0,1fr); }
 }
 @media (prefers-reduced-motion: reduce){
   .wheel__rot{ transition:none; }

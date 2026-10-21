@@ -1,11 +1,14 @@
 /* ==========================================================================
    Spin & Win - prototype behaviour for the design review.
 
-   Logged-in customers only. States:
-     login (not logged in) -> ready -> busy -> claimed -> used (next visit)
+   Logged-in customers only. Logged out, the tab goes to the log-in page,
+   which returns to this page with ?spin=open. States:
+     ready -> busy -> claimed -> used (next visit)
    One spin per account per day.
 
    Prototype only: "logged in" and today's spin are kept in localStorage.
+   There is no log-in page in the design, so ?spin=open stands in for
+   "back from log-in": it logs in the demo customer and opens the wheel.
    [BUILD] Check the real session, decide the prize and enforce the daily
    limit on the server - a browser can be cleared.
    ========================================================================== */
@@ -35,6 +38,16 @@
   function load() {
     try { var s = JSON.parse(get(KEY) || 'null'); return s && s.date === today() ? s : null; }
     catch (e) { return null; }
+  }
+  // Back from log-in (or the shared after-login link): log in, fresh spin.
+  var params = new URLSearchParams(window.location.search);
+  var returned = params.get('spin') === 'open';
+  if (returned) {
+    put(LOGIN_KEY, '1');
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    params.delete('spin');
+    var qs = params.toString();
+    history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
   }
   var state = load();
   var loggedIn = member || get(LOGIN_KEY) === '1';
@@ -73,7 +86,7 @@
   /* ---------- States ---------- */
   function show(name) {
     $all('.spinstate', dlg).forEach(function (el) { el.hidden = el.dataset.state !== name; });
-    $all('[data-spin-go]', dlg).forEach(function (b) { b.disabled = name !== 'ready' && name !== 'login'; });
+    $all('[data-spin-go]', dlg).forEach(function (b) { b.disabled = name !== 'ready'; });
   }
 
   function prizeText(p) {
@@ -122,7 +135,7 @@
 
   /* ---------- Spin (logged in only) ---------- */
   function spin() {
-    if (!loggedIn) { show('login'); focusLogin(); return; }
+    if (!loggedIn) { goLogin(); return; }
     if (spinning || state) return;
     spinning = true;
     var i = pick();
@@ -177,42 +190,14 @@
     }
   }
 
-  /* ---------- Log in / create account ---------- */
-  var form = document.getElementById('spin-form');
-  function focusLogin() { var f = form && form.querySelector('input[name="email"]'); if (f) setTimeout(function () { f.focus(); }, 60); }
-  function setMode(mode) {
-    form.dataset.mode = mode;
-    var reg = mode === 'register';
-    $all('[data-reg]', form).forEach(function (el) { el.hidden = !reg; });
-    $all('[data-login-only]', form).forEach(function (el) { el.hidden = reg; });
-    $all('[data-auth]', dlg).forEach(function (b) { b.setAttribute('aria-selected', b.dataset.auth === mode ? 'true' : 'false'); });
-    form.password.autocomplete = reg ? 'new-password' : 'current-password';
-    form.querySelector('[data-auth-go]').firstChild.nodeValue = reg ? 'Create account & spin ' : 'Log in & spin ';
-  }
-  if (form) {
-    $all('[data-auth]', dlg).forEach(function (b) { b.addEventListener('click', function () { setMode(b.dataset.auth); }); });
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var reg = form.dataset.mode === 'register';
-      var fields = $all('input[required]', form).concat(reg ? $all('[data-req-reg]', form) : []);
-      var ok = true;
-      fields.forEach(function (inp) {
-        var bad = !inp.value.trim() || (inp.type === 'email' && !/^\S+@\S+\.\S+$/.test(inp.value)) ||
-                  (inp.type === 'password' && inp.value.length < 8);
-        inp.classList.toggle('is-bad', bad);
-        inp.setAttribute('aria-invalid', bad ? 'true' : 'false');
-        if (bad && ok) { inp.focus(); ok = false; }
-      });
-      if (!ok) return;
-      loggedIn = true;
-      put(LOGIN_KEY, '1');
-      // Demo: a new account uses the name typed; a log-in uses the demo customer.
-      if (reg) put('bounce-name', (form.first.value.trim() + ' ' + form.last.value.trim()).trim());
-      paintCustomer();
-      sync();
-      if (state) { landOn(state.prize, false); fillResult(PRIZES[state.prize]); show('used'); }
-      else show('ready');
-    });
+  /* ---------- Logged out: go to the log-in page ----------
+     [BUILD] Magento customer log-in, with a referer back to this page plus
+     ?spin=open so the wheel opens on return. The prototype has no log-in
+     page, so it jumps straight to the "returned" URL. */
+  function goLogin() {
+    var back = window.location.pathname + '?spin=open';
+    var url = tab && tab.dataset.loginUrl;
+    window.location.href = url && url !== 'login' ? url + '?referer=' + encodeURIComponent(back) : back;
   }
 
   /* ---------- Countdowns and labels ---------- */
@@ -245,9 +230,8 @@
 
   /* ---------- Open / close ---------- */
   function open() {
-    if (!loggedIn) {
-      show('login');
-    } else if (state) {
+    if (!loggedIn) { goLogin(); return; }
+    if (state) {
       landOn(state.prize, false);
       fillResult(PRIZES[state.prize]);
       show(member ? 'claimed' : 'used');
@@ -256,7 +240,6 @@
     }
     $all('[data-spin-countdown]', dlg).forEach(function (el) { el.textContent = untilMidnight(); });
     if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
-    if (!loggedIn) focusLogin();
   }
   if (tab) tab.addEventListener('click', open);
   var openBtn = document.getElementById('spin-open');
@@ -283,4 +266,5 @@
   if (state) fillResult(PRIZES[state.prize]);
   paintCustomer();
   sync();
+  if (returned) open();
 })();
