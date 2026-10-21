@@ -1,9 +1,10 @@
 /* ==========================================================================
    Spin & Win - prototype behaviour for the design review.
 
-   Logged-in customers only. Logged out, the tab goes to the log-in page,
-   which returns to this page with ?spin=open. States:
-     ready -> busy -> claimed -> used (next visit)
+   Logged-in customers only. Logged out, the wheel shows with log-in
+   buttons that go to the log-in page, which returns to this page with
+   ?spin=open. States:
+     guest (logged out) | ready -> busy -> claimed -> used (next visit)
    One spin per account per day.
 
    Prototype only: "logged in" and today's spin are kept in localStorage.
@@ -41,10 +42,11 @@
   }
   // Back from log-in (or the shared after-login link): log in, fresh spin.
   var params = new URLSearchParams(window.location.search);
-  var returned = params.get('spin') === 'open';
-  if (returned) {
-    put(LOGIN_KEY, '1');
-    try { localStorage.removeItem(KEY); } catch (e) {}
+  // ?spin=guest is the shared logged-out link: log out and open the wheel.
+  var returned = params.get('spin') === 'open', guest = params.get('spin') === 'guest';
+  if (returned || guest) {
+    if (returned) put(LOGIN_KEY, '1');
+    try { localStorage.removeItem(KEY); if (guest) { localStorage.removeItem(LOGIN_KEY); localStorage.removeItem('bounce-name'); } } catch (e) {}
     params.delete('spin');
     var qs = params.toString();
     history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
@@ -86,7 +88,7 @@
   /* ---------- States ---------- */
   function show(name) {
     $all('.spinstate', dlg).forEach(function (el) { el.hidden = el.dataset.state !== name; });
-    $all('[data-spin-go]', dlg).forEach(function (b) { b.disabled = name !== 'ready'; });
+    $all('[data-spin-go]', dlg).forEach(function (b) { b.disabled = name !== 'ready' && name !== 'guest'; });
   }
 
   function prizeText(p) {
@@ -230,8 +232,9 @@
 
   /* ---------- Open / close ---------- */
   function open() {
-    if (!loggedIn) { goLogin(); return; }
-    if (state) {
+    if (!loggedIn) {
+      show('guest');
+    } else if (state) {
       landOn(state.prize, false);
       fillResult(PRIZES[state.prize]);
       show(member ? 'claimed' : 'used');
@@ -245,6 +248,7 @@
   var openBtn = document.getElementById('spin-open');
   if (openBtn) openBtn.addEventListener('click', open);
   $all('[data-spin-go]', dlg).forEach(function (b) { b.addEventListener('click', spin); });
+  $all('[data-spin-login]', dlg).forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); goLogin(); }); });
   $all('[data-spin-close]', dlg).forEach(function (b) { b.addEventListener('click', function () { dlg.close(); }); });
   dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
 
@@ -266,5 +270,5 @@
   if (state) fillResult(PRIZES[state.prize]);
   paintCustomer();
   sync();
-  if (returned) open();
+  if (returned || guest) open();
 })();
