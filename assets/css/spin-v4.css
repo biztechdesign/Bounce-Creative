@@ -121,6 +121,15 @@ body.is-locked .spintab{ opacity:0; pointer-events:none; }
 .spinform__alt{ font-size:var(--t-cap); color:var(--forest-mid); text-align:center; }
 .spinform__alt a{ color:var(--coral-text); font-weight:700; }
 
+/* Log in / create account switch */
+.spinswitch{ display:grid; grid-template-columns:1fr 1fr; border:2px solid var(--forest); }
+.spinswitch button{ min-height:42px; background:var(--white); color:var(--forest); border:0; font:inherit; font-size:var(--t-ui); font-weight:800; cursor:pointer; }
+.spinswitch button[aria-selected="true"]{ background:var(--forest); color:var(--oat); }
+.spinswitch button:focus-visible{ outline:2px solid var(--coral-text); outline-offset:-4px; }
+.spinform [hidden]{ display:none !important; }
+.spinform__meta{ display:flex; align-items:center; justify-content:space-between; gap:12px; font-size:var(--t-cap); }
+.spinform__meta a{ color:var(--coral-text); font-weight:700; }
+
 .spindlg__demo{ padding:10px 40px 14px; font-size:var(--t-micro); color:var(--forest-mid); border-top:1px solid var(--line); background:var(--paper); }
 
 /* Account card: the "used" state */
