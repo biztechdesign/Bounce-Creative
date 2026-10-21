@@ -24,7 +24,14 @@
   /* Discount codes. QUOTE5 arrives from the email quote's "Order now and
      save an extra 5%" button (?code=QUOTE5) and is applied automatically;
      the same code typed into the field applies too. */
-  var CODES = { QUOTE5: { pct: 0.05, desc: '5% off for ordering from your email quote' } };
+  var CODES = {
+    QUOTE5: { pct: 0.05, desc: '5% off for ordering from your email quote' },
+    // Spin & Win prizes, entered in the same offer-code field
+    SPIN5: { pct: 0.05, desc: '5% off - your Spin & Win prize' },
+    SPIN10: { pct: 0.10, desc: '10% off - your Spin & Win prize' },
+    SPINSHIP: { pct: 0, ship: true, desc: 'free delivery - your Spin & Win prize' },
+    SPINGIFT: { pct: 0, gift: true, desc: 'a free branded cotton shopper is added to this order' }
+  };
   var codePct = 0;
   var codeForm = document.querySelector('form.code');
   var codeInput = document.getElementById('code');
@@ -33,6 +40,10 @@
     var hit = CODES[key];
     var ok = document.getElementById('code-ok');
     codePct = hit ? hit.pct : 0;
+    var shipDd = document.querySelector('.totals__ship dd');
+    if (shipDd) shipDd.textContent = hit && hit.ship ? 'Free' : 'Calculated at checkout';
+    var codeRow = document.getElementById('t-code-row');
+    if (codeRow) codeRow.dataset.always = hit && (hit.ship || hit.gift) ? '1' : '';
     if (ok) {
       ok.hidden = !hit;
       if (hit) {
@@ -65,8 +76,8 @@
     var codeOff = sub * codePct;
     var codeRow = document.getElementById('t-code-row');
     if (codeRow) {
-      codeRow.hidden = !codePct;
-      set('t-code', '−' + GBP.format(codeOff));
+      codeRow.hidden = !codePct && !codeRow.dataset.always;
+      set('t-code', codePct ? '−' + GBP.format(codeOff) : 'Applied');
     }
     var afterCode = sub - codeOff;
     if (ptsMax && ptsMax.checked && PT_VALUE) {

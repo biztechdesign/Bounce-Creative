@@ -14,6 +14,7 @@ Desktop layout only: a design reference for estimation.
 """
 
 import pathlib
+import sys
 import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
@@ -344,6 +345,12 @@ def pts(n):
     return f"{n:,} point" + ("" if n == 1 else "s")
 
 
+# The wheel and its dialog are shared with every page (scripts/spin/build_spin.py);
+# the account page only renders its own card.
+sys.path.insert(0, str(ROOT / "scripts" / "spin"))
+from build_spin import wheel_svg  # noqa: E402
+
+
 def rewards_page():
     r = REWARDS
     worth = r["balance"] * r["rate"]
@@ -364,12 +371,12 @@ def rewards_page():
     main = f"""          <div class="stats">
             <article class="stat stat--hero">
               <span class="stat__t">Available balance</span>
-              <b class="stat__v">{r["balance"]:,}<small>points</small></b>
-              <span class="stat__sub">Worth <b>&pound;{worth:,.2f}</b> off your next order</span>
+              <b class="stat__v"><span id="bal-v" data-balance="{r["balance"]}" data-rate="{r["rate"]}">{r["balance"]:,}</span><small>points</small></b>
+              <span class="stat__sub">Worth <b id="bal-worth">&pound;{worth:,.2f}</b> off your next order</span>
             </article>
             <article class="stat">
               <span class="stat__t">Total earned</span>
-              <b class="stat__v">{r["earned"]:,}<small>points</small></b>
+              <b class="stat__v"><span id="earned-v" data-earned="{r["earned"]}">{r["earned"]:,}</span><small>points</small></b>
               <span class="stat__sub">From orders and account activity</span>
             </article>
             <article class="stat">
@@ -379,31 +386,21 @@ def rewards_page():
             </article>
           </div>
 
-          <!-- Spin the wheel: one spin a day once the feature is live -->
-          <section class="spin" aria-labelledby="spin-h">
-            <div class="spin__wheel" aria-hidden="true">
-              <svg viewBox="0 0 100 100" width="112" height="112">
-                <circle cx="50" cy="50" r="48" fill="#EEE9DE"/>
-                <path d="M50 50 L50 2 A48 48 0 0 1 91.6 26 Z" fill="#F37259"/>
-                <path d="M50 50 L91.6 26 A48 48 0 0 1 91.6 74 Z" fill="#133935"/>
-                <path d="M50 50 L91.6 74 A48 48 0 0 1 50 98 Z" fill="#D8E4D1"/>
-                <path d="M50 50 L50 98 A48 48 0 0 1 8.4 74 Z" fill="#F37259"/>
-                <path d="M50 50 L8.4 74 A48 48 0 0 1 8.4 26 Z" fill="#133935"/>
-                <path d="M50 50 L8.4 26 A48 48 0 0 1 50 2 Z" fill="#D8E4D1"/>
-                <circle cx="50" cy="50" r="9" fill="#133935"/>
-                <path d="M50 0 L44 10 L56 10 Z" fill="#DE3110"/>
-              </svg>
-            </div>
+          <!-- Spin the wheel: one spin a day. The card has two states - a spin
+               waiting, or used today with a countdown to the next one. -->
+          <section class="spin" id="spin-card" aria-labelledby="spin-h">
+            <div class="spin__wheel" aria-hidden="true">{wheel_svg(112, "spin__mini")}</div>
             <div class="spin__body">
-              <span class="spin__tag">{icon("i-star", 14)}1 spin left today</span>
+              <span class="spin__tag" id="spin-card-tag" data-spin-left>{icon("i-star", 14)}1 spin left today</span>
               <h2 id="spin-h">Spin the wheel for bonus points</h2>
-              <p>One free spin every day. Win between 10 and 500 points, or a discount code for your next order &mdash; your spin resets at midnight, so come back tomorrow and spin again.</p>
+              <p id="spin-card-p">One free spin every day, and every spin wins: 50 to 200 points, free delivery, up to 10% off, or this month&rsquo;s free product. Your spin resets at midnight &mdash; come back tomorrow and spin again.</p>
               <div class="spin__acts">
-                <button class="btn btn--coral" type="button">Spin now {icon("i-arrow", 16)}</button>
-                <span class="spin__next">Next spin available <b>tomorrow at 00:00</b></span>
+                <button class="btn btn--coral" type="button" id="spin-open">Spin now {icon("i-arrow", 16)}</button>
+                <span class="spin__next" id="spin-card-next">Next spin available <b>tomorrow at 00:00</b></span>
               </div>
             </div>
           </section>
+
 
           <section class="acct-sec" aria-labelledby="info-h">
             <div class="acct-sec__head">
@@ -435,7 +432,7 @@ def rewards_page():
                   <th scope="col">Expires</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="tx-body">
 {rows}
               </tbody>
             </table>
