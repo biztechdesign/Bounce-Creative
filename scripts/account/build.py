@@ -391,7 +391,7 @@ def rewards_page():
           <section class="spin" id="spin-card" aria-labelledby="spin-h">
             <div class="spin__wheel" aria-hidden="true">{wheel_svg(112, "spin__mini")}</div>
             <div class="spin__body">
-              <span class="spin__tag" id="spin-card-tag" data-spin-left>{icon("i-star", 14)}1 spin left today</span>
+              <span class="spin__tag" id="spin-card-tag" data-spin-left>{icon("i-star", 14)}1 free spin every day</span>
               <h2 id="spin-h">Spin the wheel for bonus points</h2>
               <p id="spin-card-p">One free spin every day, and every spin wins: 50 to 200 points, free delivery, up to 10% off, or this month&rsquo;s free product. Your spin resets at midnight &mdash; come back tomorrow and spin again.</p>
               <div class="spin__acts">

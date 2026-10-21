@@ -121,6 +121,19 @@ body.is-locked .spintab{ opacity:0; pointer-events:none; }
 .spinform__alt{ font-size:var(--t-cap); color:var(--forest-mid); text-align:center; }
 .spinform__alt a{ color:var(--coral-text); font-weight:700; }
 
+/* Logged-in strip: who you are and your points, above the spin */
+.spinme{ display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:12px; padding:12px 14px; background:var(--white); box-shadow:inset 0 0 0 1px var(--line); }
+.spinme__av{ width:40px; height:40px; display:inline-grid; place-items:center; background:var(--forest); color:var(--oat); font-family:var(--f-display); font-weight:700; letter-spacing:.02em; }
+.spinme small{ display:block; font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.1em; text-transform:uppercase; color:var(--forest-mid); }
+.spinme b{ display:block; margin-top:2px; font-size:var(--t-ui); font-weight:800; }
+.spinme__bal{ text-align:right; padding-left:14px; border-left:1px solid var(--line); }
+.spinme__bal b{ font-family:var(--f-display); font-size:var(--h-card); letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+.spinme__bal em, .spinme__new em{ font-style:normal; font-family:var(--f-text); font-size:var(--t-cap); font-weight:500; color:var(--forest-mid); }
+.spinme__new{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:10px 12px; background:var(--sage-green); font-size:var(--t-cap); color:var(--forest); }
+.spinme__new[hidden]{ display:none; }
+.spinme__new .ic{ color:var(--coral-text); }
+.spinme__new b{ font-weight:800; font-variant-numeric:tabular-nums; }
+
 /* Log in / create account switch */
 .spinswitch{ display:grid; grid-template-columns:1fr 1fr; border:2px solid var(--forest); }
 .spinswitch button{ min-height:42px; background:var(--white); color:var(--forest); border:0; font:inherit; font-size:var(--t-ui); font-weight:800; cursor:pointer; }

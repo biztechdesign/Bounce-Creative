@@ -38,6 +38,33 @@
   }
   var state = load();
   var loggedIn = member || get(LOGIN_KEY) === '1';
+  var BASE_BALANCE = 500;                      // demo account's points before today's spin
+  var LABEL_FREE = '1 free spin every day';
+
+  /* ---------- The logged-in customer: name, points, header greeting ---------- */
+  function customer() { return get('bounce-name') || 'Anjana Solanki'; }
+  function balance() {
+    var b = BASE_BALANCE;
+    if (state && PRIZES[state.prize].kind === 'points') b += PRIZES[state.prize].value;
+    return b;
+  }
+  function paintCustomer() {
+    var name = customer();
+    var initials = name.split(/\s+/).map(function (w) { return w.charAt(0); }).join('').slice(0, 2).toUpperCase();
+    $all('[data-spin-name]', dlg).forEach(function (el) { el.textContent = name; });
+    $all('[data-spin-initials]', dlg).forEach(function (el) { el.textContent = initials; });
+    $all('[data-spin-bal]', dlg).forEach(function (el) { el.textContent = balance().toLocaleString('en-GB'); });
+    $all('[data-spin-worth]', dlg).forEach(function (el) { el.textContent = '£' + (balance() * POINT_VALUE).toFixed(2); });
+    var newBal = dlg.querySelector('[data-spin-newbal]');
+    if (newBal) newBal.hidden = !(state && PRIZES[state.prize].kind === 'points');
+    // Header: "Account" becomes "Hi, <first name>" once logged in.
+    if (loggedIn) {
+      $all('.hdr__act').forEach(function (a) {
+        var t = a.lastChild;
+        if (t && t.nodeType === 3 && /Account|Hi,/.test(t.nodeValue)) t.nodeValue = 'Hi, ' + name.split(/\s+/)[0];
+      });
+    }
+  }
 
   // On the rewards page the card is the way in; the floating tab would only
   // cover the account menu.
@@ -109,6 +136,7 @@
       put(KEY, JSON.stringify(state));
       fillResult(PRIZES[i]);
       credit(PRIZES[i]);
+      paintCustomer();
       show('claimed');
       sync();
     };
@@ -178,6 +206,9 @@
       if (!ok) return;
       loggedIn = true;
       put(LOGIN_KEY, '1');
+      // Demo: a new account uses the name typed; a log-in uses the demo customer.
+      if (reg) put('bounce-name', (form.first.value.trim() + ' ' + form.last.value.trim()).trim());
+      paintCustomer();
       sync();
       if (state) { landOn(state.prize, false); fillResult(PRIZES[state.prize]); show('used'); }
       else show('ready');
@@ -196,9 +227,9 @@
     if (tab) {
       tab.classList.toggle('is-used', used);
       document.getElementById('spin-tab-sub').textContent =
-        !loggedIn ? 'Log in to spin' : used ? 'Next spin ' + untilMidnight() : '1 free spin today';
+        !loggedIn ? 'Log in to spin' : used ? 'Next spin ' + untilMidnight() : LABEL_FREE;
     }
-    $all('[data-spin-left]').forEach(function (el) { el.lastChild.nodeValue = used ? '0 spins left today' : '1 spin left today'; });
+    $all('[data-spin-left]').forEach(function (el) { el.lastChild.nodeValue = used ? '0 spins left today' : LABEL_FREE; });
     if (card) {
       card.classList.toggle('is-used', used);
       document.getElementById('spin-open').firstChild.nodeValue = used ? 'See today’s prize ' : 'Spin now ';
@@ -243,11 +274,13 @@
 
   var reset = dlg.querySelector('[data-spin-reset]');
   if (reset) reset.addEventListener('click', function () {
-    try { localStorage.removeItem(KEY); localStorage.removeItem(LOGIN_KEY); } catch (e) {}
+    try { localStorage.removeItem(KEY); localStorage.removeItem(LOGIN_KEY); localStorage.removeItem('bounce-name'); } catch (e) {}
     window.location.reload();
   });
 
   /* A spin already taken today still shows on the balance after a reload. */
   if (state && member) credit(PRIZES[state.prize]);
+  if (state) fillResult(PRIZES[state.prize]);
+  paintCustomer();
   sync();
 })();
