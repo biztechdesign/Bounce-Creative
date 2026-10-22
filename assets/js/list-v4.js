@@ -71,7 +71,7 @@
   }
 
   function apply() {
-    var names = ['material', 'cert', 'lead', 'print', 'collection', 'swag', 'co2', 'quote', 'colour', 'brand', 'size', 'gender'];
+    var names = ['category', 'material', 'cert', 'lead', 'print', 'collection', 'swag', 'co2', 'quote', 'colour', 'brand', 'size', 'gender'];
     var selected = names.map(function (name) { return { name: name, values: checkedValues(name) }; });
     var minInput = form.elements.priceMin;
     var maxInput = form.elements.priceMax;
@@ -169,6 +169,17 @@
     }, 0); });
   }
   if (sortSel) sortSel.addEventListener('change', apply);
+
+  /* "More" / "Less" under a long option list, as on the live site */
+  [].forEach.call(document.querySelectorAll('[data-facet-more]'), function (btn) {
+    var group = document.getElementById(btn.getAttribute('aria-controls'));
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') !== 'true';
+      [].forEach.call(group.querySelectorAll('[data-more]'), function (row) { row.hidden = !open; });
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.textContent = open ? 'Less' : 'More';
+    });
+  });
 
   var appliedClear = document.getElementById('applied-clear');
   if (appliedClear && form) {

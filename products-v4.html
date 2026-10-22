@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style-v4.css?v=121">
-<link rel="stylesheet" href="assets/css/list-v4.css?v=32">
+<link rel="stylesheet" href="assets/css/list-v4.css?v=38">
 <link rel="stylesheet" href="assets/css/category-v4.css?v=5">
 <link rel="stylesheet" href="assets/css/mega-v4.css?v=6">
 <!-- The reveal animation hides content until it is observed, so it is scoped to
@@ -1764,14 +1764,30 @@
         </button>
         <p class="listbar__count" aria-live="polite" aria-atomic="true"><b id="result-count">15</b> products</p>
         <label class="listbar__sort">
-          <span>Sort</span>
+          <span>Sort by</span>
           <select id="sort">
-            <option value="popular">Most popular</option>
-            <option value="price-asc">Price, low to high</option>
-            <option value="price-desc">Price, high to low</option>
-            <option value="rating">Best rated</option>
+            <option value="popular">Position</option>
+            <option value="colours">Colours</option>
+            <option value="newest">Newest</option>
+            <option value="reviews">Review Count</option>
+            <option value="best">Best Seller</option>
+            <option value="rating">Top Rated</option>
+            <option value="viewed">Most Viewed</option>
+            <option value="price-asc">Value</option>
           </select>
         </label>
+        <label class="listbar__sort listbar__show">
+          <span>Show</span>
+          <select aria-label="Products per page"><option>12</option><option>24</option><option selected>36</option><option>48</option><option>60</option></select>
+        </label>
+        <nav class="pager pager--sm" aria-label="Pagination (top)">
+            <a class="pager__link" href="#" aria-current="page">1</a>
+            <a class="pager__link" href="#">2</a>
+            <a class="pager__link" href="#">3</a>
+            <a class="pager__link" href="#">4</a>
+            <a class="pager__link" href="#">5</a>
+            <a class="pager__next" href="#" aria-label="Next page"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </nav>
       </div>
 
       <div class="applied" id="applied" hidden>
@@ -1783,23 +1799,31 @@
       <div class="listing">
         <form class="filters" id="filters" aria-label="Filter products">
 <h3 class="filters__title">Filter by</h3>
-<details class="facet" open><summary class="facet__t">Price <svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body"><div class="facet__options" id="options-priceBand"><label class="facet__row"><input type="checkbox" name="priceBand" value="0-10"><span>£0.00 - £9.99</span></label>
-<label class="facet__row"><input type="checkbox" name="priceBand" value="10-20"><span>£10.00 - £19.99</span></label>
-<label class="facet__row"><input type="checkbox" name="priceBand" value="20-30"><span>£20.00 - £29.99</span></label>
-<label class="facet__row"><input type="checkbox" name="priceBand" value="30-40"><span>£30.00 - £39.99</span></label>
-<label class="facet__row"><input type="checkbox" name="priceBand" value="60-70"><span>£60.00 and above</span></label></div><p class="facet__hint facet__hint--price">Starting price per item</p><div class="price-fields"><label>Min (£)<input type="number" name="priceMin" min="0" step="0.01" placeholder="0.00" inputmode="decimal"></label><label>Max (£)<input type="number" name="priceMax" min="0" step="0.01" placeholder="Any" inputmode="decimal"></label></div></div></details>
+<details class="facet" open><summary class="facet__t">Category<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Category"><div class="facet__options" id="options-category"><label class="facet__row"><input type="checkbox" name="category" value="business"><span>Business Bags</span><small class="facet__n">(475)</small></label>
+<label class="facet__row"><input type="checkbox" name="category" value="backpacks-drawstring"><span>Backpacks &amp; Drawstring Bags</span><small class="facet__n">(606)</small></label>
+<label class="facet__row"><input type="checkbox" name="category" value="shopping"><span>Shopping Bags</span><small class="facet__n">(610)</small></label>
+<label class="facet__row"><input type="checkbox" name="category" value="travel-leisure"><span>Travel and Leisure Bags</span><small class="facet__n">(641)</small></label>
+<label class="facet__row"><input type="checkbox" name="category" value="sports"><span>Sports Bags</span><small class="facet__n">(188)</small></label>
+<label class="facet__row" data-more hidden><input type="checkbox" name="category" value="trending"><span>Trending</span><small class="facet__n">(189)</small></label></div><button class="facet__more" type="button" data-facet-more aria-controls="options-category" aria-expanded="false">More</button></div></details>
+<details class="facet" open><summary class="facet__t">Gender<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Gender"><div class="facet__options" id="options-gender"><label class="facet__row"><input type="checkbox" name="gender" value="unisex"><span>Unisex</span></label></div></div></details>
 <details class="facet" open><summary class="facet__t">Collection<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Collection"><div class="facet__options" id="options-collection"><label class="facet__row facet__row--image"><input class="vh" type="checkbox" name="collection" value="eco-products"><span class="facet__ic facet__ic--eco" aria-hidden="true"><svg class="ic" width="16" height="16"><use href="#i-leaf"/></svg></span><span>Eco Products</span></label>
+<label class="facet__row facet__row--image"><input class="vh" type="checkbox" name="collection" value="uk-made-products"><span class="facet__ic facet__ic--uk" aria-hidden="true"><svg class="ic" width="16" height="16"><use href="#i-check"/></svg></span><span>Uk made Products</span></label>
 <label class="facet__row facet__row--image"><input class="vh" type="checkbox" name="collection" value="express-products"><span class="facet__ic facet__ic--express" aria-hidden="true"><svg class="ic" width="16" height="16"><use href="#i-delivery"/></svg></span><span>Express Products</span></label>
 <label class="facet__row facet__row--image"><input class="vh" type="checkbox" name="collection" value="value-range-products"><span class="facet__ic facet__ic--value" aria-hidden="true"><svg class="ic" width="16" height="16"><use href="#i-tag"/></svg></span><span>Value Range Products</span></label>
 <label class="facet__row facet__row--image"><input class="vh" type="checkbox" name="collection" value="bespoke-products"><span class="facet__ic facet__ic--bespoke" aria-hidden="true"><svg class="ic" width="16" height="16"><use href="#i-star"/></svg></span><span>Bespoke Products</span></label>
-<label class="facet__row facet__row--image"><input class="vh" type="checkbox" name="collection" value="new-products"><span class="facet__ic facet__ic--new" aria-hidden="true"><svg class="ic" width="16" height="16"><use href="#i-bolt"/></svg></span><span>New Products</span></label>
-<label class="facet__row facet__row--image"><input class="vh" type="checkbox" name="collection" value="co2-products"><span class="facet__ic facet__ic--co2" aria-hidden="true"><svg class="ic" width="16" height="16"><use href="#i-chart"/></svg></span><span>Co2 Products</span></label>
-<label class="facet__row"><input type="checkbox" name="collection" value="to-be-discontinued"><span>To Be Discontinued</span></label></div></div></details>
+<label class="facet__row facet__row--image" data-more hidden><input class="vh" type="checkbox" name="collection" value="new-products"><span class="facet__ic facet__ic--new" aria-hidden="true"><svg class="ic" width="16" height="16"><use href="#i-bolt"/></svg></span><span>New Products</span></label>
+<label class="facet__row facet__row--image" data-more hidden><input class="vh" type="checkbox" name="collection" value="coming-soon-products"><span class="facet__ic facet__ic--soon" aria-hidden="true"><svg class="ic" width="16" height="16"><use href="#i-eye"/></svg></span><span>Coming soon Products</span></label>
+<label class="facet__row facet__row--image" data-more hidden><input class="vh" type="checkbox" name="collection" value="co2-products"><span class="facet__ic facet__ic--co2" aria-hidden="true"><svg class="ic" width="16" height="16"><use href="#i-chart"/></svg></span><span>Co2 Products</span></label>
+<label class="facet__row facet__row--image" data-more hidden><input class="vh" type="checkbox" name="collection" value="made-to-order"><span class="facet__ic facet__ic--mto" aria-hidden="true"><svg class="ic" width="16" height="16"><use href="#i-box"/></svg></span><span>Made To Order</span></label>
+<label class="facet__row facet__row--image" data-more hidden><input class="vh" type="checkbox" name="collection" value="to-be-discontinued"><span class="facet__ic facet__ic--disc" aria-hidden="true"><svg class="ic" width="16" height="16"><use href="#i-close"/></svg></span><span>To Be Discontinued</span></label></div><button class="facet__more" type="button" data-facet-more aria-controls="options-collection" aria-expanded="false">More</button></div></details>
+<details class="facet" open><summary class="facet__t">Branding Techniques<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Branding Techniques"><div class="facet__options" id="options-print"><label class="facet__row"><input type="checkbox" name="print" value="embroider"><span>Embroider</span></label>
+<label class="facet__row"><input type="checkbox" name="print" value="emboss-deboss"><span>Emboss/ deboss</span></label>
+<label class="facet__row"><input type="checkbox" name="print" value="laser-engaving"><span>Laser engraving</span></label>
+<label class="facet__row"><input type="checkbox" name="print" value="full-colour-printing"><span>Full colour Printing</span></label>
+<label class="facet__row"><input type="checkbox" name="print" value="spot-colour-pantone-print"><span>Spot colour Pantone Print</span></label></div></div></details>
 <details class="facet" open><summary class="facet__t">Swag Box<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Swag Box"><div class="facet__options" id="options-swag"><label class="facet__row"><input type="checkbox" name="swag" value="create-your-swag-box-products"><span>Create Your Swag Box Products</span></label></div></div></details>
-<details class="facet" open><summary class="facet__t">CO₂<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="CO₂"><label class="facet__row"><input type="checkbox" name="co2" value="yes"><span>CO₂ data available</span></label>
-<label class="facet__row"><input type="checkbox" name="co2" value="no"><span>No published CO₂ data</span></label></div></details>
-<details class="facet"><summary class="facet__t">Instant quote<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Instant quote"><div class="facet__options" id="options-quote"><label class="facet__row"><input type="checkbox" name="quote" value="online-quote"><span>Online Quote</span></label></div></div></details>
-<details class="facet"><summary class="facet__t">Colours<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Colours"><label class="facet__search-label" for="search-colour">Search colours</label><input class="facet__search" id="search-colour" type="search" placeholder="Search colours" data-facet-search="colour" aria-controls="options-colour"><div class="facet__options" id="options-colour"><label class="facet__row"><input type="checkbox" name="colour" value="amber"><span>amber</span></label>
+<details class="facet" open><summary class="facet__t">Instant Quote<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Instant quote"><div class="facet__options" id="options-quote"><label class="facet__row"><input type="checkbox" name="quote" value="online-quote"><span>Online Quote</span></label></div></div></details>
+<details class="facet" open><summary class="facet__t">Colours<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Colours"><div class="facet__swatches"><label class="facet__sw" title="Black"><input class="vh" type="checkbox" name="colour" value="black"><i style="--sw:#1D1D1F"></i><span class="vh">Black</span></label><label class="facet__sw" title="Grey"><input class="vh" type="checkbox" name="colour" value="grey"><i style="--sw:#8E9196"></i><span class="vh">Grey</span></label><label class="facet__sw" title="Navy blue"><input class="vh" type="checkbox" name="colour" value="navy-blue"><i style="--sw:#1F2D4F"></i><span class="vh">Navy blue</span></label><label class="facet__sw" title="Blue"><input class="vh" type="checkbox" name="colour" value="blue"><i style="--sw:#2C4A7C"></i><span class="vh">Blue</span></label><label class="facet__sw" title="Green"><input class="vh" type="checkbox" name="colour" value="green"><i style="--sw:#5C7A3A"></i><span class="vh">Green</span></label><label class="facet__sw" title="Natural"><input class="vh" type="checkbox" name="colour" value="natural"><i style="--sw:#D9D3C4"></i><span class="vh">Natural</span></label><label class="facet__sw" title="White"><input class="vh" type="checkbox" name="colour" value="white"><i style="--sw:#FFFFFF"></i><span class="vh">White</span></label><label class="facet__sw" title="Red"><input class="vh" type="checkbox" name="colour" value="red"><i style="--sw:#B93B1C"></i><span class="vh">Red</span></label><label class="facet__sw" title="Yellow"><input class="vh" type="checkbox" name="colour" value="yellow"><i style="--sw:#F4C54F"></i><span class="vh">Yellow</span></label><label class="facet__sw" title="Orange"><input class="vh" type="checkbox" name="colour" value="orange"><i style="--sw:#E8742F"></i><span class="vh">Orange</span></label><label class="facet__sw" title="Pink"><input class="vh" type="checkbox" name="colour" value="pink"><i style="--sw:#E58AA8"></i><span class="vh">Pink</span></label><label class="facet__sw" title="Purple"><input class="vh" type="checkbox" name="colour" value="purple"><i style="--sw:#6B4C8A"></i><span class="vh">Purple</span></label><label class="facet__sw" title="Brown"><input class="vh" type="checkbox" name="colour" value="brown"><i style="--sw:#7A5233"></i><span class="vh">Brown</span></label><label class="facet__sw" title="Beige"><input class="vh" type="checkbox" name="colour" value="beige"><i style="--sw:#CDBB9E"></i><span class="vh">Beige</span></label></div><details class="facet__all"><summary class="facet__more">More colours</summary><label class="facet__search-label" for="search-colour">Search colours</label><input class="facet__search" id="search-colour" type="search" placeholder="Search colours" data-facet-search="colour" aria-controls="options-colour"><div class="facet__options" id="options-colour"><label class="facet__row"><input type="checkbox" name="colour" value="amber"><span>amber</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="baby-blue"><span>baby blue</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="baby-pink"><span>baby pink</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="black-natural"><span>black / natural</span></label>
@@ -1818,7 +1842,6 @@
 <label class="facet__row"><input type="checkbox" name="colour" value="mint-green"><span>mint green</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="natural-black"><span>natural / black</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="navy-natural"><span>navy / natural</span></label>
-<label class="facet__row"><input type="checkbox" name="colour" value="navy-blue"><span>navy blue</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="navy-grey"><span>navy, grey</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="oatmeal"><span>oatmeal</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="ochre"><span>ochre</span></label>
@@ -1832,8 +1855,6 @@
 <label class="facet__row"><input type="checkbox" name="colour" value="natural-natural"><span>natural / natural</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="anthracite"><span>anthracite</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="army-green"><span>army green</span></label>
-<label class="facet__row"><input type="checkbox" name="colour" value="beige"><span>beige</span></label>
-<label class="facet__row"><input type="checkbox" name="colour" value="black"><span>Black</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="black-black"><span>black / black</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="black-grey"><span>black, grey</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="blue-grey"><span>blue, grey</span></label>
@@ -1851,7 +1872,6 @@
 <label class="facet__row"><input type="checkbox" name="colour" value="fuchsia"><span>fuchsia</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="gold"><span>gold</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="golden"><span>golden</span></label>
-<label class="facet__row"><input type="checkbox" name="colour" value="grey"><span>grey</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="grey-grey"><span>grey, grey</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="heather-black"><span>heather black</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="heather-blue"><span>heather blue</span></label>
@@ -1871,7 +1891,6 @@
 <label class="facet__row"><input type="checkbox" name="colour" value="mid-blue"><span>mid blue</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="multi"><span>multi</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="multicolour"><span>multicolour</span></label>
-<label class="facet__row"><input type="checkbox" name="colour" value="natural"><span>natural</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="natural-bright-green"><span>natural / bright green</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="natural-green"><span>natural / green</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="natural-lime"><span>natural / lime</span></label>
@@ -1885,7 +1904,6 @@
 <label class="facet__row"><input type="checkbox" name="colour" value="ocean-blue"><span>ocean blue</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="off-white"><span>off white</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="olive"><span>olive</span></label>
-<label class="facet__row"><input type="checkbox" name="colour" value="pink"><span>pink</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="process-blue"><span>process blue</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="rainbow"><span>rainbow</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="rope"><span>rope</span></label>
@@ -1894,15 +1912,12 @@
 <label class="facet__row"><input type="checkbox" name="colour" value="solid-black"><span>solid black</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="turquoise"><span>turquoise</span></label>
 <label class="facet__row"><input type="checkbox" name="colour" value="violet"><span>violet</span></label>
-<label class="facet__row"><input type="checkbox" name="colour" value="blue"><span>Blue</span></label>
-<label class="facet__row"><input type="checkbox" name="colour" value="brown"><span>Brown</span></label>
-<label class="facet__row"><input type="checkbox" name="colour" value="green"><span>Green</span></label>
-<label class="facet__row"><input type="checkbox" name="colour" value="orange"><span>Orange</span></label>
-<label class="facet__row"><input type="checkbox" name="colour" value="purple"><span>Purple</span></label>
-<label class="facet__row"><input type="checkbox" name="colour" value="red"><span>Red</span></label>
-<label class="facet__row"><input type="checkbox" name="colour" value="white"><span>White</span></label>
-<label class="facet__row"><input type="checkbox" name="colour" value="yellow"><span>Yellow</span></label>
-<label class="facet__row"><input type="checkbox" name="colour" value="moss"><span>Moss</span></label></div></div></details>
+<label class="facet__row"><input type="checkbox" name="colour" value="moss"><span>Moss</span></label></div></details></div></details>
+<details class="facet"><summary class="facet__t">Price <svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body"><div class="facet__options" id="options-priceBand"><label class="facet__row"><input type="checkbox" name="priceBand" value="0-10"><span>£0.00 - £9.99</span></label>
+<label class="facet__row"><input type="checkbox" name="priceBand" value="10-20"><span>£10.00 - £19.99</span></label>
+<label class="facet__row"><input type="checkbox" name="priceBand" value="20-30"><span>£20.00 - £29.99</span></label>
+<label class="facet__row"><input type="checkbox" name="priceBand" value="30-40"><span>£30.00 - £39.99</span></label>
+<label class="facet__row"><input type="checkbox" name="priceBand" value="60-70"><span>£60.00 and above</span></label></div><p class="facet__hint facet__hint--price">Starting price per item</p><div class="price-fields"><label>Min (£)<input type="number" name="priceMin" min="0" step="0.01" placeholder="0.00" inputmode="decimal"></label><label>Max (£)<input type="number" name="priceMax" min="0" step="0.01" placeholder="Any" inputmode="decimal"></label></div></div></details>
 <details class="facet"><summary class="facet__t">Brand<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Brand"><label class="facet__search-label" for="search-brand">Search brand</label><input class="facet__search" id="search-brand" type="search" placeholder="Search brand" data-facet-search="brand" aria-controls="options-brand"><div class="facet__options" id="options-brand"><label class="facet__row"><input type="checkbox" name="brand" value="aodaci"><span>Aodaci</span></label>
 <label class="facet__row"><input type="checkbox" name="brand" value="bellroy"><span>bellroy</span></label>
 <label class="facet__row"><input type="checkbox" name="brand" value="black-blum"><span>black + blum</span></label>
@@ -1957,8 +1972,7 @@
 <label class="facet__row"><input type="checkbox" name="size" value="46x38x1"><span>46x38x1</span></label>
 <label class="facet__row"><input type="checkbox" name="size" value="46x38x10"><span>46x38x10</span></label>
 <label class="facet__row"><input type="checkbox" name="size" value="475x355x160mm"><span>475x355x160mm</span></label></div></div></details>
-<details class="facet"><summary class="facet__t">Gender<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Gender"><div class="facet__options" id="options-gender"><label class="facet__row"><input type="checkbox" name="gender" value="unisex"><span>Unisex</span></label></div></div></details>
-        <details class="facet" open><summary class="facet__t">Material<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Material"><label class="facet__search-label" for="search-material">Search material</label><input class="facet__search" id="search-material" type="search" placeholder="Search material" data-facet-search="material" aria-controls="options-material"><div class="facet__options" id="options-material"><label class="facet__row"><input type="checkbox" name="material" value="190t-of-recycled-polyester"><span>190T of Recycled Polyester</span></label>
+<details class="facet"><summary class="facet__t">Material<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Material"><label class="facet__search-label" for="search-material">Search material</label><input class="facet__search" id="search-material" type="search" placeholder="Search material" data-facet-search="material" aria-controls="options-material"><div class="facet__options" id="options-material"><label class="facet__row"><input type="checkbox" name="material" value="190t-of-recycled-polyester"><span>190T of Recycled Polyester</span></label>
 <label class="facet__row"><input type="checkbox" name="material" value="210d-of-polyester"><span>210D of Polyester</span></label>
 <label class="facet__row"><input type="checkbox" name="material" value="210d-of-recycled-polyester"><span>210D of Recycled Polyester</span></label>
 <label class="facet__row"><input type="checkbox" name="material" value="60-grs-certified-recycled-cotton-and-40-grs-certified-recycled-polyester-140-g-m2"><span>60% grs certified recycled cotton and 40% grs certified recycled polyester, 140 g/m2</span></label>
@@ -1999,30 +2013,14 @@
 <label class="facet__row"><input type="checkbox" name="material" value="recycled-polyester"><span>Recycled Polyester</span></label>
 <label class="facet__row"><input type="checkbox" name="material" value="ripstop-of-grs-certified-recycled-polyester-420d"><span>ripstop of grs certified recycled polyester, 420d</span></label>
 <label class="facet__row"><input type="checkbox" name="material" value="rpet"><span>RPET</span></label></div></div></details>
-        <details class="facet" open>
-          <summary class="facet__t">Certification<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
-          <div class="facet__body" role="group" aria-label="Certification"><label class="facet__row"><input type="checkbox" name="cert" value="grs"><span>GRS recycled</span></label>
-          <label class="facet__row"><input type="checkbox" name="cert" value="gots"><span>GOTS organic</span></label>
-          <label class="facet__row"><input type="checkbox" name="cert" value="fsc"><span>FSC</span></label></div>
-        </details>
-        <details class="facet" open>
-          <summary class="facet__t">Lead time<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
-          <div class="facet__body" role="group" aria-label="Lead time"><label class="facet__row"><input type="checkbox" name="lead" value="next"><span>Next day</span></label>
-          <label class="facet__row"><input type="checkbox" name="lead" value="3-10"><span>3&ndash;10 days</span></label></div>
-        </details>
-        <details class="facet" open><summary class="facet__t">Branding Techniques<svg class="ic facet__chev" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg></summary><div class="facet__body" role="group" aria-label="Branding Techniques"><div class="facet__options" id="options-print"><label class="facet__row"><input type="checkbox" name="print" value="embroider"><span>Embroider</span></label>
-<label class="facet__row"><input type="checkbox" name="print" value="emboss-deboss"><span>Emboss/ deboss</span></label>
-<label class="facet__row"><input type="checkbox" name="print" value="laser-engaving"><span>Laser engraving</span></label>
-<label class="facet__row"><input type="checkbox" name="print" value="full-colour-printing"><span>Full colour Printing</span></label>
-<label class="facet__row"><input type="checkbox" name="print" value="spot-colour-pantone-print"><span>Spot colour Pantone Print</span></label></div></div></details>
           <button class="btn btn--outline btn--sm filters__clear" type="reset">Clear all</button>
         </form>
 
         <div class="listing__main">
           <!-- Additional facet attributes are demo fixtures; replace with catalogue data before production. -->
           <div class="rail rail--grid" id="product-grid">
-        <a href="#" class="prod" data-material="cotton" data-price="3.48" data-rating="4.8" data-collection="express-products value-range-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="natural black blue green" data-brand="unbranded" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="" data-gender="unisex" data-lead="next">
-          <span class="prod__media"><span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-delivery"/></svg>Next day</span><img src="assets/img/products/bags/same-day-natural-cotton-shopper.jpg" alt="Natural Cotton Shopper" loading="lazy" width="360" height="360"></span>
+        <a href="#" class="prod" data-category="shopping" data-material="cotton" data-price="3.48" data-rating="4.8" data-collection="express-products value-range-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="natural black blue green" data-brand="unbranded" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="" data-gender="unisex" data-lead="next">
+          <span class="prod__media"><span class="prod__tag">Order online</span><span class="prod__flags"><span class="prod__flag prod__flag--full" title="Full colour printing"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="6.5" cy="7" r="4.5" fill="#E0457B" fill-opacity=".85"/><circle cx="11.5" cy="7" r="4.5" fill="#F4C54F" fill-opacity=".85"/><circle cx="9" cy="11.5" r="4.5" fill="#2BA3D9" fill-opacity=".85"/></svg><span class="vh">Full colour printing</span></span></span><img src="assets/img/products/bags/same-day-natural-cotton-shopper.jpg" alt="Natural Cotton Shopper" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b> (126)</span>
           <span class="prod__name">Natural Cotton Shopper</span>
           <span class="prod__sw"><i style="--sw:#D9D3C4" data-img="assets/img/products/bags/same-day-natural-cotton-shopper.jpg" title="Colour 1"></i><i style="--sw:#1D1D1F" title="Colour 2"></i><i style="--sw:#2C4A7C" data-img="assets/img/products/bags/next-day-coloured-cotton-shopper-blue.jpg" title="Colour 3"></i><i style="--sw:#7A8B6F" title="Colour 4"></i><i style="--sw:#F2A62B" title="amber" hidden></i><i style="--sw:#BFD7EA" title="baby blue" hidden></i><i style="--sw:#F3C6D3" title="baby pink" hidden></i><i style="--sw:#9A3F2E" title="brick" hidden></i><i style="--sw:#B9754F" title="clay" hidden></i><i style="--sw:#A9C4DA" title="cloud blue" hidden></i><i style="--sw:#1F4FA3" title="cobalt blue" hidden></i><i style="--sw:#2BB3C9" title="cyan" hidden></i><i style="--sw:#C4397B" title="dark pink" hidden></i><i style="--sw:#D8A3A8" title="dusty pink" hidden></i><i style="--sw:#B9B0A2" title="greige" hidden></i><i style="--sw:#A98466" title="light brown" hidden></i><i style="--sw:#C8102E" title="luscious red" hidden></i><i style="--sw:#8C8C8C" title="medium grey" hidden></i><i style="--sw:#9ED9B5" title="mint green" hidden></i><i style="--sw:#1F2E5A" title="navy blue" hidden></i><i style="--sw:#C98F2A" title="ochre" hidden></i><i style="--sw:#1F5F6B" title="petrol" hidden></i><em title="Show all colours">+18</em></span>
@@ -2033,8 +2031,8 @@
           </span>
           <span class="prod__cta">Explore <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="cotton" data-price="3.93" data-rating="4.8" data-collection="express-products value-range-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="blue red yellow green" data-brand="unbranded" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="" data-gender="unisex" data-lead="next">
-          <span class="prod__media"><span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-delivery"/></svg>Next day</span><img src="assets/img/products/bags/next-day-coloured-cotton-shopper-blue.jpg" alt="Coloured Cotton Shopper" loading="lazy" width="360" height="360"></span>
+        <a href="#" class="prod" data-category="shopping" data-material="cotton" data-price="3.93" data-rating="4.8" data-collection="express-products value-range-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="blue red yellow green" data-brand="unbranded" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="" data-gender="unisex" data-lead="next">
+          <span class="prod__media"><span class="prod__tag">Order online</span><span class="prod__flags"><span class="prod__flag prod__flag--full" title="Full colour printing"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="6.5" cy="7" r="4.5" fill="#E0457B" fill-opacity=".85"/><circle cx="11.5" cy="7" r="4.5" fill="#F4C54F" fill-opacity=".85"/><circle cx="9" cy="11.5" r="4.5" fill="#2BA3D9" fill-opacity=".85"/></svg><span class="vh">Full colour printing</span></span></span><img src="assets/img/products/bags/next-day-coloured-cotton-shopper-blue.jpg" alt="Coloured Cotton Shopper" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b> (92)</span>
           <span class="prod__name">Coloured Cotton Shopper</span>
           <span class="prod__sw"><i style="--sw:#2C4A7C" data-img="assets/img/products/bags/next-day-coloured-cotton-shopper-blue.jpg" title="Colour 1"></i><i style="--sw:#B93B1C" title="Colour 2"></i><i style="--sw:#F4C54F" title="Colour 3"></i><i style="--sw:#7A8B6F" data-img="assets/img/products/bags/organic-fashion-tote-bag-green.jpg" title="Colour 4"></i><i style="--sw:#F2A62B" title="amber" hidden></i><i style="--sw:#BFD7EA" title="baby blue" hidden></i><i style="--sw:#F3C6D3" title="baby pink" hidden></i><i style="--sw:#9A3F2E" title="brick" hidden></i><i style="--sw:#B9754F" title="clay" hidden></i><i style="--sw:#A9C4DA" title="cloud blue" hidden></i><i style="--sw:#1F4FA3" title="cobalt blue" hidden></i><i style="--sw:#2BB3C9" title="cyan" hidden></i><i style="--sw:#C4397B" title="dark pink" hidden></i><i style="--sw:#D8A3A8" title="dusty pink" hidden></i><i style="--sw:#B9B0A2" title="greige" hidden></i><i style="--sw:#A98466" title="light brown" hidden></i><i style="--sw:#C8102E" title="luscious red" hidden></i><i style="--sw:#8C8C8C" title="medium grey" hidden></i><i style="--sw:#9ED9B5" title="mint green" hidden></i><i style="--sw:#1F2E5A" title="navy blue" hidden></i><i style="--sw:#D9D3C4" title="oatmeal" hidden></i><i style="--sw:#C98F2A" title="ochre" hidden></i><em title="Show all colours">+18</em></span>
@@ -2045,8 +2043,8 @@
           </span>
           <span class="prod__cta">Explore <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="cotton" data-price="4.25" data-rating="4.9" data-collection="express-products value-range-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="black natural" data-brand="bagbase" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="" data-gender="unisex" data-lead="next">
-          <span class="prod__media"><span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-delivery"/></svg>Next day</span><img src="assets/img/products/bags/next-day-sling-bag-for-life-black.jpg" alt="Sling Bag for Life" loading="lazy" width="360" height="360"></span>
+        <a href="#" class="prod" data-category="shopping" data-material="cotton" data-price="4.25" data-rating="4.9" data-collection="express-products value-range-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="black natural" data-brand="bagbase" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="" data-gender="unisex" data-lead="next">
+          <span class="prod__media"><span class="prod__tag">Order online</span><span class="prod__flags"><span class="prod__flag prod__flag--full" title="Full colour printing"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="6.5" cy="7" r="4.5" fill="#E0457B" fill-opacity=".85"/><circle cx="11.5" cy="7" r="4.5" fill="#F4C54F" fill-opacity=".85"/><circle cx="9" cy="11.5" r="4.5" fill="#2BA3D9" fill-opacity=".85"/></svg><span class="vh">Full colour printing</span></span></span><img src="assets/img/products/bags/next-day-sling-bag-for-life-black.jpg" alt="Sling Bag for Life" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b> (38)</span>
           <span class="prod__name">Sling Bag for Life</span>
           <span class="prod__sw"><i style="--sw:#1D1D1F" data-img="assets/img/products/bags/next-day-sling-bag-for-life-black.jpg" title="Colour 1"></i><i style="--sw:#2C4A7C" title="Colour 2"></i><i style="--sw:#7A8B6F" title="Colour 3"></i><i style="--sw:#F2A62B" title="amber" hidden></i><i style="--sw:#BFD7EA" title="baby blue" hidden></i><i style="--sw:#F3C6D3" title="baby pink" hidden></i><i style="--sw:#9A3F2E" title="brick" hidden></i><i style="--sw:#B9754F" title="clay" hidden></i><i style="--sw:#A9C4DA" title="cloud blue" hidden></i><em title="Show all colours">+6</em></span>
@@ -2057,8 +2055,8 @@
           </span>
           <span class="prod__cta">Explore <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="" data-price="3.40" data-rating="4.9" data-collection="express-products value-range-products bespoke-products" data-swag="" data-co2="no" data-quote="" data-colour="yellow blue black" data-brand="unbranded" data-size="large" data-print="spot-colour-pantone-print full-colour-printing" data-cert="" data-gender="unisex" data-lead="next">
-          <span class="prod__media"><span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-delivery"/></svg>Next day</span><img src="assets/img/products/bags/jumbo-exhibition-bag-yellow.jpg" alt="Jumbo Non Woven Exhibition Bag" loading="lazy" width="360" height="360"></span>
+        <a href="#" class="prod" data-category="business" data-material="" data-price="3.40" data-rating="4.9" data-collection="express-products value-range-products bespoke-products" data-swag="" data-co2="no" data-quote="" data-colour="yellow blue black" data-brand="unbranded" data-size="large" data-print="spot-colour-pantone-print full-colour-printing" data-cert="" data-gender="unisex" data-lead="next">
+          <span class="prod__media"><span class="prod__tag">Order online</span><span class="prod__flags"><span class="prod__flag prod__flag--full" title="Full colour printing"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="6.5" cy="7" r="4.5" fill="#E0457B" fill-opacity=".85"/><circle cx="11.5" cy="7" r="4.5" fill="#F4C54F" fill-opacity=".85"/><circle cx="9" cy="11.5" r="4.5" fill="#2BA3D9" fill-opacity=".85"/></svg><span class="vh">Full colour printing</span></span></span><img src="assets/img/products/bags/jumbo-exhibition-bag-yellow.jpg" alt="Jumbo Non Woven Exhibition Bag" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b> (54)</span>
           <span class="prod__name">Jumbo Non Woven Exhibition Bag</span>
           <span class="prod__sw"><i style="--sw:#F4C54F" data-img="assets/img/products/bags/jumbo-exhibition-bag-yellow.jpg" title="Colour 1"></i><i style="--sw:#1D1D1F" title="Colour 2"></i><i style="--sw:#2C4A7C" title="Colour 3"></i><i style="--sw:#B93B1C" title="Colour 4"></i><i style="--sw:#F2A62B" title="amber" hidden></i><i style="--sw:#BFD7EA" title="baby blue" hidden></i><i style="--sw:#F3C6D3" title="baby pink" hidden></i><i style="--sw:#9A3F2E" title="brick" hidden></i><i style="--sw:#B9754F" title="clay" hidden></i><i style="--sw:#A9C4DA" title="cloud blue" hidden></i><i style="--sw:#1F4FA3" title="cobalt blue" hidden></i><i style="--sw:#2BB3C9" title="cyan" hidden></i><i style="--sw:#C4397B" title="dark pink" hidden></i><em title="Show all colours">+9</em></span>
@@ -2069,8 +2067,8 @@
           </span>
           <span class="prod__cta">Explore <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="" data-price="0.51" data-rating="4.7" data-collection="express-products value-range-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="online-quote" data-colour="blue black" data-brand="unbranded" data-size="standard" data-print="spot-colour-pantone-print" data-cert="" data-gender="unisex" data-lead="next">
-          <span class="prod__media"><span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-delivery"/></svg>Next day</span><img src="assets/img/products/bags/next-day-non-woven-royal-blue.jpg" alt="Non Woven Bag" loading="lazy" width="360" height="360"></span>
+        <a href="#" class="prod" data-category="shopping" data-material="" data-price="0.51" data-rating="4.7" data-collection="express-products value-range-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="online-quote" data-colour="blue black" data-brand="unbranded" data-size="standard" data-print="spot-colour-pantone-print" data-cert="" data-gender="unisex" data-lead="next">
+          <span class="prod__media"><span class="prod__tag">Order online</span><img src="assets/img/products/bags/next-day-non-woven-royal-blue.jpg" alt="Non Woven Bag" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.7</b> (188)</span>
           <span class="prod__name">Non Woven Bag</span>
           <span class="prod__sw"><i style="--sw:#2C4A7C" data-img="assets/img/products/bags/next-day-non-woven-royal-blue.jpg" title="Colour 1"></i><i style="--sw:#B93B1C" title="Colour 2"></i><i style="--sw:#1D1D1F" title="Colour 3"></i><i style="--sw:#7A8B6F" title="Colour 4"></i><i style="--sw:#F2A62B" title="amber" hidden></i><i style="--sw:#BFD7EA" title="baby blue" hidden></i><i style="--sw:#F3C6D3" title="baby pink" hidden></i><i style="--sw:#9A3F2E" title="brick" hidden></i><i style="--sw:#B9754F" title="clay" hidden></i><i style="--sw:#A9C4DA" title="cloud blue" hidden></i><i style="--sw:#1F4FA3" title="cobalt blue" hidden></i><i style="--sw:#2BB3C9" title="cyan" hidden></i><i style="--sw:#C4397B" title="dark pink" hidden></i><i style="--sw:#D8A3A8" title="dusty pink" hidden></i><i style="--sw:#B9B0A2" title="greige" hidden></i><i style="--sw:#A98466" title="light brown" hidden></i><em title="Show all colours">+12</em></span>
@@ -2081,20 +2079,20 @@
           </span>
           <span class="prod__cta">Explore <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="" data-price="8.41" data-rating="4.7" data-collection="bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="black natural" data-brand="westford" data-size="standard" data-print="spot-colour-pantone-print embroider full-colour-printing" data-cert="" data-gender="unisex" data-lead="3-10">
-          <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>Recycled</span><img src="assets/img/products/bags/westcove-canvas-tote-black.jpg" alt="Westcove Canvas Tote" loading="lazy" width="360" height="360"></span>
+        <a href="#" class="prod is-oos" data-category="shopping" data-material="" data-price="8.41" data-rating="4.7" data-collection="bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="black natural" data-brand="westford" data-size="standard" data-print="spot-colour-pantone-print embroider full-colour-printing" data-cert="" data-gender="unisex" data-lead="3-10">
+          <span class="prod__media"><span class="prod__tag prod__tag--quote">Bespoke quote</span><span class="prod__flags"><span class="prod__flag prod__flag--eco" title="Eco collection"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg><span class="vh">Eco collection</span></span><span class="prod__flag prod__flag--full" title="Full colour printing"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="6.5" cy="7" r="4.5" fill="#E0457B" fill-opacity=".85"/><circle cx="11.5" cy="7" r="4.5" fill="#F4C54F" fill-opacity=".85"/><circle cx="9" cy="11.5" r="4.5" fill="#2BA3D9" fill-opacity=".85"/></svg><span class="vh">Full colour printing</span></span></span><img src="assets/img/products/bags/westcove-canvas-tote-black.jpg" alt="Westcove Canvas Tote" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.7</b> (210)</span>
           <span class="prod__name">Westcove Canvas Tote</span>
           <span class="prod__sw"><i style="--sw:#D9D3C4" data-img="assets/img/products/bags/westcove-canvas-tote-black.jpg" title="Colour 1"></i><i style="--sw:#1D1D1F" title="Colour 2"></i><i style="--sw:#F2A62B" title="amber" hidden></i><i style="--sw:#BFD7EA" title="baby blue" hidden></i><i style="--sw:#F3C6D3" title="baby pink" hidden></i><i style="--sw:#9A3F2E" title="brick" hidden></i><em title="Show all colours">+4</em></span>
-          <span class="prod__price"><span class="prod__aslow">As low as</span><b>&pound;8.41</b> <small>per unit &middot; min. 25</small></span>
+          <span class="prod__price prod__price--oos"><span class="prod__oos">Out of stock</span></span>
           <span class="prod__meta">
             <span><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-delivery"/></svg>Delivery 14/09 to 16/09</span>
             <span><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-check"/></svg>865 happy customers</span>
           </span>
           <span class="prod__cta">Explore <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="" data-price="6.32" data-rating="4.8" data-collection="eco-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="natural black" data-brand="westford" data-size="standard" data-print="spot-colour-pantone-print embroider" data-cert="gots" data-gender="unisex" data-lead="3-10">
-          <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>GOTS</span><img src="assets/img/products/bags/organic-festival-backpack.jpg" alt="Organic Festival Backpack" loading="lazy" width="360" height="360"></span>
+        <a href="#" class="prod" data-category="backpacks-drawstring" data-material="" data-price="6.32" data-rating="4.8" data-collection="eco-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="natural black" data-brand="westford" data-size="standard" data-print="spot-colour-pantone-print embroider" data-cert="gots" data-gender="unisex" data-lead="3-10">
+          <span class="prod__media"><span class="prod__tag">Order online</span><span class="prod__flags"><span class="prod__flag prod__flag--eco" title="Eco collection"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg><span class="vh">Eco collection</span></span></span><img src="assets/img/products/bags/organic-festival-backpack.jpg" alt="Organic Festival Backpack" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b> (74)</span>
           <span class="prod__name">Organic Festival Backpack</span>
           <span class="prod__sw"><i style="--sw:#D9D3C4" data-img="assets/img/products/bags/organic-festival-backpack.jpg" title="Colour 1"></i><i style="--sw:#7A8B6F" title="Colour 2"></i><i style="--sw:#F2A62B" title="amber" hidden></i><i style="--sw:#BFD7EA" title="baby blue" hidden></i><i style="--sw:#F3C6D3" title="baby pink" hidden></i><i style="--sw:#9A3F2E" title="brick" hidden></i><i style="--sw:#B9754F" title="clay" hidden></i><em title="Show all colours">+5</em></span>
@@ -2105,8 +2103,8 @@
           </span>
           <span class="prod__cta">Explore <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="" data-price="3.66" data-rating="4.7" data-collection="eco-products value-range-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="black natural" data-brand="westford" data-size="large" data-print="spot-colour-pantone-print embroider full-colour-printing" data-cert="gots" data-gender="unisex" data-lead="3-10">
-          <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>GOTS</span><img src="assets/img/products/bags/heavy-organic-shopper-tote-bag-black.jpg" alt="Heavy Organic Shopper Tote" loading="lazy" width="360" height="360"></span>
+        <a href="#" class="prod" data-category="shopping" data-material="" data-price="3.66" data-rating="4.7" data-collection="eco-products value-range-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="black natural" data-brand="westford" data-size="large" data-print="spot-colour-pantone-print embroider full-colour-printing" data-cert="gots" data-gender="unisex" data-lead="3-10">
+          <span class="prod__media"><span class="prod__tag">Order online</span><span class="prod__flags"><span class="prod__flag prod__flag--eco" title="Eco collection"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg><span class="vh">Eco collection</span></span><span class="prod__flag prod__flag--full" title="Full colour printing"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="6.5" cy="7" r="4.5" fill="#E0457B" fill-opacity=".85"/><circle cx="11.5" cy="7" r="4.5" fill="#F4C54F" fill-opacity=".85"/><circle cx="9" cy="11.5" r="4.5" fill="#2BA3D9" fill-opacity=".85"/></svg><span class="vh">Full colour printing</span></span></span><img src="assets/img/products/bags/heavy-organic-shopper-tote-bag-black.jpg" alt="Heavy Organic Shopper Tote" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.7</b> (118)</span>
           <span class="prod__name">Heavy Organic Shopper Tote</span>
           <span class="prod__sw"><i style="--sw:#1D1D1F" data-img="assets/img/products/bags/heavy-organic-shopper-tote-bag-black.jpg" title="Colour 1"></i><i style="--sw:#D9D3C4" title="Colour 2"></i><i style="--sw:#F2A62B" title="amber" hidden></i><i style="--sw:#BFD7EA" title="baby blue" hidden></i><i style="--sw:#F3C6D3" title="baby pink" hidden></i><i style="--sw:#9A3F2E" title="brick" hidden></i><i style="--sw:#B9754F" title="clay" hidden></i><i style="--sw:#A9C4DA" title="cloud blue" hidden></i><i style="--sw:#1F4FA3" title="cobalt blue" hidden></i><em title="Show all colours">+7</em></span>
@@ -2117,8 +2115,8 @@
           </span>
           <span class="prod__cta">Explore <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="" data-price="5.12" data-rating="4.9" data-collection="eco-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="green natural" data-brand="westford" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="gots" data-gender="unisex" data-lead="3-10">
-          <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>GOTS</span><img src="assets/img/products/bags/organic-fashion-tote-bag-green.jpg" alt="Organic Fashion Tote Bag" loading="lazy" width="360" height="360"></span>
+        <a href="#" class="prod" data-category="shopping" data-material="" data-price="5.12" data-rating="4.9" data-collection="eco-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="green natural" data-brand="westford" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="gots" data-gender="unisex" data-lead="3-10">
+          <span class="prod__media"><span class="prod__tag">Order online</span><span class="prod__flags"><span class="prod__flag prod__flag--eco" title="Eco collection"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg><span class="vh">Eco collection</span></span><span class="prod__flag prod__flag--full" title="Full colour printing"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="6.5" cy="7" r="4.5" fill="#E0457B" fill-opacity=".85"/><circle cx="11.5" cy="7" r="4.5" fill="#F4C54F" fill-opacity=".85"/><circle cx="9" cy="11.5" r="4.5" fill="#2BA3D9" fill-opacity=".85"/></svg><span class="vh">Full colour printing</span></span></span><img src="assets/img/products/bags/organic-fashion-tote-bag-green.jpg" alt="Organic Fashion Tote Bag" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b> (61)</span>
           <span class="prod__name">Organic Fashion Tote Bag</span>
           <span class="prod__sw"><i style="--sw:#7A8B6F" data-img="assets/img/products/bags/organic-fashion-tote-bag-green.jpg" title="Colour 1"></i><i style="--sw:#D9D3C4" title="Colour 2"></i><i style="--sw:#1D1D1F" title="Colour 3"></i><i style="--sw:#F2A62B" title="amber" hidden></i><i style="--sw:#BFD7EA" title="baby blue" hidden></i><i style="--sw:#F3C6D3" title="baby pink" hidden></i><i style="--sw:#9A3F2E" title="brick" hidden></i><i style="--sw:#B9754F" title="clay" hidden></i><i style="--sw:#A9C4DA" title="cloud blue" hidden></i><i style="--sw:#1F4FA3" title="cobalt blue" hidden></i><i style="--sw:#2BB3C9" title="cyan" hidden></i><em title="Show all colours">+8</em></span>
@@ -2129,8 +2127,8 @@
           </span>
           <span class="prod__cta">Explore <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="" data-price="5.69" data-rating="4.8" data-collection="eco-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="natural" data-brand="westford" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="gots" data-gender="unisex" data-lead="3-10">
-          <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>GOTS</span><img src="assets/img/products/bags/earthaware-organic-siena-tote-natural.jpg" alt="EarthAware Organic Siena Tote" loading="lazy" width="360" height="360"></span>
+        <a href="#" class="prod" data-category="shopping" data-material="" data-price="5.69" data-rating="4.8" data-collection="eco-products bespoke-products" data-swag="create-your-swag-box-products" data-co2="no" data-quote="" data-colour="natural" data-brand="westford" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="gots" data-gender="unisex" data-lead="3-10">
+          <span class="prod__media"><span class="prod__tag">Order online</span><span class="prod__flags"><span class="prod__flag prod__flag--eco" title="Eco collection"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg><span class="vh">Eco collection</span></span><span class="prod__flag prod__flag--full" title="Full colour printing"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="6.5" cy="7" r="4.5" fill="#E0457B" fill-opacity=".85"/><circle cx="11.5" cy="7" r="4.5" fill="#F4C54F" fill-opacity=".85"/><circle cx="9" cy="11.5" r="4.5" fill="#2BA3D9" fill-opacity=".85"/></svg><span class="vh">Full colour printing</span></span></span><img src="assets/img/products/bags/earthaware-organic-siena-tote-natural.jpg" alt="EarthAware Organic Siena Tote" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b> (83)</span>
           <span class="prod__name">EarthAware Organic Siena Tote</span>
           <span class="prod__sw"><i style="--sw:#D9D3C4" data-img="assets/img/products/bags/earthaware-organic-siena-tote-natural.jpg" title="Colour 1"></i><i style="--sw:#F2A62B" title="amber" hidden></i><i style="--sw:#BFD7EA" title="baby blue" hidden></i><i style="--sw:#F3C6D3" title="baby pink" hidden></i><em title="Show all colours">+3</em></span>
@@ -2141,8 +2139,8 @@
           </span>
           <span class="prod__cta">Explore <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="" data-price="8.16" data-rating="4.9" data-collection="eco-products express-products bespoke-products" data-swag="" data-co2="no" data-quote="" data-colour="blue natural" data-brand="westford" data-size="large" data-print="spot-colour-pantone-print embroider full-colour-printing" data-cert="gots" data-gender="unisex" data-lead="next">
-          <span class="prod__media"><span class="prod__flags"><span class="prod__flag"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-delivery"/></svg>Next day</span><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>GOTS</span></span><img src="assets/img/products/bags/next-day-earthaware-organic-siena-tote-bag-xl-frech-navy.jpg" alt="EarthAware Organic Siena Tote XL" loading="lazy" width="360" height="360"></span>
+        <a href="#" class="prod" data-category="shopping" data-material="" data-price="8.16" data-rating="4.9" data-collection="eco-products express-products bespoke-products" data-swag="" data-co2="no" data-quote="" data-colour="blue natural" data-brand="westford" data-size="large" data-print="spot-colour-pantone-print embroider full-colour-printing" data-cert="gots" data-gender="unisex" data-lead="next">
+          <span class="prod__media"><span class="prod__tag">Order online</span><span class="prod__flags"><span class="prod__flag prod__flag--eco" title="Eco collection"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg><span class="vh">Eco collection</span></span><span class="prod__flag prod__flag--full" title="Full colour printing"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="6.5" cy="7" r="4.5" fill="#E0457B" fill-opacity=".85"/><circle cx="11.5" cy="7" r="4.5" fill="#F4C54F" fill-opacity=".85"/><circle cx="9" cy="11.5" r="4.5" fill="#2BA3D9" fill-opacity=".85"/></svg><span class="vh">Full colour printing</span></span></span><img src="assets/img/products/bags/next-day-earthaware-organic-siena-tote-bag-xl-frech-navy.jpg" alt="EarthAware Organic Siena Tote XL" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b> (47)</span>
           <span class="prod__name">EarthAware Organic Siena Tote XL</span>
           <span class="prod__sw"><i style="--sw:#2C4A7C" data-img="assets/img/products/bags/next-day-earthaware-organic-siena-tote-bag-xl-frech-navy.jpg" title="Colour 1"></i><i style="--sw:#D9D3C4" title="Colour 2"></i><i style="--sw:#F2A62B" title="amber" hidden></i><i style="--sw:#BFD7EA" title="baby blue" hidden></i><i style="--sw:#F3C6D3" title="baby pink" hidden></i><i style="--sw:#9A3F2E" title="brick" hidden></i><em title="Show all colours">+4</em></span>
@@ -2153,8 +2151,8 @@
           </span>
           <span class="prod__cta">Explore <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="" data-price="4.10" data-rating="4.8" data-collection="eco-products value-range-products co2-products" data-swag="create-your-swag-box-products" data-co2="yes" data-quote="online-quote" data-colour="natural" data-brand="midocean" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="gots" data-gender="unisex" data-lead="3-10">
-          <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>GOTS</span><img src="assets/img/products/bags/mo2197-85-2.jpg" alt="Bente Organic Cotton Shopping Bag" loading="lazy" width="360" height="360"></span>
+        <a href="#" class="prod" data-category="shopping" data-material="" data-price="4.10" data-rating="4.8" data-collection="eco-products value-range-products co2-products" data-swag="create-your-swag-box-products" data-co2="yes" data-quote="online-quote" data-colour="natural" data-brand="midocean" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="gots" data-gender="unisex" data-lead="3-10">
+          <span class="prod__media"><span class="prod__tag">Order online</span><span class="prod__flags"><span class="prod__flag prod__flag--eco" title="Eco collection"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg><span class="vh">Eco collection</span></span><span class="prod__flag prod__flag--full" title="Full colour printing"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="6.5" cy="7" r="4.5" fill="#E0457B" fill-opacity=".85"/><circle cx="11.5" cy="7" r="4.5" fill="#F4C54F" fill-opacity=".85"/><circle cx="9" cy="11.5" r="4.5" fill="#2BA3D9" fill-opacity=".85"/></svg><span class="vh">Full colour printing</span></span></span><img src="assets/img/products/bags/mo2197-85-2.jpg" alt="Bente Organic Cotton Shopping Bag" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.8</b> (96)</span>
           <span class="prod__name">Bente Organic Cotton Shopping Bag</span>
           <span class="prod__sw"><i style="--sw:#D9D3C4" data-img="assets/img/products/bags/mo2197-85-2.jpg" title="Colour 1"></i><i style="--sw:#2C4A7C" title="Colour 2"></i><i style="--sw:#B93B1C" title="Colour 3"></i><i style="--sw:#1D1D1F" title="Colour 4"></i><i style="--sw:#F2A62B" title="amber" hidden></i><i style="--sw:#BFD7EA" title="baby blue" hidden></i><i style="--sw:#F3C6D3" title="baby pink" hidden></i><i style="--sw:#9A3F2E" title="brick" hidden></i><i style="--sw:#B9754F" title="clay" hidden></i><i style="--sw:#A9C4DA" title="cloud blue" hidden></i><i style="--sw:#1F4FA3" title="cobalt blue" hidden></i><i style="--sw:#2BB3C9" title="cyan" hidden></i><i style="--sw:#C4397B" title="dark pink" hidden></i><i style="--sw:#D8A3A8" title="dusty pink" hidden></i><i style="--sw:#B9B0A2" title="greige" hidden></i><em title="Show all colours">+11</em></span>
@@ -2166,8 +2164,8 @@
           </span>
           <span class="prod__cta">Explore <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="jute" data-price="2.85" data-rating="4.6" data-collection="value-range-products co2-products" data-swag="create-your-swag-box-products" data-co2="yes" data-quote="online-quote" data-colour="natural" data-brand="midocean" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="" data-gender="unisex" data-lead="3-10">
-          <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>Recycled</span><img src="assets/img/products/bags/mo2190-13.jpg" alt="Fukuro Jute Drawstring Bag" loading="lazy" width="360" height="360"></span>
+        <a href="#" class="prod" data-category="backpacks-drawstring" data-material="jute" data-price="2.85" data-rating="4.6" data-collection="value-range-products co2-products" data-swag="create-your-swag-box-products" data-co2="yes" data-quote="online-quote" data-colour="natural" data-brand="midocean" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="" data-gender="unisex" data-lead="3-10">
+          <span class="prod__media"><span class="prod__tag">Order online</span><span class="prod__flags"><span class="prod__flag prod__flag--eco" title="Eco collection"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg><span class="vh">Eco collection</span></span><span class="prod__flag prod__flag--full" title="Full colour printing"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="6.5" cy="7" r="4.5" fill="#E0457B" fill-opacity=".85"/><circle cx="11.5" cy="7" r="4.5" fill="#F4C54F" fill-opacity=".85"/><circle cx="9" cy="11.5" r="4.5" fill="#2BA3D9" fill-opacity=".85"/></svg><span class="vh">Full colour printing</span></span></span><img src="assets/img/products/bags/mo2190-13.jpg" alt="Fukuro Jute Drawstring Bag" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.6</b> (64)</span>
           <span class="prod__name">Fukuro Jute Drawstring Bag</span>
           <span class="prod__sw"><i style="--sw:#C8A96A" data-img="assets/img/products/bags/mo2190-13.jpg" title="Colour 1"></i><i style="--sw:#7A8B6F" title="Colour 2"></i><i style="--sw:#F2A62B" title="amber" hidden></i><i style="--sw:#BFD7EA" title="baby blue" hidden></i><i style="--sw:#F3C6D3" title="baby pink" hidden></i><em title="Show all colours">+3</em></span>
@@ -2179,8 +2177,8 @@
           </span>
           <span class="prod__cta">Explore <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="" data-price="1.95" data-rating="4.7" data-collection="eco-products value-range-products co2-products" data-swag="create-your-swag-box-products" data-co2="yes" data-quote="online-quote" data-colour="natural black" data-brand="midocean" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="grs" data-gender="unisex" data-lead="3-10">
-          <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>Recycled</span><img src="assets/img/products/bags/mo2193-53-1.jpg" alt="Kaimono Recycled Shopping Bag" loading="lazy" width="360" height="360"></span>
+        <a href="#" class="prod" data-category="shopping" data-material="" data-price="1.95" data-rating="4.7" data-collection="eco-products value-range-products co2-products" data-swag="create-your-swag-box-products" data-co2="yes" data-quote="online-quote" data-colour="natural black" data-brand="midocean" data-size="standard" data-print="spot-colour-pantone-print full-colour-printing" data-cert="grs" data-gender="unisex" data-lead="3-10">
+          <span class="prod__media"><span class="prod__tag">Order online</span><span class="prod__flags"><span class="prod__flag prod__flag--eco" title="Eco collection"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg><span class="vh">Eco collection</span></span><span class="prod__flag prod__flag--full" title="Full colour printing"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="6.5" cy="7" r="4.5" fill="#E0457B" fill-opacity=".85"/><circle cx="11.5" cy="7" r="4.5" fill="#F4C54F" fill-opacity=".85"/><circle cx="9" cy="11.5" r="4.5" fill="#2BA3D9" fill-opacity=".85"/></svg><span class="vh">Full colour printing</span></span></span><img src="assets/img/products/bags/mo2193-53-1.jpg" alt="Kaimono Recycled Shopping Bag" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.7</b> (142)</span>
           <span class="prod__name">Kaimono Recycled Shopping Bag</span>
           <span class="prod__sw"><i style="--sw:#1D1D1F" data-img="assets/img/products/bags/mo2193-53-1.jpg" title="Colour 1"></i><i style="--sw:#2C4A7C" title="Colour 2"></i><i style="--sw:#7A8B6F" title="Colour 3"></i><i style="--sw:#F2A62B" title="amber" hidden></i><i style="--sw:#BFD7EA" title="baby blue" hidden></i><i style="--sw:#F3C6D3" title="baby pink" hidden></i><i style="--sw:#9A3F2E" title="brick" hidden></i><i style="--sw:#B9754F" title="clay" hidden></i><i style="--sw:#A9C4DA" title="cloud blue" hidden></i><i style="--sw:#1F4FA3" title="cobalt blue" hidden></i><i style="--sw:#2BB3C9" title="cyan" hidden></i><i style="--sw:#C4397B" title="dark pink" hidden></i><em title="Show all colours">+9</em></span>
@@ -2192,8 +2190,8 @@
           </span>
           <span class="prod__cta">Explore <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></span>
         </a>
-        <a href="#" class="prod" data-material="" data-price="14.60" data-rating="4.9" data-collection="eco-products co2-products" data-swag="" data-co2="yes" data-quote="online-quote" data-colour="black" data-brand="midocean" data-size="large" data-print="full-colour-printing" data-cert="grs" data-gender="unisex" data-lead="3-10">
-          <span class="prod__media"><span class="prod__flag prod__flag--eco"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg>Recycled</span><img src="assets/img/products/bags/mo2181-37.jpg" alt="Scubaroll Recycled Waterproof Rolltop" loading="lazy" width="360" height="360"></span>
+        <a href="#" class="prod" data-category="backpacks-drawstring" data-material="" data-price="14.60" data-rating="4.9" data-collection="eco-products co2-products" data-swag="" data-co2="yes" data-quote="online-quote" data-colour="black" data-brand="midocean" data-size="large" data-print="full-colour-printing" data-cert="grs" data-gender="unisex" data-lead="3-10">
+          <span class="prod__media"><span class="prod__tag">Order online</span><span class="prod__flags"><span class="prod__flag prod__flag--eco" title="Eco collection"><svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-leaf"/></svg><span class="vh">Eco collection</span></span><span class="prod__flag prod__flag--full" title="Full colour printing"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="6.5" cy="7" r="4.5" fill="#E0457B" fill-opacity=".85"/><circle cx="11.5" cy="7" r="4.5" fill="#F4C54F" fill-opacity=".85"/><circle cx="9" cy="11.5" r="4.5" fill="#2BA3D9" fill-opacity=".85"/></svg><span class="vh">Full colour printing</span></span></span><img src="assets/img/products/bags/mo2181-37.jpg" alt="Scubaroll Recycled Waterproof Rolltop" loading="lazy" width="360" height="360"></span>
           <span class="prod__rate"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg><b>4.9</b> (35)</span>
           <span class="prod__name">Scubaroll Recycled Waterproof Rolltop</span>
           <span class="prod__sw"><i style="--sw:#1D1D1F" data-img="assets/img/products/bags/mo2181-37.jpg" title="Colour 1"></i><i style="--sw:#7A8B6F" title="Colour 2"></i><i style="--sw:#F2A62B" title="amber" hidden></i><i style="--sw:#BFD7EA" title="baby blue" hidden></i><em title="Show all colours">+2</em></span>
@@ -2208,14 +2206,20 @@
           </div>
           <p class="listing__none" id="no-results" hidden>No products match those filters. <button class="tlink" type="button" id="clear-inline">Clear the filters</button></p>
 
-          <nav class="pager" aria-label="Pagination">
+          <div class="listbar listbar--foot">
+            <label class="listbar__sort listbar__show">
+              <span>Show</span>
+              <select aria-label="Products per page"><option>12</option><option>24</option><option selected>36</option><option>48</option><option>60</option></select>
+            </label>
+            <nav class="pager pager--sm" aria-label="Pagination">
             <a class="pager__link" href="#" aria-current="page">1</a>
             <a class="pager__link" href="#">2</a>
             <a class="pager__link" href="#">3</a>
-            <span class="pager__gap">&hellip;</span>
-            <a class="pager__link" href="#">14</a>
-            <a class="pager__next" href="#">Next <svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="pager__link" href="#">4</a>
+            <a class="pager__link" href="#">5</a>
+            <a class="pager__next" href="#" aria-label="Next page"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </nav>
+          </div>
         </div>
       </div>
     </div>
@@ -2556,7 +2560,7 @@
 
 <script src="assets/js/a11y-v4.js?v=6"></script>
 <script src="assets/js/mega-v4.js?v=1"></script>
-<script src="assets/js/list-v4.js?v=6"></script>
+<script src="assets/js/list-v4.js?v=7"></script>
 <script src="assets/js/deals-v4.js?v=2"></script>
 <!-- SPIN:START - generated by scripts/spin/build_spin.py; edit there -->
 <link rel="stylesheet" href="assets/css/spin-v4.css?v=7">

@@ -243,6 +243,57 @@
 /* ---------- Blogs over two rows ---------- */
 .posts--two{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:44px 28px; }
 
+/* ---------- Live-site listing parts (products-v4) ----------
+   Card tag, out of stock, option counts, "More", colour swatches and the
+   sort / show / pager toolbar - the same pieces as the live /bags page. */
+.prod__tag{
+  position:absolute; top:12px; left:12px; z-index:2; padding:6px 10px;
+  background:var(--forest); color:var(--oat);
+  font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.08em; text-transform:uppercase;
+}
+.prod__tag--quote{ background:var(--coral-badge); color:var(--white); }
+/* Three products per row, as on the live site */
+#product-list #product-grid.rail--grid{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px 22px; }
+@media (max-width:900px){ #product-list #product-grid.rail--grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px 14px; } }
+@media (max-width:560px){ #product-list #product-grid.rail--grid{ grid-template-columns:minmax(0,1fr); } }
+/* Badges as icons only, top right, as on the live site; the name is the tooltip. */
+#product-list .prod__flag{ left:auto; right:12px; width:34px; height:34px; padding:0; justify-content:center; border-radius:50%; }
+#product-list .prod__flag .ic{ width:17px; height:17px; }
+#product-list .prod__flags{ left:auto; right:12px; justify-content:flex-end; }
+#product-list .prod__flags{ gap:6px; }
+#product-list .prod__flag--full{ background:var(--white); }
+.prod__price--oos{ min-height:0; }
+.prod__oos{
+  display:inline-block; padding:6px 10px; border:1px solid var(--coral-text); color:var(--coral-text);
+  font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.08em; text-transform:uppercase;
+}
+.prod.is-oos .prod__media img{ opacity:.55; }
+#product-list .filters{ position:static; }
+.facet__n{ margin-left:auto; font-size:var(--t-cap); color:var(--forest-mid); font-variant-numeric:tabular-nums; }
+.facet__row[hidden]{ display:none; }
+.facet__more{
+  margin-top:6px; padding:0; background:none; border:0; cursor:pointer; list-style:none;
+  font:inherit; font-size:var(--t-cap); font-weight:800; color:var(--coral-text); text-decoration:underline; text-underline-offset:3px;
+}
+.facet__more::-webkit-details-marker{ display:none; }
+.facet__more:focus-visible{ outline:2px solid var(--coral-text); outline-offset:3px; }
+.facet__all[open] > .facet__more{ margin-bottom:12px; }
+.facet__swatches{ display:flex; flex-wrap:wrap; gap:10px; padding-top:4px; }
+.facet__sw{ cursor:pointer; }
+.facet__sw i{ display:block; width:26px; height:26px; border-radius:50%; background:var(--sw); box-shadow:inset 0 0 0 1px rgba(19,57,53,.25); }
+.facet__sw input:checked + i{ outline:2px solid var(--forest); outline-offset:2px; }
+.facet__sw input:focus-visible + i{ outline:2px solid var(--coral-text); outline-offset:3px; }
+.facet__sw:hover i{ outline:2px solid var(--line-input); outline-offset:2px; }
+.facet__ic--uk{ background:var(--paper); }
+.facet__ic--soon{ background:var(--oat); }
+.facet__ic--mto{ background:var(--paper); }
+.facet__ic--disc{ background:var(--white); color:var(--forest-mid); }
+#product-list .listbar__sort{ margin-left:0; }
+#product-list .listbar__count{ margin-right:auto; }
+.pager--sm{ margin:0; padding:0; border:0; gap:6px; }
+.pager--sm .pager__link{ min-width:36px; min-height:36px; }
+.listbar--foot{ margin:40px 0 0; justify-content:flex-end; border-bottom:0; }
+
 /* ---------- Responsive ---------- */
 @media (min-width:1181px){
   .rail--four{ grid-template-columns:repeat(4,minmax(0,1fr)); }
@@ -263,6 +314,7 @@
   .prose{ grid-template-columns:minmax(0,1fr); }
   .posts--two{ grid-template-columns:minmax(0,1fr); }
   .listbar__sort{ margin-left:0; width:100%; }
+  #product-list .pager--sm{ width:100%; }
   .listbar__sort select{ flex:1 1 auto; }
 }
 
