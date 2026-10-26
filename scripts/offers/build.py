@@ -117,7 +117,7 @@ def week_pool(n=50):
 
 EXTRA = [
     {"name": "Hi-Vis Vest VISICOAT", "img": "assets/img/products/clothing/hi-vis-vest-visicoat-yellow.jpg",
-     "alt": "Hi-Vis Vest VISICOAT in fluorescent yellow", "price": 2.19, "rating": "4.7", "count": "84",
+     "alt": "Hi-Vis Vest VISICOAT in fluorescent yellow", "price": 1.75, "rating": "4.7", "count": "84",
      "flag": f'<span class="prod__flag">{icon("i-check", 17)}EN ISO 20471</span>',
      "sw": '<span class="prod__sw"><i style="--sw:#E3F04A"></i><i style="--sw:#F4791F"></i></span>',
      "cat": "clothing", "href": "product-hivis-v4.html"},

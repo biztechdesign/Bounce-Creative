@@ -69,7 +69,7 @@ BRANDS = {
         ("LARQ Swig Top 1000 ml water bottle", "LARQ", "50.32", "news/larq-swig-1000.jpg", "#"),
         ("Minsk Unisex Hybrid Insulated Jacket", "Roly", "18.69", "products/clothing/minsk-jacket-black-heather.jpg", "product-minsk-v4.html"),
         ("CARRO Folding Crate Container Trolley", "midocean", "22.79", "products/office/carro-folding-crate-trolley.jpg", "#"),
-        ("Hi-Vis Vest VISICOAT", "midocean", "2.19", "products/clothing/hi-vis-vest-visicoat-yellow.jpg", "product-hivis-v4.html"),
+        ("Hi-Vis Vest VISICOAT", "midocean", "1.75", "products/clothing/hi-vis-vest-visicoat-yellow.jpg", "product-hivis-v4.html"),
     ],
 
     "copy": [

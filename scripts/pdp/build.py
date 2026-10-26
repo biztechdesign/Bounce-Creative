@@ -39,6 +39,16 @@ BREAKS_SHOWN = 5             # price breaks visible before "show more"
 TICK = '<span class="tile__tick" aria-hidden="true"><svg class="ic" width="13" height="13"><use href="#i-check"/></svg></span>'
 
 
+
+def VEST_BRANDING(extra, colours):
+    """The VISICOAT vest's live branding price each by quantity, one column
+    per ink colour count."""
+    qtys = [1, 25, 50, 100, 250, 500, 1000, 2500]
+    one = [1.94, 1.94, 1.57, 1.39, 1.22, 0.85, 0.78, 0.72]
+    return {"qtys": qtys,
+            "rows": [[round(b + extra * c, 2) for c in range(colours)] for b in one]}
+
+
 # --------------------------------------------------------------------------
 # Products
 # --------------------------------------------------------------------------
@@ -88,42 +98,38 @@ PRODUCTS = [
             ("Front, centre", 34, 42, 32, 18),
             ("Back, centre", 30, 30, 40, 24),
         ],
-        # Per-branding-type price ladders, as the live configurator quotes them:
-        # each type has its own per-unit price at every break (one colour),
-        # its own sub-options, and its own pre-production sample price. The
-        # 25-500 figures are the live site's; 1,000 and 2,500 extend the curve.
+        # Live engine model (checked against the live configurator, Oct 2026):
+        # unprinted product at a flat 1.75 each, plus a branding price each by
+        # quantity, plus a 35 setup per position. The live price table is the
+        # same for all four branding types. Branding each at 1-500 is the live
+        # figure; 1,000 and 2,500 extend the curve. Extra ink colours add a
+        # per-colour uplift on top of the one-colour price.
+        "pricing": "matrix",
         "methods": [
-            {"name": "Transfer printing", "lead": 2, "cmyk": False,
-             "colours": [1, 2, 3, 4, 5, 6, 7, 8], "extra_colour": 0.35, "logo_sizes": [150],
-             "ladder": [(25, 5.53), (50, 4.46), (100, 3.93), (250, 3.55), (500, 3.11), (1000, 2.84), (2500, 2.62)],
-             "sample": 39.13,
-             # Branding price each by quantity and colour count - the live matrix.
-             "matrix": {
-                 "qtys": [1, 50, 100, 250, 500, 1000, 2500, 5000, 10000, 20000],
-                 "rows": [
-                     [2.56, 3.92, 5.29, 6.66], [2.11, 3.01, 3.91, 4.81], [1.87, 2.67, 3.47, 4.28],
-                     [1.70, 2.33, 2.97, 3.60], [1.22, 1.64, 2.06, 2.49], [1.06, 1.44, 1.82, 2.20],
-                     [0.95, 1.25, 1.54, 1.84], [0.89, 1.13, 1.37, 1.61], [0.82, 1.02, 1.22, 1.41],
-                     [0.74, 0.92, 1.10, 1.29],
-                 ],
-             }},
-            {"name": "Digital transfer", "lead": 2, "cmyk": True,
-             "colours": [], "extra_colour": 0, "logo_sizes": [150],
-             "ladder": [(25, 4.46), (50, 3.70), (100, 3.32), (250, 3.07), (500, 2.98), (1000, 2.85), (2500, 2.74)],
-             "sample": 38.06},
-            {"name": "Transfer reflective", "lead": 3, "cmyk": False,
-             "colours": [1], "extra_colour": 0, "logo_sizes": [150],
-             "ladder": [(25, 6.80), (50, 5.77), (100, 4.93), (250, 4.46), (500, 3.76), (1000, 3.42), (2500, 3.15)],
-             "sample": 40.40},
+            {"name": "Transfer printing", "lead": 0, "cmyk": False,
+             "colours": [1, 2, 3, 4, 5, 6, 7, 8], "logo_sizes": [150], "setup": {1: 35.00},
+             "matrix": VEST_BRANDING(0.35, 8)},
+            {"name": "Digital transfer", "lead": 0, "cmyk": True,
+             "colours": [], "logo_sizes": [150], "setup": {1: 35.00},
+             "matrix": VEST_BRANDING(0, 1)},
+            {"name": "Transfer reflective", "lead": 0, "cmyk": False,
+             "colours": [1], "logo_sizes": [150], "setup": {1: 35.00},
+             "matrix": VEST_BRANDING(0, 1)},
             {"name": "Screen printing", "lead": 0, "cmyk": False,
-             "colours": [1, 2, 3, 4], "extra_colour": 0.22, "logo_sizes": [],
-             "ladder": [(25, 5.17), (50, 4.07), (100, 3.53), (250, 3.11), (500, 2.90), (1000, 2.68), (2500, 2.50)],
-             "sample": 38.77},
+             "colours": [1, 2, 3, 4], "logo_sizes": [], "setup": {1: 35.00},
+             "matrix": VEST_BRANDING(0.22, 4)},
         ],
-        "tiers": [(25, 2.19), (50, 2.08), (100, 1.98), (250, 1.82), (500, 1.67), (1000, 1.54), (2500, 1.42)],
+        "tiers": [(25, 1.75), (50, 1.75), (100, 1.75), (250, 1.75), (500, 1.75), (1000, 1.75), (2500, 1.75)],
+        "breaks": [1, 25, 50, 100, 250, 500, 1000, 2500],
+        # Live: "Estimated production time 3-6 working days, delivery 3-4".
+        # The live table's Price column includes the setup, spread over the run.
+        "each_incl_setup": True,
+        "lead_range": [3, 6],
+        "ship_range": [3, 4],
+        "express": {"rate": 0, "fee": 100.00},   # live: Express 100, flat
         "min_qty": 25,
         "step": 25,
-        "base_lead": 5,
+        "base_lead": 3,
         "stock": 12480,
         "short": "VISICOAT vest",
         # "How would Bounce brand this product": studio mock-ups at the real
@@ -324,7 +330,7 @@ PRODUCTS = [
         ],
         "related": [
             ("Hi-Vis Vest VISICOAT", "clothing/hi-vis-vest-visicoat-yellow.jpg",
-             "2.19", "4.7", 84, "product-hivis-v4.html"),
+             "1.75", "4.7", 84, "product-hivis-v4.html"),
             ("Full Colour Bucket Hat", "branded_full_colour_bucket_hat.jpg",
              "4.62", "4.6", 41, "#"),
             ("Westcove Canvas Tote", "v4/westcove_canvas_tote_black.jpg",
@@ -561,6 +567,9 @@ def config_island(p):
         "pointValue": POINT_VALUE,
         "baseLead": p["base_lead"],
         "baseShip": BASE_SHIP,
+        "leadRange": p.get("lead_range"),
+        "eachInclSetup": bool(p.get("each_incl_setup")),
+        "shipRange": p.get("ship_range"),
         "expressShip": EXPRESS_SHIP,
         "stock": p["stock"],
         "freeDeliveryOver": FREE_DELIVERY_OVER,
@@ -879,7 +888,11 @@ def baseline_each(p):
         return 0
     m0 = p["methods"][0]
     c0 = (m0["colours"] or [1])[0]
-    return round(unit_price(p, m0, c0, p["breaks"][1] if p.get("breaks") else p["min_qty"]), 2)
+    n = p["breaks"][1] if p.get("breaks") else p["min_qty"]
+    each = unit_price(p, m0, c0, n)
+    if p.get("each_incl_setup"):
+        each += setup_for(m0, c0) / n
+    return round(each, 2)
 
 
 def order_value(p, method, colours, n):
@@ -987,6 +1000,8 @@ def breaks_table(p):
         each = sample_each(p, m0) if sample else unit_price(p, m0, c0, n)
         value = each * (1 if sample else n)
         sub = value + setup0 + small_order(value)
+        if p.get("each_incl_setup"):
+            each = (value + setup0) / (1 if sample else n)
         return each, sub
 
     s_each, s_sub = row(1, sample=True)

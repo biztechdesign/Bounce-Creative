@@ -447,6 +447,22 @@
     var k = Object.keys(st); return k.length ? st[k[0]] : 0;
   }
 
+  /* Production and delivery times. A product can carry the live range
+     ("3-6 working days"); otherwise a single figure from the base lead. */
+  function leadText(extra, express) {
+    var cut = express ? (CFG.expressSaving || 0) : 0;
+    if (CFG.leadRange) {
+      var lo = Math.max(1, CFG.leadRange[0] + extra - cut), hi = Math.max(lo, CFG.leadRange[1] + extra - cut);
+      return lo === hi ? lo + ' working days' : lo + '-' + hi + ' working days';
+    }
+    return Math.max(1, (CFG.baseLead || 0) + extra - cut) + ' working days';
+  }
+  function shipText(express) {
+    if (express) return (CFG.expressShip || 1) + ' working days';
+    if (CFG.shipRange) return CFG.shipRange[0] + '-' + CFG.shipRange[1] + ' working days';
+    return (CFG.baseShip || 2) + ' working days';
+  }
+
   function costsAt(n, sample) {
     var matrix = CFG.pricing === 'matrix';
     var q = sample ? 1 : n;
@@ -492,7 +508,7 @@
       var q = parseInt(row.dataset.qty, 10) || 1;
       var sample = row.classList.contains('break--sample');
       var c = costsAt(q, sample);
-      var each = c.value / (sample ? 1 : q);
+      var each = (c.value + (CFG.eachInclSetup ? c.setup : 0)) / (sample ? 1 : q);
       var sub = c.value + c.setup + c.surcharge;
 
       set(row.querySelector('[data-role="each"]'), money(each * f));
@@ -584,12 +600,8 @@
     var total = net * f;
     var each = total / n;
 
-    var lead = (CFG.baseLead || 0) + c.lead - (express ? (CFG.expressSaving || 0) : 0);
-    if (lead < 1) lead = 1;
-    var ship = express ? (CFG.expressShip || 1) : (CFG.baseShip || 2);
-
-    set($('info-production'), lead + ' working days');
-    set($('info-delivery'), ukEl && !ukEl.checked ? 'To be confirmed' : ship + ' working days');
+    set($('info-production'), leadText(c.lead, express));
+    set($('info-delivery'), ukEl && !ukEl.checked ? 'To be confirmed' : shipText(express));
     set(out.product, money(productCost * f));
     set(out.branding, c.branding ? money(c.branding * f) : 'Included');
     set(out.setup, c.setup ? money(c.setup * f) : 'None');
@@ -626,7 +638,7 @@
     }
 
     var setupNote = $('c-setup-note');
-    if (setupNote) setupNote.hidden = !c.setup;
+    if (setupNote) setupNote.textContent = c.setup ? 'Once per branding position' : 'Included in the branded price';
 
     updateBreaks(n, incVat);
   }
@@ -776,8 +788,8 @@
     return {
       product: $('p-h').textContent, sku: document.querySelector('.buy__sku b').textContent,
       image: stage ? stage.src : '', description: document.querySelector('.buy__lede').textContent,
-      production: Math.max(1, (CFG.baseLead || 0) + costsAt(n, n < min).lead - (expressEl && expressEl.checked ? CFG.expressSaving || 0 : 0)) + ' working days',
-      delivery: (expressEl && expressEl.checked ? CFG.expressShip || 1 : CFG.baseShip || 2) + ' working days',
+      production: leadText(costsAt(n, n < min).lead, expressEl && expressEl.checked),
+      delivery: shipText(expressEl && expressEl.checked),
       colour: $('colour-val') ? $('colour-val').textContent : '',
       size: sizeVal ? sizeVal.textContent : '',
       sizes: grid ? gridInputs.filter(function (input) { return Number(input.value) > 0; }).map(function (input) { return { size: input.dataset.size, quantity: Number(input.value) }; }) : [],

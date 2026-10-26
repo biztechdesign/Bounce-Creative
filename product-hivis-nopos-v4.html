@@ -36,8 +36,8 @@
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "GBP",
-    "lowPrice": "1.42",
-    "highPrice": "2.19",
+    "lowPrice": "1.75",
+    "highPrice": "1.75",
     "offerCount": "7",
     "availability": "https://schema.org/InStock"
   }
@@ -49,39 +49,39 @@
   "tiers": [
     {
       "min": 25,
-      "each": 2.19
+      "each": 1.75
     },
     {
       "min": 50,
-      "each": 2.08
+      "each": 1.75
     },
     {
       "min": 100,
-      "each": 1.98
+      "each": 1.75
     },
     {
       "min": 250,
-      "each": 1.82
+      "each": 1.75
     },
     {
       "min": 500,
-      "each": 1.67
+      "each": 1.75
     },
     {
       "min": 1000,
-      "each": 1.54
+      "each": 1.75
     },
     {
       "min": 2500,
-      "each": 1.42
+      "each": 1.75
     }
   ],
-  "pricing": "ladder",
+  "pricing": "matrix",
   "methods": [
     {
       "id": "",
       "name": "Transfer printing",
-      "lead": 2,
+      "lead": 0,
       "cmyk": false,
       "colours": [
         1,
@@ -93,115 +93,106 @@
         7,
         8
       ],
-      "extraColour": 0.35,
+      "extraColour": 0,
       "logoSizes": [
         150
       ],
-      "sample": 39.13,
-      "ladder": [
-        {
-          "min": 25,
-          "each": 5.53
-        },
-        {
-          "min": 50,
-          "each": 4.46
-        },
-        {
-          "min": 100,
-          "each": 3.93
-        },
-        {
-          "min": 250,
-          "each": 3.55
-        },
-        {
-          "min": 500,
-          "each": 3.11
-        },
-        {
-          "min": 1000,
-          "each": 2.84
-        },
-        {
-          "min": 2500,
-          "each": 2.62
-        }
-      ],
-      "setup": {},
+      "sample": 0,
+      "ladder": [],
+      "setup": {
+        "1": 35.0
+      },
       "matrix": {
         "qtys": [
           1,
+          25,
           50,
           100,
           250,
           500,
           1000,
-          2500,
-          5000,
-          10000,
-          20000
+          2500
         ],
         "rows": [
           [
-            2.56,
-            3.92,
-            5.29,
-            6.66
+            1.94,
+            2.29,
+            2.64,
+            2.99,
+            3.34,
+            3.69,
+            4.04,
+            4.39
           ],
           [
-            2.11,
-            3.01,
-            3.91,
-            4.81
+            1.94,
+            2.29,
+            2.64,
+            2.99,
+            3.34,
+            3.69,
+            4.04,
+            4.39
           ],
           [
-            1.87,
-            2.67,
-            3.47,
-            4.28
-          ],
-          [
-            1.7,
-            2.33,
+            1.57,
+            1.92,
+            2.27,
+            2.62,
             2.97,
-            3.6
+            3.32,
+            3.67,
+            4.02
+          ],
+          [
+            1.39,
+            1.74,
+            2.09,
+            2.44,
+            2.79,
+            3.14,
+            3.49,
+            3.84
           ],
           [
             1.22,
-            1.64,
-            2.06,
-            2.49
+            1.57,
+            1.92,
+            2.27,
+            2.62,
+            2.97,
+            3.32,
+            3.67
           ],
           [
-            1.06,
-            1.44,
-            1.82,
-            2.2
+            0.85,
+            1.2,
+            1.55,
+            1.9,
+            2.25,
+            2.6,
+            2.95,
+            3.3
           ],
           [
-            0.95,
-            1.25,
-            1.54,
-            1.84
-          ],
-          [
-            0.89,
+            0.78,
             1.13,
-            1.37,
-            1.61
+            1.48,
+            1.83,
+            2.18,
+            2.53,
+            2.88,
+            3.23
           ],
           [
-            0.82,
-            1.02,
-            1.22,
-            1.41
-          ],
-          [
-            0.74,
-            0.92,
-            1.1,
-            1.29
+            0.72,
+            1.07,
+            1.42,
+            1.77,
+            2.12,
+            2.47,
+            2.82,
+            3.17
           ]
         ]
       }
@@ -209,51 +200,61 @@
     {
       "id": "",
       "name": "Digital transfer",
-      "lead": 2,
+      "lead": 0,
       "cmyk": true,
       "colours": [],
       "extraColour": 0,
       "logoSizes": [
         150
       ],
-      "sample": 38.06,
-      "ladder": [
-        {
-          "min": 25,
-          "each": 4.46
-        },
-        {
-          "min": 50,
-          "each": 3.7
-        },
-        {
-          "min": 100,
-          "each": 3.32
-        },
-        {
-          "min": 250,
-          "each": 3.07
-        },
-        {
-          "min": 500,
-          "each": 2.98
-        },
-        {
-          "min": 1000,
-          "each": 2.85
-        },
-        {
-          "min": 2500,
-          "each": 2.74
-        }
-      ],
-      "setup": {},
-      "matrix": null
+      "sample": 0,
+      "ladder": [],
+      "setup": {
+        "1": 35.0
+      },
+      "matrix": {
+        "qtys": [
+          1,
+          25,
+          50,
+          100,
+          250,
+          500,
+          1000,
+          2500
+        ],
+        "rows": [
+          [
+            1.94
+          ],
+          [
+            1.94
+          ],
+          [
+            1.57
+          ],
+          [
+            1.39
+          ],
+          [
+            1.22
+          ],
+          [
+            0.85
+          ],
+          [
+            0.78
+          ],
+          [
+            0.72
+          ]
+        ]
+      }
     },
     {
       "id": "",
       "name": "Transfer reflective",
-      "lead": 3,
+      "lead": 0,
       "cmyk": false,
       "colours": [
         1
@@ -262,39 +263,49 @@
       "logoSizes": [
         150
       ],
-      "sample": 40.4,
-      "ladder": [
-        {
-          "min": 25,
-          "each": 6.8
-        },
-        {
-          "min": 50,
-          "each": 5.77
-        },
-        {
-          "min": 100,
-          "each": 4.93
-        },
-        {
-          "min": 250,
-          "each": 4.46
-        },
-        {
-          "min": 500,
-          "each": 3.76
-        },
-        {
-          "min": 1000,
-          "each": 3.42
-        },
-        {
-          "min": 2500,
-          "each": 3.15
-        }
-      ],
-      "setup": {},
-      "matrix": null
+      "sample": 0,
+      "ladder": [],
+      "setup": {
+        "1": 35.0
+      },
+      "matrix": {
+        "qtys": [
+          1,
+          25,
+          50,
+          100,
+          250,
+          500,
+          1000,
+          2500
+        ],
+        "rows": [
+          [
+            1.94
+          ],
+          [
+            1.94
+          ],
+          [
+            1.57
+          ],
+          [
+            1.39
+          ],
+          [
+            1.22
+          ],
+          [
+            0.85
+          ],
+          [
+            0.78
+          ],
+          [
+            0.72
+          ]
+        ]
+      }
     },
     {
       "id": "",
@@ -307,41 +318,75 @@
         3,
         4
       ],
-      "extraColour": 0.22,
+      "extraColour": 0,
       "logoSizes": [],
-      "sample": 38.77,
-      "ladder": [
-        {
-          "min": 25,
-          "each": 5.17
-        },
-        {
-          "min": 50,
-          "each": 4.07
-        },
-        {
-          "min": 100,
-          "each": 3.53
-        },
-        {
-          "min": 250,
-          "each": 3.11
-        },
-        {
-          "min": 500,
-          "each": 2.9
-        },
-        {
-          "min": 1000,
-          "each": 2.68
-        },
-        {
-          "min": 2500,
-          "each": 2.5
-        }
-      ],
-      "setup": {},
-      "matrix": null
+      "sample": 0,
+      "ladder": [],
+      "setup": {
+        "1": 35.0
+      },
+      "matrix": {
+        "qtys": [
+          1,
+          25,
+          50,
+          100,
+          250,
+          500,
+          1000,
+          2500
+        ],
+        "rows": [
+          [
+            1.94,
+            2.16,
+            2.38,
+            2.6
+          ],
+          [
+            1.94,
+            2.16,
+            2.38,
+            2.6
+          ],
+          [
+            1.57,
+            1.79,
+            2.01,
+            2.23
+          ],
+          [
+            1.39,
+            1.61,
+            1.83,
+            2.05
+          ],
+          [
+            1.22,
+            1.44,
+            1.66,
+            1.88
+          ],
+          [
+            0.85,
+            1.07,
+            1.29,
+            1.51
+          ],
+          [
+            0.78,
+            1.0,
+            1.22,
+            1.44
+          ],
+          [
+            0.72,
+            0.94,
+            1.16,
+            1.38
+          ]
+        ]
+      }
     }
   ],
   "positions": [
@@ -368,16 +413,25 @@
   ],
   "positionImg": null,
   "stockBySize": null,
-  "baseline": 5.53,
+  "baseline": 5.09,
   "smallOrderUnder": 250.0,
   "smallOrderFee": 50.0,
-  "expressRate": 0.35,
-  "expressFee": 25.0,
+  "expressRate": 0,
+  "expressFee": 100.0,
   "expressSaving": 3,
   "pointsPerPound": 0.1,
   "pointValue": 0.5,
-  "baseLead": 5,
+  "baseLead": 3,
   "baseShip": 2,
+  "leadRange": [
+    3,
+    6
+  ],
+  "eachInclSetup": true,
+  "shipRange": [
+    3,
+    4
+  ],
   "expressShip": 1,
   "stock": 12480,
   "freeDeliveryOver": 3000,
@@ -2172,7 +2226,7 @@
                counter quotes it. The configured price lives in the breakdown below,
                so the two are never confused for one another. -->
           <div class="buy__price">
-            <b>&pound;2.19</b>
+            <b>&pound;1.75</b>
             <span class="buy__vat">Ex VAT</span>
             <span class="buy__unit">From price per unit, unprinted &middot; minimum order 25</span>
           </div>
@@ -2375,64 +2429,64 @@
                     <td><input type="radio" name="qty-break" id="break-sample" value="1"></td>
                     <th scope="row"><label for="break-sample">1</label></th>
                     <td class="break__save">Pre-production</td>
-                    <td class="break__each" data-role="each">&pound;39.13</td>
-                    <td class="break__sub" data-role="sub">&pound;89.13</td>
+                    <td class="break__each" data-role="each">&pound;38.69</td>
+                    <td class="break__sub" data-role="sub">&pound;88.69</td>
                     <td><button class="break__up" type="button" aria-label="Upload artwork for 1 unit"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-transfer"/></svg></button></td>
                   </tr>
                   <tr data-qty="25" class="break">
                     <td><input type="radio" name="qty-break" id="break-25" value="25"></td>
                     <th scope="row"><label for="break-25">25</label></th>
                     <td class="break__save" data-role="save">Save 0.00%</td>
-                    <td class="break__each" data-role="each">&pound;5.53</td>
-                    <td class="break__sub" data-role="sub">&pound;188.25</td>
+                    <td class="break__each" data-role="each">&pound;5.09</td>
+                    <td class="break__sub" data-role="sub">&pound;177.25</td>
                     <td><button class="break__up" type="button" aria-label="Upload artwork for 25 units"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-transfer"/></svg></button></td>
                   </tr>
                   <tr data-qty="50" class="break">
                     <td><input type="radio" name="qty-break" id="break-50" value="50"></td>
                     <th scope="row"><label for="break-50">50</label></th>
-                    <td class="break__save" data-role="save">Save 19.35%</td>
-                    <td class="break__each" data-role="each">&pound;4.46</td>
-                    <td class="break__sub" data-role="sub">&pound;273.00</td>
+                    <td class="break__save" data-role="save">Save 21.02%</td>
+                    <td class="break__each" data-role="each">&pound;4.02</td>
+                    <td class="break__sub" data-role="sub">&pound;251.00</td>
                     <td><button class="break__up" type="button" aria-label="Upload artwork for 50 units"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-transfer"/></svg></button></td>
                   </tr>
                   <tr data-qty="100" class="break">
                     <td><input type="radio" name="qty-break" id="break-100" value="100"></td>
                     <th scope="row"><label for="break-100">100</label></th>
-                    <td class="break__save" data-role="save">Save 28.93%</td>
-                    <td class="break__each" data-role="each">&pound;3.93</td>
-                    <td class="break__sub" data-role="sub">&pound;393.00</td>
+                    <td class="break__save" data-role="save">Save 31.43%</td>
+                    <td class="break__each" data-role="each">&pound;3.49</td>
+                    <td class="break__sub" data-role="sub">&pound;349.00</td>
                     <td><button class="break__up" type="button" aria-label="Upload artwork for 100 units"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-transfer"/></svg></button></td>
                   </tr>
                   <tr data-qty="250" class="break">
                     <td><input type="radio" name="qty-break" id="break-250" value="250"></td>
                     <th scope="row"><label for="break-250">250</label></th>
-                    <td class="break__save" data-role="save">Save 35.80%</td>
-                    <td class="break__each" data-role="each">&pound;3.55</td>
-                    <td class="break__sub" data-role="sub">&pound;887.50</td>
+                    <td class="break__save" data-role="save">Save 38.90%</td>
+                    <td class="break__each" data-role="each">&pound;3.11</td>
+                    <td class="break__sub" data-role="sub">&pound;777.50</td>
                     <td><button class="break__up" type="button" aria-label="Upload artwork for 250 units"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-transfer"/></svg></button></td>
                   </tr>
                   <tr data-qty="500" class="break">
                     <td><input type="radio" name="qty-break" id="break-500" value="500"></td>
                     <th scope="row"><label for="break-500">500</label></th>
-                    <td class="break__save" data-role="save">Save 43.76%</td>
-                    <td class="break__each" data-role="each">&pound;3.11</td>
-                    <td class="break__sub" data-role="sub">&pound;1,555.00</td>
+                    <td class="break__save" data-role="save">Save 47.54%</td>
+                    <td class="break__each" data-role="each">&pound;2.67</td>
+                    <td class="break__sub" data-role="sub">&pound;1,335.00</td>
                     <td><button class="break__up" type="button" aria-label="Upload artwork for 500 units"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-transfer"/></svg></button></td>
                   </tr>
                   <tr data-qty="1000" class="break break--more" hidden>
                     <td><input type="radio" name="qty-break" id="break-1000" value="1000"></td>
                     <th scope="row"><label for="break-1000">1,000</label></th>
-                    <td class="break__save" data-role="save">Save 48.64%</td>
-                    <td class="break__each" data-role="each">&pound;2.84</td>
-                    <td class="break__sub" data-role="sub">&pound;2,840.00</td>
+                    <td class="break__save" data-role="save">Save 49.61%</td>
+                    <td class="break__each" data-role="each">&pound;2.57</td>
+                    <td class="break__sub" data-role="sub">&pound;2,565.00</td>
                     <td><button class="break__up" type="button" aria-label="Upload artwork for 1,000 units"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-transfer"/></svg></button></td>
                   </tr>
                   <tr data-qty="2500" class="break break--more" hidden>
                     <td><input type="radio" name="qty-break" id="break-2500" value="2500"></td>
                     <th scope="row"><label for="break-2500">2,500</label></th>
-                    <td class="break__save" data-role="save">Save 52.62%</td>
-                    <td class="break__each" data-role="each">&pound;2.62</td>
-                    <td class="break__sub" data-role="sub">&pound;6,550.00</td>
+                    <td class="break__save" data-role="save">Save 51.20%</td>
+                    <td class="break__each" data-role="each">&pound;2.48</td>
+                    <td class="break__sub" data-role="sub">&pound;6,210.00</td>
                     <td><button class="break__up" type="button" aria-label="Upload artwork for 2,500 units"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-transfer"/></svg></button></td>
                   </tr>
                   </tbody>
@@ -2485,7 +2539,7 @@
                 <!-- Nothing is priced until a quantity is chosen, as the live
                      configurator behaves; the from-price holds the space. -->
                 <p class="summary__select" id="c-select">Select a quantity to see your configured price.
-                  <small>From &pound;2.19 Ex VAT &middot; unprinted, per unit</small></p>
+                  <small>From &pound;1.75 Ex VAT &middot; unprinted, per unit</small></p>
                 <p class="summary__lbl">Your configured total:</p>
                 <p class="summary__price">
                   <b id="c-total">&mdash;</b>
@@ -2513,7 +2567,7 @@
                 <label class="toggle">
                   <input type="checkbox" id="express">
                   <span class="toggle__track" aria-hidden="true"></span>
-                  <span class="toggle__lbl">Express production <small>cuts 3 working days, &pound;0.35 a unit plus &pound;25.00</small></span>
+                  <span class="toggle__lbl">Express production <small>cuts 3 working days, &pound;100.00 per order</small></span>
                 </label>
               </div>
 
@@ -2718,16 +2772,14 @@
                 <caption class="vh">Transfer printing: branding price per unit by quantity and number of colours, excluding VAT</caption>
                 <thead><tr><th scope="col">Qty</th><th scope="col">1 colour<br><small>price each</small></th><th scope="col">2 colour<br><small>price each</small></th><th scope="col">3 colour<br><small>price each</small></th><th scope="col">4 colour<br><small>price each</small></th><th scope="col">5 colour<br><small>price each</small></th><th scope="col">6 colour<br><small>price each</small></th><th scope="col">7 colour<br><small>price each</small></th><th scope="col">8 colour<br><small>price each</small></th></tr></thead>
                 <tbody>
-                <tr><th scope="row">1</th><td>2.56</td><td>3.92</td><td>5.29</td><td>6.66</td><td>8.03</td><td>9.39</td><td>10.76</td><td>12.13</td></tr>
-                <tr><th scope="row">50</th><td>2.11</td><td>3.01</td><td>3.91</td><td>4.81</td><td>5.71</td><td>6.61</td><td>7.51</td><td>8.41</td></tr>
-                <tr><th scope="row">100</th><td>1.87</td><td>2.67</td><td>3.47</td><td>4.28</td><td>5.08</td><td>5.89</td><td>6.69</td><td>7.49</td></tr>
-                <tr><th scope="row">250</th><td>1.70</td><td>2.33</td><td>2.97</td><td>3.60</td><td>4.23</td><td>4.87</td><td>5.50</td><td>6.13</td></tr>
-                <tr><th scope="row">500</th><td>1.22</td><td>1.64</td><td>2.06</td><td>2.49</td><td>2.91</td><td>3.34</td><td>3.76</td><td>4.18</td></tr>
-                <tr><th scope="row">1,000</th><td>1.06</td><td>1.44</td><td>1.82</td><td>2.20</td><td>2.58</td><td>2.96</td><td>3.34</td><td>3.72</td></tr>
-                <tr><th scope="row">2,500</th><td>0.95</td><td>1.25</td><td>1.54</td><td>1.84</td><td>2.14</td><td>2.43</td><td>2.73</td><td>3.03</td></tr>
-                <tr><th scope="row">5,000</th><td>0.89</td><td>1.13</td><td>1.37</td><td>1.61</td><td>1.85</td><td>2.09</td><td>2.33</td><td>2.57</td></tr>
-                <tr><th scope="row">10,000</th><td>0.82</td><td>1.02</td><td>1.22</td><td>1.41</td><td>1.61</td><td>1.80</td><td>2.00</td><td>2.20</td></tr>
-                <tr><th scope="row">20,000</th><td>0.74</td><td>0.92</td><td>1.10</td><td>1.29</td><td>1.47</td><td>1.66</td><td>1.84</td><td>2.02</td></tr>
+                <tr><th scope="row">1</th><td>1.94</td><td>2.29</td><td>2.64</td><td>2.99</td><td>3.34</td><td>3.69</td><td>4.04</td><td>4.39</td></tr>
+                <tr><th scope="row">25</th><td>1.94</td><td>2.29</td><td>2.64</td><td>2.99</td><td>3.34</td><td>3.69</td><td>4.04</td><td>4.39</td></tr>
+                <tr><th scope="row">50</th><td>1.57</td><td>1.92</td><td>2.27</td><td>2.62</td><td>2.97</td><td>3.32</td><td>3.67</td><td>4.02</td></tr>
+                <tr><th scope="row">100</th><td>1.39</td><td>1.74</td><td>2.09</td><td>2.44</td><td>2.79</td><td>3.14</td><td>3.49</td><td>3.84</td></tr>
+                <tr><th scope="row">250</th><td>1.22</td><td>1.57</td><td>1.92</td><td>2.27</td><td>2.62</td><td>2.97</td><td>3.32</td><td>3.67</td></tr>
+                <tr><th scope="row">500</th><td>0.85</td><td>1.20</td><td>1.55</td><td>1.90</td><td>2.25</td><td>2.60</td><td>2.95</td><td>3.30</td></tr>
+                <tr><th scope="row">1,000</th><td>0.78</td><td>1.13</td><td>1.48</td><td>1.83</td><td>2.18</td><td>2.53</td><td>2.88</td><td>3.23</td></tr>
+                <tr><th scope="row">2,500</th><td>0.72</td><td>1.07</td><td>1.42</td><td>1.77</td><td>2.12</td><td>2.47</td><td>2.82</td><td>3.17</td></tr>
                 </tbody>
               </table>
             </div>
@@ -2738,13 +2790,14 @@
                 <caption class="vh">Digital transfer: branding price per unit by quantity and number of colours, excluding VAT</caption>
                 <thead><tr><th scope="col">Qty</th><th scope="col">Full colour<br><small>price each</small></th></tr></thead>
                 <tbody>
-                <tr><th scope="row">1</th><td>35.87</td></tr>
-                <tr><th scope="row">50</th><td>1.62</td></tr>
-                <tr><th scope="row">100</th><td>1.34</td></tr>
-                <tr><th scope="row">250</th><td>1.25</td></tr>
-                <tr><th scope="row">500</th><td>1.31</td></tr>
-                <tr><th scope="row">1,000</th><td>1.31</td></tr>
-                <tr><th scope="row">2,500</th><td>1.32</td></tr>
+                <tr><th scope="row">1</th><td>1.94</td></tr>
+                <tr><th scope="row">25</th><td>1.94</td></tr>
+                <tr><th scope="row">50</th><td>1.57</td></tr>
+                <tr><th scope="row">100</th><td>1.39</td></tr>
+                <tr><th scope="row">250</th><td>1.22</td></tr>
+                <tr><th scope="row">500</th><td>0.85</td></tr>
+                <tr><th scope="row">1,000</th><td>0.78</td></tr>
+                <tr><th scope="row">2,500</th><td>0.72</td></tr>
                 </tbody>
               </table>
             </div>
@@ -2755,13 +2808,14 @@
                 <caption class="vh">Transfer reflective: branding price per unit by quantity and number of colours, excluding VAT</caption>
                 <thead><tr><th scope="col">Qty</th><th scope="col">1 colour<br><small>price each</small></th></tr></thead>
                 <tbody>
-                <tr><th scope="row">1</th><td>38.21</td></tr>
-                <tr><th scope="row">50</th><td>3.69</td></tr>
-                <tr><th scope="row">100</th><td>2.95</td></tr>
-                <tr><th scope="row">250</th><td>2.64</td></tr>
-                <tr><th scope="row">500</th><td>2.09</td></tr>
-                <tr><th scope="row">1,000</th><td>1.88</td></tr>
-                <tr><th scope="row">2,500</th><td>1.73</td></tr>
+                <tr><th scope="row">1</th><td>1.94</td></tr>
+                <tr><th scope="row">25</th><td>1.94</td></tr>
+                <tr><th scope="row">50</th><td>1.57</td></tr>
+                <tr><th scope="row">100</th><td>1.39</td></tr>
+                <tr><th scope="row">250</th><td>1.22</td></tr>
+                <tr><th scope="row">500</th><td>0.85</td></tr>
+                <tr><th scope="row">1,000</th><td>0.78</td></tr>
+                <tr><th scope="row">2,500</th><td>0.72</td></tr>
                 </tbody>
               </table>
             </div>
@@ -2772,13 +2826,14 @@
                 <caption class="vh">Screen printing: branding price per unit by quantity and number of colours, excluding VAT</caption>
                 <thead><tr><th scope="col">Qty</th><th scope="col">1 colour<br><small>price each</small></th><th scope="col">2 colour<br><small>price each</small></th><th scope="col">3 colour<br><small>price each</small></th><th scope="col">4 colour<br><small>price each</small></th></tr></thead>
                 <tbody>
-                <tr><th scope="row">1</th><td>36.58</td><td>36.80</td><td>37.02</td><td>37.24</td></tr>
-                <tr><th scope="row">50</th><td>1.99</td><td>2.21</td><td>2.43</td><td>2.65</td></tr>
-                <tr><th scope="row">100</th><td>1.55</td><td>1.77</td><td>1.99</td><td>2.21</td></tr>
-                <tr><th scope="row">250</th><td>1.29</td><td>1.51</td><td>1.73</td><td>1.95</td></tr>
-                <tr><th scope="row">500</th><td>1.23</td><td>1.45</td><td>1.67</td><td>1.89</td></tr>
-                <tr><th scope="row">1,000</th><td>1.14</td><td>1.36</td><td>1.58</td><td>1.80</td></tr>
-                <tr><th scope="row">2,500</th><td>1.08</td><td>1.30</td><td>1.52</td><td>1.74</td></tr>
+                <tr><th scope="row">1</th><td>1.94</td><td>2.16</td><td>2.38</td><td>2.60</td></tr>
+                <tr><th scope="row">25</th><td>1.94</td><td>2.16</td><td>2.38</td><td>2.60</td></tr>
+                <tr><th scope="row">50</th><td>1.57</td><td>1.79</td><td>2.01</td><td>2.23</td></tr>
+                <tr><th scope="row">100</th><td>1.39</td><td>1.61</td><td>1.83</td><td>2.05</td></tr>
+                <tr><th scope="row">250</th><td>1.22</td><td>1.44</td><td>1.66</td><td>1.88</td></tr>
+                <tr><th scope="row">500</th><td>0.85</td><td>1.07</td><td>1.29</td><td>1.51</td></tr>
+                <tr><th scope="row">1,000</th><td>0.78</td><td>1.00</td><td>1.22</td><td>1.44</td></tr>
+                <tr><th scope="row">2,500</th><td>0.72</td><td>0.94</td><td>1.16</td><td>1.38</td></tr>
                 </tbody>
               </table>
             </div>
@@ -2819,7 +2874,7 @@
           <div>
             <h3>Order online</h3>
             <p>For every item you can add to the basket and check out immediately, production time
-            is 5&ndash;7 working days from artwork approval and shipping
+            is 3&ndash;5 working days from artwork approval and shipping
             is 2&ndash;3 working days. On ordering you receive an order confirmation, and one of the
             sales team emails a visual proof for final approval before it goes into production.</p>
             <p>What might delay production? Artwork in the wrong format can hold up the proof.
@@ -3261,7 +3316,7 @@
 <script src="assets/js/a11y-v4.js?v=6"></script>
 <script src="assets/js/mega-v4.js?v=1"></script>
 <script src="assets/js/quote-artwork-v4.js?v=1"></script>
-<script src="assets/js/pdp-v4.js?v=32"></script>
+<script src="assets/js/pdp-v4.js?v=35"></script>
 <!-- SPIN:START - generated by scripts/spin/build_spin.py; edit there -->
 <link rel="stylesheet" href="assets/css/spin-v4.css?v=7">
 
