@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Generate the Offers page.
 
-The client's brief: a dynamic page of 50 random products each week, every
-one at 10% off, with a countdown for the week. The design shows the pool we
+The client's brief: a dynamic page of 50 products on offer. Each offer has
+its own discount and its own end date (set per product in the catalogue), so
+the page promises neither one percentage nor one deadline: every card shows
+its own saving and its own countdown, and the hero sums them up. The design shows the pool we
 have imagery for (the bags listing plus the product-page lines), with the
 same card the list page uses so the two never drift.
 
@@ -16,12 +18,23 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 PDP = ROOT / "scripts" / "pdp"
 
 CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
-FOOTER = re.sub(r'<script src="assets/js/quote-artwork-v4\.js\?v=\d+"></script>\n', "",
-                (PDP / "_footer.html").read_text(encoding="utf-8")).replace(
-    '<script src="assets/js/pdp-v4.js?v=32"></script>',
-    '<script src="assets/js/deals-v4.js?v=2"></script>\n<script src="assets/js/offers-v4.js?v=1"></script>')
+# Swap the product-page script for the offers scripts, whatever its version.
+FOOTER = re.sub(r'<script src="assets/js/pdp-v4\.js\?v=\d+"></script>',
+                '<script src="assets/js/deals-v4.js?v=3"></script>\n<script src="assets/js/offers-v4.js?v=2"></script>',
+                re.sub(r'<script src="assets/js/quote-artwork-v4\.js\?v=\d+"></script>\n', "",
+                       (PDP / "_footer.html").read_text(encoding="utf-8")))
 
-DISCOUNT = 0.10
+# Demo values per product, standing in for the catalogue's special price
+# and special-price end date. Picked from the name so they stay put between
+# builds: a discount from DISCOUNTS and an end 1-14 days out.
+DISCOUNTS = [5, 10, 12, 15, 18, 20, 25, 30]
+
+
+def offer_terms(name):
+    h = 0
+    for ch in name:
+        h = (h * 131 + ord(ch)) % 1000003
+    return DISCOUNTS[h % len(DISCOUNTS)], 1 + (h // 7) % 14
 
 
 def esc(s):
@@ -152,15 +165,16 @@ CATS = [("all", "All offers"), ("bags", "Bags"), ("tech", "Tech"), ("drinkware",
 
 
 def card(p):
-    now = p["price"] * (1 - DISCOUNT)
+    pct, days = offer_terms(p["name"])
+    now = p["price"] * (1 - pct / 100)
     rate = (f'          <span class="prod__rate">{icon("i-star", 14)}<b>{p["rating"]}</b> ({p["count"]})</span>\n'
             if p["rating"] else "")
-    return f"""        <a href="{p["href"]}" class="prod" data-cat="{p["cat"]}" data-price="{p["price"]:.2f}">
-          <span class="prod__media"><span class="prod__flag prod__flag--deal">{icon("i-tag", 17)}10% off this week</span><img src="{p["img"]}" alt="{esc(p["alt"])}" loading="lazy" width="360" height="360"></span>
+    return f"""        <a href="{p["href"]}" class="prod" data-cat="{p["cat"]}" data-price="{now:.2f}" data-discount="{pct}" data-ends-days="{days}">
+          <span class="prod__media"><span class="prod__flag prod__flag--deal">{icon("i-tag", 17)}{pct}% off</span><img src="{p["img"]}" alt="{esc(p["alt"])}" loading="lazy" width="360" height="360"></span>
 {rate}          <span class="prod__name">{p["name"]}</span>
           {p["sw"]}
-          <span class="prod__price"><span class="prod__aslow">This week, as low as</span><b>{money(now)}</b> <s>{money(p["price"])}</s></span>
-          <span class="prod__ends">{icon("i-bolt", 13)}Ends in <b data-countdown="short">&mdash;</b></span>
+          <span class="prod__price"><span class="prod__aslow">Offer price, as low as</span><b>{money(now)}</b> <s>{money(p["price"])}</s></span>
+          <span class="prod__ends">{icon("i-bolt", 13)}Offer ends in <b data-countdown="short" data-ends-days="{days}">&mdash;</b></span>
           <span class="prod__cta">Explore {icon("i-arrow", 15)}</span>
         </a>"""
 
@@ -168,6 +182,8 @@ def card(p):
 def page():
     pool = week_pool()
     cards = chr(10).join(card(p) for p in pool)
+    top = max(offer_terms(p["name"])[0] for p in pool)
+    soonest = min(offer_terms(p["name"])[1] for p in pool)
     chips = chr(10).join(
         f'          <button class="chip" type="button" data-cat="{k}" aria-pressed="{"true" if k == "all" else "false"}">{label}</button>'
         for k, label in CATS)
@@ -187,21 +203,26 @@ def page():
     <div class="wrap">
       <div class="lhero__grid">
         <div class="lhero__copy">
-          <span class="eyebrow eyebrow--onforest">This week&rsquo;s offers</span>
-          <h1 id="offers-h">50 products, 10% off <span class="hl">until Monday.</span></h1>
-          <p>A fresh 50 are picked at random from the range every week and discounted by 10%. When the clock
-          runs out the prices go back to normal and a new 50 take over &mdash; so if it&rsquo;s here, it&rsquo;s this week only.</p>
+          <span class="eyebrow eyebrow--onforest">Offers</span>
+          <h1 id="offers-h">{len(pool)} offers, <span class="hl">up to {top}% off.</span></h1>
+          <p>Every offer has its own saving and its own end date &mdash; the price and the clock are on each
+          product. When an offer ends its price goes back to normal and a new one takes its place.</p>
           <div class="lhero__cta">
             <a href="#offers" class="btn btn--onforest">See the offers {icon("i-arrow", 18)}</a>
             <a href="products-v4.html" class="btn btn--outline btn--outline-onforest">Browse everything</a>
           </div>
         </div>
+        <!-- A summary, not one deadline: offers end on different days. -->
         <div class="offers-clock">
-          <span class="countdown__t">Offers end in</span>
-          <div class="countdown__clock countdown__clock--big" data-countdown>
-            <span><b>0</b><small>days</small></span><span><b>00</b><small>hrs</small></span><span><b>00</b><small>min</small></span><span><b>00</b><small>sec</small></span>
+          <dl class="offers-sum">
+            <div><dt>Biggest saving</dt><dd>{top}%</dd></div>
+            <div><dt>Offers live</dt><dd>{len(pool)}</dd></div>
+          </dl>
+          <span class="countdown__t">Next offer ends in</span>
+          <div class="countdown__clock countdown__clock--big" data-countdown data-ends-days="{soonest}">
+            <span><b>&ndash;</b><small>days</small></span><span><b>&ndash;</b><small>hrs</small></span><span><b>&ndash;</b><small>min</small></span><span><b>&ndash;</b><small>sec</small></span>
           </div>
-          <p class="offers-clock__n">Prices revert at midnight on Sunday. <b id="deals-week"></b></p>
+          <p class="offers-clock__n">Each product shows its own end date.</p>
         </div>
       </div>
     </div>
@@ -211,8 +232,8 @@ def page():
   <section class="trust" aria-label="How the weekly offers work">
     <div class="wrap">
       <ul class="trust__list trust__list--three">
-        <li>{icon("i-tag", 22)}<span><b>10% off every line</b><span>The branded price, with the same branding options as always</span></span></li>
-        <li>{icon("i-bolt", 22)}<span><b>Changes every Monday</b><span>Fifty new products, picked at random from the range</span></span></li>
+        <li>{icon("i-tag", 22)}<span><b>Up to {top}% off</b><span>The branded price, with the same branding options as always</span></span></li>
+        <li>{icon("i-bolt", 22)}<span><b>Each offer has its own end date</b><span>The clock on every product shows how long is left</span></span></li>
         <li>{icon("i-star", 22)}<span><b>Earn points as you go</b><span>Order online and collect reward points off your next order</span></span></li>
       </ul>
     </div>
@@ -225,13 +246,24 @@ def page():
         <div class="chips" role="group" aria-label="Filter offers by category">
 {chips}
         </div>
-        <p class="offers-bar__count"><b id="offers-count">{len(pool)}</b> offers this week</p>
+        <div class="offers-bar__end">
+          <p class="offers-bar__count"><b id="offers-count">{len(pool)}</b> offers</p>
+          <label class="listbar__sort">
+            <span>Sort by</span>
+            <select id="offers-sort">
+              <option value="ending">Ending soonest</option>
+              <option value="discount">Biggest discount</option>
+              <option value="price-asc">Price, low to high</option>
+              <option value="price-desc">Price, high to low</option>
+            </select>
+          </label>
+        </div>
       </div>
-      <h2 id="grid-h" class="vh">This week&rsquo;s offers</h2>
+      <h2 id="grid-h" class="vh">Current offers</h2>
       <div class="rail rail--grid" id="offers-grid">
 {cards}
       </div>
-      <p class="listing__none" id="offers-none" hidden>No offers in that category this week &mdash; check back on Monday.</p>
+      <p class="listing__none" id="offers-none" hidden>No offers in that category right now &mdash; new ones are added as others end.</p>
     </div>
   </section>
 
@@ -257,15 +289,15 @@ def page():
 <meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>This week's offers | Bounce Creative Designs</title>
-<meta name="description" content="Fifty products at 10% off, picked at random every week. New offers every Monday.">
+<title>Offers | Bounce Creative Designs</title>
+<meta name="description" content="Branded merchandise on offer, each with its own saving and end date.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style-v4.css?v=121">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=32">
 <link rel="stylesheet" href="assets/css/category-v4.css?v=5">
-<link rel="stylesheet" href="assets/css/offers-v4.css?v=1">
+<link rel="stylesheet" href="assets/css/offers-v4.css?v=2">
 <link rel="stylesheet" href="assets/css/mega-v4.css?v=6">
 <script>document.documentElement.className += " js";</script>
 """

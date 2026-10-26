@@ -69,11 +69,16 @@
     function pad(n) { return (n < 10 ? '0' : '') + n; }
     function tick() {
       var t = new Date();
-      var end = new Date(t.getFullYear(), t.getMonth(), t.getDate() + ((8 - t.getDay()) % 7 || 7));
-      var left = Math.max(0, end - t);
-      var d = Math.floor(left / 86400000), h = Math.floor(left / 3600000) % 24,
-          m = Math.floor(left / 60000) % 60, s = Math.floor(left / 1000) % 60;
+      var monday = new Date(t.getFullYear(), t.getMonth(), t.getDate() + ((8 - t.getDay()) % 7 || 7));
       clocks.forEach(function (clock) {
+        /* An offer with its own end date carries data-ends-days: it ends at
+           midnight that many days from today. [BUILD] the catalogue's
+           special-price end date. Everything else ends on Monday. */
+        var days = parseInt(clock.dataset.endsDays, 10);
+        var end = isNaN(days) ? monday : new Date(t.getFullYear(), t.getMonth(), t.getDate() + days);
+        var left = Math.max(0, end - t);
+        var d = Math.floor(left / 86400000), h = Math.floor(left / 3600000) % 24,
+            m = Math.floor(left / 60000) % 60, s = Math.floor(left / 1000) % 60;
         if (clock.dataset.countdown === 'short') {
           clock.textContent = d + 'd ' + pad(h) + 'h ' + pad(m) + 'm';
           return;

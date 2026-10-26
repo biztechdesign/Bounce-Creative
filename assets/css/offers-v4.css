@@ -14,6 +14,14 @@
 .offers-clock__n{ font-size:var(--t-cap); color:rgba(238,233,222,.7); text-align:right; }
 .offers-clock__n b{ color:var(--oat); font-weight:700; }
 
+/* ---------- Hero summary: biggest saving, offers live, next to end ---------- */
+.offers-sum{ display:flex; gap:28px; margin:0 0 6px; }
+.offers-sum div{ display:grid; justify-items:end; gap:2px; }
+.offers-sum dt{ font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.12em; text-transform:uppercase; color:rgba(238,233,222,.7); }
+.offers-sum dd{ margin:0; font-family:var(--f-display); font-size:var(--d-2); font-weight:700; line-height:1; color:var(--coral); }
+.offers-bar__end{ display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+.offers-bar__end .listbar__sort{ margin-left:0; }
+
 /* ---------- Three-up trust strip ---------- */
 .trust__list--three{ grid-template-columns:repeat(3,minmax(0,1fr)); }
 
@@ -35,6 +43,7 @@
   .offers-hero .lhero__grid{ grid-template-columns:minmax(0,1fr); }
   .offers-clock{ justify-items:start; padding-top:0; }
   .offers-clock__n{ text-align:left; }
+  .offers-sum div{ justify-items:start; }
   .countdown__clock--big span{ min-width:70px; }
   .trust__list--three{ grid-template-columns:minmax(0,1fr); }
 }
