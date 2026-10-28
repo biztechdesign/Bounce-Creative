@@ -486,9 +486,12 @@
       if (m.lead > extraLead) extraLead = m.lead;
     });
     var product = unprinted * q;
-    var value = product + branding;
+    /* An offer takes its percentage off the branded price (product +
+       branding); setup, surcharges and express are charged as normal. */
+    var discount = CFG.offer ? (product + branding) * CFG.offer.pct / 100 : 0;
+    var value = product + branding - discount;
     var surcharge = value < (CFG.smallOrderUnder || 0) ? (CFG.smallOrderFee || 0) : 0;
-    return { product: product, branding: branding, setup: setup, surcharge: surcharge,
+    return { product: product, branding: branding, discount: discount, setup: setup, surcharge: surcharge,
              value: value, lead: extraLead };
   }
 
@@ -594,7 +597,7 @@
       ? (CFG.expressRate || 0) * n + (CFG.expressFee || 0)
       : 0;
 
-    var net = productCost + c.branding + c.setup + c.surcharge + express;
+    var net = productCost + c.branding - c.discount + c.setup + c.surcharge + express;
     var incVat = vatEl && vatEl.checked;
     var f = incVat ? (1 + VAT) : 1;
     var total = net * f;
@@ -607,6 +610,12 @@
     set(out.setup, c.setup ? money(c.setup * f) : 'None');
     set(out.surcharge, c.surcharge ? money(c.surcharge * f) : 'None');
     set(out.express, express ? money(express * f) : 'Not selected');
+    set($('c-offer'), c.discount ? '−' + money(c.discount * f) : 'None');
+    var saveEl = $('c-save');
+    if (saveEl) {
+      saveEl.hidden = !c.discount;
+      saveEl.textContent = 'You save ' + money(c.discount * f) + ' with this offer (' + CFG.offer.pct + '% off)';
+    }
     set(out.total, money(total));
     set(out.totalNote, NUM.format(n) + ' units, ' + (incVat ? 'inc.' : 'excl.') + ' VAT');
     set($('cfg-total'), NUM.format(grid ? gridTotal() : n));
@@ -780,8 +789,8 @@
     function quoteAt(quantity) {
       var c = costsAt(quantity, quantity < min);
       var express = expressEl && expressEl.checked ? (CFG.expressRate || 0) * quantity + (CFG.expressFee || 0) : 0;
-      var net = c.product + c.branding + c.setup + c.surcharge + express;
-      return { quantity: quantity, product: c.product, branding: c.branding, setup: c.setup,
+      var net = c.product + c.branding - c.discount + c.setup + c.surcharge + express;
+      return { quantity: quantity, product: c.product, branding: c.branding, discount: c.discount, setup: c.setup,
         surcharge: c.surcharge, express: express, net: net, vat: net * VAT,
         total: net * (incVat ? 1 + VAT : 1) };
     }

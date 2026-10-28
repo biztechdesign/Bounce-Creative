@@ -460,6 +460,12 @@ PRODUCTS = [
 PRODUCTS.append({**PRODUCTS[0], "file": "product-hivis-nopos-v4.html", "position_tiles": True,
                  "copy_key": PRODUCTS[0]["file"]})
 
+# The vest on offer, as the Offers page links to it: its own discount and end
+# date ([BUILD] the catalogue's special price and special-price end date).
+# The percentage comes off the branded price - product plus branding.
+PRODUCTS.append({**PRODUCTS[0], "file": "product-hivis-offer-v4.html",
+                 "copy_key": PRODUCTS[0]["file"], "offer": {"pct": 18, "ends_days": 3}})
+
 
 def esc(s):
     return (s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
@@ -524,7 +530,7 @@ def head(p):
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style-v4.css?v=121">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=32">
-<link rel="stylesheet" href="assets/css/pdp-v4.css?v=72">
+<link rel="stylesheet" href="assets/css/pdp-v4.css?v=74">
 <!-- The reveal animation hides content until it is observed, so it is scoped to
      JS being available. Without this, a JS failure would leave a blank page. -->
 <link rel="stylesheet" href="assets/css/mega-v4.css?v=6">
@@ -569,6 +575,7 @@ def config_island(p):
         "baseShip": BASE_SHIP,
         "leadRange": p.get("lead_range"),
         "eachInclSetup": bool(p.get("each_incl_setup")),
+        "offer": ({"pct": p["offer"]["pct"], "endsDays": p["offer"]["ends_days"]} if p.get("offer") else None),
         "shipRange": p.get("ship_range"),
         "expressShip": EXPRESS_SHIP,
         "stock": p["stock"],
@@ -861,6 +868,44 @@ def matrix_each(m, colours, n):
     return row[ci] if ci < len(row) else row[-1]
 
 
+
+def offer_factor(p):
+    return 1 - p["offer"]["pct"] / 100 if p.get("offer") else 1
+
+
+def offer_price(p):
+    """The headline from-price; on offer, the offer price with the usual
+    price struck through, the saving and the offer's own countdown."""
+    was = p["tiers"][0][1]
+    if not p.get("offer"):
+        return f"""          <div class="buy__price">
+            <b>{money(was)}</b>
+            <span class="buy__vat">Ex VAT</span>
+            <span class="buy__unit">From price per unit, unprinted &middot; minimum order {p["min_qty"]}</span>
+          </div>"""
+    o = p["offer"]
+    return f"""          <!-- On offer: the offer price, the usual price struck through, and the
+               offer's own end date. [BUILD] special price + special-price end date. -->
+          <div class="buy__offer">
+            <span class="buy__offer-tag">{icon("i-tag", 16)}{o["pct"]}% off &middot; Offer</span>
+            <span class="buy__offer-ends">{icon("i-bolt", 15)}Offer ends in <b data-countdown="short" data-ends-days="{o["ends_days"]}">&mdash;</b></span>
+          </div>
+          <div class="buy__price buy__price--offer">
+            <b>{money(was * offer_factor(p))}</b>
+            <s>{money(was)}</s>
+            <span class="buy__vat">Ex VAT</span>
+            <span class="buy__unit">Offer price per unit, unprinted &middot; {o["pct"]}% off the branded price on every quantity &middot; minimum order {p["min_qty"]}</span>
+          </div>"""
+
+
+def offer_line(p):
+    if not p.get("offer"):
+        return ""
+    return (f'                    <li class="calc__offer"><span class="calc__k">Offer discount'
+            f'<span class="calc__note">{p["offer"]["pct"]}% off product and branding</span></span>'
+            f'<span class="calc__v" id="c-offer">&mdash;</span></li>\n')
+
+
 def setup_for(m, colours):
     st = m.get("setup", {})
     if not st:
@@ -890,9 +935,10 @@ def baseline_each(p):
     c0 = (m0["colours"] or [1])[0]
     n = p["breaks"][1] if p.get("breaks") else p["min_qty"]
     each = unit_price(p, m0, c0, n)
+    each *= offer_factor(p)
     if p.get("each_incl_setup"):
         each += setup_for(m0, c0) / n
-    return round(each, 2)
+    return round(each, 4)
 
 
 def order_value(p, method, colours, n):
@@ -997,7 +1043,7 @@ def breaks_table(p):
     setup0 = setup_for(m0, c0)
 
     def row(n, sample=False):
-        each = sample_each(p, m0) if sample else unit_price(p, m0, c0, n)
+        each = (sample_each(p, m0) if sample else unit_price(p, m0, c0, n)) * offer_factor(p)
         value = each * (1 if sample else n)
         sub = value + setup0 + small_order(value)
         if p.get("each_incl_setup"):
@@ -1063,7 +1109,8 @@ def breaks_table(p):
               include setup, exclude VAT, and carry a {money(SMALL_ORDER_FEE)} small-order charge on
               orders under {money(SMALL_ORDER_UNDER)}. Saving is measured against
               {esc(m0["name"]).lower()} at {qtys[0]} units. The pre-production line is a single
-              branded sample.</p>
+              branded sample.</p>{f"""
+              <p class="breaks__offer">{icon("i-tag", 15)}Offer prices &mdash; {p["offer"]["pct"]}% off product and branding is already taken off every row.</p>""" if p.get("offer") else ""}
             </div>"""
 
 
@@ -1168,11 +1215,7 @@ def buy_box(p):
           <!-- The headline is the published from-price, unprinted, exactly as the
                counter quotes it. The configured price lives in the breakdown below,
                so the two are never confused for one another. -->
-          <div class="buy__price">
-            <b>{money(p["tiers"][0][1])}</b>
-            <span class="buy__vat">Ex VAT</span>
-            <span class="buy__unit">From price per unit, unprinted &middot; minimum order {p["min_qty"]}</span>
-          </div>
+{offer_price(p)}
 
           <form class="buy__form" onsubmit="return false;">
 {swatches(p)}{size_picker(p)}
@@ -1236,7 +1279,7 @@ def buy_box(p):
                           aria-label="Show the price breakdown">i</button>
                 </p>
                 <p class="summary__sub"><span id="c-total-note">&mdash;</span> &middot; <span id="c-perunit">&mdash;</span></p>
-
+{'                <p class="summary__save" id="c-save" hidden></p>' + chr(10) if p.get("offer") else ""}
                 <div class="calc" id="breakdown" hidden>
                   <ul class="calc__rows">
                     <li><span class="calc__k">Product cost</span><span class="calc__v" id="c-product">&mdash;</span></li>
@@ -1244,7 +1287,7 @@ def buy_box(p):
                     <li><span class="calc__k">Setup cost<span class="calc__note" id="c-setup-note">Included in the branded price</span></span><span class="calc__v" id="c-setup">&mdash;</span></li>
                     <li><span class="calc__k">Surcharges<span class="calc__note">{money(SMALL_ORDER_FEE)} small-order charge on orders under {money(SMALL_ORDER_UNDER)}</span></span><span class="calc__v" id="c-surcharge">&mdash;</span></li>
                     <li><span class="calc__k">Express</span><span class="calc__v" id="c-express">&mdash;</span></li>
-                  </ul>
+{offer_line(p)}                  </ul>
                 </div>
 
                 <label class="toggle">
@@ -1909,7 +1952,8 @@ def page(p):
 {faq(p)}
 
 """,
-        FOOTER,
+        FOOTER.replace('<script src="assets/js/pdp-v4.js', '<script src="assets/js/deals-v4.js?v=3"></script>\n<script src="assets/js/pdp-v4.js', 1)
+        if p.get("offer") else FOOTER,
     ])
 
 

@@ -133,7 +133,8 @@ EXTRA = [
      "alt": "Hi-Vis Vest VISICOAT in fluorescent yellow", "price": 1.75, "rating": "4.7", "count": "84",
      "flag": f'<span class="prod__flag">{icon("i-check", 17)}EN ISO 20471</span>',
      "sw": '<span class="prod__sw"><i style="--sw:#E3F04A"></i><i style="--sw:#F4791F"></i></span>',
-     "cat": "clothing", "href": "product-hivis-v4.html"},
+     # Links to the vest's on-offer product page, so the terms match it.
+     "cat": "clothing", "href": "product-hivis-offer-v4.html", "offer": (18, 3)},
     {"name": "Minsk Unisex Hybrid Insulated Jacket", "img": "assets/img/products/clothing/minsk-jacket-black-heather.jpg",
      "alt": "Minsk jacket in black with heather black panels", "price": 18.69, "rating": "4.8", "count": "37",
      "flag": f'<span class="prod__flag">{icon("i-star", 17)}Premium</span>',
@@ -164,8 +165,12 @@ CATS = [("all", "All offers"), ("bags", "Bags"), ("tech", "Tech"), ("drinkware",
         ("pens", "Pens"), ("office", "Office"), ("giveaways", "Giveaways"), ("eco", "Eco")]
 
 
+def terms(p):
+    return p.get("offer") or offer_terms(p["name"])
+
+
 def card(p):
-    pct, days = offer_terms(p["name"])
+    pct, days = terms(p)
     now = p["price"] * (1 - pct / 100)
     rate = (f'          <span class="prod__rate">{icon("i-star", 14)}<b>{p["rating"]}</b> ({p["count"]})</span>\n'
             if p["rating"] else "")
@@ -182,8 +187,8 @@ def card(p):
 def page():
     pool = week_pool()
     cards = chr(10).join(card(p) for p in pool)
-    top = max(offer_terms(p["name"])[0] for p in pool)
-    soonest = min(offer_terms(p["name"])[1] for p in pool)
+    top = max(terms(p)[0] for p in pool)
+    soonest = min(terms(p)[1] for p in pool)
     chips = chr(10).join(
         f'          <button class="chip" type="button" data-cat="{k}" aria-pressed="{"true" if k == "all" else "false"}">{label}</button>'
         for k, label in CATS)

@@ -1138,3 +1138,17 @@
 .qquote__price .cfg__rows{grid-template-columns:minmax(0,1fr);}
 .qquote__price .cfg__legend{width:auto;}
 .qquote__price .cfg{padding:12px;background:transparent;box-shadow:none;}
+
+/* ---------- On offer: badge, countdown, was/now ---------- */
+.buy__offer{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:24px; padding:12px 14px; background:var(--coral-wash); box-shadow:inset 0 0 0 1px var(--coral-badge); }
+.buy__offer-tag{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; background:var(--coral-badge); color:var(--white); font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.08em; text-transform:uppercase; }
+.buy__offer-ends{ display:inline-flex; align-items:center; gap:8px; font-family:var(--f-mono); font-size:var(--t-cap); letter-spacing:.06em; text-transform:uppercase; color:var(--coral-text); }
+.buy__offer-ends b{ font-weight:500; font-variant-numeric:tabular-nums; color:var(--forest); }
+.buy__offer + .buy__price{ margin-top:16px; padding-top:0; border-top:0; }
+.buy__price--offer b{ color:var(--coral-text); }
+.buy__price--offer s{ font-size:var(--t-lead, 18px); color:var(--forest-mid); }
+.breaks__offer{ display:flex; align-items:center; gap:8px; margin-top:10px; padding:10px 12px; background:var(--coral-wash); font-size:var(--t-cap); color:var(--forest); }
+.breaks__offer .ic{ color:var(--coral-text); flex:0 0 auto; }
+.calc__offer .calc__v{ color:var(--coral-text); }
+.summary__save{ display:inline-block; margin-top:8px; padding:6px 10px; background:var(--coral-wash); font-size:var(--t-cap); font-weight:700; color:var(--coral-text); }
+.summary__save[hidden]{ display:none; }
