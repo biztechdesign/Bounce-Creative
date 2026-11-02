@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style-v4.css?v=121">
+<link rel="stylesheet" href="assets/css/style-v4.css?v=122">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=32">
-<link rel="stylesheet" href="assets/css/pdp-v4.css?v=74">
+<link rel="stylesheet" href="assets/css/pdp-v4.css?v=76">
 <!-- The reveal animation hides content until it is observed, so it is scoped to
      JS being available. Without this, a JS failure would leave a blank page. -->
 <link rel="stylesheet" href="assets/css/mega-v4.css?v=6">
@@ -418,7 +418,7 @@
   "smallOrderFee": 50.0,
   "expressRate": 0,
   "expressFee": 100.0,
-  "expressSaving": 3,
+  "expressSaving": 2,
   "pointsPerPound": 0.1,
   "pointValue": 0.5,
   "baseLead": 3,
@@ -2212,6 +2212,8 @@
 
         <!-- Buy box -->
         <div class="buy">
+          <!-- Title first; SKU and stock sit underneath it (client round 3). -->
+          <h1 id="p-h">Hi-Vis Vest VISICOAT</h1>
           <div class="buy__top">
             <p class="buy__sku">SKU <b>mid-MO2243</b> &middot; <span class="buy__stock"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-check"/></svg>In stock</span></p>
             <ul class="share" aria-label="Share this product">
@@ -2221,7 +2223,6 @@
               <li><a href="#" aria-label="Share"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-share"/></svg></a></li>
             </ul>
           </div>
-          <h1 id="p-h">Hi-Vis Vest VISICOAT</h1>
           <p class="buy__rate"><svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-star"/></svg><b>4.7</b> <span>(84 reviews)</span> &middot; <span>1,940 happy customers</span></p>
 
           <p class="buy__lede">A Class 2 safety waistcoat in 100% knitted polyester, certified to EN ISO 20471. The site-standard vest, branded front and back and stocked in volume.</p>
@@ -2245,7 +2246,7 @@
           <form class="buy__form" onsubmit="return false;">
             <fieldset class="opt">
               <legend class="opt__t">Product colour <span class="opt__val" id="colour-val">Fluorescent yellow</span></legend>
-              <div class="sw-row" role="radiogroup" aria-label="Product colour">
+              <div class="sw-row" id="sw-row" role="radiogroup" aria-label="Product colour">
             <button class="sw is-on" type="button" role="radio" aria-checked="true"
                     data-img="assets/img/products/clothing/hi-vis-vest-visicoat-yellow.jpg" data-name="Fluorescent yellow" data-alt="Hi-Vis Vest VISICOAT in fluorescent yellow, shown unbranded" data-code="">
               <span class="sw__dot" style="--sw:#E3F04A"></span><span class="sw__name">Fluorescent yellow</span>
@@ -2597,7 +2598,7 @@
                 <label class="toggle">
                   <input type="checkbox" id="express">
                   <span class="toggle__track" aria-hidden="true"></span>
-                  <span class="toggle__lbl">Express production <small>cuts 3 working days, &pound;100.00 per order</small></span>
+                  <span class="toggle__lbl">Express production <small>cuts 2 working days, &pound;100.00 per order</small></span>
                 </label>
               </div>
 
@@ -2741,35 +2742,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ============ HOW WOULD BOUNCE BRAND IT ============ -->
-  <section class="sec sec--band howbrand" aria-labelledby="how-h">
-    <div class="wrap">
-      <div class="sechead sechead--row" data-reveal>
-        <div class="sechead__t">
-          <span class="eyebrow">Custom images</span>
-          <h2 id="how-h">How would Bounce brand <span class="hl">the VISICOAT vest?</span></h2>
-          <p>Mock-ups from our studio with the logo at the real print positions &mdash; up to three per product. Send us yours and we will do the same, free.</p>
-        </div>
-        <button class="btn btn--outline" type="button" data-opens-visual>Request a visual <svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-      </div>
-      <div class="howbrand__grid" data-reveal>
-        <figure class="howbrand__fig">
-          <img src="assets/img/products/clothing/custom/vest-left-breast.jpg" alt="Hi-Vis Vest VISICOAT in yellow with the Bounce logo on the left breast" loading="lazy" width="700" height="700">
-          <figcaption>Left breast, one-colour transfer</figcaption>
-        </figure>
-        <figure class="howbrand__fig">
-          <img src="assets/img/products/clothing/custom/vest-back-centre.jpg" alt="Hi-Vis Vest VISICOAT in yellow with the Bounce logo across the back" loading="lazy" width="700" height="700">
-          <figcaption>Back centre, 250 × 200mm screen print</figcaption>
-        </figure>
-        <figure class="howbrand__fig">
-          <img src="assets/img/products/clothing/custom/vest-front-centre.jpg" alt="Hi-Vis Vest VISICOAT in orange with the Bounce logo on the front" loading="lazy" width="700" height="700">
-          <figcaption>Front centre on fluorescent orange</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ DETAIL TABS ============ -->
   <section class="sec sec--rule" aria-labelledby="detail-h">
     <div class="wrap">
@@ -3003,6 +2975,35 @@
     </div>
   </section>
 
+  <!-- ============ HOW WOULD BOUNCE BRAND IT ============ -->
+  <section class="sec sec--band howbrand" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="sechead sechead--row" data-reveal>
+        <div class="sechead__t">
+          <span class="eyebrow">Custom images</span>
+          <h2 id="how-h">How would Bounce brand <span class="hl">the VISICOAT vest?</span></h2>
+          <p>Mock-ups from our studio with the logo at the real print positions &mdash; up to three per product. Send us yours and we will do the same, free.</p>
+        </div>
+        <button class="btn btn--outline" type="button" data-opens-visual>Request a visual <svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </div>
+      <div class="howbrand__grid" data-reveal>
+        <figure class="howbrand__fig">
+          <img src="assets/img/products/clothing/custom/vest-left-breast.jpg" alt="Hi-Vis Vest VISICOAT in yellow with the Bounce logo on the left breast" loading="lazy" width="700" height="700">
+          <figcaption>Your logo, ready for site day</figcaption>
+        </figure>
+        <figure class="howbrand__fig">
+          <img src="assets/img/products/clothing/custom/vest-back-centre.jpg" alt="Hi-Vis Vest VISICOAT in yellow with the Bounce logo across the back" loading="lazy" width="700" height="700">
+          <figcaption>Seen from across the yard</figcaption>
+        </figure>
+        <figure class="howbrand__fig">
+          <img src="assets/img/products/clothing/custom/vest-front-centre.jpg" alt="Hi-Vis Vest VISICOAT in orange with the Bounce logo on the front" loading="lazy" width="700" height="700">
+          <figcaption>Bright for any event team</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+
   <!-- ============ YOU'LL LOVE US ============ -->
   <section class="sec sec--band" aria-labelledby="love-h">
     <div class="wrap">
@@ -3175,9 +3176,11 @@
 </main>
 <footer class="ftr">
   <div class="wrap">
+    <!-- Brand and contact on the left, four link columns on the right. The
+         logo sits at header scale; there is no full-width wordmark. -->
     <div class="ftr__top">
-      <div>
-        <span class="logo">
+      <div class="ftr__brand">
+        <a class="logo" href="index-v4.html" aria-label="Bounce Creative Designs, home">
           <svg class="lg" viewBox="0 -8 280.45 76.15" role="img" aria-label="Bounce Creative Designs" focusable="false">
     <path class="lg-dot" style="--d:0.00s" d="M14.36,42.28c0,3.92-3.18,7.1-7.1,7.1S.17,46.2.17,42.28s3.18-7.1,7.09-7.1,7.1,3.17,7.1,7.1Z" fill="#f37259"/>
     <path class="lg-dot" style="--d:0.09s" d="M31.78,42.28c0,3.92-3.18,7.1-7.1,7.1s-7.09-3.18-7.09-7.1,3.18-7.1,7.09-7.1,7.1,3.17,7.1,7.1Z" fill="#EEE9DE"/>
@@ -3211,44 +3214,41 @@
     <path d="M265.82,60.84h-2.63v-16.91l-5.8.16v16.75h-2.63v-19.26h2.63v.53c1.03-.13,2.07-.27,3.11-.42,1.27-.16,2.31-.24,3.13-.24,1.46,0,2.2.72,2.2,2.16v17.22h-.01Z" fill="#f37259"/>
     <path d="M280.45,58.6c0,1.49-.74,2.23-2.24,2.23h-6.04c-1.49,0-2.24-.74-2.24-2.23v-4.38h2.59v4.34h5.32v-3.84l-6.88-5.64c-.67-.53-.99-1.21-.99-2.06v-3.21c0-1.49.74-2.24,2.24-2.24h5.96c1.49,0,2.24.75,2.24,2.24v3.85h-2.56v-3.8h-5.32v3.37l6.95,5.64c.65.52.97,1.22.97,2.1v3.64h0Z" fill="#f37259"/>
   </svg>
-        </span>
-        <p class="ftr__blurb">Design-led promotional merchandise from London since 2013.
-        400+ products, real carbon data, no guesswork.</p>
+        </a>
+        <p class="ftr__blurb">Design-led promotional merchandise from London since 2013.</p>
         <ul class="ftr__contact">
-          <li><a href="tel:+442083189603">020 8318 9603</a></li>
-          <li><a href="mailto:sales@promo-brand.co.uk">sales@promo-brand.co.uk</a></li>
-          <li><span>Unit 18 Clyde Terrace, Forest Hill, London SE23 3BA</span></li>
+          <li><a href="tel:+442083189603"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>020 8318 9603</a></li>
+          <li><a href="mailto:sales@promo-brand.co.uk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>sales@promo-brand.co.uk</a></li>
+          <li><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Unit 18 Clyde Terrace, Forest Hill, London SE23 3BA</span></li>
         </ul>
       </div>
-      <div class="ftr__col">
+      <nav class="ftr__cols" aria-label="Footer">
+        <div class="ftr__col">
           <h3>Shop</h3>
           <ul>
-            <li><a href="index-v4.html#catalogue">All products</a></li>
-            <li><a href="index-v4.html#catalogue">Bags</a></li>
-            <li><a href="index-v4.html#catalogue">Drinkware</a></li>
-            <li><a href="index-v4.html#catalogue">Clothing</a></li>
-            <li><a href="index-v4.html#catalogue">Tech</a></li>
-            <li><a href="index-v4.html#eco-products">Eco &amp; Sustainable</a></li>
+            <li><a href="products-v4.html">All products</a></li>
+            <li><a href="category-bags-v4.html">Bags</a></li>
+            <li><a href="category-brands-v4.html">Brands</a></li>
+            <li><a href="offers-v4.html">Offers</a></li>
+            <li><a href="index-v4.html#eco-products">Eco &amp; sustainable</a></li>
           </ul>
         </div>
-      <div class="ftr__col">
+        <div class="ftr__col">
           <h3>Services</h3>
           <ul>
             <li><a href="#">Create a Swag Box</a></li>
             <li><a href="#">Full colour printing</a></li>
-            <li><a href="#">Online order products</a></li>
             <li><a href="#">Bespoke sourcing</a></li>
             <li><a href="#">Global fulfilment</a></li>
           </ul>
         </div>
-      <div class="ftr__col">
+        <div class="ftr__col">
           <h3>Company</h3>
           <ul>
-            <li><a href="#">About Bounce</a></li>
+            <li><a href="about-v4.html">About Bounce</a></li>
+            <li><a href="news-v4.html">News &amp; guides</a></li>
             <li><a href="#">Sustainability &amp; ESG</a></li>
-            <li><a href="#">Case studies</a></li>
             <li><a href="#">Careers</a></li>
-            <li><a href="index-v4.html#contact">Contact</a></li>
           </ul>
         </div>
         <div class="ftr__col">
@@ -3261,44 +3261,10 @@
             <li><a href="index-v4.html#faq">FAQs</a></li>
           </ul>
         </div>
-    </div>
-    <div class="ftr__mark" data-reveal>
-      <svg class="lg lg--big" viewBox="0 -8 280.45 76.15" aria-hidden="true" focusable="false">
-      <path class="lg-dot" style="--d:0.00s" d="M14.36,42.28c0,3.92-3.18,7.1-7.1,7.1S.17,46.2.17,42.28s3.18-7.1,7.09-7.1,7.1,3.17,7.1,7.1Z" fill="#f37259"/>
-      <path class="lg-dot" style="--d:0.14s" d="M31.78,42.28c0,3.92-3.18,7.1-7.1,7.1s-7.09-3.18-7.09-7.1,3.18-7.1,7.09-7.1,7.1,3.17,7.1,7.1Z" fill="#EEE9DE"/>
-      <path class="lg-dot" style="--d:0.28s" d="M49.05,42.28c0,3.92-3.18,7.1-7.1,7.1s-7.09-3.18-7.09-7.1,3.18-7.1,7.09-7.1,7.1,3.17,7.1,7.1Z" fill="#EEE9DE"/>
-      <path class="lg-dot" style="--d:0.42s" d="M66.47,42.28c0,3.92-3.18,7.1-7.1,7.1s-7.1-3.18-7.1-7.1,3.18-7.1,7.1-7.1,7.1,3.17,7.1,7.1Z" fill="#EEE9DE"/>
-      <path class="lg-dot" style="--d:0.00s" d="M14.2,58.89c0,3.92-3.18,7.1-7.1,7.1s-7.1-3.18-7.1-7.1,3.18-7.1,7.1-7.1,7.1,3.18,7.1,7.1Z" fill="#f37259"/>
-      <path class="lg-dot" style="--d:0.14s" d="M31.62,58.89c0,3.92-3.18,7.1-7.1,7.1s-7.1-3.18-7.1-7.1,3.18-7.1,7.1-7.1,7.1,3.18,7.1,7.1Z" fill="#EEE9DE"/>
-      <path class="lg-dot" style="--d:0.28s" d="M48.88,58.89c0,3.92-3.18,7.1-7.1,7.1s-7.1-3.18-7.1-7.1,3.18-7.1,7.1-7.1,7.1,3.18,7.1,7.1Z" fill="#EEE9DE"/>
-      <path class="lg-dot" style="--d:0.42s" d="M66.3,58.89c0,3.92-3.18,7.1-7.1,7.1s-7.09-3.18-7.09-7.1,3.18-7.1,7.09-7.1,7.1,3.18,7.1,7.1Z" fill="#EEE9DE"/>
-      <path class="lg-dot" style="--d:0.00s" d="M15.17,7.1c0,3.92-3.18,7.1-7.1,7.1S.98,11.02.98,7.1,4.16,0,8.07,0s7.1,3.18,7.1,7.1" fill="#f37259"/>
-      <path class="lg-dot" style="--d:0.00s" d="M14.68,24.36c0,3.92-3.18,7.1-7.1,7.1S.48,28.28.48,24.36s3.18-7.1,7.1-7.1,7.1,3.18,7.1,7.1" fill="#EEE9DE"/>
-      <path d="M23.3,29.12V2.09h13.72c2.85,0,4.93.72,6.24,2.16s1.96,3.08,1.96,4.93c0,1.34-.38,2.56-1.14,3.65s-1.89,1.84-3.4,2.24c3.5.85,5.25,2.95,5.25,6.3,0,2.01-.62,3.8-1.85,5.38-1.23,1.58-3.87,2.36-7.91,2.36h-12.87ZM30.94,12.45h3.84c.97,0,1.64-.24,2.05-.73.39-.49.59-1.01.59-1.56,0-1.51-.93-2.26-2.77-2.26h-3.7v4.55h-.01ZM30.94,23.11h4.04c1,0,1.74-.25,2.21-.74s.7-1.05.7-1.67-.23-1.19-.69-1.71c-.45-.53-1.28-.79-2.51-.79h-3.76v4.91h.01Z" fill="#EEE9DE"/>
-      <path d="M61.04,29.54c-3.8,0-6.9-1.26-9.3-3.78s-3.59-5.89-3.59-10.12,1.14-7.37,3.44-10.01c2.28-2.63,5.46-3.95,9.53-3.95,3.76,0,6.82,1.24,9.19,3.72s3.56,5.8,3.56,9.94-1.19,7.73-3.58,10.32-5.47,3.88-9.25,3.88ZM61,23.4c1.4,0,2.4-.61,3.02-1.83.62-1.22.92-3.46.92-6.7,0-4.7-1.26-7.05-3.78-7.05-2.72,0-4.08,2.68-4.08,8.04,0,5.03,1.3,7.54,3.92,7.54Z" fill="#EEE9DE"/>
-      <path d="M99.29,2.1v17.9c0,3.4-1.01,5.83-3.02,7.32-2.01,1.48-4.64,2.23-7.87,2.23-3.41,0-6.14-.72-8.21-2.14-2.06-1.43-3.1-3.75-3.1-6.97V2.11h8.44v17.36c0,1.29.27,2.24.82,2.83.54.6,1.41.89,2.62.89,1,0,1.82-.21,2.46-.64s1.02-.92,1.15-1.46c.12-.54.19-1.6.19-3.17V2.1h6.53,0Z" fill="#EEE9DE"/>
-      <path d="M126.83,29.12h-6.75l-7.4-11.94c-.95-1.53-1.91-3.39-2.88-5.58.44,1.74.66,3.22.66,4.43v13.09h-6.73V2.09h7.84l6.29,9.9c1.25,1.97,2.2,3.7,2.85,5.19-.42-2.31-.63-4.67-.63-7.09V2.09h6.75v27.03Z" fill="#EEE9DE"/>
-      <path d="M146.41,18.81l7.58.45c-.36,3.31-1.58,5.85-3.67,7.62s-4.66,2.65-7.71,2.65c-3.67,0-6.63-1.22-8.89-3.64-2.26-2.43-3.39-5.78-3.39-10.06s1.07-7.66,3.21-10.26,5.12-3.9,8.95-3.9c3.58,0,6.33.99,8.25,2.97s3.01,4.6,3.25,7.88l-7.74.42c0-1.81-.35-3.12-1.04-3.92-.69-.81-1.51-1.21-2.44-1.21-2.61,0-3.92,2.63-3.92,7.88,0,2.94.34,4.94,1.02,6,.68,1.06,1.63,1.58,2.86,1.58,2.19,0,3.42-1.49,3.68-4.47h0Z" fill="#EEE9DE"/>
-      <path d="M177.36,22.67v6.45h-20.33V2.09h20.33v6.24h-12.2v3.92h9.86v6h-9.86v4.41h12.2Z" fill="#EEE9DE"/>
-      <path d="M84.57,58.6c0,1.49-.74,2.23-2.21,2.23h-6.26c-1.48,0-2.22-.74-2.22-2.23v-14.79c0-1.49.74-2.24,2.22-2.24h6.26c1.47,0,2.21.75,2.21,2.24v3.85h-2.59v-3.77h-5.47v14.63h5.47v-4.29h2.59v4.38h0Z" fill="#EEE9DE"/>
-      <path d="M98.93,47.91h-2.59v-3.98l-4.85.16v16.75h-2.63v-19.26h2.63v.53c.87-.13,1.75-.27,2.63-.42,1.05-.16,1.93-.24,2.63-.24,1.45,0,2.17.72,2.17,2.16v4.29h0Z" fill="#EEE9DE"/>
-      <path d="M113.04,58.6c0,1.49-.74,2.23-2.22,2.23h-6.34c-1.48,0-2.22-.74-2.22-2.23v-14.79c0-1.49.74-2.24,2.22-2.24h6.34c1.47,0,2.22.75,2.22,2.24v6.93l-.89.93h-7.32v6.97h5.66v-3.52h2.55v3.49h0ZM110.49,49.58v-5.8h-5.66v5.8h5.66Z" fill="#EEE9DE"/>
-      <path d="M128.29,60.84h-2.59v-.53c-1.05.15-2.09.28-3.13.42-1.3.16-2.33.24-3.11.24-1.44,0-2.16-.71-2.16-2.14v-7.03c0-1.47.74-2.21,2.24-2.21h6.2v-5.8h-5.66v3.29h-2.55v-3.25c0-1.49.74-2.24,2.22-2.24h6.33c1.48,0,2.22.75,2.22,2.24v17.03-.02ZM125.74,58.45v-6.81h-5.88v6.93l5.88-.12Z" fill="#EEE9DE"/>
-      <path d="M139.53,60.84h-3.74c-1.47,0-2.22-.74-2.22-2.23v-14.71h-2.31v-2.32h2.31v-6h2.59v6h3.36v2.32h-3.36v14.63h3.36v2.32h.01Z" fill="#EEE9DE"/>
-      <path d="M145.69,37.36h-2.67v-3.33h2.67s0,3.33,0,3.33ZM145.66,60.84h-2.59v-19.26h2.59v19.26Z" fill="#EEE9DE"/>
-      <path d="M160.98,41.58l-4.77,19.31h-2.39l-4.8-19.31h2.71l3.29,15.16,3.32-15.16s2.64,0,2.64,0Z" fill="#EEE9DE"/>
-      <path d="M174.98,58.6c0,1.49-.74,2.23-2.22,2.23h-6.34c-1.47,0-2.21-.74-2.21-2.23v-14.79c0-1.49.74-2.24,2.21-2.24h6.34c1.48,0,2.22.75,2.22,2.24v6.93l-.89.93h-7.32v6.97h5.66v-3.52h2.56v3.49h0ZM172.42,49.58v-5.8h-5.66v5.8h5.66Z" fill="#EEE9DE"/>
-      <path d="M198.22,60.84h-2.61v-.53c-2.83.43-4.39.65-4.69.65-1.13,0-2.03-.38-2.71-1.14-.69-.76-1.03-1.7-1.03-2.84v-11.27c0-1.19.39-2.17,1.17-2.96.78-.78,1.75-1.18,2.93-1.18h4.34v-11.72h2.61v30.98h0ZM195.61,58.45v-14.56h-3.64c-1.46,0-2.18.75-2.18,2.24v10.29c0,1.48.72,2.22,2.18,2.22.34,0,1.55-.06,3.64-.19Z" fill="#f37259"/>
-      <path d="M213.33,58.6c0,1.49-.74,2.23-2.22,2.23h-6.33c-1.48,0-2.22-.74-2.22-2.23v-14.79c0-1.49.74-2.24,2.22-2.24h6.33c1.48,0,2.22.75,2.22,2.24v6.93l-.89.93h-7.33v6.97h5.66v-3.52h2.56v3.49h0ZM210.77,49.58v-5.8h-5.66v5.8h5.66Z" fill="#f37259"/>
-      <path d="M228.06,58.6c0,1.49-.75,2.23-2.24,2.23h-6.04c-1.49,0-2.24-.74-2.24-2.23v-4.38h2.59v4.34h5.33v-3.84l-6.89-5.64c-.66-.53-.99-1.21-.99-2.06v-3.21c0-1.49.74-2.24,2.24-2.24h5.96c1.49,0,2.24.75,2.24,2.24v3.85h-2.55v-3.8h-5.33v3.37l6.95,5.64c.64.52.97,1.22.97,2.1v3.64h0Z" fill="#f37259"/>
-      <path d="M235.03,37.36h-2.67v-3.33h2.67s0,3.33,0,3.33ZM234.99,60.84h-2.59v-19.26h2.59v19.26Z" fill="#f37259"/>
-      <path d="M250.41,65.91c0,1.49-.75,2.24-2.24,2.24h-6.26c-1.51,0-2.28-.95-2.28-2.83,0-.22,0-.56.03-1,.02-.44.03-.76.03-.96h2.59v2.55h5.51v-5.07h-4.34c-1.18,0-2.15-.39-2.93-1.18-.78-.78-1.17-1.77-1.17-2.96v-11.26c0-1.14.34-2.08,1.03-2.84s1.59-1.14,2.71-1.14c.31,0,1.87.22,4.7.65v-.53h2.61v24.34h.01ZM247.8,58.52v-14.55c-2.09-.13-3.3-.2-3.65-.2-1.45,0-2.18.74-2.18,2.22v10.32c0,1.48.73,2.22,2.18,2.22h3.65Z" fill="#f37259"/>
-      <path d="M265.82,60.84h-2.63v-16.91l-5.8.16v16.75h-2.63v-19.26h2.63v.53c1.03-.13,2.07-.27,3.11-.42,1.27-.16,2.31-.24,3.13-.24,1.46,0,2.2.72,2.2,2.16v17.22h-.01Z" fill="#f37259"/>
-      <path d="M280.45,58.6c0,1.49-.74,2.23-2.24,2.23h-6.04c-1.49,0-2.24-.74-2.24-2.23v-4.38h2.59v4.34h5.32v-3.84l-6.88-5.64c-.67-.53-.99-1.21-.99-2.06v-3.21c0-1.49.74-2.24,2.24-2.24h5.96c1.49,0,2.24.75,2.24,2.24v3.85h-2.56v-3.8h-5.32v3.37l6.95,5.64c.65.52.97,1.22.97,2.1v3.64h0Z" fill="#f37259"/>
-    </svg>
+      </nav>
     </div>
 
-    <!-- Apps and payment: the two things a customer looks for before checkout -->
+    <!-- One row: apps, payment, social. -->
     <div class="ftr__extra">
       <div class="ftr__apps">
         <h3>Get the Bounce app</h3>
@@ -3313,7 +3279,6 @@
           </a>
         </div>
       </div>
-
       <div class="ftr__pay">
         <h3>We accept</h3>
         <ul class="cards">
@@ -3328,16 +3293,24 @@
           <li class="card card--pp"><span>PayPal</span></li>
         </ul>
       </div>
-    </div>
-
-    <div class="ftr__bot">
-      <span>&copy; 2026 Bounce Creative Designs Ltd. Concept v4.</span>
-      <nav class="ftr__social" aria-label="Social media">
+      <div class="ftr__follow">
+        <h3>Follow us</h3>
+        <nav class="ftr__social" aria-label="Social media">
         <a href="#" aria-label="LinkedIn"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5ZM3 9.5h4V21H3V9.5Zm6.5 0h3.8v1.6h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.2c0-1.24-.02-2.84-1.9-2.84-1.9 0-2.2 1.36-2.2 2.75V21h-4V9.5Z"/></svg></a>
         <a href="#" aria-label="Instagram"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
         <a href="#" aria-label="Facebook"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.8 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.6 1.6-1.6H17V3.5c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.2H7.6V13h2.7v8h3.5Z"/></svg></a>
         <a href="#" aria-label="X"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.1 8.1L23.2 22h-6.5l-5.1-6.7L5.8 22H2.7l7.6-8.7L2 2h6.7l4.6 6.1L18.9 2Zm-1.1 18.1h1.7L7.3 3.8H5.5l12.3 16.3Z"/></svg></a>
         <a href="#" aria-label="YouTube"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 4.8 12 4.8 12 4.8s-7 0-8.9.6A3 3 0 0 0 1 7.5 31 31 0 0 0 .4 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1c1.9.6 8.9.6 8.9.6s7 0 8.9-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.6 12 31 31 0 0 0 23 7.5ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg></a>
+      </nav>
+      </div>
+    </div>
+
+    <div class="ftr__bot">
+      <span>&copy; 2026 Bounce Creative Designs Ltd &middot; Company No. 07145385 &middot; VAT No. GB 127 7569 81</span>
+      <nav class="ftr__legal" aria-label="Legal">
+        <a href="#">Privacy policy</a>
+        <a href="#">Terms &amp; conditions</a>
+        <a href="#">Cookies</a>
       </nav>
     </div>
   </div>
@@ -3346,57 +3319,56 @@
 <script src="assets/js/a11y-v4.js?v=6"></script>
 <script src="assets/js/mega-v4.js?v=1"></script>
 <script src="assets/js/quote-artwork-v4.js?v=1"></script>
-<script src="assets/js/deals-v4.js?v=3"></script>
-<script src="assets/js/pdp-v4.js?v=37"></script>
+<script src="assets/js/deals-v4.js?v=4"></script>
+<script src="assets/js/pdp-v4.js?v=39"></script>
 <!-- SPIN:START - generated by scripts/spin/build_spin.py; edit there -->
-<link rel="stylesheet" href="assets/css/spin-v4.css?v=7">
+<link rel="stylesheet" href="assets/css/spin-v4.css?v=8">
 
 <!-- Floating entry point, every page -->
 <button class="spintab" type="button" id="spin-tab" aria-haspopup="dialog" aria-controls="spin-dlg">
-  <svg class="spintab__wheel" viewBox="0 0 200 200" width="30" height="30" aria-hidden="true"><circle cx="100" cy="100" r="99" fill="#133935"/><path d="M100 100 L63.26 11.31 A96 96 0 0 1 136.74 11.31 Z" fill="#133935" stroke="#133935" stroke-width="1"/><g transform="rotate(0.0 100 100)" fill="#EEE9DE" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">50</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L136.74 11.31 A96 96 0 0 1 188.69 63.26 Z" fill="#F37259" stroke="#133935" stroke-width="1"/><g transform="rotate(45.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">5%</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">OFF</text></g><path d="M100 100 L188.69 63.26 A96 96 0 0 1 188.69 136.74 Z" fill="#D8E4D1" stroke="#133935" stroke-width="1"/><g transform="rotate(90.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">100</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L188.69 136.74 A96 96 0 0 1 136.74 188.69 Z" fill="#EEE9DE" stroke="#133935" stroke-width="1"/><g transform="rotate(135.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">Free</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">DELIVERY</text></g><path d="M100 100 L136.74 188.69 A96 96 0 0 1 63.26 188.69 Z" fill="#133935" stroke="#133935" stroke-width="1"/><g transform="rotate(180.0 100 100)" fill="#EEE9DE" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">150</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L63.26 188.69 A96 96 0 0 1 11.31 136.74 Z" fill="#F37259" stroke="#133935" stroke-width="1"/><g transform="rotate(225.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">10%</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">OFF</text></g><path d="M100 100 L11.31 136.74 A96 96 0 0 1 11.31 63.26 Z" fill="#D8E4D1" stroke="#133935" stroke-width="1"/><g transform="rotate(270.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">200</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L11.31 63.26 A96 96 0 0 1 63.26 11.31 Z" fill="#EEE9DE" stroke="#133935" stroke-width="1"/><g transform="rotate(315.0 100 100)" fill="#B93B1C" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">Free</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">PRODUCT</text></g><circle cx="64.79" cy="15.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="135.21" cy="15.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="185.00" cy="64.79" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="185.00" cy="135.21" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="135.21" cy="185.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="64.79" cy="185.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="15.00" cy="135.21" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="15.00" cy="64.79" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/></svg>
-  <span class="spintab__t"><b>Spin &amp; Win</b><small id="spin-tab-sub">Log in to spin</small></span>
+  <svg class="spintab__wheel" viewBox="0 0 200 200" width="30" height="30" aria-hidden="true"><circle cx="100" cy="100" r="99" fill="#133935"/><path d="M100 100 L63.26 11.31 A96 96 0 0 1 136.74 11.31 Z" fill="#133935" stroke="#133935" stroke-width="1"/><g transform="rotate(0.0 100 100)" fill="#EEE9DE" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">50</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L136.74 11.31 A96 96 0 0 1 188.69 63.26 Z" fill="#F37259" stroke="#133935" stroke-width="1"/><g transform="rotate(45.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">5%</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">OFF</text></g><path d="M100 100 L188.69 63.26 A96 96 0 0 1 188.69 136.74 Z" fill="#D8E4D1" stroke="#133935" stroke-width="1"/><g transform="rotate(90.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">100</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L188.69 136.74 A96 96 0 0 1 136.74 188.69 Z" fill="#EEE9DE" stroke="#133935" stroke-width="1"/><g transform="rotate(135.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">Free</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">DELIVERY</text></g><path d="M100 100 L136.74 188.69 A96 96 0 0 1 63.26 188.69 Z" fill="#133935" stroke="#133935" stroke-width="1"/><g transform="rotate(180.0 100 100)" fill="#EEE9DE" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">150</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L63.26 188.69 A96 96 0 0 1 11.31 136.74 Z" fill="#F37259" stroke="#133935" stroke-width="1"/><g transform="rotate(225.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">10%</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">OFF</text></g><path d="M100 100 L11.31 136.74 A96 96 0 0 1 11.31 63.26 Z" fill="#D8E4D1" stroke="#133935" stroke-width="1"/><g transform="rotate(270.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">200</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L11.31 63.26 A96 96 0 0 1 63.26 11.31 Z" fill="#EEE9DE" stroke="#133935" stroke-width="1"/><g transform="rotate(315.0 100 100)" fill="#B93B1C" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">Free</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">GIFT</text></g><circle cx="64.79" cy="15.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="135.21" cy="15.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="185.00" cy="64.79" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="185.00" cy="135.21" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="135.21" cy="185.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="64.79" cy="185.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="15.00" cy="135.21" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="15.00" cy="64.79" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/></svg>
+  <span class="spintab__t"><b>Spin &amp; Win</b><small id="spin-tab-sub">1 free spin every day</small></span>
 </button>
 
 <dialog class="spindlg" id="spin-dlg" aria-labelledby="spin-dlg-t">
-  <script type="application/json" id="spin-data">{"prizes": [{"label": "50", "unit": "points", "kind": "points", "value": 50, "weight": 26, "title": "50 reward points"}, {"label": "5%", "unit": "off", "kind": "code", "value": 5, "weight": 14, "title": "5% off your next order", "code": "SPIN5"}, {"label": "100", "unit": "points", "kind": "points", "value": 100, "weight": 18, "title": "100 reward points"}, {"label": "Free", "unit": "delivery", "kind": "delivery", "value": 0, "weight": 12, "title": "Free delivery on your next order", "code": "SPINSHIP"}, {"label": "150", "unit": "points", "kind": "points", "value": 150, "weight": 11, "title": "150 reward points"}, {"label": "10%", "unit": "off", "kind": "code", "value": 10, "weight": 6, "title": "10% off your next order", "code": "SPIN10"}, {"label": "200", "unit": "points", "kind": "points", "value": 200, "weight": 9, "title": "200 reward points"}, {"label": "Free", "unit": "product", "kind": "product", "value": 0, "weight": 4, "title": "A free branded cotton shopper", "code": "SPINGIFT"}], "freeProduct": {"name": "Natural cotton shopper, printed with your logo", "short": "Branded cotton shopper", "img": "assets/img/products/bags/custom/shopper-natural-front.jpg"}}</script>
+  <script type="application/json" id="spin-data">{"prizes": [{"label": "50", "unit": "points", "kind": "points", "value": 50, "weight": 26, "title": "50 reward points", "expHours": 24}, {"label": "5%", "unit": "off", "kind": "code", "value": 5, "weight": 14, "title": "5% off your next order", "code": "SPIN5", "expDays": 30}, {"label": "100", "unit": "points", "kind": "points", "value": 100, "weight": 18, "title": "100 reward points", "expHours": 24}, {"label": "Free", "unit": "delivery", "kind": "delivery", "value": 0, "weight": 12, "title": "Free delivery on your next order", "code": "SPINSHIP", "expDays": 30}, {"label": "150", "unit": "points", "kind": "points", "value": 150, "weight": 11, "title": "150 reward points", "expHours": 24}, {"label": "10%", "unit": "off", "kind": "code", "value": 10, "weight": 6, "title": "10% off your next order", "code": "SPIN10", "expDays": 30}, {"label": "200", "unit": "points", "kind": "points", "value": 200, "weight": 9, "title": "200 reward points", "expHours": 24}, {"label": "Free", "unit": "gift", "kind": "product", "value": 0, "weight": 4, "title": "A free gift", "code": "SPINGIFT", "expDays": 30}], "freeProduct": {"name": "plain, unbranded gift chosen by our team based on your order spend", "short": "Free gift"}}</script>
   <div class="spindlg__in">
     <button class="spindlg__x" type="button" data-spin-close aria-label="Close"><svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-close"/></svg></button>
 
     <div class="spindlg__wheel">
       <div class="wheel">
         <span class="wheel__pointer" aria-hidden="true"></span>
-        <div class="wheel__rot" id="wheel-rot"><svg class="wheel__disc" viewBox="0 0 200 200" width="360" height="360" aria-hidden="true"><circle cx="100" cy="100" r="99" fill="#133935"/><path d="M100 100 L63.26 11.31 A96 96 0 0 1 136.74 11.31 Z" fill="#133935" stroke="#133935" stroke-width="1"/><g transform="rotate(0.0 100 100)" fill="#EEE9DE" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">50</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L136.74 11.31 A96 96 0 0 1 188.69 63.26 Z" fill="#F37259" stroke="#133935" stroke-width="1"/><g transform="rotate(45.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">5%</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">OFF</text></g><path d="M100 100 L188.69 63.26 A96 96 0 0 1 188.69 136.74 Z" fill="#D8E4D1" stroke="#133935" stroke-width="1"/><g transform="rotate(90.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">100</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L188.69 136.74 A96 96 0 0 1 136.74 188.69 Z" fill="#EEE9DE" stroke="#133935" stroke-width="1"/><g transform="rotate(135.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">Free</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">DELIVERY</text></g><path d="M100 100 L136.74 188.69 A96 96 0 0 1 63.26 188.69 Z" fill="#133935" stroke="#133935" stroke-width="1"/><g transform="rotate(180.0 100 100)" fill="#EEE9DE" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">150</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L63.26 188.69 A96 96 0 0 1 11.31 136.74 Z" fill="#F37259" stroke="#133935" stroke-width="1"/><g transform="rotate(225.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">10%</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">OFF</text></g><path d="M100 100 L11.31 136.74 A96 96 0 0 1 11.31 63.26 Z" fill="#D8E4D1" stroke="#133935" stroke-width="1"/><g transform="rotate(270.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">200</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L11.31 63.26 A96 96 0 0 1 63.26 11.31 Z" fill="#EEE9DE" stroke="#133935" stroke-width="1"/><g transform="rotate(315.0 100 100)" fill="#B93B1C" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">Free</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">PRODUCT</text></g><circle cx="64.79" cy="15.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="135.21" cy="15.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="185.00" cy="64.79" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="185.00" cy="135.21" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="135.21" cy="185.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="64.79" cy="185.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="15.00" cy="135.21" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="15.00" cy="64.79" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/></svg></div>
+        <div class="wheel__rot" id="wheel-rot"><svg class="wheel__disc" viewBox="0 0 200 200" width="360" height="360" aria-hidden="true"><circle cx="100" cy="100" r="99" fill="#133935"/><path d="M100 100 L63.26 11.31 A96 96 0 0 1 136.74 11.31 Z" fill="#133935" stroke="#133935" stroke-width="1"/><g transform="rotate(0.0 100 100)" fill="#EEE9DE" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">50</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L136.74 11.31 A96 96 0 0 1 188.69 63.26 Z" fill="#F37259" stroke="#133935" stroke-width="1"/><g transform="rotate(45.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">5%</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">OFF</text></g><path d="M100 100 L188.69 63.26 A96 96 0 0 1 188.69 136.74 Z" fill="#D8E4D1" stroke="#133935" stroke-width="1"/><g transform="rotate(90.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">100</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L188.69 136.74 A96 96 0 0 1 136.74 188.69 Z" fill="#EEE9DE" stroke="#133935" stroke-width="1"/><g transform="rotate(135.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">Free</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">DELIVERY</text></g><path d="M100 100 L136.74 188.69 A96 96 0 0 1 63.26 188.69 Z" fill="#133935" stroke="#133935" stroke-width="1"/><g transform="rotate(180.0 100 100)" fill="#EEE9DE" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">150</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L63.26 188.69 A96 96 0 0 1 11.31 136.74 Z" fill="#F37259" stroke="#133935" stroke-width="1"/><g transform="rotate(225.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">10%</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">OFF</text></g><path d="M100 100 L11.31 136.74 A96 96 0 0 1 11.31 63.26 Z" fill="#D8E4D1" stroke="#133935" stroke-width="1"/><g transform="rotate(270.0 100 100)" fill="#133935" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">200</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">POINTS</text></g><path d="M100 100 L11.31 63.26 A96 96 0 0 1 63.26 11.31 Z" fill="#EEE9DE" stroke="#133935" stroke-width="1"/><g transform="rotate(315.0 100 100)" fill="#B93B1C" text-anchor="middle"><text x="100" y="35" font-family="Space Grotesk, Arial, sans-serif" font-size="16" font-weight="700">Free</text><text x="100" y="48" font-family="DM Mono, Menlo, monospace" font-size="7.5" letter-spacing=".8">GIFT</text></g><circle cx="64.79" cy="15.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="135.21" cy="15.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="185.00" cy="64.79" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="185.00" cy="135.21" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="135.21" cy="185.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="64.79" cy="185.00" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="15.00" cy="135.21" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/><circle cx="15.00" cy="64.79" r="2.4" fill="#EEE9DE" stroke="#133935" stroke-width=".8"/></svg></div>
         <button class="wheel__hub" type="button" data-spin-go aria-label="Spin the wheel">Spin</button>
       </div>
     </div>
 
     <div class="spindlg__side">
 
-
-      <!-- 0. Logged out: see the wheel, log in on the log-in page to spin -->
-      <div class="spinstate" data-state="guest" hidden>
-        <span class="spin__tag"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-user"/></svg>Members only</span>
-        <h2 class="spindlg__t">Spin &amp; <span class="hl">win.</span></h2>
-        <p class="spindlg__p">Every spin wins. Points, discounts, free delivery &mdash; or this month&rsquo;s free product. Log in to take your free spin.</p>
-        <div class="spinwin__acts">
-          <a href="login-v4.html" class="btn btn--coral" data-spin-login>Log in to spin <svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-          <a href="register-v4.html" class="btn btn--outline" data-spin-login>Create account</a>
-        </div>
-        <p class="spindlg__terms">1 free spin every day for logged-in customers. Points are added to your rewards; codes go in the offer-code field at checkout. No minimum order.</p>
-      </div>
-
-      <!-- 1. Ready -->
+      <!-- 1. Ready - everyone, guests included. Logged in, the strip shows
+           who you are and your points. -->
       <div class="spinstate" data-state="ready">
-        <div class="spinme">
+        <div class="spinme" data-member-only>
           <span class="spinme__av" data-spin-initials aria-hidden="true">AS</span>
           <span class="spinme__who"><small>Welcome back</small><b data-spin-name>Anjana Solanki</b></span>
           <span class="spinme__bal"><small>Your points</small><b><span data-spin-bal>500</span> <em>= <span data-spin-worth>&pound;250.00</span></em></b></span>
         </div>
         <span class="spin__tag" data-spin-left><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg>1 free spin every day</span>
         <h2 class="spindlg__t" id="spin-dlg-t">Spin &amp; <span class="hl">win.</span></h2>
-        <p class="spindlg__p">Every spin wins. Points, discounts, free delivery &mdash; or this month&rsquo;s free product.</p>
-        <button class="btn btn--coral spindlg__go" type="button" data-spin-go>Spin the wheel <svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-        <p class="spindlg__terms">Logged-in customers only, one spin per account per day. Points are added to your rewards; codes go in the offer-code field at checkout. No minimum order.</p>
+        <p class="spindlg__p">Everyone gets a free spin every day &mdash; and every spin wins. Points, discounts, free delivery or a free gift.</p>
+        <button class="btn btn--coral spindlg__go" type="button" data-spin-go>Try your luck <svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        <p class="spin__guest" data-guest-only><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-check"/></svg>No account needed to spin &mdash; create one to claim your prize.</p>
+        <details class="spinrules">
+          <summary>How it works &amp; prize rules</summary>
+          <ul>
+            <li>Everyone gets <b>one free spin a day</b> &mdash; no account needed to spin.</li>
+            <li>Create an account or log in to <b>claim</b> your prize.</li>
+            <li><b>Points</b> expire 24 hours after you win.</li>
+            <li><b>Free delivery</b> and <b>coupons</b> (5% / 10%) expire after 30 days.</li>
+            <li><b>Free gift</b> expires after 30 days &mdash; a plain, unbranded product our team picks based on your order spend.</li>
+            <li>Codes go in the offer-code field at checkout. No minimum order.</li>
+          </ul>
+        </details>
       </div>
 
       <!-- 2. Spinning -->
@@ -3406,11 +3378,28 @@
         <p class="spindlg__p">Every segment wins &mdash; let&rsquo;s see what you get.</p>
       </div>
 
-      <!-- 3. Won - credited to the account -->
-      <div class="spinstate" data-state="claimed" hidden role="status" aria-live="polite">
+      <!-- 3. Guest won - claim it with an account. The code is revealed once
+           the prize is claimed. -->
+      <div class="spinstate" data-state="won" hidden role="status" aria-live="polite">
         <span class="spin__tag spin__tag--won"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-check"/></svg>You won</span>
         <p class="spinwin__big" data-spin-prize>&mdash;</p>
+        <p class="spin__exp" data-spin-exp>&mdash;</p>
+        <div class="spinclaim">
+          <p class="spinclaim__t"><b>Claim your prize.</b> Create a free account or log in &mdash; we&rsquo;ll add it to your account straight away.</p>
+          <div class="spinwin__acts">
+            <a href="register-v4.html" class="btn btn--coral" data-spin-login>Create account to claim <svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a href="login-v4.html" class="btn btn--outline" data-spin-login>Log in to claim</a>
+          </div>
+          <p class="spinclaim__n"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-bolt"/></svg>We&rsquo;ll hold your prize until midnight &mdash; <b data-spin-countdown>&mdash;</b> left to claim.</p>
+        </div>
+      </div>
+
+      <!-- 4. Claimed - credited to the account, with its expiry -->
+      <div class="spinstate" data-state="claimed" hidden role="status" aria-live="polite">
+        <span class="spin__tag spin__tag--won"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-check"/></svg><span data-spin-claimtag>You won</span></span>
+        <p class="spinwin__big" data-spin-prize>&mdash;</p>
         <p class="spindlg__p" data-spin-how>&mdash;</p>
+        <p class="spin__exp" data-spin-exp>&mdash;</p>
         <p class="spinme__new" data-spin-newbal hidden><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg>New balance <b data-spin-bal>500</b> points <em>= <span data-spin-worth>&pound;250.00</span></em></p>
         <div class="spinwin__code" data-spin-codebox hidden>
           <span class="spinwin__code-v" data-spin-code>SPIN5</span>
@@ -3423,7 +3412,7 @@
         <p class="spindlg__next"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-bolt"/></svg>Next free spin in <b data-spin-countdown>&mdash;</b></p>
       </div>
 
-      <!-- 4. Already used today -->
+      <!-- 5. Already used today -->
       <div class="spinstate" data-state="used" hidden>
         <span class="spin__tag"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-star"/></svg>0 spins left today</span>
         <h2 class="spindlg__t">Come back <span class="hl">tomorrow.</span></h2>
@@ -3433,10 +3422,10 @@
       </div>
     </div>
   </div>
-  <p class="spindlg__demo">Design preview: log in or create an account with any details; today&rsquo;s spin is remembered in this browser.
+  <p class="spindlg__demo">Design preview: spin as a guest, then claim with any log-in details; today&rsquo;s spin is remembered in this browser.
     <button class="linkbtn" type="button" data-spin-reset>Reset the demo</button></p>
 </dialog>
-<script src="assets/js/spin-v4.js?v=10" defer></script>
+<script src="assets/js/spin-v4.js?v=11" defer></script>
 <!-- SPIN:END -->
 </body>
 </html>

@@ -16,7 +16,7 @@ PDP = ROOT / "scripts" / "pdp"
 
 CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
 FOOTER = re.sub(r'<script src="assets/js/pdp-v4\.js\?v=\d+"></script>',
-                '<script src="assets/js/category-v4.js?v=1"></script>\n<script src="assets/js/deals-v4.js?v=2"></script>',
+                '<script src="assets/js/category-v4.js?v=1"></script>\n<script src="assets/js/deals-v4.js?v=4"></script>',
                 (PDP / "_footer.html").read_text(encoding="utf-8")).replace('<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n', '')
 
 
@@ -116,7 +116,7 @@ def head(c):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style-v4.css?v=121">
+<link rel="stylesheet" href="assets/css/style-v4.css?v=122">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=32">
 <link rel="stylesheet" href="assets/css/category-v4.css?v=5">
 <link rel="stylesheet" href="assets/css/brands-v4.css?v=1">
@@ -243,21 +243,15 @@ def weekly():
     <div class="wrap">
       <div class="deals__head" data-reveal>
         <div class="sechead">
-          <span class="eyebrow">This week&rsquo;s deals</span>
-          <h2 id="deals-h">Top four deals, <span class="hl">10% off until Monday.</span></h2>
-          <p>Four brand products at 10% off until the week closes &mdash; then a new four take over.</p>
-        </div>
-        <div class="countdown" aria-live="polite">
-          <span class="countdown__t">Deal ends in</span>
-          <div class="countdown__clock" data-countdown>
-            <span><b>0</b><small>days</small></span><span><b>00</b><small>hrs</small></span><span><b>00</b><small>min</small></span><span><b>00</b><small>sec</small></span>
-          </div>
+          <span class="eyebrow">On offer now</span>
+          <h2 id="deals-h">Top deals, <span class="hl">on offer now.</span></h2>
+          <p>Four brand products on offer right now, each with its own saving and its own end date.</p>
         </div>
       </div>
       <div class="rail rail--four" id="weekly-deals" data-reveal></div>
       <p class="deals__foot">
-        <span>Prices revert at midnight on Sunday. <b id="deals-week"></b></span>
-        <a href="offers-v4.html" class="tlink">View all offers this week {icon("i-arrow", 16)}</a>
+        <span>Each offer has its own end date &mdash; prices go back to normal when its timer runs out.</span>
+        <a href="offers-v4.html" class="tlink">View all offers {icon("i-arrow", 16)}</a>
       </p>
     </div>
   </section>"""

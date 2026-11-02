@@ -257,11 +257,11 @@
 @media (max-width:900px){ #product-list #product-grid.rail--grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px 14px; } }
 @media (max-width:560px){ #product-list #product-grid.rail--grid{ grid-template-columns:minmax(0,1fr); } }
 /* Badges as icons only, top right, as on the live site; the name is the tooltip. */
-#product-list .prod__flag{ left:auto; right:12px; width:34px; height:34px; padding:0; justify-content:center; border-radius:50%; }
-#product-list .prod__flag .ic{ width:17px; height:17px; }
-#product-list .prod__flags{ left:auto; right:12px; justify-content:flex-end; }
-#product-list .prod__flags{ gap:6px; }
-#product-list .prod__flag--full{ background:var(--white); }
+#product-list .prod__flag, #weekly-deals .prod__flags .prod__flag{ left:auto; right:12px; width:34px; height:34px; padding:0; justify-content:center; border-radius:50%; }
+#product-list .prod__flag .ic, #weekly-deals .prod__flags .ic{ width:17px; height:17px; }
+#product-list .prod__flags, #weekly-deals .prod__flags{ left:auto; right:12px; justify-content:flex-end; }
+#product-list .prod__flags, #weekly-deals .prod__flags{ gap:6px; }
+#product-list .prod__flag--full, #weekly-deals .prod__flag--full{ background:var(--white); }
 .prod__price--oos{ min-height:0; }
 .prod__oos{
   display:inline-block; padding:6px 10px; border:1px solid var(--coral-text); color:var(--coral-text);

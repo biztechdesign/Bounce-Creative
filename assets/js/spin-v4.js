@@ -1,11 +1,11 @@
 /* ==========================================================================
    Spin & Win - prototype behaviour for the design review.
 
-   Logged-in customers only. Logged out, the wheel shows with log-in
-   buttons that go to the log-in page, which returns to this page with
-   ?spin=open. States:
-     guest (logged out) | ready -> busy -> claimed -> used (next visit)
-   One spin per account per day.
+   Everyone can spin, guests included (client round 3). A guest who wins
+   is asked to create an account or log in to CLAIM; the log-in page
+   returns here with ?spin=open and the prize is claimed. States:
+     ready -> busy -> won (guest, unclaimed) -> claimed -> used (next visit)
+   One spin per customer per day. Expiry: points 24 hours, the rest 30 days.
 
    Prototype only: "logged in" and today's spin are kept in localStorage.
    There is no log-in page in the design, so ?spin=open stands in for
@@ -46,7 +46,12 @@
   var returned = params.get('spin') === 'open', guest = params.get('spin') === 'guest';
   if (returned || guest) {
     if (returned) put(LOGIN_KEY, '1');
-    try { localStorage.removeItem(KEY); if (guest) { localStorage.removeItem(LOGIN_KEY); localStorage.removeItem('bounce-name'); } } catch (e) {}
+    try {
+      var held = JSON.parse(get(KEY) || 'null');
+      // Back from log-in with a prize waiting: keep it so it is claimed below.
+      if (guest || !(held && held.claimed === false)) localStorage.removeItem(KEY);
+      if (guest) { localStorage.removeItem(LOGIN_KEY); localStorage.removeItem('bounce-name'); }
+    } catch (e) {}
     params.delete('spin');
     var qs = params.toString();
     history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
@@ -71,7 +76,10 @@
     $all('[data-spin-bal]', dlg).forEach(function (el) { el.textContent = balance().toLocaleString('en-GB'); });
     $all('[data-spin-worth]', dlg).forEach(function (el) { el.textContent = '£' + (balance() * POINT_VALUE).toFixed(2); });
     var newBal = dlg.querySelector('[data-spin-newbal]');
-    if (newBal) newBal.hidden = !(state && PRIZES[state.prize].kind === 'points');
+    if (newBal) newBal.hidden = !(state && state.claimed !== false && PRIZES[state.prize].kind === 'points');
+    // Guests see the "no account needed" line; members see their strip.
+    $all('[data-member-only]', dlg).forEach(function (el) { el.hidden = !loggedIn; });
+    $all('[data-guest-only]', dlg).forEach(function (el) { el.hidden = loggedIn; });
     // Header: "Account" becomes "Hi, <first name>" once logged in.
     if (loggedIn) {
       $all('.hdr__act').forEach(function (a) {
@@ -90,24 +98,35 @@
   /* ---------- States ---------- */
   function show(name) {
     $all('.spinstate', dlg).forEach(function (el) { el.hidden = el.dataset.state !== name; });
-    $all('[data-spin-go]', dlg).forEach(function (b) { b.disabled = name !== 'ready' && name !== 'guest'; });
+    $all('[data-spin-go]', dlg).forEach(function (b) { b.disabled = name !== 'ready'; });
   }
 
   function prizeText(p) {
     if (p.kind === 'points') return p.value + ' reward points';
     if (p.kind === 'code') return p.value + '% off your next order';
     if (p.kind === 'delivery') return 'Free delivery';
-    return 'A free ' + DATA.freeProduct.short.toLowerCase();
+    return 'A free gift';
   }
   function howText(p) {
-    if (p.kind === 'points') return 'Added to your reward balance — worth £' + (p.value * POINT_VALUE).toFixed(2) + ' off a future order.';
+    if (p.kind === 'points') return 'Added to your reward balance — worth £' + (p.value * POINT_VALUE).toFixed(2) + ' off your next order.';
     if (p.kind === 'code') return 'Use this code in the offer-code field at checkout. No minimum order.';
     if (p.kind === 'delivery') return 'Use this code at checkout for free delivery on your next order.';
-    return 'We’ll add a free ' + DATA.freeProduct.name.toLowerCase() + ' to your next order — use this code at checkout.';
+    return 'A ' + DATA.freeProduct.name + ' — added to your next order with this code.';
+  }
+  /* Expiry from the moment it was won: points 24 hours, the rest 30 days. */
+  function expText(p, at) {
+    var won = new Date(at || Date.now());
+    if (p.expHours) {
+      var end = new Date(won.getTime() + p.expHours * 3600000);
+      return 'Use within 24 hours — expires ' + end.toLocaleString('en-GB', { weekday: 'short', hour: '2-digit', minute: '2-digit' }) + '.';
+    }
+    var d = new Date(won.getTime() + (p.expDays || 30) * 86400000);
+    return 'Valid for ' + (p.expDays || 30) + ' days — until ' + d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) + '.';
   }
 
   function fillResult(p) {
     $all('[data-spin-prize]', dlg).forEach(function (el) { el.textContent = prizeText(p); });
+    $all('[data-spin-exp]', dlg).forEach(function (el) { el.textContent = expText(p, state && state.at); });
     $all('[data-spin-how]', dlg).forEach(function (el) { el.textContent = howText(p); });
     var box = dlg.querySelector('[data-spin-codebox]');
     box.hidden = !p.code;
@@ -137,9 +156,8 @@
     return 0;
   }
 
-  /* ---------- Spin (logged in only) ---------- */
+  /* ---------- Spin - everyone, guests included ---------- */
   function spin() {
-    if (!loggedIn) { goLogin(); return; }
     if (spinning || state) return;
     spinning = true;
     var i = pick();
@@ -149,12 +167,12 @@
     var done = function () {
       rot.removeEventListener('transitionend', done);
       spinning = false;
-      state = { date: today(), prize: i };
+      // A guest's prize is held until they claim it with an account.
+      state = { date: today(), prize: i, at: Date.now(), claimed: loggedIn };
       put(KEY, JSON.stringify(state));
       fillResult(PRIZES[i]);
-      credit(PRIZES[i]);
-      paintCustomer();
-      show('claimed');
+      if (loggedIn) { credit(PRIZES[i]); paintCustomer(); show('claimed'); }
+      else show('won');
       sync();
     };
     if (reduced) done(); else rot.addEventListener('transitionend', done);
@@ -181,7 +199,7 @@
         'Daily spin — ' + prizeText(p).toLowerCase(),
         p.kind === 'points' ? '+' + p.value : (p.code || ''),
         'Completed',
-        p.kind === 'points' ? 'N/A' : '30 days'];
+        p.kind === 'points' ? '24 hours' : '30 days'];
       cells.forEach(function (text, k) {
         var td = document.createElement('td');
         if (k === 0 || k === 5) td.className = 'acct-table__muted';
@@ -211,11 +229,12 @@
     return ('0' + h).slice(-2) + ':' + ('0' + mi).slice(-2) + ':' + ('0' + se).slice(-2);
   }
   function sync() {
-    var used = !!state && loggedIn;
+    var used = !!state;
+    var pending = used && state.claimed === false;
     if (tab) {
-      tab.classList.toggle('is-used', used);
+      tab.classList.toggle('is-used', used && !pending);
       document.getElementById('spin-tab-sub').textContent =
-        !loggedIn ? 'Log in to spin' : used ? 'Next spin ' + untilMidnight() : LABEL_FREE;
+        pending ? 'Claim your prize' : used ? 'Next spin ' + untilMidnight() : LABEL_FREE;
     }
     $all('[data-spin-left]').forEach(function (el) { el.lastChild.nodeValue = used ? '0 spins left today' : LABEL_FREE; });
     if (card) {
@@ -228,17 +247,27 @@
   }
   setInterval(function () {
     $all('[data-spin-countdown]', dlg).forEach(function (el) { el.textContent = untilMidnight(); });
-    if (state && loggedIn) sync();
+    if (state) sync();
   }, 1000);
 
   /* ---------- Open / close ---------- */
+  function claim() {
+    // Back from log-in / create account with a prize waiting: claim it.
+    state.claimed = true;
+    put(KEY, JSON.stringify(state));
+    credit(PRIZES[state.prize]);
+    paintCustomer();
+    var tag = dlg.querySelector('[data-spin-claimtag]');
+    if (tag) tag.textContent = 'Prize claimed';
+  }
   function open() {
-    if (!loggedIn) {
-      show('guest');
-    } else if (state) {
+    if (state) {
       landOn(state.prize, false);
+      if (state.claimed === false && loggedIn) claim();
       fillResult(PRIZES[state.prize]);
-      show(member ? 'claimed' : 'used');
+      if (state.claimed === false) show('won');
+      else if (returned || member) show('claimed');
+      else show('used');
     } else {
       show('ready');
     }
@@ -267,7 +296,7 @@
   });
 
   /* A spin already taken today still shows on the balance after a reload. */
-  if (state && member) credit(PRIZES[state.prize]);
+  if (state && member && state.claimed !== false) credit(PRIZES[state.prize]);
   if (state) fillResult(PRIZES[state.prize]);
   paintCustomer();
   sync();

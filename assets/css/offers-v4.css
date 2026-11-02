@@ -13,6 +13,8 @@
 .countdown__clock--big small{ color:var(--forest-mid); opacity:1; }
 .offers-clock__n{ font-size:var(--t-cap); color:rgba(238,233,222,.7); text-align:right; }
 .offers-clock__n b{ color:var(--oat); font-weight:700; }
+.offers-clock__n{ display:inline-flex; align-items:center; gap:8px; }
+.offers-clock__n .ic{ color:var(--coral); }
 
 /* ---------- Hero summary: biggest saving, offers live, next to end ---------- */
 .offers-sum{ display:flex; gap:28px; margin:0 0 6px; }

@@ -138,3 +138,22 @@ body.is-locked .spintab{ opacity:0; pointer-events:none; }
   .wheel__rot{ transition:none; }
   .spintab__wheel{ animation:none; }
 }
+
+/* ---------- Client round 3: everyone spins, an account to claim ---------- */
+.spin__guest{ display:flex; align-items:center; gap:8px; font-size:var(--t-cap); color:var(--forest-mid); }
+.spin__guest[hidden]{ display:none; }
+.spin__guest .ic{ color:var(--green-text); flex:0 0 auto; }
+.spin__exp{ font-family:var(--f-mono); font-size:var(--t-micro); letter-spacing:.06em; text-transform:uppercase; color:var(--coral-text); }
+.spinclaim{ display:grid; gap:12px; padding:16px; background:var(--white); box-shadow:inset 0 0 0 1px var(--line); }
+.spinclaim__t{ font-size:var(--t-ui); color:var(--forest); }
+.spinclaim__n{ font-size:var(--t-cap); color:var(--forest-mid); }
+.spinclaim__n .ic{ color:var(--coral-text); vertical-align:-2px; margin-right:6px; }
+.spinclaim__n b{ color:var(--forest); font-variant-numeric:tabular-nums; }
+.spinrules{ font-size:var(--t-cap); color:var(--forest-mid); border-top:1px solid var(--line); padding-top:10px; }
+.spinrules summary{ cursor:pointer; font-weight:800; color:var(--forest); list-style:none; }
+.spinrules summary::-webkit-details-marker{ display:none; }
+.spinrules summary::after{ content:" +"; color:var(--coral-text); }
+.spinrules[open] summary::after{ content:" 2"; }
+.spinrules ul{ margin:8px 0 0; padding-left:18px; display:grid; gap:4px; }
+.spinrules b{ color:var(--forest); }
+.spinme[hidden]{ display:none; }

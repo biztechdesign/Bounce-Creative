@@ -663,32 +663,38 @@ main:focus{ outline:none; }
 .faq p{ padding:0 0 28px; font-size:var(--t-body); color:var(--forest-mid); max-width:66ch; }
 
 /* ---------- 17. FOOTER ---------- */
-.ftr{ background:var(--forest); color:var(--oat); padding-block:76px 0; }
-.ftr__top{ display:grid; grid-template-columns:minmax(0,1.5fr) repeat(4,minmax(0,1fr)); gap:40px; padding-bottom:56px; }
+.ftr{ background:var(--forest); color:var(--oat); padding-block:64px 0; }
+/* Brand + contact on the left, four link columns on the right. */
+.ftr__top{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2.2fr); gap:56px; padding-bottom:48px; }
+.ftr__cols{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:32px; }
 .ftr .logo b{ color:var(--oat); }
 .ftr .logo span{ color:rgba(244,240,230,.6); }
-.ftr__blurb{ margin-top:22px; font-size:var(--t-ui); color:rgba(244,240,230,.72); max-width:34ch; }
-.ftr__contact{ margin-top:26px; display:flex; flex-direction:column; gap:10px; font-size:var(--t-ui); }
-.ftr__contact a{ color:rgba(244,240,230,.88); min-height:26px; display:inline-flex; align-items:center; }
+.ftr__blurb{ margin-top:18px; font-size:var(--t-ui); color:rgba(244,240,230,.72); max-width:32ch; }
+.ftr__contact{ margin-top:20px; display:flex; flex-direction:column; gap:8px; font-size:var(--t-ui); }
+.ftr__contact a, .ftr__contact span{ color:rgba(244,240,230,.88); min-height:26px; display:inline-flex; align-items:flex-start; gap:10px; }
+.ftr__contact svg{ flex:0 0 auto; margin-top:3px; color:var(--coral-on-forest); }
 .ftr__contact a:hover{ color:var(--coral-on-forest); }
 .ftr__col h3{
   font-family:var(--f-mono); font-size:var(--t-cap); font-weight:400; letter-spacing:.14em;
-  text-transform:uppercase; color:rgba(244,240,230,.56); margin-bottom:20px;
+  text-transform:uppercase; color:rgba(244,240,230,.56); margin-bottom:16px;
 }
-.ftr__col li{ margin-bottom:12px; }
+.ftr__col li{ margin-bottom:10px; }
 .ftr__col a{ font-size:var(--t-ui); color:rgba(244,240,230,.88); }
 .ftr__col a:hover{ color:var(--coral-on-forest); }
 .ftr__bot{
-  display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
-  padding-block:26px; border-top:1px solid rgba(244,240,230,.16);
+  display:flex; align-items:center; justify-content:space-between; gap:16px 24px; flex-wrap:wrap;
+  padding-block:22px; border-top:1px solid rgba(244,240,230,.16);
   font-size:var(--t-cap); color:rgba(244,240,230,.6);
 }
+.ftr__legal{ display:flex; gap:24px; flex-wrap:wrap; }
+.ftr__legal a{ color:rgba(244,240,230,.72); }
+.ftr__legal a:hover{ color:var(--coral-on-forest); }
 /* Social marks sit on their own chip so they read as buttons rather than loose
    glyphs. The chip is a lift of the footer's own forest, and the mark keeps
    7.55:1 on it; the whole chip is a 48px target. */
-.ftr__social{ display:flex; gap:12px; }
+.ftr__social{ display:flex; gap:10px; }
 .ftr__social a{
-  display:grid; place-items:center; width:48px; height:48px;
+  display:grid; place-items:center; width:44px; height:44px;
   background:#2D4E49; color:var(--oat);
   transition:background .18s var(--ease), color .18s var(--ease), transform .18s var(--ease);
 }
@@ -699,16 +705,16 @@ main:focus{ outline:none; }
    badges keep the platform lock-up proportions; the card marks go on white
    so they read as the real thing against the forest. */
 .ftr__extra{
-  display:flex; align-items:flex-start; justify-content:space-between; gap:40px; flex-wrap:wrap;
+  display:flex; align-items:flex-start; justify-content:space-between; gap:32px 40px; flex-wrap:wrap;
   padding-block:28px; border-top:1px solid rgba(244,240,230,.16);
 }
 .ftr__extra h3{
   font-family:var(--f-mono); font-size:var(--t-cap); font-weight:400; letter-spacing:.14em;
-  text-transform:uppercase; color:rgba(244,240,230,.56); margin-bottom:16px;
+  text-transform:uppercase; color:rgba(244,240,230,.56); margin-bottom:14px;
 }
 .appbadges{ display:flex; gap:12px; flex-wrap:wrap; }
 .appbadge{
-  display:inline-flex; align-items:center; gap:10px; min-height:52px; padding:0 18px;
+  display:inline-flex; align-items:center; gap:10px; min-height:44px; padding:0 16px;
   background:#2D4E49; color:var(--oat);
   transition:background .18s var(--ease), color .18s var(--ease), transform .18s var(--ease);
 }
@@ -791,7 +797,8 @@ body.is-locked{ overflow:hidden; }
   .steps{ grid-template-columns:minmax(0,1fr); }
   .step{ padding:28px 0; border-right:0; border-bottom:1px solid var(--line); }
   .step:last-child{ border-bottom:0; }
-  .ftr__top{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:36px; }
+  .ftr__top{ grid-template-columns:minmax(0,1fr); gap:36px; }
+  .ftr__cols{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; }
   .sechead--row{ flex-direction:column; align-items:flex-start; gap:24px; }
 }
 @media (max-width:640px){
@@ -802,8 +809,9 @@ body.is-locked{ overflow:hidden; }
   .trust__list{ grid-template-columns:minmax(0,1fr); }
   .trust__list li{ border-right:0; border-bottom:1px solid var(--line); padding-right:0; }
   .trust__list li:last-child{ border-bottom:0; }
-  .ftr__top{ grid-template-columns:minmax(0,1fr); }
-  .ftr__extra{ flex-direction:column; gap:26px; }
+  .ftr__extra{ flex-direction:column; gap:24px; }
+  .ftr__bot{ flex-direction:column; align-items:flex-start; }
+  .ftr__legal{ gap:18px; }
   .announce .wrap{ gap:14px; font-size:var(--t-micro); }
   .announce span::after{ display:none; }
   /* One message at a time on a phone; three would stack to three lines. */
@@ -1036,7 +1044,8 @@ body.is-locked{ overflow:hidden; }
    ========================================================================== */
 
 /* --- Footer logo: the dot grid bounces, left to right. The name is Bounce. --- */
-.ftr .logo .lg{ height:54px; width:auto; display:block; }
+.ftr .logo .lg{ height:36px; width:auto; display:block; }
+.ftr .logo{ display:inline-block; }
 .lg-dot{ transform-box:fill-box; transform-origin:center; }
 @keyframes lg-bounce{
   0%, 62%, 100% { transform:translateY(0); }

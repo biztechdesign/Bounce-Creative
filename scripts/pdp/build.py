@@ -24,7 +24,7 @@ FOOTER = (HERE / "_footer.html").read_text(encoding="utf-8")
 # Shared commercial terms, quoted from the live site.
 EXPRESS_RATE = 0.35      # per unit  (default; a product can override - the live
 EXPRESS_FEE = 25.00      # one-off    engine charges a flat 100 per order)
-EXPRESS_SAVING = 3       # working days off the lead time
+EXPRESS_SAVING = 2       # working days off the lead time (client: express cuts 2 days)
 POINTS_PER_POUND = 0.1   # 558 points on a £5,577 order, per the live panel
 POINT_VALUE = 0.50       # "your points equal £279" - 50p a point
 FREE_DELIVERY_OVER = 3000
@@ -135,11 +135,11 @@ PRODUCTS = [
         # "How would Bounce brand this product": studio mock-ups at the real
         # print positions. Up to three per product.
         "custom": [
-            ("clothing/custom/vest-left-breast.jpg", "Left breast, one-colour transfer",
+            ("clothing/custom/vest-left-breast.jpg", "Your logo, ready for site day",
              "Hi-Vis Vest VISICOAT in yellow with the Bounce logo on the left breast"),
-            ("clothing/custom/vest-back-centre.jpg", "Back centre, 250 × 200mm screen print",
+            ("clothing/custom/vest-back-centre.jpg", "Seen from across the yard",
              "Hi-Vis Vest VISICOAT in yellow with the Bounce logo across the back"),
-            ("clothing/custom/vest-front-centre.jpg", "Front centre on fluorescent orange",
+            ("clothing/custom/vest-front-centre.jpg", "Bright for any event team",
              "Hi-Vis Vest VISICOAT in orange with the Bounce logo on the front"),
         ],
         "spec": [
@@ -180,7 +180,7 @@ PRODUCTS = [
              "per print colour, not per garment colour."),
             ("How quickly can these ship?",
              "Screen printed runs are 5–7 working days from artwork approval. Express takes that "
-             "to 2–4 working days for a surcharge."),
+             "to 3–5 working days for a surcharge."),
         ],
         "related": [
             ("Minsk Unisex Hybrid Insulated Jacket", "clothing/minsk-jacket-black-heather.jpg",
@@ -258,11 +258,11 @@ PRODUCTS = [
         "position_img": "clothing/minsk-positions/{code}-{pos}.jpg",
         "short": "Minsk jacket",
         "custom": [
-            ("clothing/custom/jacket-left-chest.jpg", "Left chest embroidery, 14cm²",
+            ("clothing/custom/jacket-left-chest.jpg", "Embroidered for the whole team",
              "Minsk jacket in black with the Bounce logo embroidered on the left chest"),
-            ("clothing/custom/jacket-upper-back.jpg", "Impact upper back, screen print",
+            ("clothing/custom/jacket-upper-back.jpg", "Make the walk-away count",
              "Minsk jacket in black with the Bounce logo printed across the upper back"),
-            ("clothing/custom/jacket-red-left-chest.jpg", "Left chest on red / black",
+            ("clothing/custom/jacket-red-left-chest.jpg", "Bold colour, quiet logo",
              "Minsk jacket in red with the Bounce logo embroidered on the left chest"),
         ],
         # Live pricing engine data for this product. Branding is priced from a
@@ -374,16 +374,30 @@ PRODUCTS = [
         "flag": ("i-delivery", "Next day"),
         "short": "cotton shopper",
         "custom": [
-            ("bags/custom/shopper-natural-front.jpg", "Front panel, one-colour screen print",
+            ("bags/custom/shopper-natural-front.jpg", "Carried everywhere after the event",
              "Natural cotton shopper with the Bounce logo printed large on the front"),
-            ("bags/custom/shopper-navy-front.jpg", "White print on a coloured shopper",
+            ("bags/custom/shopper-navy-front.jpg", "Stands out on a coloured bag",
              "Navy cotton shopper with the Bounce logo printed in white"),
-            ("bags/custom/shopper-natural-corner.jpg", "Small corner logo, subtle branding",
+            ("bags/custom/shopper-natural-corner.jpg", "Quiet branding, still noticed",
              "Natural cotton shopper with a small Bounce logo in the lower corner"),
         ],
         "colours": [
             ("Natural", "#E4DFCF", "v4/same_day_natural_cotton_shopper.jpg",
              "Next Day Natural Cotton Shopper, shown unbranded"),
+            # Made to order in a dyed cotton range; colours without their own
+            # photo keep the current image (demo of the 6 + "+N more" fold).
+            ("Royal blue", "#2C4A9C", "bags/next-day-coloured-cotton-shopper-blue.jpg",
+             "Cotton shopper in royal blue, shown unbranded"),
+            ("Black", "#1D1D1F", None, ""),
+            ("Navy", "#1F2D4F", None, ""),
+            ("Red", "#B93B1C", None, ""),
+            ("Bottle green", "#2F5D3A", None, ""),
+            ("Burgundy", "#6E1F2E", None, ""),
+            ("Light grey", "#BDBDB8", None, ""),
+            ("Pink", "#E58AA8", None, ""),
+            ("Yellow", "#F4C54F", None, ""),
+            ("Orange", "#E8742F", None, ""),
+            ("Purple", "#6B4C8A", None, ""),
         ],
         "gallery": [
             ("v4/same_day_natural_cotton_shopper.jpg", "Natural cotton shopper, front"),
@@ -528,9 +542,9 @@ def head(p):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style-v4.css?v=121">
+<link rel="stylesheet" href="assets/css/style-v4.css?v=122">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=32">
-<link rel="stylesheet" href="assets/css/pdp-v4.css?v=74">
+<link rel="stylesheet" href="assets/css/pdp-v4.css?v=76">
 <!-- The reveal animation hides content until it is observed, so it is scoped to
      JS being available. Without this, a JS failure would leave a blank page. -->
 <link rel="stylesheet" href="assets/css/mega-v4.css?v=6">
@@ -716,21 +730,29 @@ def done_dialog(p):
 
 
 def swatches(p):
+    """Colour chips. Past six the rest fold behind "+N more" (fewer on a
+    phone - the script counts what is folded at the current width)."""
     rows = []
     for i, col in enumerate(p["colours"]):
         name, hex_, rel, alt = col[:4]
         code = col[4] if len(col) > 4 else ""
         on = ' is-on' if i == 0 else ''
         checked = 'true' if i == 0 else 'false'
+        # A colour without its own photo keeps the current image.
+        data_img = img_path(p, rel) if rel else ""
         rows.append(f"""            <button class="sw{on}" type="button" role="radio" aria-checked="{checked}"
-                    data-img="{img_path(p, rel)}" data-name="{esc(name)}" data-alt="{esc(alt)}" data-code="{code}">
+                    data-img="{data_img}" data-name="{esc(name)}" data-alt="{esc(alt)}" data-code="{code}">
               <span class="sw__dot" style="--sw:{hex_}"></span><span class="sw__name">{esc(name)}</span>
             </button>""")
+    many = len(p["colours"]) > 6
+    more = (f"""
+              <button class="sw-more" type="button" id="sw-more" aria-expanded="false" aria-controls="sw-row">+{len(p["colours"]) - 6} more</button>"""
+            if many else "")
     return f"""            <fieldset class="opt">
               <legend class="opt__t">Product colour <span class="opt__val" id="colour-val">{esc(p["colours"][0][0])}</span></legend>
-              <div class="sw-row" role="radiogroup" aria-label="Product colour">
+              <div class="sw-row{' sw-row--fold' if many else ''}" id="sw-row" role="radiogroup" aria-label="Product colour">
 {chr(10).join(rows)}
-              </div>
+              </div>{more}
             </fieldset>"""
 
 
@@ -1119,6 +1141,7 @@ def quote_box(p):
     form with quantity and artwork upload, wishlist, and the lead times."""
     return f"""        <!-- Buy box: bespoke quote -->
         <div class="buy">
+          <h1 id="p-h">{esc(p["name"])}</h1>
           <div class="buy__top">
             <p class="buy__sku">Product code <b>{esc(p["sku"])}</b></p>
             <ul class="share" aria-label="Share this product">
@@ -1128,7 +1151,6 @@ def quote_box(p):
               <li><a href="#" aria-label="Share">{icon("i-share", 16)}</a></li>
             </ul>
           </div>
-          <h1 id="p-h">{esc(p["name"])}</h1>
           <p class="buy__rate">{icon("i-star", 15)}<b>{p["rating"]}</b> <span>({p["reviews"]} reviews)</span> &middot; <span>{p["customers"]} happy customers</span></p>
 
           <div class="buy__price">
@@ -1137,6 +1159,10 @@ def quote_box(p):
           </div>
           <p class="buy__tag">{esc(p["tagline"])}</p>
           <p class="buy__lede">{esc(p["lede"])}</p>
+
+          <div class="buy__colours">
+{swatches(p)}
+          </div>
 
           <form class="qform" onsubmit="return false;" aria-labelledby="qform-t">
             <h2 class="qform__t" id="qform-t">Get a quote for this product</h2>
@@ -1173,6 +1199,11 @@ def quote_box(p):
               </label>
             </div>
 
+            <label class="qfield qfield--msg">
+              <span class="qfield__t">Your message</span>
+              <textarea name="message" rows="4" placeholder="Anything we should know - deadline, colours, contents, where it will be used"></textarea>
+            </label>
+
             <div class="qmodal__opts">
               <label class="qopt"><input type="checkbox" name="mockup"> Send me a mock-up proof</label>
               <label class="qopt"><input type="checkbox" name="vat"> Send me costs including VAT</label>
@@ -1198,6 +1229,8 @@ def buy_box(p):
 
     markup = f"""        <!-- Buy box -->
         <div class="buy">
+          <!-- Title first; SKU and stock sit underneath it (client round 3). -->
+          <h1 id="p-h">{esc(p["name"])}</h1>
           <div class="buy__top">
             <p class="buy__sku">SKU <b>{esc(p["sku"])}</b> &middot; <span class="buy__stock">{icon("i-check", 14)}In stock</span></p>
             <ul class="share" aria-label="Share this product">
@@ -1207,7 +1240,6 @@ def buy_box(p):
               <li><a href="#" aria-label="Share">{icon("i-share", 16)}</a></li>
             </ul>
           </div>
-          <h1 id="p-h">{esc(p["name"])}</h1>
           <p class="buy__rate">{icon("i-star", 15)}<b>{p["rating"]}</b> <span>({p["reviews"]} reviews)</span> &middot; <span>{p["customers"]} happy customers</span></p>
 
           <p class="buy__lede">{esc(p["lede"])}</p>
@@ -1942,8 +1974,8 @@ def page(p):
       </div>
     </div>
   </section>
-{howbrand(p)}
 {detail(p)}
+{howbrand(p)}
 
 {loved(p)}
 
@@ -1952,7 +1984,7 @@ def page(p):
 {faq(p)}
 
 """,
-        FOOTER.replace('<script src="assets/js/pdp-v4.js', '<script src="assets/js/deals-v4.js?v=3"></script>\n<script src="assets/js/pdp-v4.js', 1)
+        FOOTER.replace('<script src="assets/js/pdp-v4.js', '<script src="assets/js/deals-v4.js?v=4"></script>\n<script src="assets/js/pdp-v4.js', 1)
         if p.get("offer") else FOOTER,
     ])
 

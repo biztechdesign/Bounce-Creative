@@ -1152,3 +1152,29 @@
 .calc__offer .calc__v{ color:var(--coral-text); }
 .summary__save{ display:inline-block; margin-top:8px; padding:6px 10px; background:var(--coral-wash); font-size:var(--t-cap); font-weight:700; color:var(--coral-text); }
 .summary__save[hidden]{ display:none; }
+
+/* ---------- Client round 3 ---------- */
+/* Title first, SKU and stock beneath it. */
+.buy h1{ margin-top:0; }
+.buy h1 + .buy__top{ margin-top:10px; }
+/* Colours past six fold behind "+N more"; four on a phone. */
+.sw-row--fold:not(.is-open) .sw:nth-child(n+7){ display:none; }
+.sw-more{
+  margin-top:10px; min-height:40px; padding:0 14px; background:none; cursor:pointer;
+  border:1px dashed var(--line-input); font:inherit; font-size:var(--t-cap); font-weight:800; color:var(--coral-text);
+}
+.sw-more:hover{ border-color:var(--coral-text); }
+.sw-more:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+@media (max-width:640px){
+  .sw-row--fold:not(.is-open) .sw:nth-child(n+5){ display:none; }
+}
+
+.buy__colours{ margin-top:22px; }
+
+/* Bespoke quote form: the message box. */
+.qfield--msg{ display:block; margin-top:16px; }
+.qfield--msg textarea{
+  display:block; width:100%; min-height:110px; padding:12px; resize:vertical;
+  font:inherit; font-size:var(--t-ui); color:var(--forest); background:var(--white); border:1px solid var(--line-input);
+}
+.qfield--msg textarea:focus-visible{ outline:2px solid var(--coral-text); outline-offset:-1px; }

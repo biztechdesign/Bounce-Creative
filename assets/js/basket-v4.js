@@ -63,7 +63,16 @@
     var sub = 0, units = 0;
     [].forEach.call(document.querySelectorAll('.line'), function (line) {
       var each = parseFloat(line.dataset.each) || 0;
-      var q = parseInt(line.querySelector('.qty input').value, 10) || 0;
+      // A line ordered by size totals its size fields; any other line has one qty.
+      var sizes = line.querySelectorAll('[data-size-qty]');
+      var q = 0;
+      if (sizes.length) {
+        [].forEach.call(sizes, function (f) { q += parseInt(f.value, 10) || 0; });
+        var tot = line.querySelector('[data-role="line-units"]');
+        if (tot) tot.textContent = q;
+      } else {
+        q = parseInt(line.querySelector('.qty input').value, 10) || 0;
+      }
       units += q;
       var s = each * q; sub += s;
       line.querySelector('[data-role="line-sub"]').textContent = GBP.format(s);
@@ -116,7 +125,7 @@
       recalc();
     });
   });
-  [].forEach.call(document.querySelectorAll('.qty input'), function (i) { i.addEventListener('input', recalc); });
+  [].forEach.call(document.querySelectorAll('.qty input, [data-size-qty]'), function (i) { i.addEventListener('input', recalc); });
 
   [].forEach.call(document.querySelectorAll('[data-dismiss]'), function (b) {
     b.addEventListener('click', function () {

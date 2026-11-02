@@ -88,16 +88,36 @@
     });
   }
 
+  /* Colours past six fold behind "+N more" (four on a phone): the label
+     counts what is folded at the current width. */
+  var swRow = $('sw-row'), swMore = $('sw-more');
+  if (swRow && swMore) {
+    var foldLabel = function () {
+      if (swRow.classList.contains('is-open')) { swMore.textContent = 'Show fewer'; return; }
+      var hidden = all('.sw', swRow).filter(function (b) { return getComputedStyle(b).display === 'none'; }).length;
+      swMore.hidden = hidden === 0;
+      swMore.textContent = '+' + hidden + ' more';
+    };
+    swMore.addEventListener('click', function () {
+      var open = swRow.classList.toggle('is-open');
+      swMore.setAttribute('aria-expanded', open ? 'true' : 'false');
+      foldLabel();
+    });
+    window.addEventListener('resize', foldLabel);
+    foldLabel();
+  }
+
   var colourVal = $('colour-val');
   var currentCode = (document.querySelector('.sw.is-on') || {}).dataset ? document.querySelector('.sw.is-on').dataset.code : '';
   radioGroup('.sw', function (el) {
     if (colourVal) colourVal.textContent = el.dataset.name;
-    showImage(el.dataset.img, el.dataset.alt);
+    // A colour without its own photo keeps the current image.
+    if (el.dataset.img) showImage(el.dataset.img, el.dataset.alt);
     currentCode = el.dataset.code || '';
     // The position thumbnails show the garment you are actually buying: the
     // supplier's per-position image for this colourway where we have one,
     // otherwise the product photo.
-    all('.loc__thumb, .area__img:not(.area__img--pos)').forEach(function (img) { img.src = el.dataset.img; });
+    if (el.dataset.img) all('.loc__thumb, .area__img:not(.area__img--pos)').forEach(function (img) { img.src = el.dataset.img; });
     if (CFG.positionImg && currentCode) {
       all('.area__img--pos').forEach(function (img) {
         img.src = CFG.positionImg.replace('{code}', currentCode).replace('{pos}', img.dataset.pos);
@@ -634,7 +654,9 @@
       rangeEl.style.setProperty('--fill', pct + '%');
     }
     if (badgeEl) badgeEl.textContent = NUM.format(n);
-    if (qtyEl && String(qtyEl.value) !== String(n)) qtyEl.value = n;
+    /* Never rewrite the field while the customer is typing in it - clearing
+       it to type 100 would snap back to the minimum. It is tidied on change. */
+    if (qtyEl && document.activeElement !== qtyEl && String(qtyEl.value) !== String(n)) qtyEl.value = n;
 
     /* The live site tells you whether the order has cleared the free delivery
        threshold, which is worth more than a static footnote. */
@@ -1036,7 +1058,8 @@
           image: stage ? stage.src : '', description: document.querySelector('.buy__lede').textContent,
           source: window.location.pathname.split('/').pop(), pricingPending: true,
           costs: { quantity: Number(bespokeQty.value) }, breaks: [], locations: [],
-          colour: 'To be confirmed', production: 'To be confirmed', delivery: 'To be confirmed',
+          colour: $('colour-val') ? $('colour-val').textContent : 'To be confirmed', production: 'To be confirmed', delivery: 'To be confirmed',
+          message: bespokeForm.elements.message ? bespokeForm.elements.message.value.trim() : '',
           ukMainland: bespokeForm.elements.uk.checked, incVat: bespokeForm.elements.vat.checked,
           mockup: bespokeForm.elements.mockup.checked,
           contact: { name: bespokeForm.elements.name.value.trim(), email: bespokeForm.elements.email.value.trim(), company: bespokeForm.elements.company.value.trim() },

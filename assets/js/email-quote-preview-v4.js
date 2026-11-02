@@ -1,5 +1,19 @@
 /* Hydrates the browser email preview from the configured quote. Email delivery
    must render the same snapshot on the server; email clients do not run JS. */
+
+/* Browser preview only: email images use the published (absolute) address,
+   so an image not yet published falls back to this copy of the site. */
+(function () {
+  'use strict';
+  var BASE = 'https://biztechdesign.github.io/Bounce-Creative/';
+  [].forEach.call(document.querySelectorAll('img[src^="' + BASE + '"]'), function (img) {
+    var local = img.getAttribute('src').slice(BASE.length);
+    var fallback = function () { img.removeEventListener('error', fallback); img.src = local; };
+    if (img.complete && img.naturalWidth === 0) fallback();
+    else img.addEventListener('error', fallback);
+  });
+})();
+
 (async function () {
   'use strict';
   var q;
@@ -14,7 +28,12 @@
   var preheader = document.querySelector('body > div');
   if (preheader) preheader.textContent = 'Your quote for ' + q.product + ' — ' + (q.pricingPending ? 'Pricing to be confirmed' : money(q.costs.total) + ' ' + tax.toLowerCase()) + '.';
   text('email-number', '#PREVIEW-' + q.sku);
-  text('email-date', new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', day: 'numeric', month: 'short', year: 'numeric' }).format(new Date()));
+  var ukDate = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', day: 'numeric', month: 'short', year: 'numeric' });
+  text('email-date', ukDate.format(new Date()));
+  // The order-now 5% is valid for 7 days from the quote date.
+  [].forEach.call(document.querySelectorAll('.email-offer-expiry'), function (el) {
+    el.textContent = ukDate.format(new Date(Date.now() + 7 * 86400000));
+  });
   text('email-contact-name', q.contact.company || q.contact.name); text('email-recipient', q.contact.email);
   $('email-recipient').href = 'mailto:' + q.contact.email;
   var productTitle = $('email-product-title').querySelector('a');
@@ -27,7 +46,9 @@
   text('email-product-description', q.description || '');
   $('email-product-colour').textContent = '';
   var colourRow = $('email-product-colour').insertRow();
-  colourRow.insertCell().textContent = q.colour;
+  var colourCell = colourRow.insertCell();
+  colourCell.textContent = q.colour;
+  colourCell.style.cssText = 'font:bold 13px Arial, Helvetica, sans-serif;color:#133935;';
   text('email-production', q.production || 'To be confirmed');
   text('email-delivery', q.ukMainland ? q.delivery || 'To be confirmed' : 'Destination quote required');
   var config = $('email-configuration'); config.textContent = '';
@@ -45,6 +66,7 @@
     addConfig('Branding ' + (index + 1), loc.area + ' — ' + loc.method + ', ' + loc.colours + (loc.logoSize ? ', ' + loc.logoSize : ''));
   });
   if (q.pricingPending) addConfig('Branding and pricing', 'To be confirmed by the team');
+  if (q.message) addConfig('Your message', q.message);
   else {
   addConfig('Production', q.express ? 'Express' : 'Standard');
   addConfig('Delivery destination', q.ukMainland ? 'UK mainland' : 'To be confirmed');

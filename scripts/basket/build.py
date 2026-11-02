@@ -17,7 +17,7 @@ PDP = ROOT / "scripts" / "pdp"
 
 CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
 FOOTER = re.sub(r'<script src="assets/js/pdp-v4\.js\?v=\d+"></script>',
-                '<script src="assets/js/basket-v4.js?v=4"></script>', (PDP / "_footer.html").read_text(encoding="utf-8")).replace('<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n', '')
+                '<script src="assets/js/basket-v4.js?v=5"></script>', (PDP / "_footer.html").read_text(encoding="utf-8")).replace('<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n', '')
 
 VAT = 0.20
 
@@ -56,6 +56,22 @@ BASKET = {
         "qty": 25,
         "each": 22.79,
         "spot": True,          # screen printing asks for Pantone references
+    }, {
+        # Ordered by size: one basket line for every size of the same colour
+        # and branding, and one artwork upload per branding LOCATION - never
+        # per size or quantity. [BUILD] group the size SKUs under one line.
+        "name": "Minsk Unisex Hybrid Insulated Jacket",
+        "sku": "pf-R1120",
+        "img": "assets/img/products/clothing/minsk-jacket-black-heather.jpg",
+        "colour": "Black / heather black",
+        "sizes": [("S", 10), ("M", 15), ("L", 15), ("XL", 10), ("2XL", 0), ("3XL", 0)],
+        "each": 26.19,         # jacket 18.69 + 2 embroidered locations at 50 units
+        "locations": [
+            {"area": "Left chest", "area_size": "14cm²", "method": "Embroidery",
+             "img": "assets/img/products/clothing/minsk-positions/R11208M-left-chest.jpg"},
+            {"area": "Impact upper back", "area_size": "14cm²", "method": "Embroidery",
+             "img": "assets/img/products/clothing/minsk-positions/R11208M-upper-back.jpg"},
+        ],
     }],
 }
 
@@ -138,12 +154,86 @@ def line_item(i, ln):
         </article>"""
 
 
+def size_line_item(i, ln):
+    """A product ordered by size: one line, the size breakdown, and artwork
+    asked for once per branding location - it applies to every size."""
+    units = sum(q for _, q in ln["sizes"])
+    sub = units * ln["each"]
+    sizes = chr(10).join(f"""              <label class="szq">
+                <span class="szq__s">{sz}</span>
+                <input type="number" value="{q}" min="0" step="1" inputmode="numeric" data-size-qty aria-label="Quantity, size {sz}">
+              </label>""" for sz, q in ln["sizes"])
+    locs = " &middot; ".join(f'{esc(l["area"])} ({esc(l["method"].lower())})' for l in ln["locations"])
+    arts = []
+    for n, l in enumerate(ln["locations"], 1):
+        arts.append(f"""            <div class="art art--loc">
+              <div class="art__pos">
+                <img src="{l["img"]}" alt="{esc(ln["name"])} showing the {esc(l["area"].lower())} branding position" width="700" height="700">
+                <p class="art__cap"><b>Branding location {n}</b> {esc(l["area"])} &middot; {esc(l["method"])} &middot; {esc(l["area_size"])}</p>
+              </div>
+              <div class="art__up">
+                <label class="drop">
+                  <input type="file" name="artwork-{i}-{n}" accept=".eps,.ai,.jpg,.jpeg,.pdf,.png,.svg">
+                  <span class="drop__in">
+                    {icon("i-transfer", 28)}
+                    <b>Upload your logo for the {esc(l["area"].lower())}</b>
+                    <span>Click or drag a file here &middot; EPS, AI or JPEG</span>
+                  </span>
+                </label>
+                <p class="art__cap"><b>Logo preview</b> <span class="art__empty">Nothing uploaded yet</span></p>
+              </div>
+            </div>""")
+    return f"""        <article class="line line--sizes" data-each="{ln["each"]}">
+          <div class="line__main">
+            <a href="product-minsk-v4.html" class="line__media">
+              <img src="{ln["img"]}" alt="{esc(ln["name"])}" width="700" height="700">
+            </a>
+            <div class="line__info">
+              <h2 class="line__name"><a href="product-minsk-v4.html">{esc(ln["name"])}</a></h2>
+              <p class="line__sku">Product code <b>{esc(ln["sku"])}</b></p>
+              <dl class="line__cfg">
+                <div><dt>Colour</dt><dd>{esc(ln["colour"])}</dd></div>
+                <div><dt>Branding</dt><dd>{locs}</dd></div>
+              </dl>
+              <div class="line__acts">
+                <button class="linkbtn" type="button">Edit configuration</button>
+                <button class="linkbtn linkbtn--quiet" type="button">Remove</button>
+              </div>
+            </div>
+            <div class="line__qty">
+              <span class="line__lbl">Qty</span>
+              <p class="line__units"><b data-role="line-units">{units}</b> units</p>
+              <span class="line__each">{money(ln["each"])} each</span>
+            </div>
+            <div class="line__sub">
+              <span class="line__lbl">Subtotal</span>
+              <b data-role="line-sub">{money(sub)}</b>
+            </div>
+          </div>
+
+          <!-- Sizes: one line for every size of this colour and branding. -->
+          <div class="szgrid" role="group" aria-label="Quantity by size">
+            <p class="szgrid__t">Quantity by size</p>
+            <div class="szgrid__row">
+{sizes}
+            </div>
+          </div>
+
+          <!-- Artwork: once per branding LOCATION - used on every size. -->
+          <p class="art__head">{icon("i-check", 16)}<span><b>One logo per branding location.</b> Each file is used on every size &mdash; no need to upload per size or quantity.</span></p>
+{chr(10).join(arts)}
+          <p class="line__approve">{icon("i-eye", 16)}<span><b>Nothing goes to bulk production until it is fully approved.</b> Our designers check every file and send you a proof first.</span></p>
+        </article>"""
+
+
 def page(c):
     lines = c["lines"]
-    subtotal = sum(l["qty"] * l["each"] for l in lines)
+    qty = lambda l: sum(q for _, q in l["sizes"]) if l.get("sizes") else l["qty"]
+    subtotal = sum(qty(l) * l["each"] for l in lines)
     vat = subtotal * VAT
-    units = sum(l["qty"] for l in lines)
-    items_html = chr(10).join(line_item(i, ln) for i, ln in enumerate(lines, 1))
+    units = sum(qty(l) for l in lines)
+    items_html = chr(10).join((size_line_item if ln.get("sizes") else line_item)(i, ln)
+                              for i, ln in enumerate(lines, 1))
 
     body = f"""
 <main id="main" tabindex="-1">
@@ -175,7 +265,7 @@ def page(c):
           <span class="eyebrow">Your order</span>
           <h1 id="basket-h">Your <span class="hl">basket.</span></h1>
         </div>
-        <p class="basket-head__meta"><b>{len(lines)} item</b> &middot; <b id="unit-count">{units}</b> units &middot;
+        <p class="basket-head__meta"><b>{len(lines)} item{"s" if len(lines) != 1 else ""}</b> &middot; <b id="unit-count">{units}</b> units &middot;
           <a href="products-v4.html">Continue shopping {icon("i-arrow", 14)}</a></p>
       </div>
 
@@ -269,10 +359,10 @@ def page(c):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style-v4.css?v=121">
+<link rel="stylesheet" href="assets/css/style-v4.css?v=122">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=32">
 <link rel="stylesheet" href="assets/css/pdp-v4.css?v=72">
-<link rel="stylesheet" href="assets/css/basket-v4.css?v=6">
+<link rel="stylesheet" href="assets/css/basket-v4.css?v=8">
 <link rel="stylesheet" href="assets/css/mega-v4.css?v=6">
 <script>document.documentElement.className += " js";</script>
 """

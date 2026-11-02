@@ -24,7 +24,7 @@ CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
 FOOTER = re.sub(r'<script src="assets/js/pdp-v4\.js\?v=\d+"></script>',
                 '<script src="assets/js/account-v4.js?v=2"></script>', (PDP / "_footer.html").read_text(encoding="utf-8")).replace('<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n', '')
 
-CSS_V = 5
+CSS_V = 6
 
 
 def esc(s):
@@ -172,7 +172,7 @@ def shell(c, active, crumbs, head_extra, main_html):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style-v4.css?v=121">
+<link rel="stylesheet" href="assets/css/style-v4.css?v=122">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=32">
 <link rel="stylesheet" href="assets/css/pdp-v4.css?v=72">
 <link rel="stylesheet" href="assets/css/account-v4.css?v={CSS_V}">
@@ -348,7 +348,7 @@ def pts(n):
 # The wheel and its dialog are shared with every page (scripts/spin/build_spin.py);
 # the account page only renders its own card.
 sys.path.insert(0, str(ROOT / "scripts" / "spin"))
-from build_spin import wheel_svg  # noqa: E402
+from build_spin import wheel_svg, RULES_ITEMS  # noqa: E402
 
 
 def rewards_page():
@@ -393,7 +393,10 @@ def rewards_page():
             <div class="spin__body">
               <span class="spin__tag" id="spin-card-tag" data-spin-left>{icon("i-star", 14)}1 free spin every day</span>
               <h2 id="spin-h">Spin the wheel for bonus points</h2>
-              <p id="spin-card-p">One free spin every day, and every spin wins: 50 to 200 points, free delivery, up to 10% off, or this month&rsquo;s free product. Your spin resets at midnight &mdash; come back tomorrow and spin again.</p>
+              <p id="spin-card-p">One free spin every day, and every spin wins: 50 to 200 points, free delivery, 5% or 10% off, or a free gift. Your spin resets at midnight &mdash; come back tomorrow and spin again.</p>
+              <ul class="spin__rules">
+{chr(10).join(f"                <li>{r}</li>" for r in RULES_ITEMS[2:])}
+              </ul>
               <div class="spin__acts">
                 <button class="btn btn--coral" type="button" id="spin-open">Spin now {icon("i-arrow", 16)}</button>
                 <span class="spin__next" id="spin-card-next">Next spin available <b>tomorrow at 00:00</b></span>
@@ -493,7 +496,7 @@ def auth_shell(c, crumb, main_html):
       </div>
 
       <!-- Shown when the customer arrived from Spin & Win (?referer=...spin=open) -->
-      <p class="auth-spin" data-auth-spin hidden>{icon("i-star", 16)}<span><b>Your free spin is waiting.</b> {c["spin"]}</span></p>
+      <p class="auth-spin" data-auth-spin hidden>{icon("i-star", 16)}<span><b>Your Spin &amp; Win prize is waiting.</b> {c["spin"]}</span></p>
 
       <div class="auth">
 {main_html}
@@ -540,7 +543,7 @@ def login_page():
     return auth_shell(
         {"title": "Customer login | Bounce Creative Designs",
          "h1": 'Log in to your <span class="hl">account.</span>',
-         "spin": "Log in and the wheel opens on the page you came from."},
+         "spin": "Log in to claim your prize &mdash; you&rsquo;ll go back to the page you came from."},
         "Customer login", main)
 
 
@@ -576,7 +579,7 @@ def register_page():
     return auth_shell(
         {"title": "Create an account | Bounce Creative Designs",
          "h1": 'Create an <span class="hl">account.</span>',
-         "spin": "Create your account and the wheel opens on the page you came from."},
+         "spin": "Create your account to claim your prize &mdash; you&rsquo;ll go back to the page you came from."},
         "Create an account", main)
 
 

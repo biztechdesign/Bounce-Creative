@@ -20,7 +20,7 @@ PDP = ROOT / "scripts" / "pdp"
 CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
 # Swap the product-page script for the offers scripts, whatever its version.
 FOOTER = re.sub(r'<script src="assets/js/pdp-v4\.js\?v=\d+"></script>',
-                '<script src="assets/js/deals-v4.js?v=3"></script>\n<script src="assets/js/offers-v4.js?v=2"></script>',
+                '<script src="assets/js/deals-v4.js?v=4"></script>\n<script src="assets/js/offers-v4.js?v=2"></script>',
                 re.sub(r'<script src="assets/js/quote-artwork-v4\.js\?v=\d+"></script>\n', "",
                        (PDP / "_footer.html").read_text(encoding="utf-8")))
 
@@ -61,6 +61,8 @@ def bag_cards():
     out = []
     for m in re.finditer(r'<a href="#" class="prod" (.*?)>\n(.*?)\n        </a>', html, re.S):
         attrs, body = m.group(1), m.group(2)
+        if "Bespoke quote" in body:            # Order Online products only
+            continue
         price = float(re.search(r'data-price="([\d.]+)"', attrs).group(1))
         img = re.search(r'<img src="([^"]+)" alt="([^"]*)"', body)
         name = re.search(r'<span class="prod__name">(.*?)</span>', body).group(1)
@@ -96,6 +98,8 @@ def home_cards():
             name = re.search(r'<span class="prod__name">(.*?)</span>', body)
             price = re.search(r'<b>&pound;([\d.,]+)</b>', body)
             if not (img and name and price):
+                continue
+            if "bespoke" in name.group(1).lower():   # Order Online products only
                 continue
             rate = re.search(r'<b>([\d.]+)</b> \((\d+)\)', body)
             flag = re.search(r'<span class="prod__flag[^>]*>.*?</span>', body, re.S)
@@ -159,10 +163,38 @@ EXTRA = [
      "alt": "Black gift card box with magnetic closure", "price": 3.76, "rating": None, "count": None,
      "flag": "", "sw": '<span class="prod__sw"><i style="--sw:#FFFFFF"></i><i style="--sw:#111111"></i></span>',
      "cat": "office", "href": "#"},
+
+    # Home & Living, Outdoors, Themes & Events - Order Online lines from the
+    # live categories (photos and "as low as" prices from the live site).
+    {"name": "The Heddy Bamboo Cutting Board", "img": "assets/img/products/offers/bamboo-cutting-board.jpg",
+     "alt": "Round bamboo cutting board", "price": 4.78, "rating": None, "count": None,
+     "flag": "", "sw": "", "cat": "home", "href": "#"},
+    {"name": "Square Bamboo Cheese Board", "img": "assets/img/products/offers/bamboo-cheese-board.jpg",
+     "alt": "Square bamboo cheese board with knives", "price": 6.55, "rating": None, "count": None,
+     "flag": "", "sw": "", "cat": "home", "href": "#"},
+    {"name": "Glass Kitchen Oil Spray Bottle FUNSHA", "img": "assets/img/products/offers/glass-oil-spray-bottle.jpg",
+     "alt": "Glass kitchen oil spray bottle", "price": 1.38, "rating": None, "count": None,
+     "flag": "", "sw": "", "cat": "home", "href": "#"},
+    {"name": "The Haya Rainbow Polyester Umbrella", "img": "assets/img/products/offers/rainbow-umbrella.jpg",
+     "alt": "Rainbow polyester umbrella, open", "price": 7.53, "rating": None, "count": None,
+     "flag": "", "sw": "", "cat": "outdoors", "href": "#"},
+    {"name": "Double Canopy Umbrella", "img": "assets/img/products/offers/double-canopy-umbrella.jpg",
+     "alt": "Double canopy umbrella, open", "price": 6.65, "rating": None, "count": None,
+     "flag": "", "sw": "", "cat": "outdoors", "href": "#"},
+    {"name": "RCS Recycled Stainless Steel Leakproof Lunch Box", "img": "assets/img/products/offers/recycled-lunch-box.jpg",
+     "alt": "Recycled stainless steel lunch box", "price": 9.30, "rating": None, "count": None,
+     "flag": "", "sw": "", "cat": "outdoors", "href": "#"},
+    {"name": "Swiss Peak Recycled Heritage RFID Travel Wallet", "img": "assets/img/products/offers/rfid-travel-wallet.jpg",
+     "alt": "Swiss Peak recycled RFID travel wallet", "price": 15.26, "rating": None, "count": None,
+     "flag": "", "sw": "", "cat": "events", "href": "#"},
+    {"name": "Swiss Peak AWARE RPET 15.6 inch Day Pack", "img": "assets/img/products/offers/rpet-day-pack.jpg",
+     "alt": "Swiss Peak recycled RPET laptop day pack", "price": 26.67, "rating": None, "count": None,
+     "flag": "", "sw": "", "cat": "events", "href": "#"},
 ]
 
 CATS = [("all", "All offers"), ("bags", "Bags"), ("tech", "Tech"), ("drinkware", "Drinkware"), ("clothing", "Clothing"),
-        ("pens", "Pens"), ("office", "Office"), ("giveaways", "Giveaways"), ("eco", "Eco")]
+        ("pens", "Pens"), ("office", "Office"), ("home", "Home &amp; Living"), ("outdoors", "Outdoors"),
+        ("events", "Themes &amp; Events"), ("giveaways", "Giveaways"), ("eco", "Eco")]
 
 
 def terms(p):
@@ -188,7 +220,6 @@ def page():
     pool = week_pool()
     cards = chr(10).join(card(p) for p in pool)
     top = max(terms(p)[0] for p in pool)
-    soonest = min(terms(p)[1] for p in pool)
     chips = chr(10).join(
         f'          <button class="chip" type="button" data-cat="{k}" aria-pressed="{"true" if k == "all" else "false"}">{label}</button>'
         for k, label in CATS)
@@ -210,24 +241,22 @@ def page():
         <div class="lhero__copy">
           <span class="eyebrow eyebrow--onforest">Offers</span>
           <h1 id="offers-h">{len(pool)} offers, <span class="hl">up to {top}% off.</span></h1>
-          <p>Every offer has its own saving and its own end date &mdash; the price and the clock are on each
-          product. When an offer ends its price goes back to normal and a new one takes its place.</p>
+          <p>Every offer has its own saving and its own end date &mdash; the timer is on each product.
+          When an offer ends its price goes back to normal and a new one takes its place. Order Online
+          products only.</p>
           <div class="lhero__cta">
             <a href="#offers" class="btn btn--onforest">See the offers {icon("i-arrow", 18)}</a>
             <a href="products-v4.html" class="btn btn--outline btn--outline-onforest">Browse everything</a>
           </div>
         </div>
-        <!-- A summary, not one deadline: offers end on different days. -->
+        <!-- A summary, no clock: offers end on different days, so the timer
+             lives on each product card. -->
         <div class="offers-clock">
           <dl class="offers-sum">
             <div><dt>Biggest saving</dt><dd>{top}%</dd></div>
             <div><dt>Offers live</dt><dd>{len(pool)}</dd></div>
           </dl>
-          <span class="countdown__t">Next offer ends in</span>
-          <div class="countdown__clock countdown__clock--big" data-countdown data-ends-days="{soonest}">
-            <span><b>&ndash;</b><small>days</small></span><span><b>&ndash;</b><small>hrs</small></span><span><b>&ndash;</b><small>min</small></span><span><b>&ndash;</b><small>sec</small></span>
-          </div>
-          <p class="offers-clock__n">Each product shows its own end date.</p>
+          <p class="offers-clock__n">{icon("i-bolt", 15)} Each product has its own timer.</p>
         </div>
       </div>
     </div>
@@ -299,10 +328,10 @@ def page():
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style-v4.css?v=121">
+<link rel="stylesheet" href="assets/css/style-v4.css?v=122">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=32">
 <link rel="stylesheet" href="assets/css/category-v4.css?v=5">
-<link rel="stylesheet" href="assets/css/offers-v4.css?v=2">
+<link rel="stylesheet" href="assets/css/offers-v4.css?v=3">
 <link rel="stylesheet" href="assets/css/mega-v4.css?v=6">
 <script>document.documentElement.className += " js";</script>
 """

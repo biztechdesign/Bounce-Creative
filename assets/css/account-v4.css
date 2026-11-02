@@ -229,3 +229,7 @@
   .acct-table td.acct-table__num{ text-align:right !important; }
   .recent__acts{ flex-direction:column; }
 }
+
+/* Spin card: the prize rules (client round 3). */
+.spin__rules{ margin:10px 0 0; padding-left:18px; display:grid; gap:4px; font-size:var(--t-cap); color:var(--forest-mid); }
+.spin__rules b{ color:var(--forest); }

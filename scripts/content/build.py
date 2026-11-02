@@ -23,7 +23,7 @@ CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
 FOOTER = re.sub(r'<script src="assets/js/(?:quote-artwork|pdp)-v4\.js\?v=\d+"></script>\n', "",
                 (PDP / "_footer.html").read_text(encoding="utf-8")).replace(
     '<script src="assets/js/mega-v4.js?v=1"></script>',
-    '<script src="assets/js/mega-v4.js?v=1"></script>\n<script src="assets/js/deals-v4.js?v=2"></script>')
+    '<script src="assets/js/mega-v4.js?v=1"></script>\n<script src="assets/js/deals-v4.js?v=4"></script>')
 
 CSS_V = 8
 
@@ -65,7 +65,7 @@ def page(title, body, css):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style-v4.css?v=121">
+<link rel="stylesheet" href="assets/css/style-v4.css?v=122">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=32">
 <link rel="stylesheet" href="assets/css/category-v4.css?v=5">
 <link rel="stylesheet" href="assets/css/{css}?v={CSS_V}">
@@ -553,14 +553,28 @@ OFFER_PRODUCTS = [
 ]
 
 
+DISCOUNTS = [5, 10, 12, 15, 18, 20, 25, 30]
+
+
+def offer_terms(name):
+    """Same as scripts/offers/build.py: a product's offer discount and days left."""
+    h = 0
+    for ch in name:
+        h = (h * 131 + ord(ch)) % 1000003
+    return DISCOUNTS[h % len(DISCOUNTS)], 1 + (h // 7) % 14
+
+
 def prod_card(img, name, price, deal=False, href="#"):
     """A full product card, as the list page draws it; the deal variant shows
-    the week's price against the normal one with the shared countdown."""
+    the offer price against the normal one, with its own timer."""
     was = float(price)
     if deal:
-        flag = f'<span class="prod__flag prod__flag--deal">{icon("i-tag", 17)}10% off this week</span>'
-        price_html = (f'<span class="prod__price"><span class="prod__aslow">This week, as low as</span><b>&pound;{was * 0.9:,.2f}</b> <s>&pound;{was:,.2f}</s></span>\n'
-                      f'          <span class="prod__ends">{icon("i-bolt", 13)}Ends in <b data-countdown="short">&mdash;</b></span>')
+        # Each offer has its own discount and end date - the same terms the
+        # Offers page gives this product.
+        pct, days = offer_terms(name)
+        flag = f'<span class="prod__flag prod__flag--deal">{icon("i-tag", 17)}{pct}% off</span>'
+        price_html = (f'<span class="prod__price"><span class="prod__aslow">Offer price, as low as</span><b>&pound;{was * (1 - pct / 100):,.2f}</b> <s>&pound;{was:,.2f}</s></span>\n'
+                      f'          <span class="prod__ends">{icon("i-bolt", 13)}Offer ends in <b data-countdown="short" data-ends-days="{days}">&mdash;</b></span>')
     else:
         flag = ""
         price_html = f'<span class="prod__price"><span class="prod__aslow">As low as</span><b>&pound;{was:,.2f}</b> <small>per unit</small></span>'
@@ -724,23 +738,17 @@ def article_page():
     <div class="wrap">
       <div class="deals__head" data-reveal>
         <div class="sechead">
-          <span class="eyebrow">On offer this week</span>
-          <h2 id="offer-h">Sale products, <span class="hl">10% off until Monday.</span></h2>
-          <p>Four of this week&rsquo;s fifty offers. New products and prices every Monday.</p>
-        </div>
-        <div class="countdown" aria-live="polite">
-          <span class="countdown__t">Offers end in</span>
-          <div class="countdown__clock" data-countdown>
-            <span><b>0</b><small>days</small></span><span><b>00</b><small>hrs</small></span><span><b>00</b><small>min</small></span><span><b>00</b><small>sec</small></span>
-          </div>
+          <span class="eyebrow">On offer now</span>
+          <h2 id="offer-h">Sale products, <span class="hl">on offer now.</span></h2>
+          <p>Four of the current offers. Each has its own saving and end date &mdash; the timer is on the product.</p>
         </div>
       </div>
       <div class="rail rail--four" data-reveal>
 {chr(10).join(prod_card(*p, deal=True) for p in OFFER_PRODUCTS)}
       </div>
       <p class="deals__foot">
-        <span>Prices revert at midnight on Sunday. <b id="deals-week"></b></span>
-        <a href="offers-v4.html" class="tlink">View all offers this week {icon("i-arrow", 16)}</a>
+        <span>Each offer has its own end date &mdash; prices go back to normal when its timer runs out.</span>
+        <a href="offers-v4.html" class="tlink">View all offers {icon("i-arrow", 16)}</a>
       </p>
     </div>
   </section>

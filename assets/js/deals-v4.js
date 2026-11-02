@@ -31,27 +31,48 @@
   var GBP = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' });
 
   /* ---------- Deals ---------- */
+  /* Each offer has its own discount and end date. [BUILD] the catalogue's
+     special price and special-price end date; the demo derives them from the
+     product name exactly as scripts/offers/build.py does, so a product shows
+     the same deal here and on the Offers page. */
+  var DISCOUNTS = [5, 10, 12, 15, 18, 20, 25, 30];
+  function offerTerms(name) {
+    var h = 0;
+    for (var i = 0; i < name.length; i++) h = (h * 131 + name.charCodeAt(i)) % 1000003;
+    return { pct: DISCOUNTS[h % DISCOUNTS.length], days: 1 + Math.floor(h / 7) % 14 };
+  }
+
   var grid = document.getElementById('product-grid');
   var slot = document.getElementById('weekly-deals');
   if (grid && slot) {
-    var cards = [].slice.call(grid.querySelectorAll('.prod'));
+    // Order Online products only: no bespoke-quote or out-of-stock cards.
+    var cards = [].slice.call(grid.querySelectorAll('.prod')).filter(function (c) {
+      return !c.querySelector('.prod__tag--quote') && !c.classList.contains('is-oos');
+    });
     var now = new Date();
     var week = isoWeek(now);
     // A different seed from the weekly picks, so the two fours never overlap by design.
     pick(cards, Math.min(4, cards.length), week * 7 + now.getFullYear() * 31 + 11).forEach(function (src) {
       var clone = src.cloneNode(true);
       clone.hidden = false;                    // the grid card may be filtered out
-      var flag = clone.querySelector('.prod__flag');
-      if (!flag) {
-        flag = document.createElement('span');
-        clone.querySelector('.prod__media').prepend(flag);
-      }
+      var name = (clone.querySelector('.prod__name') || {}).textContent || '';
+      var t = offerTerms(name.trim());
+      var media = clone.querySelector('.prod__media');
+      // The deal badge takes the top-left slot: drop the listing tag and any
+      // text flag there; icon badges on the right stay.
+      [].forEach.call(media.querySelectorAll(':scope > .prod__tag, :scope > .prod__flag'), function (el) { el.remove(); });
+      var flag = document.createElement('span');
       flag.className = 'prod__flag prod__flag--deal';
-      flag.innerHTML = '<svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-tag"/></svg>10% off this week';
+      flag.innerHTML = '<svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-tag"/></svg>' + t.pct + '% off';
+      media.prepend(flag);
       var was = parseFloat(clone.dataset.price) || 0;
       var price = clone.querySelector('.prod__price');
       if (price && was) {
-        price.innerHTML = '<span class="prod__aslow">This week, as low as</span><b>' + GBP.format(was * 0.9) + '</b> <s>' + GBP.format(was) + '</s>';
+        price.innerHTML = '<span class="prod__aslow">Offer price, as low as</span><b>' + GBP.format(was * (1 - t.pct / 100)) + '</b> <s>' + GBP.format(was) + '</s>';
+        var ends = document.createElement('span');
+        ends.className = 'prod__ends';
+        ends.innerHTML = '<svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-bolt"/></svg>Offer ends in <b data-countdown="short" data-ends-days="' + t.days + '">&mdash;</b>';
+        price.after(ends);
       }
       slot.appendChild(clone);
     });
