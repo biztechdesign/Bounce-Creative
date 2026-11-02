@@ -136,8 +136,7 @@ def hero(c):
           <h1 id="cat-h">{esc(h1a)}<br><span class="hl">{esc(h1b)}</span></h1>
           <p>{esc(c["lede"])}</p>
           <div class="lhero__cta">
-            <a href="#brands" class="btn btn--onforest">Browse all brands {icon("i-arrow", 18)}</a>
-            <a href="#product-grid" class="btn btn--outline btn--outline-onforest">Popular products</a>
+            <a href="products-v4.html" class="btn btn--onforest">Browse All Products {icon("i-arrow", 18)}</a>
           </div>
         </div>
         <div class="lhero__media">
