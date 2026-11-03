@@ -29,6 +29,17 @@
     if (ref) a.href = a.getAttribute('href') + '?referer=' + encodeURIComponent(ref);
   });
 
+  // A Spin & Win guest already gave their details - fill them in.
+  // [BUILD] from the lead saved with the spin.
+  try {
+    var lead = JSON.parse(localStorage.getItem('bounce-spin-lead') || 'null');
+    if (lead) {
+      [['firstname', lead.first], ['lastname', lead.last], ['email', lead.email], ['company', lead.company]].forEach(function (f) {
+        if (form.elements[f[0]] && f[1] && !form.elements[f[0]].value) form.elements[f[0]].value = f[1];
+      });
+    }
+  } catch (e) {}
+
   form.addEventListener('submit', function () {
     var ok = true;
     [].forEach.call(form.querySelectorAll('input[required]'), function (inp) {

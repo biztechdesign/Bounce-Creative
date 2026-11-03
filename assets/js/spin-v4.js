@@ -4,7 +4,10 @@
    Everyone can spin, guests included (client round 3). A guest who wins
    is asked to create an account or log in to CLAIM; the log-in page
    returns here with ?spin=open and the prize is claimed. States:
-     ready -> busy -> won (guest, unclaimed) -> claimed -> used (next visit)
+     details (not logged in) -> ready -> busy -> claimed -> used (next visit)
+   The first form is the account step: a new email creates an account (the
+   details are filled in, a set-password link is emailed); an existing email
+   logs in. The prize then goes straight into the account.
    One spin per customer per day. Expiry: points 24 hours, the rest 30 days.
 
    Prototype only: "logged in" and today's spin are kept in localStorage.
@@ -24,7 +27,7 @@
   var PRIZES = DATA.prizes;
   var STEP = 360 / PRIZES.length;
   var POINT_VALUE = 0.5;                       // pounds per reward point
-  var KEY = 'bounce-spin', LOGIN_KEY = 'bounce-login';
+  var KEY = 'bounce-spin', LOGIN_KEY = 'bounce-login', LEAD_KEY = 'bounce-spin-lead';
 
   var rot = document.getElementById('wheel-rot');
   var card = document.getElementById('spin-card');      // account page = logged in
@@ -50,7 +53,7 @@
       var held = JSON.parse(get(KEY) || 'null');
       // Back from log-in with a prize waiting: keep it so it is claimed below.
       if (guest || !(held && held.claimed === false)) localStorage.removeItem(KEY);
-      if (guest) { localStorage.removeItem(LOGIN_KEY); localStorage.removeItem('bounce-name'); }
+      if (guest) { ['bounce-name', 'bounce-new-account', 'bounce-accounts', LOGIN_KEY, LEAD_KEY].forEach(function (k) { localStorage.removeItem(k); }); }
     } catch (e) {}
     params.delete('spin');
     var qs = params.toString();
@@ -58,7 +61,11 @@
   }
   var state = load();
   var loggedIn = member || get(LOGIN_KEY) === '1';
-  var BASE_BALANCE = 500;                      // demo account's points before today's spin
+  // The guest's details from the first step ([BUILD] stored server-side as a lead).
+  var lead = null;
+  try { lead = JSON.parse(get(LEAD_KEY) || 'null'); } catch (e) {}
+  // Points before today's spin: the demo account has 500, a new account 0.
+  var BASE_BALANCE = get('bounce-new-account') === '1' ? 0 : 500;
   var LABEL_FREE = '1 free spin every day';
 
   /* ---------- The logged-in customer: name, points, header greeting ---------- */
@@ -80,6 +87,9 @@
     // Guests see the "no account needed" line; members see their strip.
     $all('[data-member-only]', dlg).forEach(function (el) { el.hidden = !loggedIn; });
     $all('[data-guest-only]', dlg).forEach(function (el) { el.hidden = loggedIn; });
+    // A guest who has entered their details is greeted by name.
+    var hello = dlg.querySelector('[data-spin-hello]');
+    if (hello && !loggedIn && lead && lead.first) hello.textContent = 'Good luck, ' + lead.first + '!';
     // Header: "Account" becomes "Hi, <first name>" once logged in.
     if (loggedIn) {
       $all('.hdr__act').forEach(function (a) {
@@ -98,6 +108,8 @@
   /* ---------- States ---------- */
   function show(name) {
     $all('.spinstate', dlg).forEach(function (el) { el.hidden = el.dataset.state !== name; });
+    // The details step is a full-width form; the wheel shows once it is done.
+    dlg.classList.toggle('is-details', name === 'details');
     $all('[data-spin-go]', dlg).forEach(function (b) { b.disabled = name !== 'ready'; });
   }
 
@@ -261,7 +273,10 @@
     if (tag) tag.textContent = 'Prize claimed';
   }
   function open() {
-    if (state) {
+    // Not logged in: always the account step first (email -> create or log in).
+    if (!loggedIn) {
+      show('details');
+    } else if (state) {
       landOn(state.prize, false);
       if (state.claimed === false && loggedIn) claim();
       fillResult(PRIZES[state.prize]);
@@ -269,7 +284,7 @@
       else if (returned || member) show('claimed');
       else show('used');
     } else {
-      show('ready');
+      show(loggedIn ? 'ready' : 'details');
     }
     $all('[data-spin-countdown]', dlg).forEach(function (el) { el.textContent = untilMidnight(); });
     if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
@@ -289,9 +304,103 @@
     if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, done); else done();
   });
 
+  /* ---------- The account step: email, then create or log in ----------
+     [BUILD] Look the email up: an unknown email creates the customer from the
+     details (and emails a set-password link); a known one logs in. The demo
+     knows the demo account and any account made in this browser. */
+  var KNOWN = ['chirag.t@biztechcs.com'];
+  function accounts() { try { return JSON.parse(get('bounce-accounts') || '{}'); } catch (e) { return {}; } }
+  var leadForm = document.getElementById('spin-lead');
+  if (leadForm) {
+    var step = 'new';
+    var groupsNew = $all('[data-lead-new]', leadForm);
+    var groupOld = leadForm.querySelector('[data-lead-old]');
+    var label = leadForm.querySelector('[data-lead-label]');
+    var note = leadForm.querySelector('[data-lead-note]');
+    var status = document.getElementById('spin-lead-status');
+    var EMAIL = /^\S+@\S+\.[^\s.]{2,}$/;
+    var newInputs = function () { return $all('input', leadForm).filter(function (i) { return i.closest('[data-lead-new]'); }); };
+    /* The full form shows first. An existing email swaps the details for the
+       password; a new (or unfinished) email keeps the full form. */
+    var setStep = function (next) {
+      step = next;
+      groupsNew.forEach(function (g) { g.hidden = next !== 'new'; });
+      groupOld.hidden = next !== 'old';
+      newInputs().forEach(function (i) { i.disabled = next !== 'new'; });
+      $all('input', groupOld).forEach(function (i) { i.disabled = next !== 'old'; });
+      label.textContent = next === 'old' ? 'Log in & spin' : 'Get ready to spin';
+      note.hidden = next === 'old';
+    };
+    var check = function (inputs) {
+      var ok = true;
+      inputs.forEach(function (inp) {
+        var v = inp.value.trim();
+        var bad = (inp.required && !v) || (inp.type === 'email' && v && !EMAIL.test(v));
+        inp.classList.toggle('is-bad', bad);
+        inp.setAttribute('aria-invalid', bad ? 'true' : 'false');
+        if (bad && ok) { inp.focus(); ok = false; }
+      });
+      return ok;
+    };
+    var known = function (email) {
+      return accounts()[email] || (KNOWN.indexOf(email) !== -1 ? { first: 'Anjana', last: 'Solanki' } : null);
+    };
+    var lookup = function () {
+      var email = leadForm.email.value.trim().toLowerCase();
+      if (!EMAIL.test(email)) { status.hidden = true; if (step !== 'new') setStep('new'); return; }
+      var who = known(email);
+      status.hidden = false;
+      status.className = 'spinlead__status ' + (who ? 'is-old' : 'is-new');
+      status.textContent = who
+        ? 'Welcome back, ' + who.first + ' - you already have an account. Enter your password to spin.'
+        : 'New here - we\u2019ll create your free account with these details.';
+      if (step !== (who ? 'old' : 'new')) setStep(who ? 'old' : 'new');
+    };
+    var timer;
+    leadForm.email.addEventListener('input', function () {
+      // Editing the email clears the old answer straight away; it is checked
+      // again once typing pauses.
+      status.hidden = true;
+      clearTimeout(timer);
+      timer = setTimeout(lookup, 450);
+    });
+    leadForm.email.addEventListener('change', function () { clearTimeout(timer); lookup(); });
+    var signIn = function (name, isNew) {
+      put(LOGIN_KEY, '1');
+      put('bounce-name', name);
+      put('bounce-new-account', isNew ? '1' : '0');
+      loggedIn = true;
+      BASE_BALANCE = isNew ? 0 : 500;
+      paintCustomer();
+      sync();
+      if (state) { landOn(state.prize, false); fillResult(PRIZES[state.prize]); show('used'); }
+      else show('ready');
+      var go = dlg.querySelector('.spindlg__go');
+      if (go) go.focus();
+    };
+    setStep('new');
+    leadForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      lookup();
+      var email = leadForm.email.value.trim().toLowerCase();
+      if (step === 'new') {
+        if (!check(newInputs().slice(0, 2).concat([leadForm.email], newInputs().slice(2)))) return;
+        var acc = {};
+        newInputs().forEach(function (i) { acc[i.name] = i.value.trim(); });
+        var all2 = accounts(); all2[email] = acc; put('bounce-accounts', JSON.stringify(all2));
+        lead = acc; lead.email = email; put(LEAD_KEY, JSON.stringify(lead));
+        signIn((acc.first + ' ' + acc.last).trim(), true);
+        return;
+      }
+      if (!check([leadForm.email, leadForm.password])) return;
+      var who = known(email) || { first: 'Anjana', last: 'Solanki' };
+      signIn((who.first + ' ' + (who.last || '')).trim(), false);
+    });
+  }
+
   var reset = dlg.querySelector('[data-spin-reset]');
   if (reset) reset.addEventListener('click', function () {
-    try { localStorage.removeItem(KEY); localStorage.removeItem(LOGIN_KEY); localStorage.removeItem('bounce-name'); } catch (e) {}
+    try { ['bounce-name', 'bounce-new-account', 'bounce-accounts', KEY, LOGIN_KEY, LEAD_KEY].forEach(function (k) { localStorage.removeItem(k); }); } catch (e) {}
     window.location.reload();
   });
 
