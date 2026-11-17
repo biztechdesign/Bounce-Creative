@@ -237,13 +237,14 @@
     picks.forEach(function (src) {
       var clone = src.cloneNode(true);
       clone.hidden = false;
-      var flag = clone.querySelector('.prod__flag');
-      if (flag) {
-        flag.className = 'prod__flag prod__flag--best';
-        flag.lastChild.nodeValue = 'Best seller';
-        var use = flag.querySelector('use');
-        if (use) use.setAttribute('href', '#i-star');
-      }
+      // "Best seller" takes the top-left slot: drop the listing tag and any
+      // text flag there; the round icon badges on the right stay.
+      var media = clone.querySelector('.prod__media');
+      [].forEach.call(media.querySelectorAll(':scope > .prod__tag, :scope > .prod__flag'), function (el) { el.remove(); });
+      var flag = document.createElement('span');
+      flag.className = 'prod__flag prod__flag--best';
+      flag.innerHTML = '<svg class="ic" width="17" height="17" aria-hidden="true"><use href="#i-star"/></svg>Best seller';
+      media.prepend(flag);
       slot.appendChild(clone);
     });
 

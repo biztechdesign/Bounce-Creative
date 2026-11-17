@@ -285,8 +285,6 @@ def page():
           <label class="listbar__sort">
             <span>Sort by</span>
             <select id="offers-sort">
-              <option value="ending">Ending soonest</option>
-              <option value="discount">Biggest discount</option>
               <option value="price-asc">Price, low to high</option>
               <option value="price-desc">Price, high to low</option>
             </select>
@@ -329,7 +327,7 @@ def page():
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style-v4.css?v=122">
-<link rel="stylesheet" href="assets/css/list-v4.css?v=32">
+<link rel="stylesheet" href="assets/css/list-v4.css?v=40">
 <link rel="stylesheet" href="assets/css/category-v4.css?v=5">
 <link rel="stylesheet" href="assets/css/offers-v4.css?v=3">
 <link rel="stylesheet" href="assets/css/mega-v4.css?v=6">
