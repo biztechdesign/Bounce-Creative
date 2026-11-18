@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="assets/css/style-v4.css?v=122">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=40">
 <link rel="stylesheet" href="assets/css/pdp-v4.css?v=72">
-<link rel="stylesheet" href="assets/css/basket-v4.css?v=8">
+<link rel="stylesheet" href="assets/css/basket-v4.css?v=10">
 <link rel="stylesheet" href="assets/css/mega-v4.css?v=6">
 <script>document.documentElement.className += " js";</script>
 </head>
@@ -1795,42 +1795,41 @@
             </div>
           </div>
 
-          <!-- Artwork for this line: where it goes, and the file to print -->
-          <div class="art">
-            <div class="art__pos">
-              <img src="assets/img/products/office/carro-folding-crate-trolley.jpg" alt="CARRO Folding Crate Container Trolley showing the front upper print position" width="700" height="700">
-              <p class="art__cap"><b>Branding location</b> Front upper &middot; 30 × 80mm</p>
-              <p class="art__note">This image may not show the exact product colour &mdash; refer to the product image above.</p>
+          <!-- Artwork: once per branding location (the same section on every line). -->
+          <p class="art__head"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-check"/></svg><span><b>One logo per branding location.</b> Each file is used for the whole quantity &mdash; the position image may not show the exact product colour.</span></p>
+            <div class="art art--loc">
+              <div class="art__pos">
+                <img src="assets/img/products/office/carro-folding-crate-trolley.jpg" alt="CARRO Folding Crate Container Trolley showing the front upper branding position" width="700" height="700">
+                <p class="art__cap"><b>Branding location 1</b> Front upper &middot; Screen printing &middot; 30 × 80mm</p>
+              </div>
+              <div class="art__up">
+                <label class="drop">
+                  <input type="file" name="artwork-1-1" accept=".eps,.ai,.jpg,.jpeg,.pdf,.png,.svg">
+                  <span class="drop__in">
+                    <svg class="ic" width="28" height="28" aria-hidden="true"><use href="#i-transfer"/></svg>
+                    <b>Upload your logo for the front upper</b>
+                    <span>Click or drag a file here &middot; EPS, AI or JPEG</span>
+                  </span>
+                </label>
+                <p class="art__cap"><b>Logo preview</b> <span class="art__empty">Nothing uploaded yet</span></p>
+              </div>
             </div>
-            <div class="art__up">
-              <label class="drop">
-                <input type="file" name="artwork-1" accept=".eps,.ai,.jpg,.jpeg,.pdf,.png,.svg">
-                <span class="drop__in">
-                  <svg class="ic" width="28" height="28" aria-hidden="true"><use href="#i-transfer"/></svg>
-                  <b>Upload your logo or artwork</b>
-                  <span>Click or drag a file here &middot; EPS, AI or JPEG</span>
-                </span>
+            <div class="pan">
+              <p class="pan__lbl">Screen printing &middot; your brand Pantone colours <b class="req" aria-hidden="true">*</b></p>
+              <div class="pan__row">
+                <label class="pan__field">
+                  <span class="pan__t">Colour 1 <b class="req" aria-hidden="true">*</b></span>
+                  <input type="text" name="pantone-1-1-1" placeholder="Pantone number" required>
+                </label>
+              </div>
+              <label class="pan__dk">
+                <input type="checkbox" name="pantone-1-1-unknown">
+                <span>I don't know the Pantone colours &mdash; please match them and send me a final proof</span>
               </label>
-              <p class="art__cap"><b>Logo preview</b> <span class="art__empty">Nothing uploaded yet</span></p>
             </div>
-          </div>
-
-          <div class="pan">
-            <p class="pan__lbl">Screen printing &middot; your brand Pantone colours <b class="req" aria-hidden="true">*</b></p>
-            <div class="pan__row">
-              <label class="pan__field">
-                <span class="pan__t">Colour 1 <b class="req" aria-hidden="true">*</b></span>
-                <input type="text" name="pantone-1-1" placeholder="Pantone number" required>
-              </label>
-            </div>
-            <label class="pan__dk">
-              <input type="checkbox" name="pantone-1-unknown">
-              <span>I don't know the Pantone colours &mdash; please match them and send me a final proof</span>
-            </label>
-          </div>
           <p class="line__approve"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-eye"/></svg><span><b>Nothing goes to bulk production until it is fully approved.</b> Our designers check every file and send you a proof first.</span></p>
         </article>
-        <article class="line line--sizes" data-each="26.19">
+        <article class="line line--sizes" data-each="26.19" data-units="50">
           <div class="line__main">
             <a href="product-minsk-v4.html" class="line__media">
               <img src="assets/img/products/clothing/minsk-jacket-black-heather.jpg" alt="Minsk Unisex Hybrid Insulated Jacket" width="700" height="700">
@@ -1840,6 +1839,7 @@
               <p class="line__sku">Product code <b>pf-R1120</b></p>
               <dl class="line__cfg">
                 <div><dt>Colour</dt><dd>Black / heather black</dd></div>
+                <div><dt>Sizes</dt><dd>S 10 &middot; M 15 &middot; L 15 &middot; XL 10</dd></div>
                 <div><dt>Branding</dt><dd>Left chest (embroidery) &middot; Impact upper back (embroidery)</dd></div>
               </dl>
               <div class="line__acts">
@@ -1858,39 +1858,8 @@
             </div>
           </div>
 
-          <!-- Sizes: one line for every size of this colour and branding. -->
-          <div class="szgrid" role="group" aria-label="Quantity by size">
-            <p class="szgrid__t">Quantity by size</p>
-            <div class="szgrid__row">
-              <label class="szq">
-                <span class="szq__s">S</span>
-                <input type="number" value="10" min="0" step="1" inputmode="numeric" data-size-qty aria-label="Quantity, size S">
-              </label>
-              <label class="szq">
-                <span class="szq__s">M</span>
-                <input type="number" value="15" min="0" step="1" inputmode="numeric" data-size-qty aria-label="Quantity, size M">
-              </label>
-              <label class="szq">
-                <span class="szq__s">L</span>
-                <input type="number" value="15" min="0" step="1" inputmode="numeric" data-size-qty aria-label="Quantity, size L">
-              </label>
-              <label class="szq">
-                <span class="szq__s">XL</span>
-                <input type="number" value="10" min="0" step="1" inputmode="numeric" data-size-qty aria-label="Quantity, size XL">
-              </label>
-              <label class="szq">
-                <span class="szq__s">2XL</span>
-                <input type="number" value="0" min="0" step="1" inputmode="numeric" data-size-qty aria-label="Quantity, size 2XL">
-              </label>
-              <label class="szq">
-                <span class="szq__s">3XL</span>
-                <input type="number" value="0" min="0" step="1" inputmode="numeric" data-size-qty aria-label="Quantity, size 3XL">
-              </label>
-            </div>
-          </div>
-
-          <!-- Artwork: once per branding LOCATION - used on every size. -->
-          <p class="art__head"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-check"/></svg><span><b>One logo per branding location.</b> Each file is used on every size &mdash; no need to upload per size or quantity.</span></p>
+          <!-- Artwork: once per branding location (the same section on every line). -->
+          <p class="art__head"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-check"/></svg><span><b>One logo per branding location.</b> Each file is used for the whole quantity &mdash; the position image may not show the exact product colour.</span></p>
             <div class="art art--loc">
               <div class="art__pos">
                 <img src="assets/img/products/clothing/minsk-positions/R11208M-left-chest.jpg" alt="Minsk Unisex Hybrid Insulated Jacket showing the left chest branding position" width="700" height="700">
@@ -1908,6 +1877,19 @@
                 <p class="art__cap"><b>Logo preview</b> <span class="art__empty">Nothing uploaded yet</span></p>
               </div>
             </div>
+            <div class="pan">
+              <p class="pan__lbl">Embroidery &middot; your brand Pantone colours <b class="req" aria-hidden="true">*</b></p>
+              <div class="pan__row">
+                <label class="pan__field">
+                  <span class="pan__t">Colour 1 <b class="req" aria-hidden="true">*</b></span>
+                  <input type="text" name="pantone-2-1-1" placeholder="Pantone number" required>
+                </label>
+              </div>
+              <label class="pan__dk">
+                <input type="checkbox" name="pantone-2-1-unknown">
+                <span>I don't know the Pantone colours &mdash; please match them and send me a final proof</span>
+              </label>
+            </div>
             <div class="art art--loc">
               <div class="art__pos">
                 <img src="assets/img/products/clothing/minsk-positions/R11208M-upper-back.jpg" alt="Minsk Unisex Hybrid Insulated Jacket showing the impact upper back branding position" width="700" height="700">
@@ -1924,6 +1906,19 @@
                 </label>
                 <p class="art__cap"><b>Logo preview</b> <span class="art__empty">Nothing uploaded yet</span></p>
               </div>
+            </div>
+            <div class="pan">
+              <p class="pan__lbl">Embroidery &middot; your brand Pantone colours <b class="req" aria-hidden="true">*</b></p>
+              <div class="pan__row">
+                <label class="pan__field">
+                  <span class="pan__t">Colour 1 <b class="req" aria-hidden="true">*</b></span>
+                  <input type="text" name="pantone-2-2-1" placeholder="Pantone number" required>
+                </label>
+              </div>
+              <label class="pan__dk">
+                <input type="checkbox" name="pantone-2-2-unknown">
+                <span>I don't know the Pantone colours &mdash; please match them and send me a final proof</span>
+              </label>
             </div>
           <p class="line__approve"><svg class="ic" width="16" height="16" aria-hidden="true"><use href="#i-eye"/></svg><span><b>Nothing goes to bulk production until it is fully approved.</b> Our designers check every file and send you a proof first.</span></p>
         </article>
@@ -2146,7 +2141,7 @@
 
 <script src="assets/js/a11y-v4.js?v=6"></script>
 <script src="assets/js/mega-v4.js?v=1"></script>
-<script src="assets/js/basket-v4.js?v=5"></script>
+<script src="assets/js/basket-v4.js?v=6"></script>
 <!-- SPIN:START - generated by scripts/spin/build_spin.py; edit there -->
 <link rel="stylesheet" href="assets/css/spin-v4.css?v=13">
 

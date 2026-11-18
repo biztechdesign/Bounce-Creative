@@ -70,6 +70,8 @@
         [].forEach.call(sizes, function (f) { q += parseInt(f.value, 10) || 0; });
         var tot = line.querySelector('[data-role="line-units"]');
         if (tot) tot.textContent = q;
+      } else if (line.dataset.units) {
+        q = parseInt(line.dataset.units, 10) || 0;   // ordered by size: a fixed total
       } else {
         q = parseInt(line.querySelector('.qty input').value, 10) || 0;
       }

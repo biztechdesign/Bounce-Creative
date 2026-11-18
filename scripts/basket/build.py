@@ -17,7 +17,7 @@ PDP = ROOT / "scripts" / "pdp"
 
 CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
 FOOTER = re.sub(r'<script src="assets/js/pdp-v4\.js\?v=\d+"></script>',
-                '<script src="assets/js/basket-v4.js?v=5"></script>', (PDP / "_footer.html").read_text(encoding="utf-8")).replace('<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n', '')
+                '<script src="assets/js/basket-v4.js?v=6"></script>', (PDP / "_footer.html").read_text(encoding="utf-8")).replace('<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n', '')
 
 VAT = 0.20
 
@@ -76,26 +76,55 @@ BASKET = {
 }
 
 
+def pantone_box(key, method, colours):
+    """Brand Pantone colours for one branding location."""
+    fields = chr(10).join(f"""                <label class="pan__field">
+                  <span class="pan__t">Colour {n} <b class="req" aria-hidden="true">*</b></span>
+                  <input type="text" name="pantone-{key}-{n}" placeholder="Pantone number" required>
+                </label>""" for n in range(1, colours + 1))
+    return f"""
+            <div class="pan">
+              <p class="pan__lbl">{esc(method)} &middot; your brand Pantone colours <b class="req" aria-hidden="true">*</b></p>
+              <div class="pan__row">
+{fields}
+              </div>
+              <label class="pan__dk">
+                <input type="checkbox" name="pantone-{key}-unknown">
+                <span>I don't know the Pantone colours &mdash; please match them and send me a final proof</span>
+              </label>
+            </div>"""
+
+
+def artwork_block(i, name, locations):
+    """The fixed upload section every basket line uses: one note, then one
+    compact block per branding location - position image + its upload. The
+    file is used on every size and quantity of that line."""
+    blocks = []
+    for n, l in enumerate(locations, 1):
+        blocks.append(f"""            <div class="art art--loc">
+              <div class="art__pos">
+                <img src="{l["img"]}" alt="{esc(name)} showing the {esc(l["area"].lower())} branding position" width="700" height="700">
+                <p class="art__cap"><b>Branding location {n}</b> {esc(l["area"])} &middot; {esc(l["method"])} &middot; {esc(l["area_size"])}</p>
+              </div>
+              <div class="art__up">
+                <label class="drop">
+                  <input type="file" name="artwork-{i}-{n}" accept=".eps,.ai,.jpg,.jpeg,.pdf,.png,.svg">
+                  <span class="drop__in">
+                    {icon("i-transfer", 28)}
+                    <b>Upload your logo for the {esc(l["area"].lower())}</b>
+                    <span>Click or drag a file here &middot; EPS, AI or JPEG</span>
+                  </span>
+                </label>
+                <p class="art__cap"><b>Logo preview</b> <span class="art__empty">Nothing uploaded yet</span></p>
+              </div>
+            </div>{pantone_box(f"{i}-{n}", l["method"], l.get("pantone", 1))}""")
+    return f"""          <!-- Artwork: once per branding location (the same section on every line). -->
+          <p class="art__head">{icon("i-check", 16)}<span><b>One logo per branding location.</b> Each file is used for the whole quantity &mdash; the position image may not show the exact product colour.</span></p>
+{chr(10).join(blocks)}"""
+
+
 def line_item(i, ln):
     sub = ln["qty"] * ln["each"]
-    pantone = ""
-    if ln["spot"]:
-        colours = chr(10).join(f"""              <label class="pan__field">
-                <span class="pan__t">Colour {n} <b class="req" aria-hidden="true">*</b></span>
-                <input type="text" name="pantone-{i}-{n}" placeholder="Pantone number" required>
-              </label>""" for n in range(1, ln["max_colours"] + 1))
-        pantone = f"""
-          <div class="pan">
-            <p class="pan__lbl">{esc(ln["method"])} &middot; your brand Pantone colours <b class="req" aria-hidden="true">*</b></p>
-            <div class="pan__row">
-{colours}
-            </div>
-            <label class="pan__dk">
-              <input type="checkbox" name="pantone-{i}-unknown">
-              <span>I don't know the Pantone colours &mdash; please match them and send me a final proof</span>
-            </label>
-          </div>"""
-
     return f"""        <article class="line" data-each="{ln["each"]}">
           <div class="line__main">
             <a href="#" class="line__media">
@@ -130,26 +159,7 @@ def line_item(i, ln):
             </div>
           </div>
 
-          <!-- Artwork for this line: where it goes, and the file to print -->
-          <div class="art">
-            <div class="art__pos">
-              <img src="{ln["img"]}" alt="{esc(ln["name"])} showing the {esc(ln["area"].lower())} print position" width="700" height="700">
-              <p class="art__cap"><b>Branding location</b> {esc(ln["area"])} &middot; {esc(ln["area_size"])}</p>
-              <p class="art__note">This image may not show the exact product colour &mdash; refer to the product image above.</p>
-            </div>
-            <div class="art__up">
-              <label class="drop">
-                <input type="file" name="artwork-{i}" accept=".eps,.ai,.jpg,.jpeg,.pdf,.png,.svg">
-                <span class="drop__in">
-                  {icon("i-transfer", 28)}
-                  <b>Upload your logo or artwork</b>
-                  <span>Click or drag a file here &middot; EPS, AI or JPEG</span>
-                </span>
-              </label>
-              <p class="art__cap"><b>Logo preview</b> <span class="art__empty">Nothing uploaded yet</span></p>
-            </div>
-          </div>
-{pantone}
+{artwork_block(i, ln["name"], [{"area": ln["area"], "area_size": ln["area_size"], "method": ln["method"], "img": ln["img"], "pantone": ln["max_colours"]}])}
           <p class="line__approve">{icon("i-eye", 16)}<span><b>Nothing goes to bulk production until it is fully approved.</b> Our designers check every file and send you a proof first.</span></p>
         </article>"""
 
@@ -159,31 +169,10 @@ def size_line_item(i, ln):
     asked for once per branding location - it applies to every size."""
     units = sum(q for _, q in ln["sizes"])
     sub = units * ln["each"]
-    sizes = chr(10).join(f"""              <label class="szq">
-                <span class="szq__s">{sz}</span>
-                <input type="number" value="{q}" min="0" step="1" inputmode="numeric" data-size-qty aria-label="Quantity, size {sz}">
-              </label>""" for sz, q in ln["sizes"])
+    # Sizes read as text in the line details (sizes ordered only).
+    sizes = " &middot; ".join(f"{sz} {q}" for sz, q in ln["sizes"] if q)
     locs = " &middot; ".join(f'{esc(l["area"])} ({esc(l["method"].lower())})' for l in ln["locations"])
-    arts = []
-    for n, l in enumerate(ln["locations"], 1):
-        arts.append(f"""            <div class="art art--loc">
-              <div class="art__pos">
-                <img src="{l["img"]}" alt="{esc(ln["name"])} showing the {esc(l["area"].lower())} branding position" width="700" height="700">
-                <p class="art__cap"><b>Branding location {n}</b> {esc(l["area"])} &middot; {esc(l["method"])} &middot; {esc(l["area_size"])}</p>
-              </div>
-              <div class="art__up">
-                <label class="drop">
-                  <input type="file" name="artwork-{i}-{n}" accept=".eps,.ai,.jpg,.jpeg,.pdf,.png,.svg">
-                  <span class="drop__in">
-                    {icon("i-transfer", 28)}
-                    <b>Upload your logo for the {esc(l["area"].lower())}</b>
-                    <span>Click or drag a file here &middot; EPS, AI or JPEG</span>
-                  </span>
-                </label>
-                <p class="art__cap"><b>Logo preview</b> <span class="art__empty">Nothing uploaded yet</span></p>
-              </div>
-            </div>""")
-    return f"""        <article class="line line--sizes" data-each="{ln["each"]}">
+    return f"""        <article class="line line--sizes" data-each="{ln["each"]}" data-units="{units}">
           <div class="line__main">
             <a href="product-minsk-v4.html" class="line__media">
               <img src="{ln["img"]}" alt="{esc(ln["name"])}" width="700" height="700">
@@ -193,6 +182,7 @@ def size_line_item(i, ln):
               <p class="line__sku">Product code <b>{esc(ln["sku"])}</b></p>
               <dl class="line__cfg">
                 <div><dt>Colour</dt><dd>{esc(ln["colour"])}</dd></div>
+                <div><dt>Sizes</dt><dd>{sizes}</dd></div>
                 <div><dt>Branding</dt><dd>{locs}</dd></div>
               </dl>
               <div class="line__acts">
@@ -211,17 +201,7 @@ def size_line_item(i, ln):
             </div>
           </div>
 
-          <!-- Sizes: one line for every size of this colour and branding. -->
-          <div class="szgrid" role="group" aria-label="Quantity by size">
-            <p class="szgrid__t">Quantity by size</p>
-            <div class="szgrid__row">
-{sizes}
-            </div>
-          </div>
-
-          <!-- Artwork: once per branding LOCATION - used on every size. -->
-          <p class="art__head">{icon("i-check", 16)}<span><b>One logo per branding location.</b> Each file is used on every size &mdash; no need to upload per size or quantity.</span></p>
-{chr(10).join(arts)}
+{artwork_block(i, ln["name"], ln["locations"])}
           <p class="line__approve">{icon("i-eye", 16)}<span><b>Nothing goes to bulk production until it is fully approved.</b> Our designers check every file and send you a proof first.</span></p>
         </article>"""
 
@@ -362,7 +342,7 @@ def page(c):
 <link rel="stylesheet" href="assets/css/style-v4.css?v=122">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=40">
 <link rel="stylesheet" href="assets/css/pdp-v4.css?v=72">
-<link rel="stylesheet" href="assets/css/basket-v4.css?v=8">
+<link rel="stylesheet" href="assets/css/basket-v4.css?v=10">
 <link rel="stylesheet" href="assets/css/mega-v4.css?v=6">
 <script>document.documentElement.className += " js";</script>
 """

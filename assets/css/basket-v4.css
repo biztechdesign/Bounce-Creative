@@ -219,3 +219,6 @@
   .art--loc{ grid-template-columns:minmax(0,1fr); }
   .art--loc .art__pos img{ max-width:200px; }
 }
+
+/* Pantone box sits under its own branding location. */
+.art--loc + .pan{ margin-top:12px; }
