@@ -194,7 +194,7 @@ def head(c):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style-v4.css?v=122">
-<link rel="stylesheet" href="assets/css/list-v4.css?v=40">
+<link rel="stylesheet" href="assets/css/list-v4.css?v=41">
 <link rel="stylesheet" href="assets/css/category-v4.css?v=5">
 <link rel="stylesheet" href="assets/css/mega-v4.css?v=6">
 <script>document.documentElement.className += " js";</script>

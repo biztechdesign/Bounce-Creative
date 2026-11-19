@@ -347,3 +347,8 @@
 }
 .applied__clear:hover{ color:var(--forest); }
 .applied__clear:focus-visible{ outline:2px solid var(--coral-text); outline-offset:2px; }
+
+/* The deal badge keeps its Offers-page look (icon + "15% OFF", top left) even
+   inside the listing, where other flags are round icon-only badges. */
+#product-list .prod__flag.prod__flag--deal{ left:12px; right:auto; width:auto; height:auto; padding:7px 12px; justify-content:flex-start; border-radius:0; }
+#product-list .prod__flag--deal .ic{ width:17px; height:17px; }
