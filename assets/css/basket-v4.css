@@ -222,3 +222,5 @@
 
 /* Pantone box sits under its own branding location. */
 .art--loc + .pan{ margin-top:12px; }
+
+.summary-card__quote{ margin-top:10px; }

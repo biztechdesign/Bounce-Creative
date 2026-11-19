@@ -47,7 +47,7 @@
   if (grid && slot) {
     // Order Online products only: no bespoke-quote or out-of-stock cards.
     var cards = [].slice.call(grid.querySelectorAll('.prod')).filter(function (c) {
-      return !c.querySelector('.prod__tag--quote') && !c.classList.contains('is-oos');
+      return !c.querySelector('.prod__tag--quote') && !c.classList.contains('is-oos') && !c.classList.contains('is-offer');
     });
     var now = new Date();
     var week = isoWeek(now);

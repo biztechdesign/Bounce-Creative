@@ -17,7 +17,7 @@ PDP = ROOT / "scripts" / "pdp"
 
 CHROME = (PDP / "_chrome.html").read_text(encoding="utf-8")
 FOOTER = re.sub(r'<script src="assets/js/pdp-v4\.js\?v=\d+"></script>',
-                '<script src="assets/js/basket-v4.js?v=6"></script>', (PDP / "_footer.html").read_text(encoding="utf-8")).replace('<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n', '')
+                '<script src="assets/js/basket-v4.js?v=7"></script>', (PDP / "_footer.html").read_text(encoding="utf-8")).replace('<script src="assets/js/quote-artwork-v4.js?v=1"></script>\n', '')
 
 VAT = 0.20
 
@@ -272,6 +272,7 @@ def page(c):
           </dl>
 
           <a href="#" class="btn btn--solid summary-card__cta">Proceed to checkout {icon("i-arrow", 18)}</a>
+          <button class="btn btn--outline summary-card__cta summary-card__quote" type="button" id="dl-quote"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 20h16"/></svg>Download quote</button>
 
           <form class="code" onsubmit="return false;">
             <label class="code__t" for="code">Do you have a discount code?</label>
@@ -342,7 +343,7 @@ def page(c):
 <link rel="stylesheet" href="assets/css/style-v4.css?v=122">
 <link rel="stylesheet" href="assets/css/list-v4.css?v=40">
 <link rel="stylesheet" href="assets/css/pdp-v4.css?v=72">
-<link rel="stylesheet" href="assets/css/basket-v4.css?v=10">
+<link rel="stylesheet" href="assets/css/basket-v4.css?v=11">
 <link rel="stylesheet" href="assets/css/mega-v4.css?v=6">
 <script>document.documentElement.className += " js";</script>
 """

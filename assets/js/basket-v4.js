@@ -143,5 +143,60 @@
     });
   });
 
+  /* ---------- Download quote ----------
+     Builds a printable quote from what is on the page right now (lines,
+     quantities, discount, points, VAT) and opens the print dialog, where
+     "Save as PDF" gives the file. [BUILD] replace with the server-generated
+     quote PDF. */
+  var dl = document.getElementById('dl-quote');
+  if (dl) dl.addEventListener('click', function () {
+    var esc = function (t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+    var txt = function (el) { return el ? el.textContent.replace(/\s+/g, ' ').trim() : ''; };
+    var now = new Date(), valid = new Date(now.getTime() + 30 * 86400000);
+    var fmt = function (d) { return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }); };
+    var ref = 'BC-Q' + now.getFullYear() + String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + '-' + String(Math.floor(1000 + Math.random() * 9000));
+    var rows = '';
+    [].forEach.call(document.querySelectorAll('.line'), function (line) {
+      var cfg = [].map.call(line.querySelectorAll('.line__cfg > div'), function (d) {
+        var dt = txt(d.querySelector('dt')), dd = txt(d.querySelector('dd'));
+        return dd && !/pantone below/i.test(dd) ? esc(dt) + ': ' + esc(dd) : '';
+      }).filter(Boolean).join(' &middot; ');
+      var units = line.querySelector('[data-role="line-units"]') ? txt(line.querySelector('[data-role="line-units"]')) :
+        (line.dataset.units || (line.querySelector('.qty input') || {}).value || '');
+      rows += '<tr><td><b>' + esc(txt(line.querySelector('.line__name'))) + '</b><br><span class="m">' + esc(txt(line.querySelector('.line__sku'))) + '</span>' +
+        (cfg ? '<br><span class="m">' + cfg + '</span>' : '') + '</td><td class="r">' + esc(units) + '</td><td class="r">' +
+        GBP.format(parseFloat(line.dataset.each) || 0) + '</td><td class="r">' + esc(txt(line.querySelector('[data-role="line-sub"]'))) + '</td></tr>';
+    });
+    var tot = '';
+    [].forEach.call(document.querySelectorAll('.totals > div'), function (d) {
+      if (d.hidden) return;
+      var grand = d.classList.contains('totals__grand');
+      tot += '<tr' + (grand ? ' class="g"' : '') + '><td>' + esc(txt(d.querySelector('dt'))) + '</td><td class="r">' + esc(txt(d.querySelector('dd'))) + '</td></tr>';
+    });
+    var html = '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Quote ' + ref + '</title><style>' +
+      '@page{margin:16mm}body{font:14px/1.45 Arial,Helvetica,sans-serif;color:#10302a;margin:0}' +
+      'h1{font-size:26px;margin:0}.top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #10302a;padding-bottom:14px;margin-bottom:20px}' +
+      '.top p{margin:2px 0}.brand{font-weight:800;font-size:18px}table{width:100%;border-collapse:collapse}' +
+      'th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid #10302a;padding:8px 6px}' +
+      'td{padding:10px 6px;border-bottom:1px solid #d9d9d4;vertical-align:top}.r{text-align:right;white-space:nowrap}th.r{text-align:right}' +
+      '.m{color:#55665f;font-size:12px}.tot{width:55%;margin:18px 0 0 auto}.tot td{border:0;padding:5px 6px}' +
+      '.g td{border-top:2px solid #10302a;font-size:18px;font-weight:800;padding-top:10px}.note{margin-top:26px;font-size:12px;color:#55665f}' +
+      '</style></head><body><div class="top"><div><div class="brand">Bounce Creative Designs</div><p class="m">020 8318 9603</p></div>' +
+      '<div style="text-align:right"><h1>Quote</h1><p>Ref <b>' + ref + '</b></p><p>Issued ' + fmt(now) + '</p><p>Valid until ' + fmt(valid) + '</p></div></div>' +
+      '<table><thead><tr><th>Item</th><th class="r">Qty</th><th class="r">Each</th><th class="r">Subtotal</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+      '<table class="tot"><tbody>' + tot + '</tbody></table>' +
+      '<p class="note">Delivery is calculated at checkout. Nothing goes to bulk production until your artwork is fully approved &mdash; our designers check every file and send a proof first. Prices are shown in GBP.</p>' +
+      '</body></html>';
+    var fr = document.createElement('iframe');
+    fr.setAttribute('aria-hidden', 'true');
+    fr.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0';
+    document.body.appendChild(fr);
+    fr.contentDocument.open(); fr.contentDocument.write(html); fr.contentDocument.close();
+    setTimeout(function () {
+      fr.contentWindow.focus(); fr.contentWindow.print();
+      setTimeout(function () { fr.remove(); }, 2000);
+    }, 150);
+  });
+
   recalc();
 })();
